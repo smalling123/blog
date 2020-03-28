@@ -1,0 +1,23 @@
+#xbx{
+	position:absolute;
+	top:50%;
+	left:50%;
+	transform: translate(-50%,-50%);
+}
+body{
+	background: #282424;
+	font-family: 微软雅黑;
+}
+.fontStyleO{
+	font-size: 65px;
+	text-shadow: 0 0 2px black;
+	color: #fff;
+	margin-bottom: 10px;
+}
+.fontStyleT{
+	color: #fff;
+	font-size: 12px;
+}
+.Text{
+	margin-top: 5px;
+}

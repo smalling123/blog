@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Logistics.Equipment" Name="getAllEquipment" SQL="select * from Equipment &#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="39" Y="22">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Unit" Name="Unit" Type="String"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Price" Name="Price" Type="Decimal"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Logistics.EquipmentInStock" Name="gatAllEquipmentInStock" SQL="select * from EquipmentInStock&#10;where 1=1 &#10;and date&gt;=#{startdate} &#10;and date&lt;=#{enddate}&#10;and orgid=#{org} &#10;and siteid=#{site}&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="188" X="239" Y="20">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Date" Name="Date" Type="DateTime"/>
+<n1:ResultField MapperField="OrgId" Name="OrgId" Type="Integer"/>
+<n1:ResultField MapperField="SiteId" Name="SiteId" Type="Integer"/>
+<n1:ResultField MapperField="Supplier" Name="Supplier" Type="String"/>
+<n1:ResultField MapperField="Bank" Name="Bank" Type="String"/>
+<n1:ResultField MapperField="BankAccount" Name="BankAccount" Type="String"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+<n1:ResultField MapperField="WorkflowID" Name="WorkflowID" Type="Integer"/>
+<n1:ResultField MapperField="File1" Name="File1" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="startdate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="enddate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="org" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="site" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and date&gt;=#{startdate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="startdate" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and date&lt;=#{enddate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="enddate" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and orgid=#{org}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="org" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and siteid=#{site}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="site" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Logistics.EquipmentInStockItem" Name="getEquipmentInStockItemById" SQL="select es.*,e.Name  from EquipmentInStockItem es&#10;join Equipment e on es.Equipmentid=e.id&#10;where es.EquipmentInStockId=#{id}" SelectType="Collections" Width="220" X="708" Y="22">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="EquipmentInStockId" Name="EquipmentInStockId" Type="Integer"/>
+<n1:ResultField MapperField="EquipmentId" Name="EquipmentId" Type="Integer"/>
+<n1:ResultField MapperField="Qty" Name="Qty" Type="Integer"/>
+<n1:ResultField MapperField="Price" Name="Price" Type="Decimal"/>
+<n1:ResultField MapperField="Amt" Name="Amt" Type="Decimal"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="gatEquipmentInStockByCount" SQL="select  count(*) Count from EquipmentInStock&#10;where 1=1 &#10;and date&gt;=#{startdate} &#10;and date&lt;=#{enddate}&#10;and orgid=#{org} &#10;and siteid=#{site}" SelectType="Singleton" Width="214" X="482" Y="22">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startdate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="enddate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="org" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="site" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and date&gt;=#{startdate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="startdate" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and date&lt;=#{enddate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="enddate" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and orgid=#{org}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="org" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and siteid=#{site}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="site" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Logistics.EquipmentInStock" Name="getEquipmentInStockOne" SQL="Select * From EquipmentInStock Where ID = #{id}" SelectType="Singleton" Width="212" X="39" Y="359">
+<ResultSet/>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertEquipmentInStock" SQL="Insert Into EquipmentInStock(Date, OrgId, SiteId, Supplier, Bank, BankAccount, Describes, CreateUser, CreateTime, WorkflowID, File1)&#10; Values(#{equipmentinstock.Date}, #{equipmentinstock.OrgId}, #{equipmentinstock.SiteId}, #{equipmentinstock.Supplier}, #{equipmentinstock.Bank}, #{equipmentinstock.BankAccount}, #{equipmentinstock.Describes}, #{equipmentinstock.CreateUser},Now(), #{equipmentinstock.WorkflowID}, #{equipmentinstock.File1})" Width="188" X="40" Y="284">
+<Parameters>
+<n2:Field Collections="false" Name="equipmentinstock" ObjectName="Logistics.EquipmentInStock" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateEquipmentInStock" SQL="Update EquipmentInStock Set&#10;&#9;Date = #{equipmentinstock.Date},&#10;&#9;OrgId = #{equipmentinstock.OrgId},&#10;&#9;SiteId = #{equipmentinstock.SiteId},&#10;&#9;Supplier = #{equipmentinstock.Supplier},&#10;&#9;Bank = #{equipmentinstock.Bank},&#10;&#9;BankAccount = #{equipmentinstock.BankAccount},&#10;&#9;Describes = #{equipmentinstock.Describes},&#10;&#9;ModifyUser = #{equipmentinstock.CreateUser},&#10;&#9;ModifyTime = Now(),&#10;&#9;WorkflowID = #{equipmentinstock.WorkflowID},&#10;&#9;File1 = #{equipmentinstock.File1}&#10; Where ID = #{equipmentinstock.ID}" Width="188" X="39" Y="318">
+<Parameters>
+<n2:Field Collections="false" Name="equipmentinstock" ObjectName="Logistics.EquipmentInStock" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Insert Height="24" Name="insertEquipmentInStockItem" SQL="Insert Into EquipmentInStockItem(EquipmentInStockId, EquipmentId, Qty, Price, Amt, Describes)&#10; Values(#{equipmentinstockitem.EquipmentInStockId}, #{equipmentinstockitem.EquipmentId}, #{equipmentinstockitem.Qty}, #{equipmentinstockitem.Price}, #{equipmentinstockitem.Amt}, #{equipmentinstockitem.Describes})" Width="216" X="328" Y="278">
+<Parameters>
+<n2:Field Collections="false" Name="equipmentinstockitem" ObjectName="Logistics.EquipmentInStockItem" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateEquipmentInStockItem" SQL="Update EquipmentInStockItem Set&#10;&#9;EquipmentInStockId = #{equipmentinstockitem.EquipmentInStockId},&#10;&#9;EquipmentId = #{equipmentinstockitem.EquipmentId},&#10;&#9;Qty = #{equipmentinstockitem.Qty},&#10;&#9;Price = #{equipmentinstockitem.Price},&#10;&#9;Amt = #{equipmentinstockitem.Amt},&#10;&#9;Describes = #{equipmentinstockitem.Describes}&#10; Where ID = #{equipmentinstockitem.ID}" Width="215" X="329" Y="321">
+<Parameters>
+<n2:Field Collections="false" Name="equipmentinstockitem" ObjectName="Logistics.EquipmentInStockItem" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Height="240" MapperEntity="Logistics.EquipmentInStockItem" Name="getEquipmentInStockItemOne" SQL="select es.*,e.Name  from EquipmentInStockItem es&#10;join Equipment e on es.Equipmentid=e.id&#10;where es.Id=#{id}" SelectType="Singleton" Width="244" X="328" Y="361">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="EquipmentInStockId" Name="EquipmentInStockId" Type="Integer"/>
+<n1:ResultField MapperField="EquipmentId" Name="EquipmentId" Type="Integer"/>
+<n1:ResultField MapperField="Qty" Name="Qty" Type="Integer"/>
+<n1:ResultField MapperField="Price" Name="Price" Type="Decimal"/>
+<n1:ResultField MapperField="Amt" Name="Amt" Type="Decimal"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

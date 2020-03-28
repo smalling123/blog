@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" xmlns:n3="org.polariscode.plugin.web.springboot.action.jwt" xmlns:n4="org.polariscode.plugin.web.springboot.action.file" Description="" Transactional="true" Type="Post" VerifyToken="true">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Name="file" ObjectName="File" Required="false" Show="false" Type="File"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable2">
+<n2:Field Collections="true" Name="excel" ObjectName="Excel" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable7">
+<n2:Field Collections="false" Name="username" ObjectName="String" Required="false" Show="false" Type="String"/>
+</n1:Variable>
+<n3:GetJWTID Name="GetJWTID1" Variable="username"/>
+<n4:ReadExcel ContinueOnError="false" ErrorCode="result.Code" ErrorMessage="result.Msg" File="file" FirstColumn="1" FirstRow="2" Name="ReadExcel1" SheetNumber="1" Variable="excel"/>
+<n1:Assign Name="Assign14" Value="excel" Variable="result.Data"/>
+<n1:Variable Name="Variable4">
+<n2:Field Collections="false" DefaultValue="0" Name="i" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</n1:Variable>
+<n1:Variable Name="Variable15">
+<n2:Field Collections="false" DefaultValue="0" Name="x" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</n1:Variable>
+<n1:Loop Expression="x&lt;excel.size()" Name="Loop2">
+<Controls>
+<n1:Decide Expression="excel.get(x).getC()==null||excel.get(x).getC().length() &lt;= 0||excel.get(x).getE()==null||excel.get(x).getE().length() &lt;= 0||excel.get(x).getF()==null||excel.get(x).getF().length() &lt;= 0" Name="Decide7">
+<if>
+<n1:Assign Name="Assign11" Value="404" Variable="result.Code"/>
+<n1:Assign Name="Assign12" Value="&quot;第&quot;+(x+2)+&quot;行有必填项为空！&quot;" Variable="result.Msg"/>
+<n1:Code Name="Code3" Value="return result;"/>
+</if>
+<else/>
+</n1:Decide>
+<n1:Decide Expression="excel.get(x).getF().length() !=18" Name="Decide9">
+<if>
+<n1:Assign Name="Assign17" Value="404" Variable="result.Code"/>
+<n1:Assign Name="Assign18" Value="&quot;第&quot;+(x+2)+&quot;行有身份证信息长度不是18位！&quot;" Variable="result.Msg"/>
+<n1:Code Name="Code6" Value="return result;"/>
+</if>
+<else/>
+</n1:Decide>
+<n1:Assign Name="Assign13" Value="x+1" Variable="x"/>
+</Controls>
+</n1:Loop>
+<n1:Loop Expression="i&lt;excel.size()" Name="Loop1">
+<Controls>
+<n1:Variable Name="Variable3">
+<n2:Field Collections="false" Name="p" ObjectName="Import.personnelImport" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable5">
+<n2:Field Collections="true" Name="district" ObjectName="Config.District" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable6">
+<n2:Field Collections="true" Name="district1" ObjectName="Config.District" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="Import.CustomerImportMapper.getDistrictByName" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2" Variable="district">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="excel.get(i).getK()" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Import.CustomerImportMapper.getDistrictByName" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess3" Variable="district1">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="excel.get(i).getN()" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Variable Name="Variable14">
+<n2:Field Collections="false" Name="pbycode" ObjectName="Import.personnelImport" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Decide Expression="excel.get(i).getA()!=null &amp;&amp; excel.get(i).getA().length()&gt;0" Name="Decide10">
+<if/>
+<else>
+<n1:Code Name="Code4" Value="excel.get(i).setA(excel.get(i).getF().replace( 'x','0' ).replace( 'X','0' ).substring((excel.get(i).getF().length()-8), excel.get(i).getF().length()));"/>
+</else>
+</n1:Decide>
+<n1:Variable Name="Variable11">
+<n2:Field Collections="false" Name="px" ObjectName="Import.personnelImport" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="Import.PersonnelImportMapper.getPersonnelByCardCode" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1" Variable="px">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="excel.get(i).getF()" Name="CardCode" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Decide Expression="px!=null &amp;&amp; px.getID()&gt;0" Name="Decide2">
+<if>
+<n1:Assign Name="Assign6" Value="px" Variable="p"/>
+</if>
+<else>
+<n1:Loop Expression="1==1" Name="Loop3">
+<Controls>
+<n1:DataAccess ContinueOnError="false" Dao="Import.PersonnelImportMapper.getPersonnelByCode" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess11" Variable="pbycode">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="excel.get(i).getA()" Name="Code" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Decide Expression="pbycode!=null &amp;&amp;  pbycode.getID()&gt;0" Name="Decide5">
+<if>
+<n1:Variable Name="Variable16">
+<n2:Field Collections="false" DefaultValue="&quot;00000000&quot;+(Integer.parseInt(excel.get(i).getA())+1)" Name="a" ObjectName="String" Required="false" Show="false" Type="String"/>
+</n1:Variable>
+<n1:Code Name="Code5" Value="excel.get(i).setA(a.substring( (a.length()-8), a.length()));"/>
+</if>
+<else>
+<n1:Code Name="Code2" Value="break;"/>
+</else>
+</n1:Decide>
+</Controls>
+</n1:Loop>
+</else>
+</n1:Decide>
+<n1:Variable Name="Variable8">
+<n2:Field Collections="false" Name="c" ObjectName="Base.Customer" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable12">
+<n2:Field Collections="false" Name="cx" ObjectName="Base.Customer" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable10">
+<n2:Field Collections="false" Name="s" ObjectName="Base.Site" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable13">
+<n2:Field Collections="false" Name="sx" ObjectName="Base.Site" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="Import.CustomerImportMapper.getCustomerByName" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess6" Variable="cx">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="excel.get(i).getB()" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Variable Name="Variable9">
+<n2:Field Collections="false" Name="t" ObjectName="Table" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Decide Expression="cx!=null&amp;&amp;cx.getID()&gt;0" Name="Decide3">
+<if>
+<n1:Assign Name="Assign7" Value="cx.getID()" Variable="c.ID"/>
+</if>
+<else>
+<n1:Assign Name="Assign1" Value="excel.get(i).getB()" Variable="c.Name"/>
+<n1:Assign Name="Assign9" Value="username" Variable="c.CreateUser"/>
+<n1:DataAccess ContinueOnError="false" Dao="Import.CustomerImportMapper.InsertCustomer" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess7">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="c" Name="c" ObjectName="Base.Customer" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Import.CustomerImportMapper.getInsertCustomerID" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess8" Variable="t">
+<Parameters/>
+</n1:DataAccess>
+<n1:Assign Name="Assign2" Value="t.getID()" Variable="c.ID"/>
+</else>
+</n1:Decide>
+<n1:Code Name="Code1" Value="p.setCode(excel.get(i).getA());&#10;p.setName(excel.get(i).getE());&#10;p.setCardCode(excel.get(i).getF());&#10;if(excel.get(i).getI().equals(&quot;群众&quot;)){&#10;p.setPolitics(0);&#10;}else if(excel.get(i).getI().equals(&quot;中共党员&quot;)){&#10;p.setPolitics(1);&#10;}else if(excel.get(i).getI().equals(&quot;预备党员&quot;)){&#10;p.setPolitics(2);&#10;}else if(excel.get(i).getI().equals(&quot;共青团员&quot;)){&#10;p.setPolitics(3);&#10;}else  if(excel.get(i).getI().equals(&quot;民主党派&quot;)){&#10;p.setPolitics(4);&#10;}else{&#10;p.setPolitics(0);&#10;}&#10;&#10;try{&#10;&#10;p.setHeight(Integer.parseInt(excel.get(i).getG()));&#10;&#10;}&#10;catch(Exception e){&#10;}&#10;&#10;try{&#10;&#10;p.setWeight(Integer.parseInt(excel.get(i).getH()));&#10;&#10;}&#10;catch(Exception e){&#10;}&#10;&#10;&#10;&#10;if(excel.get(i).getJ().equals(&quot;小学&quot;)){&#10;p.setEducation(1);&#10;}else if(excel.get(i).getJ().equals(&quot;初中&quot;)){&#10;p.setEducation(2);&#10;}else if(excel.get(i).getJ().equals(&quot;高中&quot;)){&#10;p.setEducation(3);&#10;}else if(excel.get(i).getJ().equals(&quot;大专&quot;)){&#10;p.setEducation(4);&#10;}else if(excel.get(i).getJ().equals(&quot;本科&quot;)){&#10;p.setEducation(5);&#10;}else if(excel.get(i).getJ().equals(&quot;硕士&quot;)){&#10;p.setEducation(6);&#10;}else if(excel.get(i).getJ().equals(&quot;博士&quot;)){&#10;p.setEducation(7);&#10;}else {&#10;p.setEducation(0);&#10;}&#10;&#10;&#10;if(excel.get(i).getL().equals(&quot;汉族&quot;)){p.setNation(0);}&#10;else if(excel.get(i).getL().equals(&quot;满族&quot;)){p.setNation(1);}&#10;else if(excel.get(i).getL().equals(&quot;蒙古族&quot;)){p.setNation(2);}&#10;else if(excel.get(i).getL().equals(&quot;回族&quot;)){p.setNation(3);}&#10;else if(excel.get(i).getL().equals(&quot;藏族&quot;)){p.setNation(4);}&#10;else if(excel.get(i).getL().equals(&quot;维吾尔族&quot;)){p.setNation(5);}&#10;else if(excel.get(i).getL().equals(&quot;苗族&quot;)){p.setNation(6);}&#10;else if(excel.get(i).getL().equals(&quot;彝族&quot;)){p.setNation(7);}&#10;else if(excel.get(i).getL().equals(&quot;壮族&quot;)){p.setNation(8);}&#10;else if(excel.get(i).getL().equals(&quot;布依族&quot;)){p.setNation(9);}&#10;else if(excel.get(i).getL().equals(&quot;侗族&quot;)){p.setNation(10);}&#10;else if(excel.get(i).getL().equals(&quot;瑶族&quot;)){p.setNation(11);}&#10;else if(excel.get(i).getL().equals(&quot;白族&quot;)){p.setNation(12);}&#10;else if(excel.get(i).getL().equals(&quot;土家族&quot;)){p.setNation(13);}&#10;else if(excel.get(i).getL().equals(&quot;哈尼族&quot;)){p.setNation(14);}&#10;else if(excel.get(i).getL().equals(&quot;哈萨克族&quot;)){p.setNation(15);}&#10;else if(excel.get(i).getL().equals(&quot;傣族&quot;)){p.setNation(16);}&#10;else if(excel.get(i).getL().equals(&quot;黎族&quot;)){p.setNation(17);}&#10;else if(excel.get(i).getL().equals(&quot;傈僳族&quot;)){p.setNation(18);}&#10;else if(excel.get(i).getL().equals(&quot;佤族&quot;)){p.setNation(19);}&#10;else if(excel.get(i).getL().equals(&quot;畲族&quot;)){p.setNation(20);}&#10;else if(excel.get(i).getL().equals(&quot;高山族&quot;)){p.setNation(21);}&#10;else if(excel.get(i).getL().equals(&quot;拉祜族&quot;)){p.setNation(22);}&#10;else if(excel.get(i).getL().equals(&quot;水族&quot;)){p.setNation(23);}&#10;else if(excel.get(i).getL().equals(&quot;东乡族&quot;)){p.setNation(24);}&#10;else if(excel.get(i).getL().equals(&quot;纳西族&quot;)){p.setNation(25);}&#10;else if(excel.get(i).getL().equals(&quot;景颇族&quot;)){p.setNation(26);}&#10;else if(excel.get(i).getL().equals(&quot;柯尔克孜族&quot;)){p.setNation(27);}&#10;else if(excel.get(i).getL().equals(&quot;土族&quot;)){p.setNation(28);}&#10;else if(excel.get(i).getL().equals(&quot;达斡尔族&quot;)){p.setNation(29);}&#10;else if(excel.get(i).getL().equals(&quot;仫佬族&quot;)){p.setNation(30);}&#10;else if(excel.get(i).getL().equals(&quot;羌族&quot;)){p.setNation(31);}&#10;else if(excel.get(i).getL().equals(&quot;布朗族&quot;)){p.setNation(32);}&#10;else if(excel.get(i).getL().equals(&quot;撒拉族&quot;)){p.setNation(33);}&#10;else if(excel.get(i).getL().equals(&quot;毛南族&quot;)){p.setNation(34);}&#10;else if(excel.get(i).getL().equals(&quot;仡佬族&quot;)){p.setNation(35);}&#10;else if(excel.get(i).getL().equals(&quot;锡伯族&quot;)){p.setNation(36);}&#10;else if(excel.get(i).getL().equals(&quot;阿昌族&quot;)){p.setNation(37);}&#10;else if(excel.get(i).getL().equals(&quot;普米族&quot;)){p.setNation(38);}&#10;else if(excel.get(i).getL().equals(&quot;朝鲜族&quot;)){p.setNation(39);}&#10;else if(excel.get(i).getL().equals(&quot;塔吉克族&quot;)){p.setNation(40);}&#10;else if(excel.get(i).getL().equals(&quot;怒族&quot;)){p.setNation(41);}&#10;else if(excel.get(i).getL().equals(&quot;乌孜别克族&quot;)){p.setNation(42);}&#10;else if(excel.get(i).getL().equals(&quot;俄罗斯族&quot;)){p.setNation(43);}&#10;else if(excel.get(i).getL().equals(&quot;鄂温克族&quot;)){p.setNation(44);}&#10;else if(excel.get(i).getL().equals(&quot;德昂族&quot;)){p.setNation(45);}&#10;else if(excel.get(i).getL().equals(&quot;保安族&quot;)){p.setNation(46);}&#10;else if(excel.get(i).getL().equals(&quot;裕固族&quot;)){p.setNation(47);}&#10;else if(excel.get(i).getL().equals(&quot;京族&quot;)){p.setNation(48);}&#10;else if(excel.get(i).getL().equals(&quot;塔塔尔族&quot;)){p.setNation(49);}&#10;else if(excel.get(i).getL().equals(&quot;独龙族&quot;)){p.setNation(50);}&#10;else if(excel.get(i).getL().equals(&quot;鄂伦春族&quot;)){p.setNation(51);}&#10;else if(excel.get(i).getL().equals(&quot;赫哲族&quot;)){p.setNation(52);}&#10;else if(excel.get(i).getL().equals(&quot;门巴族&quot;)){p.setNation(53);}&#10;else if(excel.get(i).getL().equals(&quot;珞巴族&quot;)){p.setNation(54);}&#10;else if(excel.get(i).getL().equals(&quot;基诺族&quot;)){p.setNation(55);}&#10;else{&#10;p.setNation(0);&#10;}&#10;&#10;if(district.size()&gt;0){&#10;p.setNative(district.get(0).getID());&#10;}else{&#10;p.setNative(Integer.parseInt(excel.get(i).getF().substring(0,2)+&quot;0000&quot;));&#10;}&#10;p.setHomeAddress(excel.get(i).getM());&#10;if(district1.size()&gt;0){&#10;p.setCensus(district1.get(0).getID());&#10;}else {&#10;p.setCensus(Integer.parseInt(excel.get(i).getF().substring(0,2)+&quot;0000&quot;));&#10;}&#10;&#10;p.setCensusAddress(excel.get(i).getO());&#10;&#10;if(excel.get(i).getP().equals(&quot;已婚未育&quot;)){p.setMarital(1);}&#10;else if(excel.get(i).getP().equals(&quot;已婚已育&quot;)){p.setMarital(2);}&#10;else if(excel.get(i).getP().equals(&quot;离异&quot;)){p.setMarital(3);}&#10;else{p.setMarital(0);}&#10;&#10;p.setLinkMan(excel.get(i).getU());&#10;p.setLinkManRelation(excel.get(i).getV());&#10;p.setLinkManPhone(excel.get(i).getW());&#10;p.setArmy(excel.get(i).getX());&#10;&#10;java.text.SimpleDateFormat df = new java.text.SimpleDateFormat(&quot;yyyy-MM-dd&quot;);&#10;&#10;try{&#10;p.setArmyInDate(df.format(excel.get(i).getY()));&#10;&#10;}&#10;catch(Exception e){&#10;}&#10;&#10;try{&#10;&#10;p.setArmyOutDate(df.format(excel.get(i).getZ()));&#10;&#10;}&#10;catch(Exception e){&#10;}&#10;try{&#10;&#10;p.setInDate(df.format(excel.get(i).getQ()));&#10;&#10;}&#10;catch(Exception e){&#10;}&#10;try{&#10;&#10;p.setHTBeginDate(df.format(excel.get(i).getR()));&#10;&#10;}&#10;catch(Exception e){&#10;}&#10;try{&#10;&#10;p.setHTEndDate(df.format(excel.get(i).getS()));&#10;}&#10;catch(Exception e){&#10;}&#10;&#10;&#10;if(excel.get(i).getAA().equals(&quot;无&quot;)||excel.get(i).getAA().equals(&quot;否&quot;)||excel.get(i).getAA().equals(&quot;没有&quot;)||excel.get(i).getAA().equals(&quot;&quot;)||excel.get(i).getAA()==null){&#10;p.setZ1(false);&#10;}else{&#10;p.setZ1(true);&#10;}&#10;if(excel.get(i).getAB().equals(&quot;无&quot;)||excel.get(i).getAB().equals(&quot;否&quot;)||excel.get(i).getAB().equals(&quot;没有&quot;)||excel.get(i).getAB().equals(&quot;&quot;)||excel.get(i).getAB()==null){&#10;p.setZ2(false);&#10;}else{&#10;p.setZ2(true);&#10;}&#10;if(excel.get(i).getAC().equals(&quot;无&quot;)||excel.get(i).getAC().equals(&quot;否&quot;)||excel.get(i).getAC().equals(&quot;没有&quot;)||excel.get(i).getAC().equals(&quot;&quot;)||excel.get(i).getAC()==null){&#10;p.setZ3(false);&#10;}else{&#10;p.setZ3(true);&#10;}&#10;if(excel.get(i).getAD().equals(&quot;无&quot;)||excel.get(i).getAD().equals(&quot;否&quot;)||excel.get(i).getAD().equals(&quot;没有&quot;)||excel.get(i).getAD().equals(&quot;&quot;)||excel.get(i).getAD()==null){&#10;p.setZ4(false);&#10;}else{&#10;p.setZ4(true);&#10;}&#10;if(excel.get(i).getAE().equals(&quot;无&quot;)||excel.get(i).getAE().equals(&quot;否&quot;)||excel.get(i).getAE().equals(&quot;没有&quot;)||excel.get(i).getAE().equals(&quot;&quot;)||excel.get(i).getAE()==null){&#10;p.setZ5(false);&#10;}else{&#10;p.setZ5(true);&#10;}&#10;&#10;if(excel.get(i).getAF().equals(&quot;一般&quot;)){&#10;p.setComputer(1);&#10;}else if(excel.get(i).getAF().equals(&quot;熟练&quot;)){&#10;p.setComputer(2);&#10;}else if(excel.get(i).getAF().equals(&quot;精通&quot;)){&#10;p.setComputer(3);&#10;}else{&#10;p.setComputer(0);&#10;}&#10;&#10;if(excel.get(i).getAG().equals(&quot;四级&quot;)){&#10;p.setEnglish(1);&#10;}else if(excel.get(i).getAG().equals(&quot;六级&quot;)){&#10;p.setEnglish(2);&#10;}else if(excel.get(i).getAG().equals(&quot;八级&quot;)){&#10;p.setEnglish(3);&#10;}else{&#10;p.setEnglish(0);&#10;}&#10;&#10;if(excel.get(i).getAE().equals(&quot;无&quot;)||excel.get(i).getAE().equals(&quot;否&quot;)||excel.get(i).getAE().equals(&quot;没有&quot;)||excel.get(i).getAE().equals(&quot;&quot;)||excel.get(i).getAE()==null){&#10;p.setPartTime(false);&#10;}else{&#10;p.setPartTime(true);&#10;}&#10;&#10;&#10;if(excel.get(i).getAE().equals(&quot;无&quot;)||excel.get(i).getAE().equals(&quot;否&quot;)||excel.get(i).getAE().equals(&quot;没有&quot;)||excel.get(i).getAE().equals(&quot;&quot;)||excel.get(i).getAE()==null){&#10;p.setDisease(false);&#10;}else{&#10;p.setDisease(true);&#10;}&#10;&#10;if(excel.get(i).getAE().equals(&quot;无&quot;)||excel.get(i).getAE().equals(&quot;否&quot;)||excel.get(i).getAE().equals(&quot;没有&quot;)||excel.get(i).getAE().equals(&quot;&quot;)||excel.get(i).getAE()==null){&#10;p.setCrime(false);&#10;}else{&#10;p.setCrime(true);&#10;}&#10;&#10;p.setAppearance(excel.get(i).getAK());&#10;p.setCommunication(excel.get(i).getAL());&#10;&#10;if(excel.get(i).getAM().equals(&quot;网站&quot;)){&#10;p.setSource(1);&#10;}else if(excel.get(i).getAM().equals(&quot;员工推荐&quot;)){&#10;p.setSource(2);&#10;}else if(excel.get(i).getAM().equals(&quot;领导安排&quot;)){&#10;p.setSource(3);&#10;}else if(excel.get(i).getAM().equals(&quot;队长推荐&quot;)){&#10;p.setSource(4);&#10;}else if(excel.get(i).getAM().equals(&quot;客户推荐&quot;)){&#10;p.setSource(5);&#10;}else{&#10;p.setSource(0);&#10;}&#10;&#10;&#10;&#10;&#10;&#10;p.setCreateUser(username);&#10;&#10;"/>
+<n1:DataAccess ContinueOnError="false" Dao="Import.CustomerImportMapper.getSiteByName" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess9" Variable="sx">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="excel.get(i).getC()" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Decide Expression="c.getID()&lt;0" Name="Decide11">
+<if>
+<n1:Assign Name="Assign22" Value="501" Variable="result.Code"/>
+<n1:Assign Name="Assign23" Value="&quot;第&quot;+(x+2)+&quot;行 客户id未找到！&quot;" Variable="result.Msg"/>
+<n1:Code Name="Code7" Value="return result;"/>
+</if>
+<else/>
+</n1:Decide>
+<n1:Decide Expression="sx!=null" Name="Decide4">
+<if>
+<n1:Assign Name="Assign8" Value="sx" Variable="s"/>
+<n1:Assign Name="Assign19" Value="excel.get(i).getC()" Variable="s.Name"/>
+<n1:Assign Name="Assign20" Value="username" Variable="s.CreateUser"/>
+<n1:Assign Name="Assign21" Value="c.getID()" Variable="s.CustomerID"/>
+<n1:DataAccess ContinueOnError="false" Dao="Import.CustomerImportMapper.UpdateSite" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess17">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="s" Name="s" ObjectName="Base.Site" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+</if>
+<else>
+<n1:Assign Name="Assign3" Value="excel.get(i).getC()" Variable="s.Name"/>
+<n1:Assign Name="Assign10" Value="username" Variable="s.CreateUser"/>
+<n1:Assign Name="Assign4" Value="c.getID()" Variable="s.CustomerID"/>
+<n1:DataAccess ContinueOnError="false" Dao="Import.CustomerImportMapper.InsertSite" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess10">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="s" Name="s" ObjectName="Base.Site" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+</else>
+</n1:Decide>
+<n1:Decide Expression="p.getID()&gt;0" Name="Decide1">
+<if>
+<n1:DataAccess ContinueOnError="false" Dao="Import.PersonnelImportMapper.UpdatePersonnel" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess4">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="p" Name="p" ObjectName="Import.personnel" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Import.PersonnelImportMapper.insertPersonnelByID" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess13" Variable="t">
+<Parameters/>
+</n1:DataAccess>
+<n1:Assign Name="Assign15" Value="t.getID()" Variable="p.ID"/>
+</if>
+<else>
+<n1:DataAccess ContinueOnError="false" Dao="Import.PersonnelImportMapper.InsertPersonnel" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess5">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="p" Name="p" ObjectName="Import.personnel" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+</else>
+</n1:Decide>
+<n1:Variable Name="Variable17">
+<n2:Field Collections="true" Name="Sitepersonnels" ObjectName="Import.SitepersonnelImport" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="Import.PersonnelImportMapper.getSitepersonnelByPID" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess15" Variable="Sitepersonnels">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="excel.get(i).getF()" Name="CardCode" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" DefaultValue="excel.get(i).getC()" Name="SiteName" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Variable Name="Variable18">
+<n2:Field Collections="false" DefaultValue="&quot;01&quot;" Name="Job" ObjectName="String" Required="false" Show="false" Type="String"/>
+</n1:Variable>
+<n1:Decide Expression="excel.get(i).getD().equals(&quot;队长&quot;)" Name="Decide8">
+<if>
+<n1:Assign Name="Assign16" Value="&quot;04&quot;" Variable="Job"/>
+</if>
+<else/>
+</n1:Decide>
+<n1:Decide Expression="Sitepersonnels!=null &amp;&amp; Sitepersonnels.size()&gt;0" Name="Decide6">
+<if>
+<n1:DataAccess ContinueOnError="false" Dao="Import.PersonnelImportMapper.UpdateSitepersonnel" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess16">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="Job" Name="Job" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" DefaultValue="excel.get(i).getF()" Name="CardCode" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" DefaultValue="excel.get(i).getC()" Name="SiteName" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+</if>
+<else>
+<n1:DataAccess ContinueOnError="false" Dao="Import.PersonnelImportMapper.InsertSitepersonnel" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess14">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="excel.get(i).getF()" Name="CardCode" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" DefaultValue="Job" Name="Job" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" DefaultValue="username" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" DefaultValue="excel.get(i).getC()" Name="SiteName" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+</else>
+</n1:Decide>
+<n1:Assign Name="Assign5" Value="i+1" Variable="i"/>
+</Controls>
+</n1:Loop>
+<n1:DataAccess ContinueOnError="false" Dao="Import.PersonnelImportMapper.UpdatePersonnelAll" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess12">
+<Parameters/>
+</n1:DataAccess>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

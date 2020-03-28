@@ -1,0 +1,559 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>上海福络特</title>
+
+    <!--通用css-->
+    <link href="wwwroot/css/site.min.css" rel="stylesheet" />
+    <link href="wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+
+    <!--通用js-->
+    <script src="wwwroot/lib/vue/vue.js"></script>
+    <script src="wwwroot/lib/layui/layui.js"></script>
+    <script src="wwwroot/lib/jquery/dist/jquery.js"></script>
+    <script src="wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="wwwroot/js/site.js"></script>
+
+    <link href="https://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/jquery.scrollbar/0.2.11/jquery.scrollbar.min.css" rel="stylesheet">
+    <link href="wwwroot/lib/nav/css/nav.css" rel="stylesheet" />
+    <link href="wwwroot/lib/nav/font/iconfont.css" rel="stylesheet" />
+    <link href="wwwroot/lib/nth-tabs/css/nth-icons.min.css" rel="stylesheet" />
+    <link href="wwwroot/lib/nth-tabs/css/nth-tabs.min.css" rel="stylesheet" />
+
+    <style type="text/css">
+
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+        }
+        /*.container {
+            width: 1535px !important;
+        }*/
+
+        .wrapper {
+            padding-top: 10px;
+            height: calc(100% - 220px);
+        }
+
+        body, html {
+            background: #f0f2f5;
+        }
+
+        .page-wrapper {
+            overflow: hidden;
+            height: 50%;
+        }
+
+        .rightbox {
+            width: 100%;
+        }
+
+        .layui-layer-tab > .layui-layer-content {
+            width: 100%;
+            height: 100% !important;
+        }
+
+        .layui-layer-tabmain {
+            width: 100%;
+            height: 100%;
+        }
+
+        .layui-layer-tabli {
+            width: 100%;
+            height: 100%;
+        }
+
+        .layui-layer-page .layui-layer-content {
+            overflow: hidden !important;
+        }
+
+        .navx {
+            /*height:40px;*/
+            padding: 0px;
+            /*border-bottom: 1px #e6e9ec solid;*/
+            border-right: 1px #e6e9ec solid;
+            background: #fff;
+            height: auto;
+            /*overflow: hidden;*/
+        }
+        /*.borderBottom{*/
+        /*border-bottom: 1px #e6e9ec solid;*/
+        /*}*/
+        .heigt40 {
+            height: 40px;
+        }
+
+        .navbar {
+            height: 40px;
+            min-height: 40px;
+        }
+
+        .navx a {
+            line-height: 40px;
+            max-height: 40px;
+        }
+
+            .navx a img {
+                width: 40px;
+                margin-top: -2px;
+                margin-right: 4px;
+            }
+
+            .navx a span {
+                color: #676767;
+                margin-left: 0px;
+                font-size: 14px;
+                margin-left: 18px;
+            }
+
+        #mini span {
+            color: #434343;
+            font-weight: bold;
+        }
+
+        #mini:hover {
+            color: #434343;
+        }
+
+        .topSpan {
+            margin-left: 0 !important;
+            margin-right: 20px;
+            float: left;
+            font-size: 12px !important;
+        }
+
+        .layui-icon:before {
+            color: #676767;
+        }
+
+        .glyphicon:before {
+            color: #676767;
+        }
+
+        .navx-more:after {
+            color: #999;
+        }
+
+        .leftBox {
+            width: 220px;
+            height: 100%;
+            /*background: #263238;*/
+            background: #fff;
+            transition: all .3s;
+            float: left;
+        }
+
+        .personHeader {
+            background: #fafafa;
+            text-align: center;
+        }
+
+        .personPic {
+            background: #fff;
+            width: 66px;
+            height: 66px;
+            border: 2px #f0f2f5 solid;
+            border-radius: 50%;
+            margin: 24px auto 10px;
+        }
+
+        .personHeader p {
+            font-size: 14px;
+            color: #676767;
+            font-weight: bold;
+        }
+
+        .personHeader button {
+            width: 126px;
+            height: 24px;
+            background: #136cc2;
+            border-radius: 5px;
+            border: 0;
+            font-size: 12px;
+            color: #fff;
+            margin: 16px auto 24px;
+        }
+
+        .displayN {
+            display: none;
+        }
+
+        .navbar-fixed-top {
+            right: auto;
+        }
+
+        .nth-tabs {
+            border: 0 !important;
+            border-left: 1px #e6e9ec solid;
+        }
+
+            .nth-tabs .page-tabs {
+                height: 40px;
+            }
+
+            .nth-tabs .roll-nav {
+                height: 40px;
+            }
+
+            .nth-tabs .content-tabs {
+                height: 40px;
+            }
+
+            .nth-tabs .content-tabs-container {
+                height: 40px;
+            }
+
+        .nav > li > a {
+            /*padding: 9px 15px;*/
+            border: 0;
+        }
+
+        .nth-tabs .roll-nav-left {
+            border-bottom: 1px #e6e9ec solid;
+        }
+
+        .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+            border-top: 0;
+            border-bottom: 0;
+            border-left: 0;
+            border-right: 0;
+            background-color: #f0f2f5;
+            color: #136cc2;
+        }
+
+        .layui-layer-title {
+            height: 40px !important;
+            line-height: 40px !important;
+            border-bottom: 0 !important;
+            font-size: 14px !important;
+            color: #fff !important;
+            background-color: #136cc2 !important;
+            border-radius: 0 !important;
+        }
+        /*.layui-layer-setwin .layui-layer-min cite{*/
+        /*background-color: #fff!important;*/
+        /*}*/
+        /*#layui-layer-iframe1 body{*/
+        /*border: 3px #136cc2 solid;*/
+        /*}*/
+        .layui-layer {
+            /*border: 3px #136cc2 solid !important;*/
+            border-radius: 3px;
+        }
+
+        .navx-item > a:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            width: 2px;
+            height: 40px;
+            background: #136cc2;
+            opacity: 0;
+            transition: all .3s;
+        }
+
+        .navx-mini.navx .navx-item ul {
+            background: #fff;
+            box-shadow: 5px 0 5px 0 rgba(153,153,153,.2);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top ">
+        <ul class="navx col-xs-4 heigt40" style="border-bottom: 1px #e6e9ec solid;">
+            <li class="navx-item" onclick="openPerson()">
+                <a id="mini" style="text-decoration: none;cursor:pointer">
+                    <span class="topSpan"><img src="wwwroot/images/FRUITLogo.png" alt="">上海福络特保安系统</span>
+                    <i class="glyphicon glyphicon-th-list"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div style="height:100%;">
+        <div class="navx col-xs-4 leftBox" style="padding-top:40px;">
+            <div id="head" class="personHeader">
+                <img id="imgHead" src="" alt="" class="personPic">
+                <p id="userName">Robert</p>
+                <button type="button" onClick="newItem()">个人信息</button>
+            </div>
+            <div class="navx col-xs-4 navH" style="padding: 0px;padding-top:0px;" id="app">
+
+            </div>
+        </div>
+        <div class="container body-content rightbox" style="height: 100%; padding: 0px;">
+            <div class="page-wrapper" style="height: 100%;">
+                <!--使用时只需此标签，class固定,id自己定义-->
+                <div class="nth-tabs" style="height: 100%;" id="main-tabs">
+                </div>
+                <hr />
+                <!--<div style="height: 30px; width:100%;">
+                    <p> 2019 - BootstrapUI</p>
+                </div>-->
+            </div>
+        </div>
+    </div>
+    <!--退出登录-->
+    <div class="navx col-xs-4" style="border-top: 1px #e6e9ec solid;position: fixed;bottom: 0;left: 0;padding-bottom:
+     10px">
+        <ul>
+            <li class="n1">
+                <a onclick="layer.msg('你确定你退出系统，回到登录页面吗？', {time: 0, btn: ['确定', '再想想'] ,yes: function(index){layer.close(index);AppExit();}});">
+                    <i class="glyphicon glyphicon-off"></i><span>退出登录</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</body>
+</html>
+
+<script src="https://cdn.bootcss.com/jquery.scrollbar/0.2.11/jquery.scrollbar.min.js"></script>
+<script src="wwwroot/lib/nth-tabs/js/nth-tabs.js"></script>
+<script src="wwwroot/lib/nav/js/nav.js"></script>
+<script src="wwwroot/js/App.js"></script>
+<script type="text/javascript">
+
+    AppToken();//验证Token是否有效
+
+    //刷新
+    function TabRefresh() {
+        nthTabs.Refresh();
+    }
+
+    var layer;
+
+    layui.use('layer', function () {
+        layer = layui.layer;
+    });
+
+    function newItem() {
+        var account = window.sessionStorage.getItem("Account");
+        var name = window.sessionStorage.getItem("UserName");
+        openAppWindow({
+            url: "/Views/Permission/PersonalView.html",
+            title: "[" + name + "]个人信息",
+            area: ['800px', '620px'],
+            maxmin: true,
+            shade: [0.8, '#393D49'],
+            success: function (layero, index) {
+                var body = parent.layer.getChildFrame('body', index);
+                var iframe = parent.window[layero.find('iframe')[0]['name']];
+                iframe.getData(account);
+            }
+        });
+    }
+
+
+    $(function () {
+        $("#userName").html(window.sessionStorage.getItem("UserName"));
+        var name = window.sessionStorage.getItem("UserName");
+        var head = window.sessionStorage.getItem("Head");
+        if (head == "undefined") {
+            head = "/wwwroot/images/user.png";
+        }
+        $("#imgHead").attr("src", head);
+        getMenus();
+    });
+
+    function getMenus() {
+        PostAppAjax({
+            url: '/Permission/Menu/getUserMenus',
+            async: true,
+            success: function (result) {
+                menus = result.data;
+                addmenu(menus);
+            },
+            error: function () {
+                layer.msg("服务器忙，请重试");
+            }
+        });
+    }
+
+    /**
+    * 动态生成菜单列表
+    * @param ms 菜单数据实体
+    */
+    function addmenu(ms) {
+        var htmls = "<ul>";
+        for (let i = 0; i < ms.length; i++) {
+            var html = addchildmenu(ms[i].children, 0);
+            if (html == "") {
+                htmls += "<li class='n1'>" +
+                    "<a href='javascript:;' title='" + ms[i].floatPrompt + "' ><i class='" + ms[i].icon + "'></i><span onclick=\"tabhtml(" + ms[i].id + ",'" +
+                    ms[i].name + "','" + ms[i].url + "'," + ms[i].openby + "," + ms[i].tabType + ")\">" + ms[i].name + "</span></a>" + "</li>";
+            } else {
+                htmls += "<li class='navx-item'>" + "<a href='javascript:;'title='" + ms[i].floatPrompt + "' class='navx-show' ><i class='" +
+                    ms[i].icon + "'></i><span onclick=\"tabhtml(" + ms[i].id + ",'" + ms[i].name + "','" + ms[i].url + "'," + ms[i].openby + "," +
+                    ms[i].tabType + " )\">" + ms[i].name + "</span><i class='navx-show my-icon navx-more'></i></a>" + html + "</li>";
+            }
+        }
+        htmls += "</ul>";
+        $("#app").html(htmls);
+        navxcz();
+    };
+    function addchildmenu(ms, v) {
+        if (ms == null || ms.length == 0) {
+            return "";
+        }
+        var n = v + 1;
+        var htmls = "<ul class='n" + n + "'>";
+        for (let i = 0; i < ms.length; i++) {
+            var html = addchildmenu(ms[i].children, n);
+            if (html == "") {
+                htmls += "<li class='n" + n + "'>" +
+                    "<a href='javascript:;' title='" + ms[i].floatPrompt + "' ><i class='" + ms[i].icon + "'></i><span onclick=\"tabhtml(" + ms[i].id + ",'" +
+                    ms[i].name + "','" + ms[i].url + "'," + ms[i].openby + "," + ms[i].tabType + ")\">" + ms[i].name + "</span></a>" + "</li>";
+            } else {
+                htmls += "<li class='navx-item" + n + " n" + n + "'>" +
+                    "<a href='javascript:;'title='" + ms[i].floatPrompt + "' class='navx-show' ><i class='" + ms[i].icon + "'></i><span onclick=\"tabhtml(" + ms[i].id + ",'" +
+                    ms[i].name + "','" + ms[i].url + "'," + ms[i].openby + "," + ms[i].tabType + ")\">" + ms[i].name + "</span><i class='my-icon navx-more'></i></a>" +
+                    html + "</li>";
+            }
+        }
+        htmls += "</ul>";
+        return htmls;
+    };
+
+    //页面tab页构造体
+    var nthTabs;
+    nthTabs = $("#main-tabs").nthTabs();//初始化
+    var menus = [{
+        "id": '',
+        "url": "",
+        "icon": "",
+        "isdelete": false,
+        "tabType": 0,
+        "describes": "",
+        "sequence": '',
+        "pid": 0,
+        "name": "",
+        "floatPrompt": "",
+        "openby": 0
+    }];
+
+    /** 页面实体 */
+    var msg = {
+        describes: "",//描述
+        floatPrompt: "",//浮动提示
+        icon: "",//图标
+        id: 0,
+        isdelete: false,//是否删除
+        name: "",//节点名称
+        openby: 0,//打开方式
+        pid: 0,//父类id
+        sequence: 0,//排序
+        tabType: 0,//打开方式
+        url: ""//跳转链接
+    };
+
+    //判断构造机制
+    function tabhtml(id, name, url, openby, tabType) {
+        if (url != null && url != "") {
+            if (openby == 0) {
+                addtabs(id, name, url, tabType);//Tab构建方法
+            } else if (openby == 1) {
+                addiframes(name, url);//iframe页构建方法
+            }
+        }
+    };
+
+    // iframe页构建函数
+    function addiframes(titles, urls) {
+        layer.open({
+            type: 2, //iframe弹框
+            title: titles,//标题
+            fix: true,//是否固定
+            maxmin: true,   //最大化
+            btnAlign: 'r', //绑定到需要触发的地方
+            shadeClose: false,//是否点击关闭遮罩
+            shade: 0,//遮罩
+            area: ['800px', '500px'],//宽高
+            content: urls   //内容
+        });
+    };
+
+    // tab页构建函数
+    var i = 0;
+    function addtabs(id, titles, urls, tabtype) {
+        if (tabtype == 0) {
+            var tid = "T-" + id;
+            nthTabs.addTab({
+                id: tid,
+                title: titles,
+                url: urls,
+                active: true,
+                allowClose: true,
+                location: false,
+                fadeIn: true
+            });
+        } else {
+            var tid = "T-" + id + "-" + i;
+            nthTabs.addTab({
+                id: tid,
+                title: titles,
+                url: urls,
+                active: true,
+                allowClose: true,
+                location: false,
+                fadeIn: true
+            });
+            i++;
+        }
+    };
+
+    nthTabs.addTab({
+        id: "T-1",
+        title: '首页',
+        url: "home.html",
+        active: true,
+        allowClose: true,
+        location: false,
+        fadeIn: true
+    });
+
+    $("#Href_caidan").on("click", function () {
+        nthTabs.addTab({   //添加一个选项卡
+            id: "yhId",
+            title: '菜单',
+            url: "Views/Permission/MenuView.html",
+            active: true,
+            allowClose: true,
+            location: false,
+            fadeIn: true
+        });
+    });
+
+    //菜单栏的转换  图标
+    $('#mini').on('click', function () {
+        if (!$('.navx').hasClass('navx-mini')) //检测.navx这个类是否包含navx-mini这个类 在这里双重否定表肯定  也就是说没有包含这个类
+        {
+            $('.navx-item.navx-show').removeClass('navx-show');
+            $('.navx-item').children('ul').removeAttr('style'); //从navx-item中移除style样式
+            $('.navx').addClass('navx-mini');
+        }
+        else {
+            $('.navx').removeClass('navx-mini');
+        }
+    });
+
+</script>
+<script type="text/javascript">
+    function openPerson() {
+        if (!$('.personHeader').hasClass('displayN')) {
+            $('.personHeader').addClass('displayN');
+        } else {
+            $('.personHeader').removeClass('displayN');
+        }
+    }
+</script>

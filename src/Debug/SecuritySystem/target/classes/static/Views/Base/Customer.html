@@ -1,0 +1,330 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-validator/css/bootstrap-validator.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-validator/js/bootstrap-validator.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+
+		#table {
+			margin: 0px auto;
+			text-align-last: center;
+		}
+
+		#btn {
+			margin-top: 30px;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container" id="app"  style="width: 94%; margin-left: 3%; margin-top:20px;">
+		<form id="form1" rele="form" class="form-horizontal">
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="name">客户名称:</label>
+				</div>
+				<div class="col-xs-8 col-md-8">
+					<input v-model="Data.name" type="text" class="form-control" id="name" name="name">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="orgID">所属部门:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<select id="select_orgID" class="selectpicker form-control" v-model="Data.orgID"  name="orgID">
+						<option v-for="item in dictionaryorgID" v-bind:value="item.code">{{item.name}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="manager">项目经理:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<select id="select_manager" class="selectpicker form-control" data-live-search="true" v-model="Data.manager"  name="manager">
+						<option value="">--请选择--</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="district">所在城市:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<select id="select_district" class="selectpicker form-control" data-live-search="true"  v-model="Data.district"  name="district">
+						<option value="">--请选择--</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="address">地址:</label>
+				</div>
+				<div class="col-xs-8 col-md-8">
+					<input v-model="Data.address" type="text" class="form-control" id="address" name="address">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="describes">备注:</label>
+				</div>
+				<div class="col-xs-8 col-md-8">
+					<input v-model="Data.describes" type="text" class="form-control" id="describes" name="describes">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="type">客户类型:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<select id="select_type" class="selectpicker form-control" v-model="Data.type"  name="type">
+						<option value="0" >商业物业</option>
+						<option value="1" >住宅小区</option>
+						<option value="2" >工厂</option>
+						<option value="3" >银行</option>
+						<option value="4" >医院</option>
+						<option value="5" >学校</option>
+						<option value="9" >其它</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="status">状态:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<select id="select_status" class="selectpicker form-control" v-model="Data.status"  name="status">
+						<option value="0" >新客户</option>
+						<option value="1" >已签约</option>
+						<option value="2" >未签约</option>
+						<option value="3" >老客户</option>
+						<option value="4" >已撤点</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+
+				<div class="col-xs-2 col-md-2" style="text-align: right;">
+				</div>
+				<div class="col-xs-8 col-md-8" style="text-align: left;">
+					<button type="button" class="layui-btn layui-btn-sm" onClick="Accept()">
+						<i class="layui-icon layui-icon-ok"></i><span class="fontsm">&emsp;提交&emsp;</span>
+					</button>
+					<button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onClick="iframecloses()">
+						<i class="layui-icon layui-icon-close"></i><span class="fontsm">&emsp;取消&emsp;</span>
+					</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+</body>
+</html>
+<script src="../../wwwroot/js/App.js"></script>
+<script>
+	setTimeout(function() {
+		SelectFrom("#select_manager", function(filter) {
+			getDictionarymanager(filter);
+		})
+	}, 1000);
+	setTimeout(function() {
+		SelectFrom("#select_district", function(filter) {
+			getDictionarydistrict(filter);
+		})
+	}, 1000);
+</script>
+
+<script>
+	$(document).ready(function () {
+		$('#form1').bootstrapValidator({
+			message: 'This value is not valid',
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+				name: {
+					message: '客户名称验证失败',
+					validators: {
+						notEmpty: {
+							message: '客户名称不能为空'
+						}
+					}
+				}
+			}
+		});
+    });
+
+	
+	var dictionaryItems = [{code:"", name:""}];
+
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			Data:{
+				id: 0,
+				name: "",
+				orgID: 0,
+				manager: 0,
+				leader: 0,
+				district: 310100,
+				address: "",
+				describes: "",
+				type: 0,
+                status: 0
+			}
+			,dictionaryorgID: dictionaryItems
+
+		},
+		methods: {
+
+		},
+		watch: {
+			dictionaryorgID: function() {
+				this.$nextTick(function () {
+					$('#select_orgID').selectpicker('refresh');
+				})
+			},
+			Data: function() {
+				this.$nextTick(function () {
+					$('#select_type').selectpicker('refresh');
+					$('#select_status').selectpicker('refresh');
+					$('#select_orgID').selectpicker('refresh');
+					$('#select_manager').empty()
+					$('#select_manager').append("<option value='"+vm.Data.manager+"'>"+vm.Data.manager_Convert+"</option>");
+					$('#select_manager').selectpicker('refresh');
+					$('#select_district').empty()
+					$('#select_district').append("<option value='"+vm.Data.district+"'>"+vm.Data.district_Convert+"</option>");
+					$('#select_district').selectpicker('refresh');
+				})
+			}
+		}
+	});
+	
+	$(function(){
+		getDictionaryorgID();
+	});
+
+	function getDictionaryorgID(){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "SiteOrg"
+			},
+			success: function(result) {
+				vm.dictionaryorgID = result;
+			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	function getDictionarymanager(filter){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "Manager",
+				filter: filter			},
+			success: function(result) {
+				vm.dictionarymanager = result;
+				var parent = $("#select_manager");
+				parent.empty();
+				for(var i=0; i<result.length;i++){
+					parent.append("<option value='"+result[i].code+"'>"+result[i].name+"</option>");
+				}
+				parent.selectpicker('refresh');			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	function getDictionarydistrict(filter){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "City",
+				filter: filter			},
+			success: function(result) {
+				vm.dictionarydistrict = result;
+				var parent = $("#select_district");
+				parent.empty();
+				for(var i=0; i<result.length;i++){
+					parent.append("<option value='"+result[i].code+"'>"+result[i].name+"</option>");
+				}
+				parent.selectpicker('refresh');			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+
+	
+	function getData(id){
+		
+		if(id>0){
+			PostAppAjax({
+				url: '/Base/Customer/getCustomerById',
+				data: {
+					id: id
+				},
+				success: function(result) {
+					if(result.code==0){
+						vm.Data = result.data;
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function(err) {
+					alert("服务器忙，请重试!\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+	function Accept(){
+		$('#form1').data("bootstrapValidator").validate();
+ 		var isValid = $('#form1').data("bootstrapValidator").isValid();
+		if(isValid){
+			PostAppAjax({
+				url: '/Base/Customer/updateCustomer',
+				contentType: 'application/json;charset=utf-8',
+				data: JSON.stringify(vm.Data),
+				success: function(result) {
+					if(result.code==0){
+						doTrigger("Customer"); //调用触发器，刷新查询
+						iframecloses();
+					}else{
+						alert("数据提交不成功！\n\n错误信息：\n"+result.msg);
+					}
+				},
+				error: function(err) {
+					alert("错误信息：\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+</script>

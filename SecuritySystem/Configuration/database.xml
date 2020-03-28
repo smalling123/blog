@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><Databases>
+<Database Name="DB" Type="MySQL">
+<Items>
+<Debug Password="Fruit123456" Url="jdbc:mysql://rm-uf62833t6hj4k9e24xo.mysql.rds.aliyuncs.com:3306/fruit?allowMultiQueries=true&amp;serverTimezone=Asia/Shanghai" Username="fruit"/>
+<Release Password="Fruit123456" Url="jdbc:mysql://rm-uf62833t6hj4k9e24xo.mysql.rds.aliyuncs.com:3306/fruit?allowMultiQueries=true&amp;serverTimezone=Asia/Shanghai" Username="fruit"/>
+</Items>
+</Database>
+</Databases>

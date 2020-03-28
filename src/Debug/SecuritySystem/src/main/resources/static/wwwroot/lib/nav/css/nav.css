@@ -1,0 +1,241 @@
+﻿@charset "utf-8";
+
+body, html {
+    height: 100%;
+    background: #e2e2e2
+}
+
+body, ul {
+    margin: 0;
+    padding: 0
+}
+
+body {
+    font: 14px 微软雅黑,宋体,arial narrow,HELVETICA;
+    -webkit-text-size-adjust: 100%
+}
+
+li {
+    list-style: none
+}
+
+a {
+    text-decoration: none
+}
+
+.navx {
+    width: 220px;
+    height: 100%;
+    background: #263238;
+    transition: all .3s
+}
+
+    .navx a {
+        display: block;
+        overflow: hidden;
+        padding-left: 20px;
+        line-height: 46px;
+        max-height: 46px;
+        color: #abb1b7;
+        transition: all .3s
+    }
+
+        .navx a span {
+            margin-left: 30px
+        }
+
+.navx-item {
+    position: relative
+}
+
+    .navx-item.navx-show {
+        border-bottom: 0
+    }
+
+    .navx-item ul {
+        display: none;
+        background: rgba(0,0,0,.1)
+    }
+
+    .navx-item.navx-show ul {
+        display: block
+    }
+
+    .navx-item > a:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        width: 2px;
+        height: 46px;
+        background: #34a0ce;
+        opacity: 0;
+        transition: all .3s
+    }
+
+.navx .navx-icon {
+    font-size: 20px;
+    position: absolute;
+    margin-left: -1px
+}
+
+.icon_1::after {
+    content: "\e62b"
+}
+
+.icon_2::after {
+    content: "\e669"
+}
+
+.icon_3::after {
+    content: "\e61d"
+}
+
+.navx-more {
+    float: right;
+    margin-right: 20px;
+    font-size: 12px;
+    transition: transform .3s
+}
+
+    .navx-more::after {
+        content: "\e621"
+    }
+
+.navx-show .navx-more {
+    transform: rotate(90deg)
+}
+
+.navx-show, .navx-item > a:hover {
+    color: #fff;
+    
+}
+
+    .navx-show > a:before, .navx-item > a:hover:before {
+        opacity: 1
+    }
+
+.navx-item li:hover a {
+    color: #fff;
+    background: rgba(0,0,0,.1)
+}
+
+.navx-mini.navx {
+    width: 60px
+}
+
+    .navx-mini.navx .navx-icon {
+    }
+
+    .navx-mini.navx .navx-item > a span {
+        display: none
+    }
+
+    .navx-mini.navx .navx-more {
+        margin-right: -20px
+    }
+
+
+    .navx-mini.navx .navx-item:hover {
+        background: rgba(255,255,255,.1)
+    }
+
+        .navx-mini.navx .navx-item:hover .navx-item a {
+            color: #fff
+        }
+
+        .navx-mini.navx .navx-item:hover a:before {
+            opacity: 1
+        }
+
+        .navx-mini.navx .navx-item:hover ul {
+            display: block
+        }
+
+    .navx-mini.navx .navx-item ul {
+        position: absolute;
+        top: 0;
+        left: 60px;
+        width: 180px;
+        z-index: 99;
+        background: #3c474c;
+    }
+
+        .navx-mini.navx .navx-item ul .navx-item1 ul :hover {
+            background: rgba(255,255,255,.1)
+        }
+
+            .navx-mini.navx .navx-item ul .navx-item1 ul :hover .navx-item1 a {
+                color: #fff
+            }
+
+            .navx-mini.navx .navx-item ul .navx-item1 ul :hover a:before {
+                opacity: 1
+            }
+
+            .navx-mini.navx .navx-item ul .navx-item1 ul :hover ul {
+                display: block
+            }
+
+        .navx-mini.navx .navx-item ul .navx-item1 ul {
+            position: absolute;
+            top: 45px;
+            left: 180px;
+            width: 180px;
+            z-index: 100;
+            background: #3c474c;
+            /*overflow: hidden;*/
+        }
+
+            .navx-mini.navx .navx-item ul .navx-item1 ul .navx-item2 ul:hover {
+                background: #3c474c
+            }
+
+                .navx-mini.navx .navx-item ul .navx-item1 ul .navx-item2 ul:hover .navx-item2 a {
+                    color: #fff
+                }
+
+                .navx-mini.navx .navx-item ul .navx-item1 ul .navx-item2 ul:hover a:before {
+                    opacity: 1
+                }
+
+                .navx-mini.navx .navx-item ul .navx-item1 ul .navx-item2 ul:hover ul {
+                    display: block
+                }
+
+            .navx-mini.navx .navx-item ul .navx-item1 ul .navx-item2 ul {
+                position: absolute;
+                top: 45px;
+                left: 180px;
+                width: 180px;
+                z-index: 101;
+                background: #3c474c;
+                /*overflow: hidden;*/ 
+            }
+
+                .navx-mini.navx .navx-item ul .navx-item1 ul .navx-item2 ul .navx-item3 ul:hover {
+                    background: #3c474c;
+                }
+
+                    .navx-mini.navx .navx-item ul .navx-item1 ul .navx-item2 ul .navx-item3 ul:hover .navx-item3 a {
+                        color: #fff
+                    }
+
+                    .navx-mini.navx .navx-item ul .navx-item1 ul .navx-item2 ul .navx-item3 ul:hover a:before {
+                        opacity: 1
+                    }
+
+                    .navx-mini.navx .navx-item ul .navx-item1 ul .navx-item2 ul .navx-item3 ul:hover ul {
+                        display: block
+                    }
+
+                .navx-mini.navx .navx-item ul .navx-item1 ul .navx-item2 ul .navx-item3 ul {
+                    position: absolute;
+                    top: 0px;
+                    left: 180px;
+                    width: 180px;
+                    z-index: 102;
+                    background: #3c474c;
+                    /*overflow: hidden;*/
+                }
+
+

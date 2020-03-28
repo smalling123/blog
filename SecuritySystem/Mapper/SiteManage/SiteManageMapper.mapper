@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="426" MapperEntity="SiteManage.SitePostWeek" Name="getSitePostByWeek" SQL="Select SPI.Post, SPI.Schedule, SPI.BeginTime, SPI.EndTime, Max(PosNumber) As PosNumber,&#10;&#9;DATE_ADD(#{date},interval (0-#{week}) DAY) as D1, &#10;&#9;DATE_ADD(#{date},interval (1-#{week}) DAY) as D2, &#10;&#9;DATE_ADD(#{date},interval (2-#{week}) DAY) as D3, &#10;&#9;DATE_ADD(#{date},interval (3-#{week}) DAY) as D4, &#10;&#9;DATE_ADD(#{date},interval (4-#{week}) DAY) as D5, &#10;&#9;DATE_ADD(#{date},interval (5-#{week}) DAY) as D6, &#10;&#9;DATE_ADD(#{date},interval (6-#{week}) DAY) as D7,&#10;&#9;SUM(CASE WHEN SP.BeginDate &lt;= DATE_ADD(#{date},interval (0-#{week}) DAY) And SP.EndDate &gt;= DATE_ADD(#{date},interval (0-#{week}) DAY) THEN SPI.PosNumber ELSE 0 ENd ) As N1,&#10;&#9;SUM(CASE WHEN SP.BeginDate &lt;= DATE_ADD(#{date},interval (1-#{week}) DAY) And SP.EndDate &gt;= DATE_ADD(#{date},interval (1-#{week}) DAY) THEN SPI.PosNumber ELSE 0 ENd ) As N2,&#10;&#9;SUM(CASE WHEN SP.BeginDate &lt;= DATE_ADD(#{date},interval (2-#{week}) DAY) And SP.EndDate &gt;= DATE_ADD(#{date},interval (2-#{week}) DAY) THEN SPI.PosNumber ELSE 0 ENd ) As N3,&#10;&#9;SUM(CASE WHEN SP.BeginDate &lt;= DATE_ADD(#{date},interval (3-#{week}) DAY) And SP.EndDate &gt;= DATE_ADD(#{date},interval (3-#{week}) DAY) THEN SPI.PosNumber ELSE 0 ENd ) As N4,&#10;&#9;SUM(CASE WHEN SP.BeginDate &lt;= DATE_ADD(#{date},interval (4-#{week}) DAY) And SP.EndDate &gt;= DATE_ADD(#{date},interval (4-#{week}) DAY) THEN SPI.PosNumber ELSE 0 ENd ) As N5,&#10;&#9;SUM(CASE WHEN SP.BeginDate &lt;= DATE_ADD(#{date},interval (5-#{week}) DAY) And SP.EndDate &gt;= DATE_ADD(#{date},interval (5-#{week}) DAY) THEN SPI.PosNumber ELSE 0 ENd ) As N6,&#10;&#9;SUM(CASE WHEN SP.BeginDate &lt;= DATE_ADD(#{date},interval (6-#{week}) DAY) And SP.EndDate &gt;= DATE_ADD(#{date},interval (6-#{week}) DAY) THEN SPI.PosNumber ELSE 0 ENd ) As N7,&#10;&#9;MAX(CASE WHEN SP.BeginDate &lt;= DATE_ADD(#{date},interval (0-#{week}) DAY) And SP.EndDate &gt;= DATE_ADD(#{date},interval (0-#{week}) DAY) THEN SPI.ID ELSE 0 ENd ) As SPI1,&#10;&#9;MAX(CASE WHEN SP.BeginDate &lt;= DATE_ADD(#{date},interval (1-#{week}) DAY) And SP.EndDate &gt;= DATE_ADD(#{date},interval (1-#{week}) DAY) THEN SPI.ID ELSE 0 ENd ) As SPI2,&#10;&#9;MAX(CASE WHEN SP.BeginDate &lt;= DATE_ADD(#{date},interval (2-#{week}) DAY) And SP.EndDate &gt;= DATE_ADD(#{date},interval (2-#{week}) DAY) THEN SPI.ID ELSE 0 ENd ) As SPI3,&#10;&#9;MAX(CASE WHEN SP.BeginDate &lt;= DATE_ADD(#{date},interval (3-#{week}) DAY) And SP.EndDate &gt;= DATE_ADD(#{date},interval (3-#{week}) DAY) THEN SPI.ID ELSE 0 ENd ) As SPI4,&#10;&#9;MAX(CASE WHEN SP.BeginDate &lt;= DATE_ADD(#{date},interval (4-#{week}) DAY) And SP.EndDate &gt;= DATE_ADD(#{date},interval (4-#{week}) DAY) THEN SPI.ID ELSE 0 ENd ) As SPI5,&#10;&#9;MAX(CASE WHEN SP.BeginDate &lt;= DATE_ADD(#{date},interval (5-#{week}) DAY) And SP.EndDate &gt;= DATE_ADD(#{date},interval (5-#{week}) DAY) THEN SPI.ID ELSE 0 ENd ) As SPI6,&#10;&#9;MAX(CASE WHEN SP.BeginDate &lt;= DATE_ADD(#{date},interval (6-#{week}) DAY) And SP.EndDate &gt;= DATE_ADD(#{date},interval (6-#{week}) DAY) THEN SPI.ID ELSE 0 ENd ) As SPI7&#10;From SitePost SP Join SitePostItem SPI on SP.ID = SPI.SItePostId&#10;Where SP.Status = 1 And SP.SiteId = #{siteid}&#10;&#9;&#9;And (  (SP.BeginDate &lt;= DATE_ADD(#{date},interval (6-#{week}) DAY) And SP.EndDate &gt;= DATE_ADD(#{date},interval (0-#{week}) DAY)  )&#10;&#9;&#9;&#9;or (SP.BeginDate &gt;= DATE_ADD(#{date},interval (0-#{week}) DAY) And SP.EndDate &lt;= DATE_ADD(#{date},interval (6-#{week}) DAY)  )  )&#10;Group By SPI.Post, SPI.Schedule, SPI.BeginTime, SPI.EndTime" SelectType="Collections" Width="160" X="76" Y="50">
+<ResultSet>
+<n1:ResultField MapperField="Post" Name="Post" Type="String"/>
+<n1:ResultField MapperField="Schedule" Name="Schedule" Type="Integer"/>
+<n1:ResultField MapperField="BeginTime" Name="BeginTime" Type="String"/>
+<n1:ResultField MapperField="EndTime" Name="EndTime" Type="String"/>
+<n1:ResultField MapperField="PosNumber" Name="PosNumber" Type="Integer"/>
+<n1:ResultField MapperField="D1" Name="D1" Type="String"/>
+<n1:ResultField MapperField="D2" Name="D2" Type="String"/>
+<n1:ResultField MapperField="D3" Name="D3" Type="String"/>
+<n1:ResultField MapperField="D4" Name="D4" Type="String"/>
+<n1:ResultField MapperField="D5" Name="D5" Type="String"/>
+<n1:ResultField MapperField="D6" Name="D6" Type="String"/>
+<n1:ResultField MapperField="D7" Name="D7" Type="String"/>
+<n1:ResultField MapperField="N1" Name="N1" Type="Decimal"/>
+<n1:ResultField MapperField="N2" Name="N2" Type="Decimal"/>
+<n1:ResultField MapperField="N3" Name="N3" Type="Decimal"/>
+<n1:ResultField MapperField="N4" Name="N4" Type="Decimal"/>
+<n1:ResultField MapperField="N5" Name="N5" Type="Decimal"/>
+<n1:ResultField MapperField="N6" Name="N6" Type="Decimal"/>
+<n1:ResultField MapperField="N7" Name="N7" Type="Decimal"/>
+<n1:ResultField MapperField="SPI1" Name="SPI1" Type="Integer"/>
+<n1:ResultField MapperField="SPI2" Name="SPI2" Type="Integer"/>
+<n1:ResultField MapperField="SPI3" Name="SPI3" Type="Integer"/>
+<n1:ResultField MapperField="SPI4" Name="SPI4" Type="Integer"/>
+<n1:ResultField MapperField="SPI5" Name="SPI5" Type="Integer"/>
+<n1:ResultField MapperField="SPI6" Name="SPI6" Type="Integer"/>
+<n1:ResultField MapperField="SPI7" Name="SPI7" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="date" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n2:Field Collections="false" Name="siteid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="week" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertSchedule" SQL="Insert Into Schedule(Spiid, Date, PID, CreateUser, CreateTime)&#10;Values(#{spiid}, #{date}, #{pid}, #{user}, now())" Width="160" X="315" Y="63">
+<Parameters>
+<n2:Field Collections="false" Name="spiid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="date" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n2:Field Collections="false" Name="pid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateSchedule" SQL="Update Schedule Set PID = #{pid},  History = CONCAT(IFNULL(History,''), #{pid}, ','), ModifyUser = #{user}, ModifyTime = Now()&#10;Where  id = #{id}" Width="160" X="315" Y="113">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="pid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Height="240" MapperEntity="SiteManage.ScheduleOne" Name="getScheduleByDay" SQL="Select S.* &#10;From Schedule S Join SitePostItem SPI on S.SpiId = SPI.ID &#10;&#9;&#9;Join SitePost SP on SPI.SitePostId = SP.ID&#10;Where  SP.SiteID = #{siteid} And S.Date = DATE_ADD(#{date},interval (0-#{week}) DAY)" SelectType="Collections" Width="160" X="512" Y="63">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="SpiId" Name="SpiId" Type="Integer"/>
+<n1:ResultField MapperField="Date" Name="Date" Type="DateTime"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="BtcId" Name="BtcId" Type="Integer"/>
+<n1:ResultField MapperField="EtcId" Name="EtcId" Type="Integer"/>
+<n1:ResultField MapperField="History" Name="History" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="siteid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="date" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n2:Field Collections="false" Name="week" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Update Height="24" Name="updateScheduleStatus" SQL="Update Schedule Set Status = #{status}, ModifyUser = #{user}, ModifyTime = Now()&#10;Where  id = #{id}" Width="160" X="318" Y="181">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="status" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Update Height="24" Name="updateLeader" SQL="Update Site set Leader = #{pid} Where id = #{siteid}" Width="160" X="317" Y="369">
+<Parameters>
+<n2:Field Collections="false" Name="pid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="siteid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+</Controls>
+</View>
+</Mapper>

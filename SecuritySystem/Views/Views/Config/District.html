@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-validator/css/bootstrap-validator.min.css" rel=stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-validator/js/bootstrap-validator.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+
+		#table {
+			margin: 0px auto;
+			text-align-last: center;
+		}
+
+		#btn {
+			margin-top: 30px;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container" id="app"  style="width: 94%; margin-left: 3%; margin-top:20px;">
+		<form id="form1" rele="form" class="form-horizontal">
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="id">区号:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.id" type="text" class="form-control" id="id" name="id">
+				</div>
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="pid">上级区号:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.pid" type="text" class="form-control" id="pid" name="pid">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="name">名称:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.name" type="text" class="form-control" id="name" name="name">
+				</div>
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="mergerName">全名:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.mergerName" type="text" class="form-control" id="mergerName" name="mergerName">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="shortName">简称:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.shortName" type="text" class="form-control" id="shortName" name="shortName">
+				</div>
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="mergerShotName">全名简称:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.mergerShotName" type="text" class="form-control" id="mergerShotName" name="mergerShotName">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="level">级别:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.level" type="text" class="form-control" id="level" name="level">
+				</div>
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="cityCode">城市编号 :</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.cityCode" type="text" class="form-control" id="cityCode" name="cityCode">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="zipCode">邮政编号:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.zipCode" type="text" class="form-control" id="zipCode" name="zipCode">
+				</div>
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="pinYin">拼音:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.pinYin" type="text" class="form-control" id="pinYin" name="pinYin">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="jianPin">简拼:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.jianPin" type="text" class="form-control" id="jianPin" name="jianPin">
+				</div>
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="firstChar">首字母:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.firstChar" type="text" class="form-control" id="firstChar" name="firstChar">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="lng">Lng:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.lng" type="text" class="form-control" id="lng" name="lng">
+				</div>
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="lat">Lat:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.lat" type="text" class="form-control" id="lat" name="lat">
+				</div>
+			</div>
+			<div class="form-group">
+
+				<div class="col-xs-2 col-md-2" style="text-align: right;">
+				</div>
+				<div class="col-xs-8 col-md-8" style="text-align: left;">
+					<button type="button" class="layui-btn layui-btn-sm" onClick="Accept()">
+						<i class="layui-icon layui-icon-ok"></i><span class="fontsm">&emsp;提交&emsp;</>
+					</button>
+					<button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onClick="iframecloses()">
+						<i class="layui-icon layui-icon-close"></i><span class="fontsm">&emsp;取消&emsp;</>
+					</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+</body>
+</html>
+<script src="../../wwwroot/js/App.js"></script>
+
+<script>
+	$(document).ready(function () {
+		$('#form1').bootstrapValidator({
+			message: 'This value is not valid',
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+				id: {
+					message: '区号验证失败',
+					validators: {
+						notEmpty: {
+							message: '区号不能为空'
+						}
+					}
+				},
+				name: {
+					message: '名称验证失败',
+					validators: {
+						notEmpty: {
+							message: '名称不能为空'
+						}
+					}
+				}
+			}
+		});
+	});
+	
+	var dictionaryItems = [{code:"", name:""}];
+
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			Data:{
+				id: 0,
+				pid: 0,
+				name: "",
+				mergerName: "",
+				shortName: "",
+				mergerShotName: "",
+				level: 0,
+				cityCode: "",
+				zipCode: "",
+				pinYin: "",
+				jianPin: "",
+				firstChar: "",
+				lng: 0,
+				lat: 0
+			}
+
+		},
+		methods: {
+
+		},
+		watch: {
+
+		}
+	});
+	
+
+	
+	function getData(id, pid){
+		vm.Data.pid = pid;
+		if(id>0){
+			PostAppAjax({
+				url: '/Config/getDistrictById',
+				data: {
+					id: id
+				},
+				success: function(result) {
+					if(result.code==0){
+						vm.Data = result.data;
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function(err) {
+					alert("服务器忙，请重试!\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+	function Accept(){
+		$('#form1').data("bootstrapValidator").validate();
+ 		var isValid = $('#form1').data("bootstrapValidator").isValid();
+		if(isValid){
+			PostAppAjax({
+				url: '/Config/updateDistrict',
+				contentType: 'application/json;charset=utf-8',
+				data: JSON.stringify(vm.Data),
+				success: function(result) {
+					if(result.code==0){
+						doTrigger("District"); //调用触发器，刷新查询
+						iframecloses();
+					}else{
+						alert("数据提交不成功！\n\n错误信息：\n"+result.msg);
+					}
+				},
+				error: function(err) {
+					alert("错误信息：\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+</script>

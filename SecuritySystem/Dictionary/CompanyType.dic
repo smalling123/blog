@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="本公司"/>
+<Item Code="1" Name="外派公司"/>
+</Items>
+</Dictionary>

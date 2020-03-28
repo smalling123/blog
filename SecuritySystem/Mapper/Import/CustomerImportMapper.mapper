@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Description="获取人员信息表" Height="240" MapperEntity="Base.Customer" Name="getCustomerByName" SQL="select * from Customer where name =#{Name}" SelectType="Singleton" Width="160" X="30" Y="55">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="OrgID" Name="OrgID" Type="Integer"/>
+<n1:ResultField MapperField="Manager" Name="Manager" Type="Integer"/>
+<n1:ResultField MapperField="Leader" Name="Leader" Type="Integer"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="District" Name="District" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="InsertCustomer" SQL="INSERT INTO customer( `Name`, `OrgID`, `Manager`, &#10;`Leader`, `Address`, `District`, `Describes`, `Type`, `Status`, `Isdelete`, &#10;`CreateUser`, `CreateTime`)&#10;VALUES (#{c.Name},#{c.OrgID},#{c.Manager},&#10;#{c.Leader},#{c.Address},#{c.District},#{c.Describes},#{c.Type},#{c.Status},&#10;#{c.Isdelete},#{c.CreateUser},now());" Width="160" X="203" Y="100">
+<Parameters>
+<n2:Field Collections="false" Name="c" ObjectName="Base.Customer" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Select Description="获得驻点信息" Height="240" MapperEntity="Base.Site" Name="getSiteByName" SQL="select * from site where name=#{name}" SelectType="Singleton" Width="160" X="26" Y="357">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="CustomerID" Name="CustomerID" Type="Integer"/>
+<n1:ResultField MapperField="Leader" Name="Leader" Type="Integer"/>
+<n1:ResultField MapperField="Leadership" Name="Leadership" Type="Integer"/>
+<n1:ResultField MapperField="OrgID" Name="OrgID" Type="Integer"/>
+<n1:ResultField MapperField="Manager" Name="Manager" Type="Integer"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="District" Name="District" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="InDate" Name="InDate" Type="DateTime"/>
+<n1:ResultField MapperField="OutDate" Name="OutDate" Type="DateTime"/>
+<n1:ResultField MapperField="Kq" Name="Kq" Type="Integer"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+<n1:ResultField MapperField="Lng" Name="Lng" Type="Decimal"/>
+<n1:ResultField MapperField="Lat" Name="Lat" Type="Decimal"/>
+<n1:ResultField MapperField="LeaderName" Name="LeaderName" Type="String"/>
+<n1:ResultField MapperField="LeaderPhone" Name="LeaderPhone" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="InsertSite" SQL="INSERT INTO `site`( `Name`, `CustomerID`, &#10;`Leader`,Leadership, `OrgID`, `Manager`, `Address`, `District`, &#10;`Describes`, `Type`, `Status`, `InDate`, `OutDate`, &#10;`Kq`, `Isdelete`, `CreateUser`, `CreateTime`,LeaderName,LeaderPhone) &#10;VALUES (#{s.Name},#{s.CustomerID},&#10;#{s.Leader},#{s.Leadership},#{s.OrgID},#{s.Manager},#{s.Address},&#10;#{s.District},#{s.Describes},#{s.Type},#{s.Status},&#10;#{s.InDate},#{s.OutDate},#{s.Kq},#{s.Isdelete},#{s.CreateUser},&#10;now(),#{s.LeaderName},#{s.LeaderPhone});" Width="160" X="202" Y="128">
+<Parameters>
+<n2:Field Collections="false" Name="s" ObjectName="Base.Site" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="Insertcustomerlinkman" SQL="INSERT INTO customerlinkman(ID, CustomerID, Name, Gender, Phone, Wchat, QQ, Email, Type) &#10;VALUES (#{c.ID}, #{c.CustomerID}, #{c.Name}, #{c.Gender}, #{c.Phone},#{c.Wchat}, #{c.QQ}, #{c.Email}, #{c.Type});" Width="160" X="202" Y="155">
+<Parameters>
+<n2:Field Collections="false" Name="c" ObjectName="Import.CustomerlinkmanImport" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Select Height="240" MapperEntity="Import.CustomerlinkmanImport" Name="getCustomerlinkmanByID" SQL="select * from customerlinkman where CustomerID=#{ID} and Phone=#{Phone}" SelectType="Collections" Width="160" X="194" Y="359">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="CustomerID" Name="CustomerID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Integer"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+<n1:ResultField MapperField="Wchat" Name="Wchat" Type="String"/>
+<n1:ResultField MapperField="QQ" Name="QQ" Type="String"/>
+<n1:ResultField MapperField="Email" Name="Email" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="Phone" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and Phone=#{Phone}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="Phone" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="Phone" Value="null"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Import.personnelImport" Name="getPersonnelByName" SQL="SELECT  p.* FROM  personnel p &#10;join personnelmembers pm on p.id=pm.PersonnelID&#10;where p.name =#{name} and  pm.Phone=#{Phone}" SelectType="Collections" Width="160" X="380" Y="56">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Code" Name="Code" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="CardCode" Name="CardCode" Type="String"/>
+<n1:ResultField MapperField="Birthday" Name="Birthday" Type="DateTime"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Integer"/>
+<n1:ResultField MapperField="Politics" Name="Politics" Type="Integer"/>
+<n1:ResultField MapperField="Height" Name="Height" Type="Integer"/>
+<n1:ResultField MapperField="Weight" Name="Weight" Type="Integer"/>
+<n1:ResultField MapperField="Education" Name="Education" Type="Integer"/>
+<n1:ResultField MapperField="Nation" Name="Nation" Type="Integer"/>
+<n1:ResultField MapperField="Native" Name="Native" Type="Integer"/>
+<n1:ResultField MapperField="HomeAddress" Name="HomeAddress" Type="String"/>
+<n1:ResultField MapperField="Census" Name="Census" Type="Integer"/>
+<n1:ResultField MapperField="CensusAddress" Name="CensusAddress" Type="String"/>
+<n1:ResultField MapperField="Marital" Name="Marital" Type="Integer"/>
+<n1:ResultField MapperField="LinkMan" Name="LinkMan" Type="String"/>
+<n1:ResultField MapperField="LinkManRelation" Name="LinkManRelation" Type="String"/>
+<n1:ResultField MapperField="LinkManPhone" Name="LinkManPhone" Type="String"/>
+<n1:ResultField MapperField="Army" Name="Army" Type="String"/>
+<n1:ResultField MapperField="ArmyInDate" Name="ArmyInDate" Type="DateTime"/>
+<n1:ResultField MapperField="ArmyOutDate" Name="ArmyOutDate" Type="DateTime"/>
+<n1:ResultField MapperField="Z1" Name="Z1" Type="Boolean"/>
+<n1:ResultField MapperField="Z2" Name="Z2" Type="Boolean"/>
+<n1:ResultField MapperField="Z3" Name="Z3" Type="Boolean"/>
+<n1:ResultField MapperField="Z4" Name="Z4" Type="Boolean"/>
+<n1:ResultField MapperField="Z5" Name="Z5" Type="Boolean"/>
+<n1:ResultField MapperField="Z6" Name="Z6" Type="Boolean"/>
+<n1:ResultField MapperField="Z7" Name="Z7" Type="Boolean"/>
+<n1:ResultField MapperField="Z8" Name="Z8" Type="Boolean"/>
+<n1:ResultField MapperField="Computer" Name="Computer" Type="Integer"/>
+<n1:ResultField MapperField="English" Name="English" Type="Integer"/>
+<n1:ResultField MapperField="PartTime" Name="PartTime" Type="Boolean"/>
+<n1:ResultField MapperField="Disease" Name="Disease" Type="Boolean"/>
+<n1:ResultField MapperField="Crime" Name="Crime" Type="Boolean"/>
+<n1:ResultField MapperField="Appearance" Name="Appearance" Type="String"/>
+<n1:ResultField MapperField="Communication" Name="Communication" Type="String"/>
+<n1:ResultField MapperField="Source" Name="Source" Type="Integer"/>
+<n1:ResultField MapperField="InDate" Name="InDate" Type="DateTime"/>
+<n1:ResultField MapperField="HTBeginDate" Name="HTBeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="HTEndDate" Name="HTEndDate" Type="DateTime"/>
+<n1:ResultField MapperField="Photo" Name="Photo" Type="Boolean"/>
+<n1:ResultField MapperField="PhotoCount" Name="PhotoCount" Type="Integer"/>
+<n1:ResultField MapperField="F1" Name="F1" Type="Boolean"/>
+<n1:ResultField MapperField="F2" Name="F2" Type="Boolean"/>
+<n1:ResultField MapperField="F3" Name="F3" Type="Boolean"/>
+<n1:ResultField MapperField="F4" Name="F4" Type="Boolean"/>
+<n1:ResultField MapperField="F5" Name="F5" Type="Boolean"/>
+<n1:ResultField MapperField="F6" Name="F6" Type="Boolean"/>
+<n1:ResultField MapperField="F7" Name="F7" Type="Boolean"/>
+<n1:ResultField MapperField="F8" Name="F8" Type="Boolean"/>
+<n1:ResultField MapperField="F9" Name="F9" Type="Boolean"/>
+<n1:ResultField MapperField="F10" Name="F10" Type="Boolean"/>
+<n1:ResultField MapperField="GeneralComment" Name="GeneralComment" Type="String"/>
+<n1:ResultField MapperField="InterViewer" Name="InterViewer" Type="String"/>
+<n1:ResultField MapperField="GivePost" Name="GivePost" Type="Boolean"/>
+<n1:ResultField MapperField="PlanSite" Name="PlanSite" Type="String"/>
+<n1:ResultField MapperField="PlantJob" Name="PlantJob" Type="String"/>
+<n1:ResultField MapperField="PlanInDate" Name="PlanInDate" Type="DateTime"/>
+<n1:ResultField MapperField="CheckUser" Name="CheckUser" Type="String"/>
+<n1:ResultField MapperField="HRUser" Name="HRUser" Type="String"/>
+<n1:ResultField MapperField="JobUser" Name="JobUser" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="Phone" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="InsertPersonnel" SQL="INSERT INTO `personnel`( Code,`Name`, `CreateUser`, `CreateTime`) VALUES (#{p.Code},#{p.Name}, #{p.CreateUser},now());" Width="160" X="202" Y="181">
+<Parameters>
+<n2:Field Collections="false" Name="p" ObjectName="Import.personnelImport" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="InsertPersonnelmembers" SQL="INSERT INTO `personnelmembers`(`PersonnelID`, `Name`, `Phone`) VALUES (#{PersonnelID}, #{Name}, #{Phone});" Width="160" X="203" Y="208">
+<Parameters>
+<n2:Field Collections="false" Name="PersonnelID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="Phone" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Select Height="240" MapperEntity="Table" Name="getInsertPersonnelID" SQL="select  max(id) as id from personnel" SelectType="Singleton" Width="160" X="542" Y="56">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="id" Type="Integer"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getInsertCustomerID" SQL="select max(ID) id from Customer" SelectType="Singleton" Width="160" X="377" Y="360">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="id" Type="Integer"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Update Height="24" Name="UpdateCustomer" SQL="UPDATE `customer` SET `Name` = #{c.Name}, `OrgID` = #{c.OrgID}, &#10;`Manager` = #{c.Manager}, `Leader` = #{c.Leader}, `Address` = #{c.Address},&#10; `District` = #{c.District}, `Describes` = #{c.Describes}, `Type` = #{c.Type},&#10; `Status` = #{c.Status}, `ModifyUser` = #{c.CreateUser}, `ModifyTime` = now()&#10;WHERE `ID` = #{c.ID};" Width="160" X="203" Y="235">
+<Parameters>
+<n2:Field Collections="false" Name="c" ObjectName="Base.Customer" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Update Height="24" Name="UpdateSite" SQL="UPDATE `site` SET `Name` = #{s.Name}, `CustomerID` = #{s.CustomerID}, &#10;`Leader` = #{s.Leader}, Leadership=#{s.Leadership},`OrgID` = #{s.OrgID}, `Manager` = #{s.Manager},&#10; `Address` = #{s.Address}, `District` = #{s.District}, `Describes` = #{s.Describes}, &#10;`Type` = #{s.Type}, `Status` = #{s.Status}, `ModifyUser` = #{s.CreateUser}, &#10;`ModifyTime` = now() ,`LeaderName` = #{s.LeaderName}, `LeaderPhone` = #{s.LeaderPhone} &#10;WHERE `ID` = #{s.ID};" Width="160" X="203" Y="263">
+<Parameters>
+<n2:Field Collections="false" Name="s" ObjectName="Base.Site" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Description="根据城市名匹配城市信息" Height="241" MapperEntity="Config.District" Name="getDistrictByName" SQL="select * from district where name like'%${name}%'" SelectType="Collections" Width="160" X="708" Y="54">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="MergerName" Name="MergerName" Type="String"/>
+<n1:ResultField MapperField="ShortName" Name="ShortName" Type="String"/>
+<n1:ResultField MapperField="MergerShotName" Name="MergerShotName" Type="String"/>
+<n1:ResultField MapperField="Level" Name="Level" Type="Integer"/>
+<n1:ResultField MapperField="CityCode" Name="CityCode" Type="String"/>
+<n1:ResultField MapperField="ZipCode" Name="ZipCode" Type="String"/>
+<n1:ResultField MapperField="PinYin" Name="PinYin" Type="String"/>
+<n1:ResultField MapperField="JianPin" Name="JianPin" Type="String"/>
+<n1:ResultField MapperField="FirstChar" Name="FirstChar" Type="String"/>
+<n1:ResultField MapperField="Lng" Name="Lng" Type="Decimal"/>
+<n1:ResultField MapperField="Lat" Name="Lat" Type="Decimal"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Permission.Org" Name="getOrgByName" SQL="select * from org where name like '%${name}%'" SelectType="Collections" Width="160" X="547" Y="356">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="OrgType" Name="OrgType" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Permission.User" Name="getUserByname" SQL="select * from user  where name=#{name}" SelectType="Collections" Width="160" X="718" Y="354">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="LoginName" Name="LoginName" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Password" Name="Password" Type="String"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Boolean"/>
+<n1:ResultField MapperField="Email" Name="Email" Type="String"/>
+<n1:ResultField MapperField="QQ" Name="QQ" Type="String"/>
+<n1:ResultField MapperField="Wechat" Name="Wechat" Type="String"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="Birthday" Name="Birthday" Type="DateTime"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Boolean"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Import.SitelinkmanImport" Name="getSitelinkman" SQL="select * from sitelinkman" SelectType="Collections" Width="160" X="28" Y="608">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="SiteID" Name="SiteID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Integer"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+<n1:ResultField MapperField="Wchat" Name="Wchat" Type="String"/>
+<n1:ResultField MapperField="QQ" Name="QQ" Type="String"/>
+<n1:ResultField MapperField="Email" Name="Email" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getInsertSiteID" SQL="select  max(id) as id from Site" SelectType="Singleton" Width="160" X="198" Y="611">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="id" Type="Integer"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="InsertSitelinkman" SQL="INSERT INTO `sitelinkman`( `SiteID`, `Name`, `Gender`, `Phone`, `Wchat`, `QQ`, `Email`, `Type`) &#10;VALUES ( #{s.SiteID}, #{s.Name}, #{s.Gender}, #{s.Phone}, #{s.Wchat}, #{s.QQ}, #{s.Email}, #{s.Type});" Width="160" X="377" Y="614">
+<Parameters>
+<n2:Field Collections="false" Name="s" ObjectName="Import.SitelinkmanImport" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Select Height="240" MapperEntity="Table" Name="getSitelinkmanByName" SQL="select  COUNT(*) c  from sitelinkman where `name`=#{name} and  Phone=#{Phone}" SelectType="Singleton" Width="160" X="555" Y="616">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="c" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="Phone" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

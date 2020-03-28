@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Base.PersonnelContractView" Name="getAllPersonnelContract" SQL="select s.name Sname,p.name Pname,p.InDate,pc.* from personnel p&#10;LEFT join personnelcontract pc on p.id=pc.PersonnelID&#10;LEFT join sitepersonnel sp on p.id=sp.PID&#10;LEFT join site s on s.id =sp.SiteId&#10;where 1=1 and (pc.id&gt;0 or pc.EndDate&gt;now() ) &#10;and  pc.EndDate&lt;=date(date_add(now(), interval ${month} MONTH)) and pc.EndDate&gt;date(now())&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="23" Y="28">
+<ResultSet>
+<n1:ResultField MapperField="Sname" Name="Sname" Type="String"/>
+<n1:ResultField MapperField="Pname" Name="Pname" Type="String"/>
+<n1:ResultField MapperField="InDate" Name="InDate" Type="DateTime"/>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PersonnelID" Name="PersonnelID" Type="Integer"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="BeginDate" Name="BeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="DateTime"/>
+<n1:ResultField MapperField="CompanyId" Name="CompanyId" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="month" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="End" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and pc.id&gt;0 or p.HTEndDate&gt;now()">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="End" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="End" ReplaceString="and pc.id==null or p.HTEndDate&lt;=now()" Value="&quot;1&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and  pc.EndDate&lt;=date(date_add(now(), interval ${month} MONTH)) and pc.EndDate&gt;date(now())">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="month" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="month" ReplaceString="and  pc.EndDate&lt;=date(date_add(now(), interval ${month} MONTH)) and pc.EndDate&gt;date(date_add(now(), interval 1 MONTH))" Value="&quot;2&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getAllPersonnelContractCount" SQL="select count(*) Count from personnel p&#10;LEFT join personnelcontract pc on p.id=pc.PersonnelID&#10;LEFT join sitepersonnel sp on p.id=sp.PID&#10;LEFT join site s on s.id =sp.SiteId&#10;where 1=1 and (pc.id&gt;0 or pc.EndDate&gt;now() )&#10;and  pc.EndDate&lt;=date(date_add(now(), interval ${month} MONTH)) and pc.EndDate&gt;date(now())" SelectType="Singleton" Width="160" X="203" Y="25">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="month" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="End" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and pc.id&gt;0 or p.HTEndDate&gt;now()">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="End" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="End" ReplaceString="and pc.id==null or p.HTEndDate&lt;=now()" Value="&quot;1&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and  pc.EndDate&lt;=date(date_add(now(), interval ${month} MONTH)) and pc.EndDate&gt;date(now())">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="month" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="month" ReplaceString="and  pc.EndDate&lt;=date(date_add(now(), interval ${month} MONTH)) and pc.EndDate&gt;date(date_add(now(), interval 1 MONTH))" Value="&quot;2&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Insert Height="24" Name="InsertPersonnelContract" SQL="INSERT INTO `personnelcontract`( `PersonnelID`, `Type`, `BeginDate`, `EndDate`, `CompanyId`) &#10;VALUES (#{pc.PersonnelID}, #{pc.Type}, #{pc.BeginDate}, #{pc.EndDate}, #{pc.CompanyId});" Width="160" X="381" Y="29">
+<Parameters>
+<n2:Field Collections="false" Name="pc" ObjectName="Base.PersonnelContract" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="UpdatePersonnelContract" SQL="UPDATE `personnelcontract` SET &#10;`PersonnelID` = #{pc.PersonnelID},&#10; `Type` = #{pc.Type}, &#10;`BeginDate` = #{pc.BeginDate}, &#10;`EndDate` = #{pc.EndDate}, &#10;`CompanyId` = #{pc.CompanyId}&#10; WHERE `ID` = #{pc.ID};" Width="160" X="383" Y="65">
+<Parameters>
+<n2:Field Collections="false" Name="pc" ObjectName="Base.PersonnelContract" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Height="240" MapperEntity="Base.PersonnelContract" Name="getPersonnelContractById" SQL="select * from PersonnelContract where id=#{id}" SelectType="Singleton" Width="160" X="10" Y="280">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PersonnelID" Name="PersonnelID" Type="Integer"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="BeginDate" Name="BeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="DateTime"/>
+<n1:ResultField MapperField="CompanyId" Name="CompanyId" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

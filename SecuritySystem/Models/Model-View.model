@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?><Model xmlns:n1="org.polariscode.plugin.web.springboot.model" Description="">
+<View>
+<Controls>
+<n1:Entity Height="240" Name="Result" Width="160" X="61" Y="68">
+<Fields>
+<n1:Field Collections="false" Description="返回编号" Name="Code" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="错误消息" Name="Msg" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="Token" Name="Token" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="返回内容" Name="Data" ObjectName="Object" Required="false" Show="false" Type="Object"/>
+<n1:Field Collections="false" Description="页码" Name="PageNumber" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="每页大小" Name="PageSize" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="总记录数" Name="RecordCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Einzelband" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Characters" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="Table" Width="160" X="260" Y="68">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Count" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="Excel" Width="160" X="468" Y="73">
+<Fields>
+<n1:Field Collections="false" Name="A" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="B" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="C" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="D" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="E" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="F" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="G" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="H" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="I" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="J" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="K" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="L" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="M" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="N" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="O" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="P" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Q" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="R" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="S" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="T" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="U" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="V" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="W" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="X" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Y" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Z" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AA" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AB" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AC" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AD" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AE" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AF" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AG" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AH" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AI" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AJ" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AK" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AL" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AM" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AN" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AO" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AP" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AQ" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AR" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AS" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AT" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AU" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AV" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AW" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AX" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AY" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AZ" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+</Controls>
+</View>
+</Model>

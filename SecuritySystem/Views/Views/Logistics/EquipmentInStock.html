@@ -1,0 +1,365 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-validator/css/bootstrap-validator.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-validator/js/bootstrap-validator.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+			font-size: small;
+		}
+		.input {
+			height: 28px;
+			padding: 6px 6px 6px 6px;
+		}
+	</style>
+</head>
+<body style="background-color: #F2F2F2;">
+	<div class="container" id="app"  style="width: 94%; margin-left: 3%; margin-top:20px;">
+		<form id="form1" rele="form" class="form-horizontal">
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="date">入库日期:</label>
+				</div>
+				<div class="col-xs-8 col-md-8">
+					<input type="text" class="layui-input form-control input" id="date" name="date">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="orgId">部门:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<select id="select_orgId" class="selectpicker form-control input" v-model="Data.orgId"  name="orgId">
+						<option v-for="item in dictionaryorgId" v-bind:value="item.code">{{item.name}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="siteId">驻点:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<select id="select_siteId" class="selectpicker form-control input" data-live-search="true" v-model="Data.siteId"  name="siteId">
+						<option value="">--请选择--</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="supplier">供应商:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.supplier" type="text" class="form-control input" id="supplier" name="supplier">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="bank">开户行名称:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.bank" type="text" class="form-control input" id="bank" name="bank">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="bankAccount">银行账号:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.bankAccount" type="text" class="form-control input" id="bankAccount" name="bankAccount">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="describes">备注:</label>
+				</div>
+				<div class="col-xs-8 col-md-8">
+					<textarea v-model="Data.describes" class="form-control input" rows="5" id="content" name="describes"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="file1">附件一:</label>
+				</div>
+				<div class="col-xs-8 col-md-8">
+					<a id="downloadfile1" ></a>
+					<label id="file1text"></label>
+					<button type="button" class="layui-btn layui-btn-sm layui-btn-primary" id="uploadfile1">
+						<i class="layui-icon">&#xe67c;</i>上传附件
+					</button>
+				</div>
+			</div>
+			<div class="form-group">
+
+				<div class="col-xs-2 col-md-2" style="text-align: right;">
+				</div>
+				<div class="col-xs-10 col-md-10" style="text-align: right;">
+					<button type="button" class="layui-btn layui-btn-sm" onClick="Accept()">
+						<i class="layui-icon layui-icon-ok"></i><span class="fontsm">&emsp;提交&emsp;</span>
+					</button>
+					<button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onClick="iframecloses()">
+						<i class="layui-icon layui-icon-close"></i><span class="fontsm">&emsp;取消&emsp;</span>
+					</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+</body>
+</html>
+<script src="../../wwwroot/js/App.js"></script>
+<script>
+	$(document).ready(function () {
+		$('#form1').bootstrapValidator({
+			message: 'This value is not valid',
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+
+			}
+		});
+	});
+	
+	var loadIndex = 0;
+	var layer;
+	layui.use('layer', function () {
+		layer = layui.layer;
+	});
+	var dictionaryItems = [{code:"", name:""}];	
+
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			Data:{
+				id: 0,
+				date: null,
+				orgId: 0,
+				siteId: 0,
+				supplier: "",
+				bank: "",
+				bankAccount: "",
+				describes: "",
+				isdelete: false,
+				createUser: "",
+				createTime: "",
+				modifyUser: "",
+				modifyTime: "",
+				deleteUser: "",
+				deleteTime: "",
+				workflowID: 0,
+				file1: ""
+			}
+			,dictionaryorgId: dictionaryItems
+
+		},
+		methods: {
+
+		},
+		watch: {
+			dictionaryorgId: function() {
+				this.$nextTick(function () {
+					$('#select_orgId').selectpicker('refresh');
+				})
+			},
+			Data: function() {
+				this.$nextTick(function () {
+					$('#select_orgId').selectpicker('refresh');
+					$('#select_siteId').empty()
+					$('#select_siteId').append("<option value=''>--请选择--</option>");
+					$('#select_siteId').append("<option selected='selected' value='"+vm.Data.siteId+"'>"+vm.Data.siteId_Convert+"</option>");
+					$('#select_siteId').selectpicker('refresh');
+                    if (vm.Data.file1 != "") {
+                        $('#downloadfile1').attr('href', "/downloadFile?type=application/octet-stream&filename=" + vm.Data.file1);
+						$('#downloadfile1').text('下载附件');
+					}
+				});
+				//渲染所有日期组件
+				layui.use('laydate', function () {
+					var laydate = layui.laydate;
+					laydate.render({
+						elem: '#date',
+						value: vm.Data.date==null?null:(new Date(vm.Data.date)).getFullYear()+'-'+((new Date(vm.Data.date)).getMonth()+1)+'-'+(new Date(vm.Data.date)).getDate()
+					});
+				});
+			}
+		}
+	});
+
+	layui.use('laydate', function () {
+		var laydate = layui.laydate;
+		laydate.render({
+			elem: '#date',
+			type: 'date',
+			format: 'yyyy-MM-dd',
+			done: function (value) {
+				var d = new Date(value);
+				vm.Data.date = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' 00:00:00';
+			}
+		});
+	});
+	setTimeout(function() {
+		SelectFrom("#select_siteId", function(filter) {
+			getDictionarysiteId(filter);
+		})
+	}, 1000);
+	layui.use('upload', function(){
+		var upload = layui.upload;
+		upload.render({
+			elem: '#uploadfile1'
+			,accept: 'file'
+			,size: 2000
+			,url: '/uploadFile'
+			,data:{
+				type: 'Type',
+				token: window.sessionStorage.getItem("token")
+			}
+			,before: function(obj){
+			}
+			,done: function(result){
+				if(result.code==0){
+					vm.Data.file1 = result.data;
+					$('#downloadfile1').attr('href', '/downloadFile?type=application/octet-stream&filename='+result.data);
+					$('#downloadfile1').text('下载附件');
+					alert("上传成功!");
+				}else{
+					alert("上传失败! \n\n原因："+result.msg);
+				}
+			}
+			,error: function(){
+				var text = $('#file1text');
+				text.html('<span style="color: #FF5722;">上传失败</span>');
+			}
+		});
+	});
+
+	
+	$(function(){
+		getDictionaryorgId();
+	});
+
+	function getDictionaryorgId(){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "Org"
+			},
+			success: function(result) {
+				vm.dictionaryorgId = result;
+			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	function getDictionarysiteId(filter){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "Site",
+				filter: filter			},
+			success: function(result) {
+				vm.dictionarysiteId = result;
+				var parent = $("#select_siteId");
+				parent.empty();
+				parent.append("<option value=''>--请选择--</option>");
+				for(var i=0; i<result.length;i++){
+					parent.append("<option value='"+result[i].code+"'>"+result[i].name+"</option>");
+				}
+				parent.selectpicker('refresh');			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+
+	
+	function getData(id){
+		
+		if(id>0){
+			layui.use('layer', function () {
+				layer = layui.layer;
+				loadIndex = layer.load(0, {shade: false});
+			});
+			PostAppAjax({
+                url: '/Logistics/EquipmentInStock/getEquipmentInStockOne',
+				data: {
+					id: id
+				},
+				success: function(result) {
+					layui.use('layer', function () {
+						layer = layui.layer;
+						layer.close(loadIndex);
+					});
+					if(result.code==0){
+						vm.Data = result.data;
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function(err) {
+					layui.use('layer', function () {
+						layer = layui.layer;
+						layer.close(loadIndex);
+					});
+					alert("服务器忙，请重试!\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+	function Accept(){
+		$('#form1').data("bootstrapValidator").validate();
+ 		var isValid = $('#form1').data("bootstrapValidator").isValid();
+		if(isValid){
+			layui.use('layer', function () {
+				layer = layui.layer;
+				loadIndex = layer.load(0, {shade: false});
+			});
+			PostAppAjax({
+				url: '/Logistics/EquipmentInStock/updateEquipmentInStock',
+				contentType: 'application/json;charset=utf-8',
+				data: JSON.stringify(vm.Data).replace(new RegExp('\"NaN/NaN/NaN 00:00:00\"',"g"),"null"),
+				success: function(result) {
+					layui.use('layer', function () {
+						layer = layui.layer;
+						layer.close(loadIndex);
+					});
+					if(result.code==0){
+						doTrigger("EquipmentInStock"); //调用触发器，刷新查询
+						iframecloses();
+					}else{
+						alert("数据提交不成功！\n\n错误信息：\n"+result.msg);
+					}
+				},
+				error: function(err) {
+					layui.use('layer', function () {
+						layer = layui.layer;
+						layer.close(loadIndex);
+					});
+					alert("错误信息：\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+</script>

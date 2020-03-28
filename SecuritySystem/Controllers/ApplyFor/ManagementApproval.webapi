@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" xmlns:n3="org.polariscode.plugin.web.springboot.action.jwt" Description="审核" Transactional="true" Type="Post" VerifyToken="true">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable2">
+<n2:Field Collections="false" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBEmployeeApplication.getEmployeeApplicationById" Description="根据Id获取申请信息" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1" Variable="emp">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="id" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Variable Name="Variable6">
+<n2:Field Collections="false" Name="Process" ObjectName="ApplyFor.ProcessNode" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable4">
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+</n1:Variable>
+<n3:GetJWTID Name="GetJWTID1" Variable="user"/>
+<n1:Variable Name="Variable5">
+<n2:Field Collections="false" Name="ProcessNo" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</n1:Variable>
+<n1:Assign Name="Assign1" Value="2" Variable="ProcessNo"/>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBProcessNode.getUserProcessNode" Description="查询当前用户所对角色" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess3" Variable="Process">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="user" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" DefaultValue="emp.getStatus()" Name="processno" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Variable Name="Variable3">
+<n2:Field Collections="false" Name="Table" ObjectName="Table" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBProcessNode.getMax" Description="获取最大待办" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2" Variable="Table">
+<Parameters/>
+</n1:DataAccess>
+<n1:Variable Name="Variable7">
+<n2:Field Collections="false" Name="toList" ObjectName="ApplyFor.ToDoList" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Decide Description="判断是否为最后一步审批" Expression="Table.getID()==emp.getStatus()" Name="Decide1">
+<if>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBToDoList.UpdateToDoListStatus" Description="修改上一个待办" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess4">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="Process.getProcessNode()" Name="activity" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" DefaultValue="id" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Assign Name="Assign2" Value="ProcessNo" Variable="emp.Status"/>
+<n1:Assign Name="Assign3" Value="user" Variable="emp.Peoples"/>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBEmployeeApplication.UpdateStatus" Description="修改申请流程流程状态" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess6">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="emp" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Assign Name="Assign6" Value="Process.getProcessRole()" Variable="toList.OwnerID"/>
+<n1:Assign Name="Assign7" Value="emp.getName()" Variable="toList.CreatorCn"/>
+<n1:Assign Name="Assign8" Value="user" Variable="toList.ApplicantCn"/>
+<n1:Assign Name="Assign9" Value="id" Variable="toList.ApplicationNo"/>
+<n1:Assign Name="Assign10" Value="Process.getProcessName()" Variable="toList.ProcName"/>
+<n1:Assign Name="Assign11" Value="0" Variable="toList.Status"/>
+<n1:Assign Name="Assign12" Value="Process.getProcessNode()" Variable="toList.ActivityName"/>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBToDoList.InsertToDoList" Description="添加此条待办" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess8">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="toList" Name="toList" ObjectName="ApplyFor.ToDoList" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Variable Name="Variable8">
+<n2:Field Collections="false" Name="DBUser" ObjectName="Permission.User" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Assign Name="Assign20" Value="emp.getAccount()" Variable="DBUser.LoginName"/>
+<n1:Assign Name="Assign21" Value="emp.getName()" Variable="DBUser.Name"/>
+<n1:Assign Name="Assign22" Value="emp.getPassword()" Variable="DBUser.Password"/>
+<n1:Assign Name="Assign23" Value="emp.getMobile()" Variable="DBUser.Phone"/>
+<n1:Assign Name="Assign24" Value="emp.getGender()" Variable="DBUser.Gender"/>
+<n1:Assign Name="Assign25" Value="emp.getEMail()" Variable="DBUser.Email"/>
+<n1:Assign Name="Assign27" Value="emp.getAddress()" Variable="DBUser.Address"/>
+<n1:Assign Name="Assign28" Value="emp.getBirthday()" Variable="DBUser.Birthday"/>
+<n1:Assign Name="Assign29" Value="0" Variable="DBUser.Status"/>
+<n1:DataAccess ContinueOnError="false" Dao="Permission.UserMapper.InsertUser" Description="添加到用户表" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess10">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="DBUser" Name="user" ObjectName="Permission.User" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Variable Name="Variable9">
+<n2:Field Collections="false" Name="tabe" ObjectName="Table" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="Permission.UserMapper.getUserId" Description="根据账号查询用户ID" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess11" Variable="tabe">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="emp.getAccount()" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Assign Name="Assign26" Value="tabe.getID()" Variable="emp.Use_id"/>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBEmployeeApplication.UpdateStatus" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess12">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="emp" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBUserImg.UpdateUserId" Description="在图像表里面插入用户ID" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess14">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="id" Name="eid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="tabe.getID()" Name="userid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+</if>
+<else>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBToDoList.UpdateToDoListStatus" Description="修改上一个待办" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess5">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="Process.getProcessNode()" Name="activity" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" DefaultValue="id" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Assign Name="Assign4" Value="ProcessNo" Variable="emp.Status"/>
+<n1:Assign Name="Assign5" Value="user" Variable="emp.Peoples"/>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBEmployeeApplication.UpdateStatus" Description="修改申请流程表里面的待办状态" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess7">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="emp" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Variable Name="Variable10">
+<n2:Field Collections="false" Name="proc" ObjectName="ApplyFor.ProcessNode" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBProcessNode.getProcessNode" Description="获取待办" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess13" Variable="proc">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="ProcessNo" Name="processno" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Assign Name="Assign15" Value="proc.getProcessNode()" Variable="toList.ActivityName"/>
+<n1:Assign Name="Assign13" Value="Process.getProcessRole()" Variable="toList.OwnerID"/>
+<n1:Assign Name="Assign19" Value="emp.getName()" Variable="toList.CreatorCn"/>
+<n1:Assign Name="Assign18" Value="user" Variable="toList.ApplicantCn"/>
+<n1:Assign Name="Assign17" Value="id" Variable="toList.ApplicationNo"/>
+<n1:Assign Name="Assign16" Value="Process.getProcessName()" Variable="toList.ProcName"/>
+<n1:Assign Name="Assign14" Value="0" Variable="toList.Status"/>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBToDoList.InsertToDoList" Description="添加此条待办" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess9">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="toList" Name="toList" ObjectName="ApplyFor.ToDoList" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+</else>
+</n1:Decide>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

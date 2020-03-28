@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>上海福络特</title>
+
+    <!--通用css-->
+    <link href="wwwroot/css/site.min.css" rel="stylesheet" />
+    <link href="wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+    <!--通用js-->
+    <script src="wwwroot/lib/vue/vue.js"></script>
+    <script src="wwwroot/lib/layui/layui.js"></script>
+    <script src="wwwroot/lib/jquery/dist/jquery.js"></script>
+    <script src="wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="wwwroot/js/site.js"></script>
+
+    <link href="https://cdn.bootcss.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcss.com/jquery.scrollbar/0.2.11/jquery.scrollbar.min.css" rel="stylesheet">
+    <link href="wwwroot/lib/nav/css/nav.css" rel="stylesheet" />
+    <link href="wwwroot/lib/nav/font/iconfont.css" rel="stylesheet" />
+    <link href="wwwroot/lib/nth-tabs/css/nth-icons.min.css" rel="stylesheet" />
+    <link href="wwwroot/lib/nth-tabs/css/nth-tabs.min.css" rel="stylesheet" />
+
+    <style type="text/css">
+        html,
+        body {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            font-size: small;
+            background-color: white;
+        }
+
+        .wrapper {
+            padding-top: 10px;
+            height: calc(100% - 220px);
+        }
+
+        .page-wrapper {
+            overflow: hidden;
+            height: 50%;
+        }
+
+        .rightbox {
+            width: 100%;
+        }
+
+        .layui-layer-tab > .layui-layer-content {
+            width: 100%;
+            height: 100% !important;
+        }
+
+        .layui-layer-tabmain {
+            width: 100%;
+            height: 100%;
+        }
+
+        .layui-layer-tabli {
+            width: 100%;
+            height: 100%;
+        }
+
+        .layui-layer-page .layui-layer-content {
+            overflow: hidden !important;
+        }
+
+        #table {
+            margin: 0px auto;
+            text-align-last: center;
+        }
+
+        #btn {
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+        /*待办头部*/
+        #toolr {
+            width: 100%;
+            height: 50px;
+            /*margin-top: 30px;*/
+            background-color: #2F4056 !important;
+        }
+
+            #toolr h3 {
+            }
+
+        /*imgs样式*/
+        #imgs {
+            height: 100%;
+            width: 97%;
+            float: right;
+            margin-right: 3%;
+            background-color: #e6e6e6;
+        }
+
+            #imgs img {
+                margin: 12px 0px 0px 35px;
+            }
+    </style>
+</head>
+<body>
+    <div id="filter1">
+    </div>
+    <div id="app" style="width: 94%; margin-left: 3%;margin-top: 10px;">
+        <div id="toolr">
+            <div style="float:left;margin-top:10px;color: beige;margin-left: 10px;">
+                <h3>待办任务</h3>
+            </div>
+            <div style="float:right;margin-top:15px;margin-right:3%;height:15px;">
+                <a href="/Views/ApplyFor/EmpLoyee/TolistDetailsView.html" class="layui-icon layui-icon-link" style="color:aqua;">更多待办</a>
+            </div>
+        </div>
+        <table id="table1" lay-filter="table1filter"></table>
+    </div>
+    <div id="img" style="width:94%;margin-left:3%;height:50%;position:absolute;bottom:25px;">
+        <div id="imgs">
+            <img src="../../wwwroot/images/合同信息.png" />
+            <img src="../../wwwroot/images/撒点信息.png" />
+        </div>
+    </div>
+</body>
+</html>
+
+<script type="text/html" id="table1action">
+    <div class="layui-btn-group">
+        <button lay-event="edit" type="button" class="layui-btn layui-btn-xs">
+            <i class="layui-icon layui-icon-edit"></i><span class="fontxs">详情</span>
+        </button>
+    </div>
+</script>
+<script src="../../wwwroot/js/App.js"></script>
+
+<script>
+    var layer;
+    layui.use('layer', function () {
+        layer = layui.layer;
+    });
+    var dictionaryItems = [{ code: "", name: "" }];
+
+    var vm = new Vue({
+        el: "#filter1",
+        data: {
+            Data: {
+            }
+
+        },
+        methods: {}
+    })
+    var pageNumber = 1;
+    var pageSize = 5;
+    var recordCount = 0;
+    var list = [];
+
+    bindData();
+
+    $(function () {
+        getData();
+        onTrigger(function (key) { if (key == "ToDoList") { getData(); } });
+    });
+
+    function getData() {
+        PostAppAjax({
+            url: '/ApplyFor/EmpLoyee/getTolistByAccount',
+            data: {
+                pageNumber: pageNumber,
+                pageSize: pageSize
+            },
+            success: function (result) {
+                if (result.code == 0) {
+                    list = result.data;
+                    recordCount = result.recordCount;
+                    bindData();
+                } else {
+                    alert("无法获取数据!\n" + result.msg);
+                }
+            },
+            error: function (err) {
+                alert("服务器忙，请重试!\n" + err.responseJSON.message);
+            }
+        });
+    }
+    function bindData() {
+        layui.use(['table', 'laypage'], function () {
+            var table = layui.table;
+            table.render({
+                elem: '#table1',
+                data: list, //数据接口
+                limit: 99999, //显示行数
+                even: true, //隔行显示
+                cols: [[ //表头
+                    { field: 'applicationNo', title: '序号', align: 'left', width: '100' },
+                    { field: 'procName', title: '流程名', align: 'left', width: '200' },
+                    { field: 'activityName', title: '流程节点名', align: 'left', width: '220' },
+                    { field: 'creatorCn', title: '创建人', align: 'left', width: '120' },
+                    { field: 'createdDate', title: '提交时间', align: 'left', width: '190' },
+                    { field: 'applicantCn', title: '提交人', align: 'left', width: '184' },
+                    { title: '操作', toolbar: '#table1action', align: 'left', fixed: 'right', width: '200' }
+                ]]
+            });
+        });
+    }
+    layui.use('table', function () {
+        var table = layui.table;
+        //监听工具条
+        table.on('tool(table1filter)',
+            function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var id = data['applicationNo'];  //获取属性id的值
+                if (obj.event == "edit") {
+                    openAppWindow({
+                        url: "/Views/ApplyFor/EmpLoyee/ApplicationDetails.html",
+                        title: "申请流程详情页",
+                        area: ['1100px', '560px'],
+                        maxmin: true,
+                        success: function (layero, index) {
+                            var body = parent.layer.getChildFrame('body', index);
+                            var iframe = parent.window[layero.find('iframe')[0]['name']];
+                            iframe.getData(id);
+                        }
+                    });
+                }
+            }
+        );
+    });
+</script>

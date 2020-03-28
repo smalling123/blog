@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="未婚"/>
+<Item Code="1" Name="已婚未育"/>
+<Item Code="2" Name="已婚已育"/>
+<Item Code="3" Name="离异"/>
+</Items>
+</Dictionary>

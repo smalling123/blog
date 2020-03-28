@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-validator/css/bootstrap-validator.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-validator/js/bootstrap-validator.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+			font-size: small;
+		}
+		.input {
+			height: 28px;
+			padding: 6px 6px 6px 6px;
+		}
+	</style>
+</head>
+<body style="background-color: #F2F2F2;">
+    <h2 style="text-align:center;margin:30px;">点击生成账单将生成到当前时间所有未出帐账单</h2>
+	<div class="container" id="app"  style="width: 94%; margin-left: 3%; margin-top:20px;">
+        <form id="form1" rele="form" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="customerId">客户:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <select id="select_customerId" class="selectpicker form-control input" data-live-search="true" v-model="Data.id" name="customerId">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="describes">备注:</label>
+                </div>
+                <div class="col-xs-8 col-md-8">
+                    <textarea v-model="Data.describes" class="form-control input" rows="5" id="content" name="describes"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2" style="text-align: right;">
+                </div>
+                <div class="col-xs-10 col-md-10" style="text-align: right;">
+                    <button type="button" class="layui-btn layui-btn-sm" onClick="Accept()">
+                        <i class="layui-icon layui-icon-ok"></i><span class="fontsm">&emsp;生成账单&emsp;</span>
+                    </button>
+                    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onClick="iframecloses()">
+                        <i class="layui-icon layui-icon-close"></i><span class="fontsm">&emsp;取消&emsp;</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+	</div>
+</body>
+</html>
+<script src="../../wwwroot/js/App.js"></script>
+<script>
+	$(document).ready(function () {
+		$('#form1').bootstrapValidator({
+			message: 'This value is not valid',
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+
+			}
+		});
+	});
+	
+	var loadIndex = 0;
+	var layer;
+	layui.use('layer', function () {
+		layer = layui.layer;
+	});
+	var dictionaryItems = [{code:"", name:""}];	
+
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			Data:{
+				id: 0,
+				describes: ""
+			}
+
+		},
+		methods: {
+
+		},
+		watch: {
+			Data: function() {
+				this.$nextTick(function () {
+					$('#select_customerId').empty()
+					$('#select_customerId').append("<option value=''>--请选择--</option>");
+					$('#select_customerId').append("<option selected='selected' value='"+vm.Data.customerId+"'>"+vm.Data.customerId_Convert+"</option>");
+					$('#select_customerId').selectpicker('refresh');
+				});
+			}
+		}
+	});
+
+	setTimeout(function() {
+		SelectFrom("#select_customerId", function(filter) {
+			getDictionarycustomerId(filter);
+		})
+	}, 1000);
+
+	
+	$(function(){
+	});
+
+	function getDictionarycustomerId(filter){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "Customer",
+				filter: filter			},
+			success: function(result) {
+				vm.dictionarycustomerId = result;
+				var parent = $("#select_customerId");
+				parent.empty();
+				parent.append("<option value=''>--请选择--</option>");
+				for(var i=0; i<result.length;i++){
+					parent.append("<option value='"+result[i].code+"'>"+result[i].name+"</option>");
+				}
+				parent.selectpicker('refresh');			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+
+	
+	
+	function Accept(){
+		$('#form1').data("bootstrapValidator").validate();
+ 		var isValid = $('#form1').data("bootstrapValidator").isValid();
+		if(isValid){
+			layui.use('layer', function () {
+				layer = layui.layer;
+				loadIndex = layer.load(0, {shade: false});
+            });
+            PostAppAjax({
+                url: '/Finance/insertsBill',
+                data: {
+                    id: vm.Data.id,
+                    describes: vm.Data.describes
+                },
+                success: function (result) {
+                    layui.use('layer', function () {
+                        layer = layui.layer;
+                        layer.close(loadIndex);
+                    });
+                    if (result.code == 0) {
+                        doTrigger("Bill"); //调用触发器，刷新查询
+                        iframecloses();
+                    } else {
+                        alert("数据提交不成功！\n\n错误信息：\n" + result.msg);
+                    }
+                },
+                error: function (err) {
+                    layui.use('layer', function () {
+                        layer = layui.layer;
+                        layer.close(loadIndex);
+                    });
+                    alert("错误信息：\n" + err.responseJSON.message);
+                }
+            });
+		}
+	}
+</script>

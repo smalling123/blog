@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0000" Name="00:00"/>
+<Item Code="0030" Name="00:30"/>
+<Item Code="0100" Name="01:00"/>
+<Item Code="0130" Name="01:30"/>
+<Item Code="0200" Name="02:00"/>
+<Item Code="0230" Name="02:30"/>
+<Item Code="0300" Name="03:00"/>
+<Item Code="0330" Name="03:30"/>
+<Item Code="0400" Name="04:00"/>
+<Item Code="0430" Name="04:30"/>
+<Item Code="0500" Name="05:00"/>
+<Item Code="0530" Name="05:30"/>
+<Item Code="0600" Name="06:00"/>
+<Item Code="0630" Name="06:30"/>
+<Item Code="0700" Name="07:00"/>
+<Item Code="0730" Name="07:30"/>
+<Item Code="0800" Name="08:00"/>
+<Item Code="0830" Name="08:30"/>
+<Item Code="0900" Name="09:00"/>
+<Item Code="0930" Name="09:30"/>
+<Item Code="1000" Name="10:00"/>
+<Item Code="1030" Name="10:30"/>
+<Item Code="1100" Name="11:00"/>
+<Item Code="1130" Name="11:30"/>
+<Item Code="1200" Name="12:00"/>
+<Item Code="1230" Name="12:30"/>
+<Item Code="1300" Name="13:00"/>
+<Item Code="1330" Name="13:30"/>
+<Item Code="1400" Name="14:00"/>
+<Item Code="1430" Name="14:30"/>
+<Item Code="1500" Name="15:00"/>
+<Item Code="1530" Name="15:30"/>
+<Item Code="1600" Name="16:00"/>
+<Item Code="1630" Name="16:30"/>
+<Item Code="1700" Name="17:00"/>
+<Item Code="1730" Name="17:30"/>
+<Item Code="1800" Name="18:00"/>
+<Item Code="1830" Name="18:30"/>
+<Item Code="1900" Name="19:00"/>
+<Item Code="1930" Name="19:30"/>
+<Item Code="2000" Name="20:00"/>
+<Item Code="2030" Name="20:30"/>
+<Item Code="2100" Name="21:00"/>
+<Item Code="2130" Name="21:30"/>
+<Item Code="2200" Name="22:00"/>
+<Item Code="2230" Name="22:30"/>
+<Item Code="2300" Name="23:00"/>
+<Item Code="2330" Name="23:30"/>
+</Items>
+</Dictionary>

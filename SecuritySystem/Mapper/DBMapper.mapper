@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Table" Name="getTableID" SQL="Select LAST_INSERT_ID() As ID" SelectType="Singleton" Width="160" X="55" Y="45">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

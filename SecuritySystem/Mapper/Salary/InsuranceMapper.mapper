@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Salary.Insurance" Name="getAllInsurance" SQL="Select * &#10;From Insurance" SelectType="Collections" Width="160" X="100" Y="102">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="City" Name="City" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+</ResultSet>
+<Parameters/>
+<Rules>
+<n1:Rule Keyword="City = #{city}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="city" ReplaceString="1=1" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Insert Height="24" Name="insertInsurance" SQL="Insert Into Insurance(City, Name)&#10; Values(#{insurance.City}, #{insurance.Name})" Width="160" X="500" Y="103">
+<Parameters>
+<n2:Field Collections="false" Name="insurance" ObjectName="Salary.Insurance" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateInsurance" SQL="Update Insurance Set&#10;&#9;City = #{insurance.City},&#10;&#9;Name = #{insurance.Name}&#10; Where ID = #{insurance.ID}" Width="160" X="502" Y="143">
+<Parameters>
+<n2:Field Collections="false" Name="insurance" ObjectName="Salary.Insurance" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Height="240" MapperEntity="Salary.Insurance" Name="getInsuranceOne" SQL="Select * From Insurance Where ID = #{id}" SelectType="Singleton" Width="160" X="296" Y="103">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="City" Name="City" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Salary.InsuranceItem" Name="getInsuraceItems" SQL="Select * From InsuranceItem Where InsuranceId = #{id}&#10;Order By Year, Month" SelectType="Collections" Width="160" X="101" Y="355">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="InsuranceId" Name="InsuranceId" Type="Integer"/>
+<n1:ResultField MapperField="Year" Name="Year" Type="Integer"/>
+<n1:ResultField MapperField="Month" Name="Month" Type="Integer"/>
+<n1:ResultField MapperField="BaseMin" Name="BaseMin" Type="Decimal"/>
+<n1:ResultField MapperField="BaseMax" Name="BaseMax" Type="Decimal"/>
+<n1:ResultField MapperField="CTotalRate" Name="CTotalRate" Type="Decimal"/>
+<n1:ResultField MapperField="CTotalValue" Name="CTotalValue" Type="Decimal"/>
+<n1:ResultField MapperField="C1Rate" Name="C1Rate" Type="Decimal"/>
+<n1:ResultField MapperField="C1Value" Name="C1Value" Type="Decimal"/>
+<n1:ResultField MapperField="P3Rate" Name="P3Rate" Type="Decimal"/>
+<n1:ResultField MapperField="P3Value" Name="P3Value" Type="Decimal"/>
+<n1:ResultField MapperField="P2Rate" Name="P2Rate" Type="Decimal"/>
+<n1:ResultField MapperField="P2Value" Name="P2Value" Type="Decimal"/>
+<n1:ResultField MapperField="P1Rate" Name="P1Rate" Type="Decimal"/>
+<n1:ResultField MapperField="P1Value" Name="P1Value" Type="Decimal"/>
+<n1:ResultField MapperField="C6Rate" Name="C6Rate" Type="Decimal"/>
+<n1:ResultField MapperField="C6Value" Name="C6Value" Type="Decimal"/>
+<n1:ResultField MapperField="C5Rate" Name="C5Rate" Type="Decimal"/>
+<n1:ResultField MapperField="C5Value" Name="C5Value" Type="Decimal"/>
+<n1:ResultField MapperField="C4Rate" Name="C4Rate" Type="Decimal"/>
+<n1:ResultField MapperField="C4Value" Name="C4Value" Type="Decimal"/>
+<n1:ResultField MapperField="C3Rate" Name="C3Rate" Type="Decimal"/>
+<n1:ResultField MapperField="C3Value" Name="C3Value" Type="Decimal"/>
+<n1:ResultField MapperField="C2Rate" Name="C2Rate" Type="Decimal"/>
+<n1:ResultField MapperField="C2Value" Name="C2Value" Type="Decimal"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertInsuranceItem" SQL="&lt;script&gt;Insert Into InsuranceItem(InsuranceId, Year, Month, BaseMin, BaseMax, CTotalRate, CTotalValue, C1Rate, C1Value, C2Rate, C2Value, C3Rate, C3Value, C4Rate, C4Value, C5Rate, C5Value, C6Rate, C6Value, P1Rate, P1Value, P2Rate, P3Rate, P2Value, P3Value) Values&#10;&lt;foreach collection='insuranceitem' item='c' index='index' separator=','&gt;&#10;(#{insuranceId}, #{c.Year}, #{c.Month}, #{c.BaseMin}, #{c.BaseMax}, #{c.CTotalRate}, #{c.CTotalValue}, #{c.C1Rate}, #{c.C1Value}, #{c.C2Rate}, #{c.C2Value}, #{c.C3Rate}, #{c.C3Value}, #{c.C4Rate}, #{c.C4Value}, #{c.C5Rate}, #{c.C5Value}, #{c.C6Rate}, #{c.C6Value}, #{c.P1Rate}, #{c.P1Value}, #{c.P2Rate}, #{c.P3Rate}, #{c.P2Value}, #{c.P3Value})&#10;&lt;/foreach&gt;&#10;&lt;/script&gt;" Width="160" X="294" Y="439">
+<Parameters>
+<n2:Field Collections="true" Name="insuranceitem" ObjectName="Salary.InsuranceItem" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" Name="insuranceId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Delete Height="24" Name="deleteInsuranceItem" SQL="Delete From InsuranceItem Where InsuranceId = #{id}" Width="160" X="295" Y="402">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+</Controls>
+</View>
+</Mapper>

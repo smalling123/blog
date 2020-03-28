@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Description="获取驻点执勤配置表" Height="291" MapperEntity="Base.SitePost" Name="getSitePost" SQL="Select *&#10;From SitePost&#10;Where SiteID = #{siteid} And Status = 1&#10;Order By ID Desc" SelectType="Collections" Width="160" X="54" Y="49">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="SiteId" Name="SiteId" Type="Integer"/>
+<n1:ResultField MapperField="BeginDate" Name="BeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="DateTime"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Boolean"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ApplyUser" Name="ApplyUser" Type="String"/>
+<n1:ResultField MapperField="ApplyTime" Name="ApplyTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="siteid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获取执勤配置表明细" Height="290" MapperEntity="Base.SitePostItem" Name="getSitePostItem" SQL="Select *&#10;From SitePostItem&#10;Where SitePostID = #{id}" SelectType="Collections" Width="160" X="264" Y="50">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="SitePostId" Name="SitePostId" Type="Integer"/>
+<n1:ResultField MapperField="Post" Name="Post" Type="String"/>
+<n1:ResultField MapperField="Schedule" Name="Schedule" Type="Integer"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="BeginTime" Name="BeginTime" Type="String"/>
+<n1:ResultField MapperField="EndTime" Name="EndTime" Type="String"/>
+<n1:ResultField MapperField="PosNumber" Name="PosNumber" Type="Integer"/>
+<n1:ResultField MapperField="ContractNumber" Name="ContractNumber" Type="Integer"/>
+<n1:ResultField MapperField="WorkNumber" Name="WorkNumber" Type="Decimal"/>
+<n1:ResultField MapperField="BeginDate" Name="BeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="DateTime"/>
+<n1:ResultField MapperField="Day1" Name="Day1" Type="Boolean"/>
+<n1:ResultField MapperField="Day2" Name="Day2" Type="Boolean"/>
+<n1:ResultField MapperField="Day3" Name="Day3" Type="Boolean"/>
+<n1:ResultField MapperField="Day4" Name="Day4" Type="Boolean"/>
+<n1:ResultField MapperField="Day5" Name="Day5" Type="Boolean"/>
+<n1:ResultField MapperField="Day6" Name="Day6" Type="Boolean"/>
+<n1:ResultField MapperField="Day7" Name="Day7" Type="Boolean"/>
+<n1:ResultField MapperField="DayH" Name="DayH" Type="Boolean"/>
+<n1:ResultField MapperField="CalcTime" Name="CalcTime" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="OldId" Name="OldId" Type="Integer"/>
+<n1:ResultField MapperField="FullTime" Name="FullTime" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="290" MapperEntity="Base.SitePost" Name="getEditSitePostI" SQL="Select *&#10;From SitePost&#10;Where SiteID = #{siteid} And Status = 0" SelectType="Singleton" Width="160" X="472" Y="48">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="SiteId" Name="SiteId" Type="Integer"/>
+<n1:ResultField MapperField="BeginDate" Name="BeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="DateTime"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Boolean"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ApplyUser" Name="ApplyUser" Type="String"/>
+<n1:ResultField MapperField="ApplyTime" Name="ApplyTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="siteid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获取指定ID的执勤表" Height="288" MapperEntity="Base.SitePost" Name="getSitePostOne" SQL="Select * From SitePost Where ID = #{id}" SelectType="Singleton" Width="160" X="666" Y="45">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="SiteId" Name="SiteId" Type="Integer"/>
+<n1:ResultField MapperField="BeginDate" Name="BeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="DateTime"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Boolean"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ApplyUser" Name="ApplyUser" Type="String"/>
+<n1:ResultField MapperField="ApplyTime" Name="ApplyTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Description="创建新的执勤配置表" Height="24" Name="createEditSitePost" SQL="Insert Into SitePost(siteid, begindate, enddate, createUser, createTime)&#10;values(#{siteid}, now(), '2100-1-1', #{user}, now());&#10;Insert Into SitePostItem(SitePostID, Post, Schedule, Type, BeginTime, EndTime, PosNumber, ContractNumber, WorkNumber, BeginDate, EndDate, Day1, Day2, Day3, Day4, Day5, Day6, Day7, DayH, CalcTime, FullTime, Describes, OldId)&#10;Select LAST_INSERT_ID() ,Post, Schedule, Type, BeginTime, EndTime, PosNumber, ContractNumber, WorkNumber, BeginDate, EndDate, Day1, Day2, Day3, Day4, Day5, Day6, Day7, DayH, CalcTime, FullTime, Describes, Id&#10;From SitePostItem&#10;Where SitePostID = (Select Max(ID) From SitePost Where Status=1 And SiteID = #{siteid});" Width="160" X="472" Y="357">
+<Parameters>
+<n2:Field Collections="false" Name="siteid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateSitePost" SQL="Update SitePost Set&#10;&#9;SiteId = #{sitepost.SiteId},&#10;&#9;BeginDate = #{sitepost.BeginDate},&#10;&#9;EndDate = #{sitepost.EndDate},&#10;&#9;Status = #{sitepost.Status},&#10;&#9;Describes = #{sitepost.Describes},&#10;&#9;ApplyUser = #{sitepost.ApplyUser},&#10;&#9;ApplyTime = Now()&#10; Where ID = #{sitepost.ID}" Width="160" X="471" Y="396">
+<Parameters>
+<n2:Field Collections="false" Name="sitepost" ObjectName="Base.SitePost" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Insert Height="24" Name="insertSitePostItem" SQL="&lt;script&gt;Insert Into SitePostItem(SitePostId, Post, Schedule, Type, BeginTime, EndTime, PosNumber, ContractNumber, WorkNumber, BeginDate, EndDate, Day1, Day2, Day3, Day4, Day5, Day6, Day7, DayH, CalcTime, FullTime, Describes, OldId) Values&#10;&lt;foreach collection='sitepostitem' item='c' index='index' separator=','&gt;&#10;(#{id}, #{c.Post}, #{c.Schedule}, #{c.Type}, #{c.BeginTime}, #{c.EndTime}, #{c.PosNumber}, #{c.ContractNumber}, #{c.WorkNumber}, #{c.BeginDate}, #{c.EndDate}, #{c.Day1}, #{c.Day2}, #{c.Day3}, #{c.Day4}, #{c.Day5}, #{c.Day6}, #{c.Day7}, #{c.DayH}, #{c.CalcTime}, #{c.FullTime}, #{c.Describes}, #{c.OldId})&#10;&lt;/foreach&gt;&#10;&lt;/script&gt;" Width="160" X="472" Y="464">
+<Parameters>
+<n2:Field Collections="true" Name="sitepostitem" ObjectName="Base.SitePostItem" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Delete Height="24" Name="deleteSitePostItem" SQL="Delete From SitePostItem Where SitePostID = #{id}" Width="160" X="472" Y="430">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+<n1:Select Description="获取最新一个已发布的执勤表" Height="240" MapperEntity="Base.SitePost" Name="getLastSitePost" SQL="Select *&#10;From SitePost&#10;Where SiteID = #{siteid} And Status = 1&#10;Order By ID Desc&#10;LIMIT 0, 1" SelectType="Singleton" Width="160" X="263" Y="359">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="SiteId" Name="SiteId" Type="Integer"/>
+<n1:ResultField MapperField="BeginDate" Name="BeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="DateTime"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Boolean"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ApplyUser" Name="ApplyUser" Type="String"/>
+<n1:ResultField MapperField="ApplyTime" Name="ApplyTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="siteid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Update Description="更新执勤配置表的结束日期" Height="24" Name="updateSitePostEndDate" SQL="Update SitePost Set EndDate = adddate(#{date},-1) Where ID = #{id}" Width="160" X="472" Y="504">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="date" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+</Controls>
+</View>
+</Mapper>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><Model xmlns:n1="org.polariscode.plugin.web.springboot.model" Description="">
+<View>
+<Controls>
+<n1:Entity Description="印鉴申请表" Height="459" Name="Seal" Width="160" X="37" Y="50">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="OrgID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="申请人" Dictionary="User" Name="UserID" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="申请日期" Name="Date" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="申请内容" Dictionary="_TextArea" Name="Content" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="申请类型" Dictionary="SealType" Name="Type" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="用章类型" Dictionary="SealSealType" Name="SealType" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="公章" Name="W1" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="合同章" Name="W2" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="人事章" Name="W3" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="财务章" Name="W4" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="法人章" Name="W5" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="营业执照正本" Name="W6" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="营业执照副本" Name="W7" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="银行开户证正本" Name="W8" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="银行开户证副本" Name="W9" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="其它" Name="W10" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="W11" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="其它" Name="Other" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="WorkflowID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="附件" Dictionary="_File" Name="File1" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="流程记录" Height="258" Name="Workflow" Width="160" X="242" Y="52">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="WTID" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Status" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="OrgID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="UserID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Date" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="WIID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="DataID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="流程节点明细" Height="270" Name="WorkflowItem" Width="160" X="455" Y="51">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="WID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Title" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="UserID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="UserName" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Content" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Dictionary="WorkflowItemStatus" Name="Status" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Date" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="待办任务" Height="346" Name="WorkflowTask" Width="160" X="657" Y="52">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="WID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="UserName" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Date" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Dictionary="WorkflowItemStatus" Name="Status" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="WebEditUrl" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="WebViewUrl" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AppEditUrl" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="AppViewUrl" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="DataID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Dictionary="WorkflowStatus" Name="WStatus" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="报销申请表" Height="240" Name="Expenses" Width="160" X="39" Y="536">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="部门" Dictionary="Org" Name="OrgID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="申请人" Dictionary="User" Name="UserID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="报销人" Dictionary="User" Name="ExUserID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="日期" Name="Date" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="备注" Dictionary="_TextArea" Name="Content" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="涉及驻点" Dictionary="Site" Name="Site" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="报销金额" Name="Amt" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Name="WorkflowID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="附件" Dictionary="_File" Name="File1" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="true" Name="Items" ObjectName="Workflow.ExpensesItems" Required="false" Show="false" Type="Object"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="报销明细" Height="240" Name="ExpensesItems" Width="160" X="250" Y="535">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="ExpensesId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="报销内容" Name="Content" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="类型" Dictionary="ExpensesType" Name="Type" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="报销金额" Name="Amt" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="费用申请表" Height="240" Name="Fee" Width="160" X="449" Y="531">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="所属部门" Dictionary="Org" Name="OrgID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="申请人" Dictionary="User" Name="UserID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="申请日期" Name="Date" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="申请内容" Dictionary="_TextArea" Name="Content" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="付款公司" Dictionary="Company" Name="CompanyId" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="收款公司/人" Name="Company" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="收款银行名称" Name="AccountName" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="银行账号" Name="Account" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="涉及驻点" Dictionary="Site" Name="Site" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="费用类型" Dictionary="ExpensesType" Name="Type" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="金额" Name="Amt" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Name="WorkflowID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="附件" Dictionary="_File" Name="File1" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+</Controls>
+</View>
+</Model>

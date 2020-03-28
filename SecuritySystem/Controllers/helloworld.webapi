@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" xmlns:n3="org.polariscode.plugin.web.springboot.action.jwt" xmlns:n4="org.polariscode.plugin.web.springboot.action.utils" Description="" Transactional="false" Type="None" VerifyToken="false">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters/>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" DefaultValue="&quot;HelloWorld!&quot;" Name="result" ObjectName="String" Required="false" Show="false" Type="String"/>
+</n1:Variable>
+<n1:Variable Name="Variable2">
+<n2:Field Collections="false" Name="md5" ObjectName="String" Required="false" Show="false" Type="String"/>
+</n1:Variable>
+<n3:MD5Encrypt Name="MD5Encrypt1" Value="result" Variable="md5"/>
+<n1:Assign Name="Assign1" Value="result + &quot;:&quot; + md5" Variable="result"/>
+<n4:RandomString Length="12" Name="RandomString1" Range="&quot;abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789&quot;" Variable="md5"/>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

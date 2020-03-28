@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" Description="" Transactional="true" Type="Post" VerifyToken="true">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Name="staff" ObjectName="Office.Staff" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Decide Expression="staff.getID() == 0" Name="Decide1">
+<Controls>
+<n1:DataAccess ContinueOnError="false" Dao="Office.StaffMapper.InsertStaff" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1"/>
+<n1:DataAccess ContinueOnError="false" Dao="Office.StaffMapper.UpdateStaff" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2"/>
+<n1:DataAccess ContinueOnError="false" Dao="Office.StaffMapper.DeleteStaffmembers" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess3"/>
+<n1:DataAccess ContinueOnError="false" Dao="Office.StaffMapper.DeleteStaffWork" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess5"/>
+<n1:DataAccess ContinueOnError="false" Dao="Office.StaffMapper.DeleteStaffEdu" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess6"/>
+</Controls>
+<if>
+<n1:DataAccess ContinueOnError="false" Dao="Office.StaffMapper.InsertStaff" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="staff" Name="staff" ObjectName="Office.Staff" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+</if>
+<else>
+<n1:DataAccess ContinueOnError="false" Dao="Office.StaffMapper.UpdateStaff" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="staff" Name="staff" ObjectName="Office.Staff" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Office.StaffMapper.DeleteStaffmembers" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess3">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="staff.getID()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Office.StaffMapper.DeleteStaffWork" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess5">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="staff.getID()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Office.StaffMapper.DeleteStaffEdu" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess6">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="staff.getID()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+</else>
+</n1:Decide>
+<n1:DataAccess ContinueOnError="false" Dao="Office.StaffMapper.insertStaffMembers" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess4">
+<Parameters>
+<n2:Field Collections="true" DefaultValue="staff.getMembers()" Name="staffmembers" ObjectName="Office.StaffMembers" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" DefaultValue="staff.getID()" Name="staffid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Office.StaffMapper.insertStaffWork" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess7">
+<Parameters>
+<n2:Field Collections="true" DefaultValue="staff.getWork()" Name="staffwork" ObjectName="Office.StaffWork" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" DefaultValue="staff.getID()" Name="staffid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Office.StaffMapper.insertStaffEdu" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess8">
+<Parameters>
+<n2:Field Collections="true" DefaultValue="staff.getEdu()" Name="staffedu" ObjectName="Office.StaffEdu" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" DefaultValue="staff.getID()" Name="staffid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

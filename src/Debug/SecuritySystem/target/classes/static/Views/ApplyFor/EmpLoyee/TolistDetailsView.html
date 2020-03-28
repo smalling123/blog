@@ -1,0 +1,253 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="../../../wwwroot/css/apptheme.css" rel="stylesheet" />
+    <link href="../../../wwwroot/css/site.min.css" rel="stylesheet" />
+    <link href="../../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="../../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="../../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+    <script src="../../../wwwroot/lib/vue/vue.js"></script>
+    <script src="../../../wwwroot/lib/layui/layui.js"></script>
+    <script src="../../../wwwroot/lib/jquery/dist/jquery.js"></script>
+    <script src="../../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="../../../wwwroot/js/site.js"></script>
+    <style type="text/css">
+
+        * {
+            margin: 0px;
+            padding: 0px;
+            font-size: small;
+        }
+
+        #table {
+            margin: 0px auto;
+            text-align-last: center;
+        }
+
+        #btn {
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="filter1">
+        <div class="panel panel-default" style="width: 94%; margin-left: 3%; margin-top:20px;">
+            <div class="panel-heading" style="padding:2px 2px 2px 8px;">
+                <a data-toggle="collapse" href="#collapseOne" style="font-size:12px;">
+                    <span class="glyphicon glyphicon-chevron-down"></span> 筛选条件
+                </a>
+            </div>
+            <div id="collapseOne" class="collapse in">
+                <div class="container panel-body" style="margin-top:6px;">
+                    <form rele="form" class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-xs-1 col-md-1" style="text-align: right;">
+                                <label for="name">提交人:</label>
+                            </div>
+                            <div class="col-xs-2 col-md-2">
+                                <input v-model="Data.applicantCn" type="text" class="form-control" id="applicantCn">
+                            </div>
+                            <div class="col-xs-1 col-md-1" style="text-align: right;">
+                                <label for="name">创建人:</label>
+                            </div>
+                            <div class="col-xs-2 col-md-2">
+                                <input v-model="Data.creatorCn" type="text" class="form-control" id="creatorCn">
+                            </div>
+                            <div class="col-xs-1 col-md-1" style="text-align: right;">
+                                <label for="name">创建时间:</label>
+                            </div>
+                            <div class="col-xs-2 col-md-2">
+                                <input v-model="Data.begincreatedDate" type="text" class="la-date form-control" id="begincreatedDate">
+                            </div>
+                            <div class="col-xs-1 col-md-1" style="text-align: right;">
+                                <label for="name" style="font-size: 20px;margin-right: 25px;">~</label>
+                            </div>
+                            <div class="col-xs-2 col-md-2">
+                                <input v-model="Data.endcreatedDate" type="text" class="la-date form-control" id="endcreatedDate">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-1 col-md-1" style="text-align: right;">
+                            </div>
+                            <div class="col-xs-2 col-md-2" style="text-align: left;">
+                                <button type="button" class="layui-btn layui-btn-sm layui-btn-radius layui-bg-cyan" onClick="getData()">
+                                    <span>&emsp;</span><i class="layui-icon layui-icon-search"></i><span class="fontsm">&emsp;查询&emsp;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div id="app" style="width: 94%; margin-left: 3%; margin-top:20px;">
+        <table id="table1" lay-filter="table1filter"></table>
+        <div id="page1"></div>
+    </div>
+</body>
+</html>
+<script type="text/html" id="table1action">
+    <div class="layui-btn-group">
+        <button lay-event="edit" type="button" class="layui-btn layui-btn-xs">
+            <i class="layui-icon layui-icon-edit"></i><span class="fontxs">详情</span>
+        </button>
+    </div>
+</script>
+<script src="../../../wwwroot/js/App.js"></script>
+
+<script>
+
+    var loadIndex = 0;
+    var layer;
+    layui.use('layer', function () {
+        layer = layui.layer;
+    });
+    var dictionaryItems = [{ code: "", name: "" }];
+
+    var vm = new Vue({
+        el: "#filter1",
+        data: {
+            Data: {
+                applicantCn: "",
+                creatorCn: "",
+                begincreatedDate: "",
+                endcreatedDate: ""
+            }
+
+        },
+        methods: {}
+    })
+    var pageNumber = 1;
+    var pageSize = 10;
+    var recordCount = 0;
+    var list = [];
+
+    bindData();
+
+    $(function () {
+        getData();
+        onTrigger(function (key) { if (key == "ToDoList") { getData(); } });
+    });
+
+
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+        //执行一个laydate实例
+        lay('.la-date').each(function () {
+            laydate.render({
+                elem: this
+                , format: 'yyyy-MM-dd'
+                , trigger: 'click'
+                , done: function (value, date, endDate) {
+                    vm.Data.begincreatedDate = $("#begincreatedDate").val();
+                    vm.Data.endcreatedDate = $("#endcreatedDate").val();
+                }
+            });
+        });
+    });
+    function getData() {
+        layui.use('layer', function () {
+            layer = layui.layer;
+            loadIndex = layer.load(0, { shade: false });
+        });
+        PostAppAjax({
+            url: '/ApplyFor/EmpLoyee/getTolistDetails',
+            data: {
+                applicantCn: vm.Data.applicantCn,
+                creatorCn: vm.Data.creatorCn,
+                begincreatedDate: vm.Data.begincreatedDate,
+                endcreatedDate: vm.Data.endcreatedDate,
+                pageNumber: pageNumber,
+                pageSize: pageSize
+            },
+            success: function (result) {
+                layer.close(loadIndex);
+                if (result.code == 0) {
+                    list = result.data;
+                    recordCount = result.recordCount;
+                    bindData();
+                } else {
+                    alert("无法获取数据!\n" + result.msg);
+                }
+            },
+            error: function (err) {
+                layer.close(loadIndex);
+                alert("服务器忙，请重试!\n" + err.responseJSON.message);
+            }
+        });
+    }
+
+    function bindData() {
+        layui.use(['table', 'laypage'], function () {
+            var table = layui.table;
+            table.render({
+                elem: '#table1',
+                toolbar: '#add',
+                data: list, //数据接口
+                limit: 99999, //显示行数
+                even: true, //隔行显示
+                cols: [[ //表头
+                    { field: 'applicationNo', title: '序号', align: 'left', width: '100' },
+                    { field: 'procName', title: '流程名', align: 'left', width: '200' },
+                    { field: 'activityName', title: '流程节点名', align: 'left', width: '220' },
+                    { field: 'creatorCn', title: '创建人', align: 'left', width: '120' },
+                    { field: 'createdDate', title: '提交时间', align: 'left', width: '190' },
+                    { field: 'applicantCn', title: '提交人', align: 'left', width: '200' },
+                    { title: '操作', toolbar: '#table1action', align: 'left', fixed: 'right', width: '200' }
+                ]]
+            });
+
+            var laypage = layui.laypage;
+            laypage.render({
+                elem: 'page1',
+                count: recordCount, //数据总数，从服务端得到
+                limit: pageSize,
+                //自定义排版。可选值有：count（总条目输区域）、prev（上一页区域）、page（分页区域）、next（下一页区域）、limit（条目选项区域）、refresh（页面刷新区域。注意：layui 2.3.0 新增） 、skip（快捷跳页区域）
+                layout: ['prev', 'page', 'next', 'count', 'refresh', 'limit', 'skip'],
+                curr: pageNumber,
+                jump: function (obj, first) {
+                    //首次不执行
+                    if (!first) {
+                        pageNumber = obj.curr;
+                        pageSize = obj.limit;
+                        getData();
+                    }
+                }
+            });
+        });
+    }
+
+
+    layui.use('table', function () {
+        var table = layui.table;
+        //监听工具条
+        table.on('tool(table1filter)',
+            function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var id = data['applicationNo'];  //获取属性id的值
+                if (obj.event == "edit") {
+                    openAppWindow({
+                        url: "/Views/ApplyFor/EmpLoyee/ApplicationDetails.html",
+                        title: "申请流程详情页",
+                        area: ['1100px', '560px'],
+                        maxmin: true,
+                        success: function (layero, index) {
+                            var body = parent.layer.getChildFrame('body', index);
+                            var iframe = parent.window[layero.find('iframe')[0]['name']];
+                            iframe.getData(id);
+                        }
+                    });
+                }
+            }
+        );
+    });
+
+</script>

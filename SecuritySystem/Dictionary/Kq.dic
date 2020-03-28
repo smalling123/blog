@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="手工"/>
+<Item Code="1" Name="人脸"/>
+<Item Code="2" Name="指纹"/>
+</Items>
+</Dictionary>

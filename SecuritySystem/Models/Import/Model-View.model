@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><Model xmlns:n1="org.polariscode.plugin.web.springboot.model" Description="">
+<View>
+<Controls>
+<n1:Entity Height="240" Name="BaselnfoExcle" Width="160" X="180" Y="7">
+<Fields>
+<n1:Field Collections="false" Description="驻点名称" Name="SName" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="客户名称" Name="CName" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="所属部门" Dictionary="OrgType" Name="COrgID" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="所在城市" Name="CDistrict" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="驻点地址" Name="CAddress" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="联系人" Name="CContacts" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="联系电话" Name="CContactNumber" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="项目经理" Name="Cmanager" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="客户类型" Name="CType" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="CustomerlinkmanImport" Width="160" X="360" Y="7">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="CustomerID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Gender" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Phone" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Wchat" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="QQ" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Email" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Type" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="personnelImport" Width="160" X="7" Y="6">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Code" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CardCode" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Birthday" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Gender" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Politics" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Height" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Weight" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Education" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Nation" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Native" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="HomeAddress" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Census" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="CensusAddress" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Marital" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="LinkMan" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="LinkManRelation" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="LinkManPhone" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Army" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="ArmyInDate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="ArmyOutDate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Z1" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Z2" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Z3" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Z4" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Z5" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Z6" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Z7" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Z8" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Computer" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="English" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="PartTime" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Disease" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Crime" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Appearance" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Communication" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Source" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="InDate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="HTBeginDate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="HTEndDate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Photo" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="PhotoCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="F1" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="F2" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="F3" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="F4" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="F5" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="F6" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="F7" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="F8" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="F9" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="F10" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="GeneralComment" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="InterViewer" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="GivePost" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="PlanSite" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="PlantJob" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="PlanInDate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CheckUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="HRUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="JobUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="ModifyUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="ModifyTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="DeleteUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="DeleteTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="SitelinkmanImport" Width="160" X="537" Y="6">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="SiteID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Gender" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Phone" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Wchat" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="QQ" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Email" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Type" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="SitepersonnelImport" Width="160" X="705" Y="9">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="SiteId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="PID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="BeginDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Name="EndDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Name="IsMain" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Job" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Level" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="PostSubsidy" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+</Controls>
+</View>
+</Model>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Finance.Bill" Name="getBillByContractId" SQL="select b.* from bill b&#10;join customer c on c.id= b.customerId&#10;  where 1=1 and  c.Name like'%${customer}%'&#10;and Year =#{Year} and Month=#{Month}&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="55" Y="62">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="SiteId" Name="SiteId" Type="Integer"/>
+<n1:ResultField MapperField="Year" Name="Year" Type="Integer"/>
+<n1:ResultField MapperField="Month" Name="Month" Type="Integer"/>
+<n1:ResultField MapperField="Amt" Name="Amt" Type="Decimal"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="CustomerId" Name="CustomerId" Type="Integer"/>
+<n1:ResultField MapperField="ContractId" Name="ContractId" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="customer" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="Year" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="Month" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and  c.Name like'%${customer}%'">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="customer" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and Year =#{Year}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="Year" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and Month=#{Month}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="Month" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Insert Height="24" Name="insertBill" SQL="Insert Into Bill(SiteId, Year, Month, Amt, Describes, CreateUser, CreateTime)&#10; Values(#{bill.SiteId}, #{bill.Year}, #{bill.Month}, #{bill.Amt}, #{bill.Describes}, #{bill.CreateUser}, Now())" Width="160" X="271" Y="99">
+<Parameters>
+<n2:Field Collections="false" Name="bill" ObjectName="Finance.Bill" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateBill" SQL="Update Bill Set&#10;&#9;SiteId = #{bill.SiteId},&#10;&#9;Year = #{bill.Year},&#10;&#9;Month = #{bill.Month},&#10;&#9;Amt = #{bill.Amt},&#10;&#9;Describes = #{bill.Describes},&#10;&#9;CreateUser = #{bill.CreateUser},&#10;&#9;CreateTime = now()&#10; Where ID = #{bill.ID}" Width="160" X="273" Y="54">
+<Parameters>
+<n2:Field Collections="false" Name="bill" ObjectName="Finance.Bill" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Height="240" MapperEntity="Finance.TBill" Name="getTBillById" SQL="select c.ID,  ci.Amount ,&#10;YEAR(date_add(DATE(CONCAT(YEAR(now()),'-',MONTH(now()),'-',DAY(c.BeginDate))), interval #{month} MONTH)) `YEAR`, &#10;MONTH(date_add(DATE(CONCAT(YEAR(now()),'-',MONTH(now()),'-',DAY(c.BeginDate))), interval #{month} MONTH)) `MONTH`,&#10;c.BeginDate&lt;=date_add(DATE(CONCAT(YEAR(now()),'-',MONTH(now()),'-',DAY(c.BeginDate))), interval (#{month}-2) MONTH) YN,&#10; ci.BeginDate&lt;=date_add(DATE(CONCAT(YEAR(now()),'-',MONTH(now()),'-',DAY(c.BeginDate))), interval #{month} MONTH) YNS&#10; from contract c&#10;JOIN contractinvoice ci on c.id =ci.ContractId&#10;where c.CustomerId=#{id}&#10;and c.BeginDate&lt;=date_add(DATE(CONCAT(YEAR(now()),'-',MONTH(now()),'-',DAY(c.BeginDate))), interval (#{month}-1) MONTH) &#10;and c.EndDate&gt;=DATE(CONCAT(YEAR(now()),'-',MONTH(now()),'-',DAY(c.BeginDate)))&#10;and ci.BeginDate&gt;=date_add(DATE(CONCAT(YEAR(now()),'-',MONTH(now()),'-',DAY(c.BeginDate))), interval  (#{month}-1) MONTH) &#10;GROUP BY c.ID, ci.Amount" SelectType="Collections" Width="160" X="271" Y="135">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Amount" Name="Amount" Type="Decimal"/>
+<n1:ResultField MapperField="YEAR" Name="YEAR" Type="Integer"/>
+<n1:ResultField MapperField="MONTH" Name="MONTH" Type="Integer"/>
+<n1:ResultField MapperField="YN" Name="YN" Type="Integer"/>
+<n1:ResultField MapperField="YNS" Name="YNS" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="month" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="InsertBills" SQL="Insert Into Bill(SiteId, Year, Month, Amt, Describes, CreateUser, CreateTime,CustomerId,ContractId)&#10; Values(#{bill.SiteId}, #{bill.Year}, #{bill.Month}, #{bill.Amt}, #{bill.Describes}, #{bill.CreateUser}, Now(), #{bill.ID},0);&#10;Insert Into BillFee(BillId, ContractInvoiceId, Name, Amt, Describes, CreateUser, CreateTime, InvoiceItemId)&#10;select  @@IDENTITY as BillId, ci.ID as ContractInvoiceId, ci.Content as Name, ci.Amount  as Amt,ci.Describes, #{bill.CreateUser} as CreateUser,now() as CreateTime,0 as InvoiceItemId&#10; from contract c&#10;JOIN contractinvoice ci on c.id =ci.ContractId&#10;where c.CustomerId=#{id} and c.id=#{cid}&#10;and c.BeginDate&lt;=date_add(DATE(CONCAT(YEAR(now()),'-',MONTH(now()),'-',DAY(c.BeginDate))), interval (#{month}-1) MONTH) &#10;and c.EndDate&gt;=DATE(CONCAT(YEAR(now()),'-',MONTH(now()),'-',DAY(c.BeginDate)))&#10;and ci.BeginDate&gt;=date_add(DATE(CONCAT(YEAR(now()),'-',MONTH(now()),'-',DAY(c.BeginDate))), interval  (#{month}-1) MONTH) &#10;and ci.BeginDate&lt;=date_add(DATE(CONCAT(YEAR(now()),'-',MONTH(now()),'-',DAY(c.BeginDate))), interval #{month} MONTH);" Width="160" X="273" Y="394">
+<Parameters>
+<n2:Field Collections="false" Name="bill" ObjectName="Finance.Bill" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="month" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="cid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Select Height="240" MapperEntity="Table" Name="getBillCount" SQL="select Count(*) Count from Bill &#10;where Year=YEAR(date_add(now(), interval #{month} MONTH)) &#10;and Month=MONTH(date_add(now(), interval #{month} MONTH))&#10;and ContractId = #{cid} and CustomerId=#{id}" SelectType="Singleton" Width="160" X="57" Y="317">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="month" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="cid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="248" MapperEntity="Finance.Bill" Name="getBillById" SQL="Select * From Bill Where ID = #{id}" SelectType="Singleton" Width="160" X="480" Y="64">
+<ResultSet/>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getBillByCount" SQL="select count(*) Count from bill b&#10;join customer c on c.id= b.customerId&#10;  where 1=1 and  c.Name like'%${customer}%'&#10;and Year =#{Year} and Month=#{Month}" SelectType="Singleton" Width="160" X="665" Y="69">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="customer" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="Year" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="Month" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and Year=#{Year}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="Year" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and Month=#{Month}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="Month" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and  c.Name like'%${customer}%'">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="customer" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

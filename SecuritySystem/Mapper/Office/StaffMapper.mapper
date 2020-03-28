@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="476" MapperEntity="Office.Staff" Name="getStaffByID" SQL="Select Staff.*, ifnull(Org.ID, 0) As OrgID, ifnull(Org.Name, '') As OrgName&#10;From Staff  Left Join UserRole on Staff.UserID = UserRole.UserID And UserRole.isMain = 1&#10;&#9;&#9;Left Join OrgRole On OrgRole.ID = UserRole.OrgRoleID&#10;&#9;&#9;Left Join Org On Org.ID = OrgRole.OrgID&#10;Where Staff.ID = #{id}" SelectType="Singleton" Width="160" X="45" Y="19">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="CardCode" Name="CardCode" Type="String"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Integer"/>
+<n1:ResultField MapperField="Birthday" Name="Birthday" Type="DateTime"/>
+<n1:ResultField MapperField="Nation" Name="Nation" Type="String"/>
+<n1:ResultField MapperField="Marital" Name="Marital" Type="Integer"/>
+<n1:ResultField MapperField="Native" Name="Native" Type="String"/>
+<n1:ResultField MapperField="Height" Name="Height" Type="Integer"/>
+<n1:ResultField MapperField="Weight" Name="Weight" Type="Integer"/>
+<n1:ResultField MapperField="Health" Name="Health" Type="String"/>
+<n1:ResultField MapperField="Politics" Name="Politics" Type="Integer"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+<n1:ResultField MapperField="Mobile" Name="Mobile" Type="String"/>
+<n1:ResultField MapperField="Email" Name="Email" Type="String"/>
+<n1:ResultField MapperField="HAddress" Name="HAddress" Type="String"/>
+<n1:ResultField MapperField="RAddress" Name="RAddress" Type="String"/>
+<n1:ResultField MapperField="HType" Name="HType" Type="Integer"/>
+<n1:ResultField MapperField="PostCode" Name="PostCode" Type="String"/>
+<n1:ResultField MapperField="LinkMan" Name="LinkMan" Type="String"/>
+<n1:ResultField MapperField="LinkRelation" Name="LinkRelation" Type="String"/>
+<n1:ResultField MapperField="LinkPhone" Name="LinkPhone" Type="String"/>
+<n1:ResultField MapperField="Cert1" Name="Cert1" Type="String"/>
+<n1:ResultField MapperField="Cert2" Name="Cert2" Type="String"/>
+<n1:ResultField MapperField="Cert3" Name="Cert3" Type="String"/>
+<n1:ResultField MapperField="WY1" Name="WY1" Type="String"/>
+<n1:ResultField MapperField="WY1Level" Name="WY1Level" Type="Integer"/>
+<n1:ResultField MapperField="WY2" Name="WY2" Type="String"/>
+<n1:ResultField MapperField="WY2Level" Name="WY2Level" Type="Integer"/>
+<n1:ResultField MapperField="JSJLevel" Name="JSJLevel" Type="String"/>
+<n1:ResultField MapperField="ExcelLevel" Name="ExcelLevel" Type="Integer"/>
+<n1:ResultField MapperField="WordLevel" Name="WordLevel" Type="Integer"/>
+<n1:ResultField MapperField="PowerPointLevel" Name="PowerPointLevel" Type="Integer"/>
+<n1:ResultField MapperField="Reward" Name="Reward" Type="String"/>
+<n1:ResultField MapperField="Interests" Name="Interests" Type="String"/>
+<n1:ResultField MapperField="Works" Name="Works" Type="String"/>
+<n1:ResultField MapperField="Insurance" Name="Insurance" Type="Integer"/>
+<n1:ResultField MapperField="InsuranceDate" Name="InsuranceDate" Type="DateTime"/>
+<n1:ResultField MapperField="Acc" Name="Acc" Type="String"/>
+<n1:ResultField MapperField="PartTimeJob" Name="PartTimeJob" Type="Boolean"/>
+<n1:ResultField MapperField="PartTimeJobDesc" Name="PartTimeJobDesc" Type="String"/>
+<n1:ResultField MapperField="NDA" Name="NDA" Type="Boolean"/>
+<n1:ResultField MapperField="NDADesc" Name="NDADesc" Type="String"/>
+<n1:ResultField MapperField="Disputes" Name="Disputes" Type="Boolean"/>
+<n1:ResultField MapperField="DisputesDesc" Name="DisputesDesc" Type="String"/>
+<n1:ResultField MapperField="Penalties" Name="Penalties" Type="Boolean"/>
+<n1:ResultField MapperField="PenaltiesDesc" Name="PenaltiesDesc" Type="String"/>
+<n1:ResultField MapperField="Illness" Name="Illness" Type="Boolean"/>
+<n1:ResultField MapperField="IllnessDesc" Name="IllnessDesc" Type="String"/>
+<n1:ResultField MapperField="Pregnant" Name="Pregnant" Type="Boolean"/>
+<n1:ResultField MapperField="PregnantDesc" Name="PregnantDesc" Type="String"/>
+<n1:ResultField MapperField="Conn" Name="Conn" Type="Boolean"/>
+<n1:ResultField MapperField="ConnDesc" Name="ConnDesc" Type="String"/>
+<n1:ResultField MapperField="RegisterDate" Name="RegisterDate" Type="String"/>
+<n1:ResultField MapperField="RegisterUser" Name="RegisterUser" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="UserID" Name="UserID" Type="Integer"/>
+<n1:ResultField MapperField="Photo" Name="Photo" Type="String"/>
+<n1:ResultField MapperField="OrgID" Name="OrgID" Type="Integer"/>
+<n1:ResultField MapperField="OrgName" Name="OrgName" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="299" MapperEntity="Office.StaffE" Name="getAllStaff" SQL="Select Staff.ID, Staff.Name, Staff.CardCode, Staff.Gender, Staff.Birthday, Staff.Status, Staff.RegisterDate, ifnull(Org.ID, 0) As OrgID, ifnull(Org.Name, '') As OrgName, Staff.Photo&#10;From Staff  Left Join UserRole on Staff.UserID = UserRole.UserID And UserRole.isMain = 1&#10;&#9;&#9;Left Join OrgRole On OrgRole.ID = UserRole.OrgRoleID&#10;&#9;&#9;Left Join Org On Org.ID = OrgRole.OrgID&#10;Where Staff.name like '%${name}%' &#10;&#9;and Org.Name like '%${orgname}%'&#10;&#9;and Staff.Status = #{status}&#10;Order By convert(Staff.Name using gbk) collate gbk_chinese_ci&#10;limit #{startIndex} ,  #{rowCount}" SelectType="Collections" Width="160" X="254" Y="20">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="CardCode" Name="CardCode" Type="String"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Integer"/>
+<n1:ResultField MapperField="Birthday" Name="Birthday" Type="DateTime"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="RegisterDate" Name="RegisterDate" Type="String"/>
+<n1:ResultField MapperField="OrgID" Name="OrgID" Type="Integer"/>
+<n1:ResultField MapperField="OrgName" Name="OrgName" Type="String"/>
+<n1:ResultField MapperField="Photo" Name="Photo" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="orgname" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="status" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and Staff.Status = #{status}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="status" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="Staff.name like '%${name}%'">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="name" ReplaceString="1=1" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and Org.Name like '%${orgname}%'">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="orgname" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getStaffCount" SQL="Select Count(1) As Count&#10;From Staff  Left Join UserRole on Staff.UserID = UserRole.UserID And UserRole.isMain = 1&#10;&#9;&#9;Left Join OrgRole On OrgRole.ID = UserRole.OrgRoleID&#10;&#9;&#9;Left Join Org On Org.ID = OrgRole.OrgID&#10;Where Staff.name like '%${name}%' &#10;&#9;and Org.Name like '%${orgname}%'&#10;&#9;and Staff.Status = #{status}" SelectType="Singleton" Width="160" X="444" Y="20">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="orgname" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="status" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and Staff.Status = #{status}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="status" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="Staff.name like '%${name}%'">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="name" ReplaceString="1=1" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and Org.Name like '%${orgname}%'">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="orgname" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Office.StaffMembers" Name="getStaffMembers" SQL="Select * From StaffMembers Where StaffID = #{id}" SelectType="Collections" Width="160" X="640" Y="22">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="StaffID" Name="StaffID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Appellation" Name="Appellation" Type="String"/>
+<n1:ResultField MapperField="Age" Name="Age" Type="String"/>
+<n1:ResultField MapperField="Company" Name="Company" Type="String"/>
+<n1:ResultField MapperField="Post" Name="Post" Type="String"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Office.StaffWork" Name="getStaffWork" SQL="Select * From StaffWork Where StaffID = #{id}" SelectType="Collections" Width="160" X="834" Y="24">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="StaffID" Name="StaffID" Type="Integer"/>
+<n1:ResultField MapperField="Date" Name="Date" Type="String"/>
+<n1:ResultField MapperField="Company" Name="Company" Type="String"/>
+<n1:ResultField MapperField="Post" Name="Post" Type="String"/>
+<n1:ResultField MapperField="Salary" Name="Salary" Type="String"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+<n1:ResultField MapperField="Leaving" Name="Leaving" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Office.StaffEdu" Name="getStaffEdu" SQL="Select * from StaffEdu Where StaffID = #{id}" SelectType="Collections" Width="160" X="1021" Y="24">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="StaffID" Name="StaffID" Type="Integer"/>
+<n1:ResultField MapperField="Date" Name="Date" Type="String"/>
+<n1:ResultField MapperField="School" Name="School" Type="String"/>
+<n1:ResultField MapperField="Major" Name="Major" Type="String"/>
+<n1:ResultField MapperField="Degree" Name="Degree" Type="String"/>
+<n1:ResultField MapperField="Study" Name="Study" Type="String"/>
+<n1:ResultField MapperField="Cert" Name="Cert" Type="Boolean"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="InsertStaff" SQL="Insert Into Staff(Name, CardCode, Gender, Birthday, Nation, Marital, Native, Height, Health, Politics, Phone, Mobile, Email, HAddress, RAddress, HType, PostCode, LinkMan, LinkRelation, LinkPhone, Cert1, Cert2, Cert3, WY1, WY1Level, WY2, WY2Level, JSJLevel, ExcelLevel, WordLevel, PowerPointLevel,RegisterDate, RegisterUser, Status, UserID, Photo)&#10;Values(#{staff.Name}, #{staff.CardCode}, #{staff.Gender}, #{staff.Birthday}, #{staff.Nation}, #{staff.Marital}, #{staff.Native}, #{staff.Height}, #{staff.Health}, #{staff.Politics}, #{staff.Phone}, #{staff.Mobile}, #{staff.Email}, #{staff.HAddress}, #{staff.RAddress}, #{staff.HType}, #{staff.PostCode}, #{staff.LinkMan}, #{staff.LinkRelation}, #{staff.LinkPhone}, #{staff.Cert1}, #{staff.Cert2}, #{staff.Cert3}, #{staff.WY1}, #{staff.WY1Level}, #{staff.WY2}, #{staff.WY2Level}, #{staff.JSJLevel}, #{staff.ExcelLevel}, #{staff.WordLevel}, #{staff.PowerPointLevel}, #{staff.RegisterDate}, #{staff.RegisterUser}, #{staff.Status}, #{staff.UserID}, #{staff.Photo})" Width="160" X="454" Y="314">
+<Parameters>
+<n2:Field Collections="false" Name="staff" ObjectName="Office.Staff" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="UpdateStaff" SQL="Update Staff set Name=#{staff.Name}, &#10;CardCode=#{staff.CardCode}, &#10;Gender=#{staff.Gender}, &#10;Birthday=#{staff.Birthday}, &#10;Nation=#{staff.Nation},&#10;Marital=#{staff.Marital}, &#10;Native=#{staff.Native},&#10;Height=#{staff.Height}, &#10;Health=#{staff.Health}, &#10;Politics=#{staff.Politics}, &#10;Phone=#{staff.Phone}, &#10;Mobile=#{staff.Mobile}, &#10;Email=#{staff.Email}, &#10;HAddress=#{staff.HAddress}, &#10;RAddress=#{staff.RAddress}, &#10;HType=#{staff.HType}, &#10;PostCode=#{staff.PostCode}, &#10;LinkMan=#{staff.LinkMan}, &#10;LinkRelation=#{staff.LinkRelation}, &#10;LinkPhone=#{staff.LinkPhone}, &#10;Cert1=#{staff.Cert1}, &#10;Cert2=#{staff.Cert2}, &#10;Cert3=#{staff.Cert3}, &#10;WY1=#{staff.WY1}, &#10;WY1Level=#{staff.WY1Level}, &#10;WY2=#{staff.WY2}, &#10;WY2Level=#{staff.WY2Level},&#10;JSJLevel= #{staff.JSJLevel}, &#10;ExcelLevel=#{staff.ExcelLevel}, &#10;WordLevel=#{staff.WordLevel}, &#10;PowerPointLevel=#{staff.PowerPointLevel}, &#10;RegisterDate=#{staff.RegisterDate}, &#10;RegisterUser=#{staff.RegisterUser}, &#10;Status=#{staff.Status}, &#10;UserID=#{staff.UserID},&#10;Photo=#{staff.Photo}&#10;Where ID = #{staff.ID}" Width="160" X="455" Y="369">
+<Parameters>
+<n2:Field Collections="false" Name="staff" ObjectName="Office.Staff" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Delete Height="24" Name="DeleteStaffmembers" SQL="Delete From StaffMembers Where StaffID = #{id}" Width="160" X="649" Y="313">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+<n1:Insert Height="24" Name="insertStaffMembers" SQL="&lt;script&gt;Insert Into StaffMembers(StaffID, Name, Appellation, Age, Company, Post, Phone) Values&#10;&lt;foreach collection='staffmembers' item='c' index='index' separator=','&gt;&#10;(#{staffid}, #{c.Name}, #{c.Appellation}, #{c.Age}, #{c.Company}, #{c.Post}, #{c.Phone})&#10;&lt;/foreach&gt;&#10;&lt;/script&gt;" Width="160" X="649" Y="370">
+<Parameters>
+<n2:Field Collections="true" Name="staffmembers" ObjectName="Office.StaffMembers" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" Name="staffid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="insertStaffWork" SQL="&lt;script&gt;Insert Into StaffWork(StaffID, Date, Company, Post, Salary, Phone, Leaving) Values&#10;&lt;foreach collection='staffwork' item='c' index='index' separator=','&gt;&#10;(#{staffid}, #{c.Date}, #{c.Company}, #{c.Post}, #{c.Salary}, #{c.Phone}, #{c.Leaving})&#10;&lt;/foreach&gt;&#10;&lt;/script&gt;" Width="160" X="841" Y="369">
+<Parameters>
+<n2:Field Collections="true" Name="staffwork" ObjectName="Office.StaffWork" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" Name="staffid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="insertStaffEdu" SQL="&lt;script&gt;Insert Into StaffEdu(StaffID, Date, School, Major, Degree, Study, Cert) Values&#10;&lt;foreach collection='staffedu' item='c' index='index' separator=','&gt;&#10;(#{staffid}, #{c.Date}, #{c.School}, #{c.Major}, #{c.Degree}, #{c.Study}, #{c.Cert})&#10;&lt;/foreach&gt;&#10;&lt;/script&gt;" Width="160" X="1020" Y="369">
+<Parameters>
+<n2:Field Collections="true" Name="staffedu" ObjectName="Office.StaffEdu" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" Name="staffid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Delete Height="21" Name="DeleteStaffWork" SQL="Delete From StaffWork Where StaffID = #{id}" Width="154" X="842" Y="315">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+<n1:Delete Height="23" Name="DeleteStaffEdu" SQL="Delete From StaffEdu Where StaffID = #{id}" Width="160" X="1022" Y="315">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+</Controls>
+</View>
+</Mapper>

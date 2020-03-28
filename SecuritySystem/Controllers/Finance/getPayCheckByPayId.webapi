@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" Description="" Transactional="false" Type="Post" VerifyToken="true">
+<View>
+<Controls>
+<n1:Begin>
+<Parameters>
+<n2:Field Collections="false" Name="PayId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="InvoiceItemId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="pageNumber" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="pageSize" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable>
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="Finance.PayCheckMapper.getPayCheckByPayId" ErrorCode="result.Code" ErrorMessage="result.Msg" Variable="result.Data">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="PayId" Name="PayId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="InvoiceItemId" Name="InvoiceItemId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="pageNumber&lt;=0?0:(pageNumber-1)*pageSize" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="pageSize" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Variable>
+<n2:Field Collections="false" Name="table" ObjectName="Table" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="Finance.PayCheckMapper.getPayCheckByCount" ErrorCode="result.Code" ErrorMessage="result.Msg" Variable="table">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="PayId" Name="PayId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="InvoiceItemId" Name="InvoiceItemId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Assign Value="table.getCount()" Variable="result.RecordCount"/>
+<n1:Assign Value="pageNumber" Variable="result.PageNumber"/>
+<n1:Assign Value="pageSize" Variable="result.PageSize"/>
+<n1:End Result="result"/>
+</Controls>
+</View>
+</WebAPI>

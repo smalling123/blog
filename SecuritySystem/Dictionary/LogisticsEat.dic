@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="无需求"/>
+<Item Code="1" Name="甲方提供工作餐"/>
+<Item Code="2" Name="我方提供工作餐"/>
+<Item Code="3" Name="我方提供餐费"/>
+</Items>
+</Dictionary>

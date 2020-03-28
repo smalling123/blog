@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="招待费"/>
+<Item Code="1" Name="交通费"/>
+<Item Code="2" Name="通讯费"/>
+<Item Code="3" Name="办公用品采购"/>
+<Item Code="4" Name="装备采购"/>
+<Item Code="5" Name="房租"/>
+<Item Code="11" Name="社保"/>
+<Item Code="12" Name="公积金"/>
+<Item Code="13" Name="残疾人保障金"/>
+<Item Code="14" Name="经济补偿金"/>
+<Item Code="99" Name="其它"/>
+</Items>
+</Dictionary>

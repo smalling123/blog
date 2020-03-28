@@ -1,0 +1,362 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-validator/css/bootstrap-validator.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-validator/js/bootstrap-validator.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+			font-size: small;
+		}
+		.input {
+			height: 28px;
+			padding: 6px 6px 6px 6px;
+		}
+        .layui-bg-cyan {
+            background-color: #888888 !important;
+        }
+	</style>
+</head>
+<body style="background-color: #F2F2F2;">
+	<div class="container" id="app"  style="width: 94%; margin-left: 3%; margin-top:20px;">
+		<form id="form1" rele="form" class="form-horizontal">
+			<div class="form-group">
+				<div class="col-xs-12 col-md-12">
+					<div class="layui-card">
+						<div class="layui-card-header layui-bg-cyan">
+							<label>报销明细</label>
+							<button style="float:right; margin-top:10px;" @click="addItems()" class="layui-btn layui-btn-xs"><i class="layui-icon">&#xe654;</i> 增加</button>
+						</div>
+						<div class="layui-card-body">
+							<div class="container">
+								<div class="row">
+									<div class="col-xs-4 col-md-4">
+										<label>报销内容</label>
+									</div>
+									<div class="col-xs-2 col-md-2">
+										<label>类型</label>
+									</div>
+									<div class="col-xs-2 col-md-2">
+										<label>报销金额</label>
+									</div>
+								</div>
+								<div v-for="(item,index) in Data.items" class="row">
+									<div class="col-xs-4 col-md-4">
+										<input v-model="item.content" type="text" class="form-control input" v-bind:id="'items_content'+index" name="items_content">
+									</div>
+									<div class="col-xs-2 col-md-2">
+										<select v-bind:id="'select_items_type'+index" class="selectpicker form-control input" v-model="item.type"  name="items_type">
+											<option value="0" >招待费</option>
+											<option value="1" >交通费</option>
+											<option value="2" >通讯费</option>
+											<option value="3" >办公用品采购</option>
+											<option value="4" >装备采购</option>
+											<option value="5" >房租</option>
+											<option value="99" >其它</option>
+										</select>
+									</div>
+									<div class="col-xs-2 col-md-2">
+										<input v-model="item.amt" type="text" class="form-control input" v-bind:id="'items_amt'+index" name="items_amt">
+									</div>
+									<div class="col-xs-1 col-md-1">
+									</div>
+									<div class="col-xs-1 col-md-1">
+								 		<button @click="deleteItems(index)" class="layui-btn layui-btn-xs layui-btn-danger"><i class="layui-icon">&#xe640;</i> 删除</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="layui-card">
+				<div class="layui-card-header layui-bg-cyan">
+					<label>其它内容</label>
+				</div>
+				<div class="layui-card-body">
+					<div class="form-group">
+						<div class="col-xs-2 col-md-2  control-label">
+							<label for="exUserID">报销人:</label>
+						</div>
+						<div class="col-xs-2 col-md-2">
+							<select id="select_exUserID" class="selectpicker form-control input" data-live-search="true" v-model="Data.exUserID"  name="exUserID">
+								<option value="">--请选择--</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-2 col-md-2  control-label">
+							<label for="content">备注:</label>
+						</div>
+						<div class="col-xs-8 col-md-8">
+							<textarea v-model="Data.content" class="form-control input" rows="5" id="content" name="content"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-2 col-md-2  control-label">
+							<label for="site">驻点:</label>
+						</div>
+						<div class="col-xs-8 col-md-8">
+							<select id="select_site" class="selectpicker form-control input" data-live-search="true" v-model="Data.site"  name="site">
+								<option value="">--请选择--</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-2 col-md-2  control-label">
+							<label for="file1">附件:</label>
+						</div>
+						<div class="col-xs-8 col-md-8">
+							<a id="downloadfile1" ></a>
+							<label id="file1text"></label>
+							<button type="button" class="layui-btn layui-btn-sm layui-btn-primary" id="uploadfile1">
+								<i class="layui-icon">&#xe67c;</i>上传附件
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+			</div>
+			<div class="form-group">
+
+				<div class="col-xs-4 col-md-4" style="text-align: right;">
+				</div>
+				<div class="col-xs-8 col-md-8" style="text-align: right;">
+					<button type="button" class="layui-btn layui-btn-sm" onClick="Accept()">
+						<i class="layui-icon layui-icon-ok"></i><span class="fontsm">&emsp;提交&emsp;</span>
+					</button>
+					<button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onClick="iframecloses()">
+						<i class="layui-icon layui-icon-close"></i><span class="fontsm">&emsp;取消&emsp;</span>
+					</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+</body>
+</html>
+<script src="../../wwwroot/js/App.js"></script>
+<script>
+	setTimeout(function() {
+		SelectFrom("#select_site", function(filter) {
+			getDictionarysite(filter);
+		})
+	}, 1000);
+	setTimeout(function() {
+		SelectFrom("#select_exUserID", function(filter) {
+			getDictionaryexUserID(filter);
+		})
+	}, 1000);
+	layui.use('upload', function(){
+		var upload = layui.upload;
+		upload.render({
+			elem: '#uploadfile1'
+			,accept: 'file'
+			,size: 2000
+			,url: '/uploadFile'
+			,data:{
+				type: 'Type',
+				token: window.sessionStorage.getItem("token")
+			}
+			,before: function(obj){
+			}
+			,done: function(result){
+				if(result.code==0){
+					vm.Data.file1 = result.data;
+					$('#downloadfile1').attr('href', '/downloadFile?type=application/octet-stream&filename='+result.data);
+					var ls = result.data.split("/");
+					$('#downloadfile1').text(ls[ls.length-1]);
+					alert("上传成功!");
+				}else{
+					alert("上传失败! \n\n原因："+result.msg);
+				}
+			}
+			,error: function(){
+				var text = $('#file1text');
+				text.html('<span style="color: #FF5722;">上传失败</span>');
+			}
+		});
+	});
+</script>
+
+<script>
+	$(document).ready(function () {
+		$('#form1').bootstrapValidator({
+			message: 'This value is not valid',
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+
+			}
+		});
+	});
+	
+	var dictionaryItems = [{code:"", name:""}];	
+
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			Data:{
+				id: 0,
+				orgID: 0,
+				userID: 0,
+				exUserID: 0,
+				date: "",
+				content: "",
+				site: 0,
+				amt: 0,
+				workflowID: 0,
+				file1: "",
+				items: [{id:0, expensesId:0, content:"", type:0, amt:0}]
+			}
+
+		},
+		methods: {
+			deleteItems:function(index){
+				this.Data.items.splice(index,1);
+				this.$nextTick(function () {
+				});
+			},
+			addItems:function(){
+				this.Data.items.push({id:0,expensesId:0,content:'',type:0,amt:0});
+				this.$nextTick(function () {
+					for(var index=0;index<this.Data.items.length;index++){
+						$('#select_items_type'+index).selectpicker('refresh');
+					}
+				});
+			}
+		},
+		watch: {
+			Data: function() {
+				this.$nextTick(function () {
+					for(var index=0;index<this.Data.items.length;index++){
+						$('#select_items_type'+index).selectpicker('refresh');
+					}
+					$('#select_site').empty()
+					$('#select_site').append("<option value=''>--请选择--</option>");
+					$('#select_site').append("<option selected='selected' value='"+vm.Data.site+"'>"+vm.Data.site_Convert+"</option>");
+					$('#select_site').selectpicker('refresh');
+					$('#select_exUserID').empty()
+					$('#select_exUserID').append("<option value=''>--请选择--</option>");
+					$('#select_exUserID').append("<option selected='selected' value='"+vm.Data.exUserID+"'>"+vm.Data.exUserID_Convert+"</option>");
+					$('#select_exUserID').selectpicker('refresh');
+					$('#downloadfile1').attr('href', "/downloadFile?type=application/octet-stream&filename="+vm.Data.file1);
+					var ls = vm.Data.file1.split("/");
+					$('#downloadfile1').text(ls[ls.length-1]);
+				});
+			}
+		}
+	});
+	
+	$(function(){
+	});
+
+	function getDictionarysite(filter){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "Site",
+				filter: filter			},
+			success: function(result) {
+				vm.dictionarysite = result;
+				var parent = $("#select_site");
+				parent.empty();
+				parent.append("<option value=''>--请选择--</option>");
+				for(var i=0; i<result.length;i++){
+					parent.append("<option value='"+result[i].code+"'>"+result[i].name+"</option>");
+				}
+				parent.selectpicker('refresh');			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	function getDictionaryexUserID(filter){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "User",
+				filter: filter			},
+			success: function(result) {
+				vm.dictionaryexUserID = result;
+				var parent = $("#select_exUserID");
+				parent.empty();
+				parent.append("<option value=''>--请选择--</option>");
+				for(var i=0; i<result.length;i++){
+					parent.append("<option value='"+result[i].code+"'>"+result[i].name+"</option>");
+				}
+				parent.selectpicker('refresh');			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+
+	
+	function getData(id){
+		
+		if(id>0){
+			PostAppAjax({
+				url: '/Workflow/getExpensesById',
+				data: {
+					id: id
+				},
+				success: function(result) {
+					if(result.code==0){
+						vm.Data = result.data;
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function(err) {
+					alert("服务器忙，请重试!\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+	function Accept(){
+		$('#form1').data("bootstrapValidator").validate();
+ 		var isValid = $('#form1').data("bootstrapValidator").isValid();
+		if(isValid){
+			PostAppAjax({
+				url: '/Workflow/insertExpenses',
+				contentType: 'application/json;charset=utf-8',
+				data: JSON.stringify(vm.Data),
+				success: function(result) {
+					if(result.code==0){
+						doTrigger("Expenses"); //调用触发器，刷新查询
+						iframecloses();
+					}else{
+						alert("数据提交不成功！\n\n错误信息：\n"+result.msg);
+					}
+				},
+				error: function(err) {
+					alert("错误信息：\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+</script>

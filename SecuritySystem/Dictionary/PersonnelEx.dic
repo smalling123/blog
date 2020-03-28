@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Search">
+<SQL>Select Convert(ID, char(20)) as Code, CONCAT(Name, SUBSTR(CardCode, 9, 2)) as Name 
+From Personnel
+Where Name like '%${filter}%' or Code like '%${filter}%'
+Order By convert(Name using gbk) collate gbk_chinese_ci</SQL>
+<ConvertSQL>Select CONCAT(Name, SUBSTR(CardCode, 9, 2)) as Name 
+From Personnel
+Where ID = #{code}</ConvertSQL>
+<Items/>
+</Dictionary>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Contract.SiteContractPost" Name="getSiteContractPostById" SQL="select * from sitecontractpost where SiteContractId =#{id}" SelectType="Collections" Width="160" X="44" Y="52">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="SiteContractId" Name="SiteContractId" Type="Integer"/>
+<n1:ResultField MapperField="Post" Name="Post" Type="String"/>
+<n1:ResultField MapperField="Schedule" Name="Schedule" Type="Integer"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="BeginTime" Name="BeginTime" Type="String"/>
+<n1:ResultField MapperField="EndTime" Name="EndTime" Type="String"/>
+<n1:ResultField MapperField="PosNumber" Name="PosNumber" Type="Integer"/>
+<n1:ResultField MapperField="ContractNumber" Name="ContractNumber" Type="Integer"/>
+<n1:ResultField MapperField="WorkNumber" Name="WorkNumber" Type="Decimal"/>
+<n1:ResultField MapperField="BeginDate" Name="BeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="DateTime"/>
+<n1:ResultField MapperField="Day1" Name="Day1" Type="Boolean"/>
+<n1:ResultField MapperField="Day2" Name="Day2" Type="Boolean"/>
+<n1:ResultField MapperField="Day3" Name="Day3" Type="Boolean"/>
+<n1:ResultField MapperField="Day4" Name="Day4" Type="Boolean"/>
+<n1:ResultField MapperField="Day5" Name="Day5" Type="Boolean"/>
+<n1:ResultField MapperField="Day6" Name="Day6" Type="Boolean"/>
+<n1:ResultField MapperField="Day7" Name="Day7" Type="Boolean"/>
+<n1:ResultField MapperField="DayH" Name="DayH" Type="Boolean"/>
+<n1:ResultField MapperField="CalcTime" Name="CalcTime" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="FullTime" Name="FullTime" Type="Integer"/>
+<n1:ResultField MapperField="SalaryType" Name="SalaryType" Type="Integer"/>
+<n1:ResultField MapperField="SalaryBase" Name="SalaryBase" Type="Decimal"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertSiteContractPost" SQL="&lt;script&gt;Insert Into SiteContractPost(SiteContractId, Post, Schedule, Type, BeginTime, EndTime, PosNumber, ContractNumber, WorkNumber, BeginDate, EndDate, Day1, Day2, Day3, Day4, Day5, Day6, Day7, DayH, CalcTime, Describes, FullTime, SalaryType, SalaryBase) Values&#10;&lt;foreach collection='sitecontractpost' item='c' index='index' separator=','&gt;&#10;(#{id}, #{c.Post}, #{c.Schedule}, #{c.Type}, #{c.BeginTime}, #{c.EndTime}, #{c.PosNumber}, #{c.ContractNumber}, #{c.WorkNumber}, #{c.BeginDate}, #{c.EndDate}, #{c.Day1}, #{c.Day2}, #{c.Day3}, #{c.Day4}, #{c.Day5}, #{c.Day6}, #{c.Day7}, #{c.DayH}, #{c.CalcTime}, #{c.Describes}, #{c.FullTime}, #{c.SalaryType}, #{c.SalaryBase})&#10;&lt;/foreach&gt;&#10;&lt;/script&gt;" Width="160" X="232" Y="51">
+<Parameters>
+<n2:Field Collections="true" Name="sitecontractpost" ObjectName="Contract.SiteContractPost" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Delete Height="24" Name="deleteById" SQL="delete from sitecontractpost  where SiteContractId =#{id}" Width="160" X="437" Y="56">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+</Controls>
+</View>
+</Mapper>

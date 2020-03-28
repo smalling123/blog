@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="代办表操作">
+<View>
+<Controls>
+<n1:Select Description="查询代办表" Height="240" MapperEntity="ApplyFor.ToDoList" Name="getAllToDoList" SQL="select * from ToDoList&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="62" Y="43">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="OwnerID" Name="OwnerID" Type="String"/>
+<n1:ResultField MapperField="OwnerEn" Name="OwnerEn" Type="String"/>
+<n1:ResultField MapperField="OwnerCn" Name="OwnerCn" Type="String"/>
+<n1:ResultField MapperField="CreatorID" Name="CreatorID" Type="Integer"/>
+<n1:ResultField MapperField="CreatorEn" Name="CreatorEn" Type="String"/>
+<n1:ResultField MapperField="CreatorCn" Name="CreatorCn" Type="String"/>
+<n1:ResultField MapperField="ApplicantID" Name="ApplicantID" Type="Integer"/>
+<n1:ResultField MapperField="ApplicantEn" Name="ApplicantEn" Type="String"/>
+<n1:ResultField MapperField="ApplicantCn" Name="ApplicantCn" Type="String"/>
+<n1:ResultField MapperField="Title" Name="Title" Type="String"/>
+<n1:ResultField MapperField="ApplicationNo" Name="ApplicationNo" Type="String"/>
+<n1:ResultField MapperField="ProcName" Name="ProcName" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="CreatedDate" Name="CreatedDate" Type="String"/>
+<n1:ResultField MapperField="ModifiedDate" Name="ModifiedDate" Type="String"/>
+<n1:ResultField MapperField="ActivityName" Name="ActivityName" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="根据ID查询待办" Height="240" MapperEntity="ApplyFor.ToDoList" Name="getToDoListById" SQL="select * from ToDoList&#10;where Id=#{id}" SelectType="Collections" Width="160" X="253" Y="44">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="OwnerID" Name="OwnerID" Type="String"/>
+<n1:ResultField MapperField="OwnerEn" Name="OwnerEn" Type="String"/>
+<n1:ResultField MapperField="OwnerCn" Name="OwnerCn" Type="String"/>
+<n1:ResultField MapperField="CreatorID" Name="CreatorID" Type="Integer"/>
+<n1:ResultField MapperField="CreatorEn" Name="CreatorEn" Type="String"/>
+<n1:ResultField MapperField="CreatorCn" Name="CreatorCn" Type="String"/>
+<n1:ResultField MapperField="ApplicantID" Name="ApplicantID" Type="Integer"/>
+<n1:ResultField MapperField="ApplicantEn" Name="ApplicantEn" Type="String"/>
+<n1:ResultField MapperField="ApplicantCn" Name="ApplicantCn" Type="String"/>
+<n1:ResultField MapperField="Title" Name="Title" Type="String"/>
+<n1:ResultField MapperField="ApplicationNo" Name="ApplicationNo" Type="String"/>
+<n1:ResultField MapperField="ProcName" Name="ProcName" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="CreatedDate" Name="CreatedDate" Type="String"/>
+<n1:ResultField MapperField="ModifiedDate" Name="ModifiedDate" Type="String"/>
+<n1:ResultField MapperField="ActivityName" Name="ActivityName" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Description="添加待办" Height="24" Name="InsertToDoList" SQL="INSERT INTO todolist &#10;( OwnerID, OwnerEn, &#10;OwnerCn, CreatorID, CreatorEn, &#10;CreatorCn, ApplicantID, ApplicantEn, &#10;ApplicantCn, Title, ApplicationNo, &#10;ProcName, `Status`, CreatedDate, ActivityName) &#10;VALUES (#{toList.OwnerID}, #{toList.OwnerEn}, &#10;#{toList.OwnerCn}, #{toList.CreatorID}, #{toList.CreatorEn}, &#10;#{toList.CreatorCn},#{toList.ApplicantID}, #{toList.ApplicantEn}, &#10;#{toList.ApplicantCn},#{toList.Title}, #{toList.ApplicationNo}, &#10;#{toList.ProcName}, #{toList.Status}, Now(), #{toList.ActivityName})" Width="160" X="488" Y="45">
+<Parameters>
+<n2:Field Collections="false" Name="toList" ObjectName="ApplyFor.ToDoList" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Description="修改待办状态" Height="24" Name="UpdateToDoListStatus" SQL="UPDATE todolist &#10;SET  `Status` = 1, ModifiedDate=Now()&#10;WHERE ActivityName =#{activity}  and ApplicationNo = #{id}" Width="162" X="490" Y="94">
+<Parameters>
+<n2:Field Collections="false" Name="activity" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Description="根据Account查询待办" Height="240" MapperEntity="ApplyFor.ToDoList" Name="getToDoListByAccount" SQL="select * from&#10;(select  tl.* from (&#10; Select OrgRole.ID As OrgRoleID, Org.ID As OrgID, Org.Name As OrgName, Role.ID As RoleID, Role.Name As RoleName&#10;From User Join UserRole on User.ID = UserRole.UserID&#10;&#9;&#9;Join OrgRole on UserRole.OrgRoleID = OrgRole.ID&#10;&#9;&#9;Join Org on Org.ID = OrgRole.OrgID&#10;&#9;&#9;Join Role on Role.ID = OrgRole.RoleID where User.LoginName=#{account}) r &#10; join ProcessNode pn on r.RoleName=pn.ProcessRole &#10; join employeeapplication ell on ell.`Status`=pn.ProcessNo &#10; join todolist tl on ell.Id=tl.ApplicationNo and pn.ProcessNode=tl.ActivityName&#10; order by tl.Id desc&#10; ) tls&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="183" X="706" Y="44">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="OwnerID" Name="OwnerID" Type="String"/>
+<n1:ResultField MapperField="OwnerEn" Name="OwnerEn" Type="String"/>
+<n1:ResultField MapperField="OwnerCn" Name="OwnerCn" Type="String"/>
+<n1:ResultField MapperField="CreatorID" Name="CreatorID" Type="Integer"/>
+<n1:ResultField MapperField="CreatorEn" Name="CreatorEn" Type="String"/>
+<n1:ResultField MapperField="CreatorCn" Name="CreatorCn" Type="String"/>
+<n1:ResultField MapperField="ApplicantID" Name="ApplicantID" Type="Integer"/>
+<n1:ResultField MapperField="ApplicantEn" Name="ApplicantEn" Type="String"/>
+<n1:ResultField MapperField="ApplicantCn" Name="ApplicantCn" Type="String"/>
+<n1:ResultField MapperField="Title" Name="Title" Type="String"/>
+<n1:ResultField MapperField="ApplicationNo" Name="ApplicationNo" Type="Integer"/>
+<n1:ResultField MapperField="ProcName" Name="ProcName" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="CreatedDate" Name="CreatedDate" Type="String"/>
+<n1:ResultField MapperField="ModifiedDate" Name="ModifiedDate" Type="String"/>
+<n1:ResultField MapperField="ActivityName" Name="ActivityName" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="account" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="根据账号获取条数" Height="240" MapperEntity="Table" Name="getCountByAccount" SQL="select Count(*) Count from&#10;(select  tl.* from (&#10; Select OrgRole.ID As OrgRoleID, Org.ID As OrgID, Org.Name As OrgName, Role.ID As RoleID, Role.Name As RoleName&#10;From User Join UserRole on User.ID = UserRole.UserID&#10;&#9;&#9;Join OrgRole on UserRole.OrgRoleID = OrgRole.ID&#10;&#9;&#9;Join Org on Org.ID = OrgRole.OrgID&#10;&#9;&#9;Join Role on Role.ID = OrgRole.RoleID where User.LoginName=#{account}) r &#10; join ProcessNode pn on r.RoleName=pn.ProcessRole &#10; join employeeapplication ell on ell.`Status`=pn.ProcessNo &#10; join todolist tl on ell.Id=tl.ApplicationNo and pn.ProcessNode=tl.ActivityName&#10; order by tl.Id desc&#10; ) tls&#10; where&#10; ApplicantCn like '%${applicantCn}%'&#10; and CreatorCn like '%${creatorCn}%'&#10; and CreatedDate&gt;#{begincreatedDate}&#10; and CreatedDate&lt;#{endcreatedDate}" SelectType="Singleton" Width="160" X="938" Y="41">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="account" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="applicantCn" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="creatorCn" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="begincreatedDate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="endcreatedDate" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and CreatedDate&gt;#{begincreatedDate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="begincreatedDate" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and CreatedDate&lt;#{endcreatedDate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="endcreatedDate" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Description="查询所有的代办" Height="142" MapperEntity="ApplyFor.ToDoList" Name="getToDoListDetails" SQL="select * from&#10;(select  tl.* from (&#10; Select OrgRole.ID As OrgRoleID, Org.ID As OrgID, Org.Name As OrgName, Role.ID As RoleID, Role.Name As RoleName&#10;From User Join UserRole on User.ID = UserRole.UserID&#10;&#9;&#9;Join OrgRole on UserRole.OrgRoleID = OrgRole.ID&#10;&#9;&#9;Join Org on Org.ID = OrgRole.OrgID&#10;&#9;&#9;Join Role on Role.ID = OrgRole.RoleID where User.LoginName=#{account}) r &#10; join ProcessNode pn on r.RoleName=pn.ProcessRole &#10; join employeeapplication ell on ell.`Status`=pn.ProcessNo &#10; join todolist tl on ell.Id=tl.ApplicationNo and pn.ProcessNode=tl.ActivityName&#10; order by tl.Id desc&#10; ) tls&#10; where&#10; ApplicantCn like '%${applicantCn}%'&#10; and CreatorCn like '%${creatorCn}%'&#10; and CreatedDate&gt;#{begincreatedDate}&#10; and CreatedDate&lt;#{endcreatedDate}&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="192" X="460" Y="142">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="OwnerID" Name="OwnerID" Type="String"/>
+<n1:ResultField MapperField="OwnerEn" Name="OwnerEn" Type="String"/>
+<n1:ResultField MapperField="OwnerCn" Name="OwnerCn" Type="String"/>
+<n1:ResultField MapperField="CreatorID" Name="CreatorID" Type="Integer"/>
+<n1:ResultField MapperField="CreatorEn" Name="CreatorEn" Type="String"/>
+<n1:ResultField MapperField="CreatorCn" Name="CreatorCn" Type="String"/>
+<n1:ResultField MapperField="ApplicantID" Name="ApplicantID" Type="Integer"/>
+<n1:ResultField MapperField="ApplicantEn" Name="ApplicantEn" Type="String"/>
+<n1:ResultField MapperField="ApplicantCn" Name="ApplicantCn" Type="String"/>
+<n1:ResultField MapperField="Title" Name="Title" Type="String"/>
+<n1:ResultField MapperField="ApplicationNo" Name="ApplicationNo" Type="Integer"/>
+<n1:ResultField MapperField="ProcName" Name="ProcName" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="CreatedDate" Name="CreatedDate" Type="String"/>
+<n1:ResultField MapperField="ModifiedDate" Name="ModifiedDate" Type="String"/>
+<n1:ResultField MapperField="ActivityName" Name="ActivityName" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="account" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="applicantCn" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="creatorCn" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="begincreatedDate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="endcreatedDate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and CreatedDate&gt;#{begincreatedDate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="begincreatedDate" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and CreatedDate&lt;#{endcreatedDate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="endcreatedDate" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

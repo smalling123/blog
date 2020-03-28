@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" xmlns:n3="org.polariscode.plugin.web.springboot.action.jwt" Description="" Transactional="false" Type="Post" VerifyToken="false">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Name="ps" ObjectName="Finance.Ps" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable2">
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+</n1:Variable>
+<n3:GetJWTID Name="GetJWTID1" Variable="user"/>
+<n1:Code Name="Code1" Value="ps.getpay().setCreateUser(user);"/>
+<n1:Decide Expression="ps.getpay().getID()&gt;0" Name="Decide1">
+<if>
+<n1:DataAccess ContinueOnError="false" Dao="Finance.PayMapper.updatePay" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="ps.getpay()" Name="pay" ObjectName="Finance.Pay" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+</if>
+<else>
+<n1:DataAccess ContinueOnError="false" Dao="Finance.PayMapper.insertPay" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="ps.getpay()" Name="pay" ObjectName="Finance.Pay" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Finance.PayCheckMapper.InsertsPayCheck" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess3">
+<Parameters>
+<n2:Field Collections="true" DefaultValue="ps.getids()" Name="ids" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" DefaultValue="user" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+</else>
+</n1:Decide>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-validator/css/bootstrap-validator.min.css" rel=stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-validator/js/bootstrap-validator.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+
+		#table {
+			margin: 0px auto;
+			text-align-last: center;
+		}
+
+		#btn {
+			margin-top: 30px;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container" id="app"  style="width: 94%; margin-left: 3%; margin-top:20px;">
+		<form id="form1" rele="form" class="form-horizontal">
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2 control-label" >
+					<label for="name">名称:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.name" type="text" class="form-control" id="name" name="name">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2 control-label" >
+					<label for="describes">描述:</label>
+				</div>
+				<div class="col-xs-8 col-md-8">
+					<input v-model="Data.describes" type="text" class="form-control" id="describes" name="describes">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2 control-label" >
+					<label for="orgType">机构类型:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<select id="select_orgType" class="selectpicker form-control" v-model="Data.orgType"  name="orgType">
+						<option v-for="item in dictionaryorgType" v-bind:value="item.code">{{item.name}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2 control-label" >
+					<label for="isdelete">是否停用</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input type="checkbox" v-model="Data.isdelete" id="isdelete" name="isdelete" >
+				</div>
+			</div>
+			<div class="form-group">
+
+				<div class="col-xs-2 col-md-2" style="text-align: right;">
+				</div>
+				<div class="col-xs-8 col-md-8" style="text-align: left;">
+					<button type="button" class="layui-btn layui-btn-sm" onClick="Accept()">
+						<i class="layui-icon layui-icon-ok"></i><span class="fontsm">&emsp;提交&emsp;</span>
+					</button>
+					<button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onClick="iframecloses()">
+						<i class="layui-icon layui-icon-close"></i><span class="fontsm">&emsp;取消&emsp;</span>
+					</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+</body>
+</html>
+<script src="../../wwwroot/js/App.js"></script>
+
+<script>
+	$(document).ready(function () {
+		$('#form1').bootstrapValidator({
+			message: 'This value is not valid',
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+				name: {
+					message: '名称验证失败',
+					validators: {
+						notEmpty: {
+							message: '名称不能为空'
+						}
+					}
+				}
+			}
+		});
+	});
+	
+	var dictionaryItems = [{code:"", name:""}];
+
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			Data:{
+				id: 0,
+				pid: 0,
+				name: "",
+				describes: "",
+				isdelete: false,
+				orgType: 0
+			}
+			,dictionaryorgType: dictionaryItems
+
+		},
+		methods: {
+
+		},
+		watch: {
+			dictionaryorgType: function() {
+				this.$nextTick(function () {
+					$('#select_orgType').selectpicker('refresh');
+				})
+			},
+			Data: function() {
+				this.$nextTick(function () {
+					$('#select_orgType').selectpicker('refresh');
+				})
+			}
+		}
+	});
+	
+	$(function(){
+		getDictionaryorgType();
+	});
+
+	function getDictionaryorgType(){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "OrgType"
+			},
+			success: function(result) {
+				vm.dictionaryorgType = result;
+			},
+			error: function() {
+				alert("服务器忙，请重试!");
+			}
+		});
+	}
+
+
+	
+	function getData(id, pid){
+		vm.Data.pid = pid;
+		if(id>0){
+			PostAppAjax({
+				url: '/Permission/Org/getOrgById',
+				data: {
+					id: id
+				},
+				success: function(result) {
+					if(result.code==0){
+						vm.Data = result.data;
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function() {
+					alert("服务器忙，请重试!");
+				}
+			});
+		}
+	}
+	function Accept(){
+		$('#form1').data("bootstrapValidator").validate();
+ 		var isValid = $('#form1').data("bootstrapValidator").isValid();
+		if(isValid){
+			PostAppAjax({
+				url: '/Permission/Org/updateOrg',
+				contentType: 'application/json;charset=utf-8',
+				data: JSON.stringify(vm.Data),
+				success: function(result) {
+					if(result.code==0){
+						doTrigger("Org"); //调用触发器，刷新查询
+						iframecloses();
+					}else{
+						alert(code.msg);
+					}
+				},
+				error: function(err) {
+					alert("错误信息：\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+</script>

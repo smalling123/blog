@@ -1,0 +1,604 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+    <link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+    <link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="../../wwwroot/lib/bootstrap-validator/css/bootstrap-validator.min.css" rel="stylesheet" />
+    <link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+    <script src="../../wwwroot/lib/vue/vue.js"></script>
+    <script src="../../wwwroot/lib/layui/layui.js"></script>
+    <script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+    <script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../../wwwroot/lib/bootstrap-validator/js/bootstrap-validator.min.js"></script>
+    <script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="../../wwwroot/js/site.js"></script>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+            font-size: small;
+        }
+
+        .input {
+            height: 28px;
+            padding: 6px 6px 6px 6px;
+        }
+    </style>
+</head>
+<body style="background-color: #F2F2F2;">
+    <div class="container" id="app" style="width: 94%; margin-left: 0px; margin-top:20px;padding-left:0px;">
+        <form id="form1" rele="form" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="contractCode">合同编号:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.contractCode" type="text" class="form-control input" id="contractCode" name="contractCode" readonly="readonly">
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="customerId">客户:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <input v-model="Data.customerId_Convert" type="text" class="form-control input" id="customerId_Convert" name="customerId_Convert" readonly="readonly">
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="companyId">我方公司:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_companyId" class="selectpicker form-control input" v-model="Data.companyId" name="companyId" disabled>
+                        <option v-for="item in dictionarycompanyId" v-bind:value="item.code">{{item.name}}</option>
+                    </select>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="orgId">所属部门:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_orgId" class="selectpicker form-control input" v-model="Data.orgId" name="orgId" disabled>
+                        <option v-for="item in dictionaryorgId" v-bind:value="item.code">{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="invoiceCompany">开票单位:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_invoiceCompany" class="selectpicker form-control input" v-model="Data.invoiceCompany" name="invoiceCompany" disabled>
+                        <option v-for="item in dictionaryinvoiceCompany" v-bind:value="item.code">{{item.name}}</option>
+                    </select>
+                </div>
+ 
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="invoiceTitle">发票抬头:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.invoiceTitle" type="text" class="form-control input" id="invoiceTitle" name="invoiceTitle" readonly>
+                </div>
+
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="invoiceTax">税号:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.invoiceTax" type="text" class="form-control input" id="invoiceTax" name="invoiceTax" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="beginDate">开始日期:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input type="text" class="layui-input form-control input" id="beginDate" name="beginDate" readonly>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="endDate">结束日期:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input type="text" class="layui-input form-control input" id="endDate" name="endDate" readonly>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="inDate">进场日期:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input type="text" class="layui-input form-control input" id="inDate" name="inDate" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="pnumber">合同人数:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.pnumber" type="text" class="form-control input" id="pnumber" name="pnumber" readonly>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="avgAmount">合同单价:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.avgAmount" type="text" class="form-control input" id="avgAmount" name="avgAmount" readonly>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="avgAmount">工资类型:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_wagesType" class="selectpicker form-control input" v-model="Data.wagesType" name="wagesType" disabled>
+                        <option value="0">每月工资</option>
+                        <option value="1">每班工资</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="totalAmount">总金额:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.totalAmount" type="text" class="form-control input" id="totalAmount" name="totalAmount" readonly>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="monthlyAmount">每月金额:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.monthlyAmount" type="text" class="form-control input" id="monthlyAmount" name="monthlyAmount" readonly>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="wages">建议工资:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.wages" type="text" class="form-control input" id="wages" name="wages" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="aagent">甲方经办人:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.aagent" type="text" class="form-control input" id="aagent" name="aagent" readonly>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="asubscriber">甲方签约人:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.asubscriber" type="text" class="form-control input" id="asubscriber" name="asubscriber" readonly>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="asigningTtime">甲方签约时间:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input type="text" class="layui-input form-control input" id="asigningTtime" name="asigningTtime" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="bagent">乙方经办人:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.bagent" type="text" class="form-control input" id="bagent" name="bagent" readonly>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="bsubscriber">乙方签约人:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.bsubscriber" type="text" class="form-control input" id="bsubscriber" name="bsubscriber" readonly>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="bsigningTtime">乙方签约时间:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input type="text" class="layui-input form-control input" id="bsigningTtime" name="bsigningTtime" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="bagent">特殊需求:</label>
+                </div>
+                <div class="col-xs-10 col-md-10">
+                    <textarea v-model="Data.specialNeed" class="form-control" rows="5" id="specialNeed" name="specialNeed" readonly></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="logisticsEat">餐饮需求:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <select id="select_logisticsEat" class="selectpicker form-control input" v-model="Data.logisticsEat" name="logisticsEat" disabled>
+                        <option value="0">无需求</option>
+                        <option value="1">甲方提供工作餐</option>
+                        <option value="2">我方提供工作餐</option>
+                        <option value="3">我方提供餐费</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="logisticsHome">住宿需求:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <select id="select_logisticsHome" class="selectpicker form-control input" v-model="Data.logisticsHome" name="logisticsHome" disabled>
+                        <option value="0">客户安排住宿</option>
+                        <option value="1">我方安排住宿</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="logisticsNeed">后勤其它需求:</label>
+                </div>
+                <div class="col-xs-10 col-md-10">
+                    <textarea v-model="Data.logisticsNeed" class="form-control" rows="5" id="logisticsNeed" name="logisticsNeed" readonly></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="superviseNeed">督导需求:</label>
+                </div>
+                <div class="col-xs-10 col-md-10">
+                    <textarea v-model="Data.superviseNeed" class="form-control" rows="5" id="superviseNeed" name="superviseNeed" readonly></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="trainNeed">培训需求:</label>
+                </div>
+                <div class="col-xs-10 col-md-10">
+                    <textarea v-model="Data.trainNeed" class="form-control" rows="5" id="trainNeed" name="trainNeed" readonly></textarea>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>
+<script src="../../wwwroot/js/App.js"></script>
+<script>
+	layui.use('laydate', function () {
+		var laydate = layui.laydate;
+		laydate.render({
+			elem: '#beginDate',
+			type: 'date',
+			format: 'yyyy-MM-dd',
+			done: function (value) {
+				var d = new Date(value);
+				vm.Data.beginDate = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' 00:00:00';
+			}
+		});
+		laydate.render({
+			elem: '#endDate',
+			type: 'date',
+			format: 'yyyy-MM-dd',
+			done: function (value) {
+				var d = new Date(value);
+				vm.Data.endDate = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' 00:00:00';
+			}
+		});
+		laydate.render({
+			elem: '#inDate',
+			type: 'date',
+			format: 'yyyy-MM-dd',
+			done: function (value) {
+				var d = new Date(value);
+				vm.Data.inDate = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' 00:00:00';
+			}
+		});
+		laydate.render({
+			elem: '#asigningTtime',
+			type: 'date',
+			format: 'yyyy-MM-dd',
+			done: function (value) {
+				var d = new Date(value);
+				vm.Data.asigningTtime = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' 00:00:00';
+			}
+		});
+		laydate.render({
+			elem: '#bsigningTtime',
+			type: 'date',
+			format: 'yyyy-MM-dd',
+			done: function (value) {
+				var d = new Date(value);
+				vm.Data.bsigningTtime = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' 00:00:00';
+			}
+		});
+	});
+
+</script>
+
+<script>
+	$(document).ready(function () {
+		$('#form1').bootstrapValidator({
+			message: 'This value is not valid',
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+				contractCode: {
+					message: '合同编号验证失败',
+					validators: {
+						notEmpty: {
+							message: '合同编号不能为空'
+						}
+					}
+				},
+				customerId: {
+					message: '客户验证失败',
+					validators: {
+						notEmpty: {
+							message: '客户不能为空'
+						}
+					}
+				},
+				companyId: {
+					message: '我方公司验证失败',
+					validators: {
+						notEmpty: {
+							message: '我方公司不能为空'
+						}
+					}
+				},
+				orgId: {
+					message: '所属部门验证失败',
+					validators: {
+						notEmpty: {
+							message: '所属部门不能为空'
+						}
+					}
+				},
+				beginDate: {
+					message: '开始日期验证失败',
+					validators: {
+						notEmpty: {
+							message: '开始日期不能为空'
+						}
+					}
+				},
+				endDate: {
+					message: '结束日期验证失败',
+					validators: {
+						notEmpty: {
+							message: '结束日期不能为空'
+						}
+					}
+				},
+				inDate: {
+					message: '进场日期验证失败',
+					validators: {
+						notEmpty: {
+							message: '进场日期不能为空'
+						}
+					}
+				},
+				pnumber: {
+					message: '合同人数验证失败',
+					validators: {
+						notEmpty: {
+							message: '合同人数不能为空'
+						}
+					}
+				},
+				avgAmount: {
+                    message: '合同单价验证失败',
+					validators: {
+						notEmpty: {
+                            message: '合同单价不能为空'
+						}
+					}
+				},
+				totalAmount: {
+					message: '总金额验证失败',
+					validators: {
+						notEmpty: {
+							message: '总金额不能为空'
+						}
+					}
+				},
+				wages: {
+					message: '建议工资验证失败',
+					validators: {
+						notEmpty: {
+							message: '建议工资不能为空'
+						}
+					}
+				}
+			}
+		});
+	});
+
+	var loadIndex = 0;
+	var layer;
+	layui.use('layer', function () {
+		layer = layui.layer;
+	});
+	var dictionaryItems = [{code:"", name:""}];
+
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			Data:{
+				id: 0,
+				contractCode: "",
+				customerId: 0,
+				companyId: 0,
+				orgId: 0,
+				beginDate: "2019/12/10 00:00:00",
+				endDate: "2019/12/10 00:00:00",
+				inDate: "2019/12/10 00:00:00",
+				pnumber: 0,
+				avgAmount: 0,
+				totalAmount: 0,
+				monthlyAmount: "",
+                wages: 0,
+                wagesType: 0,
+				aagent: "",
+				asubscriber: "",
+				asigningTtime: "2019/12/10 00:00:00",
+				bagent: "",
+				bsubscriber: "",
+				bsigningTtime: "2019/12/10 00:00:00",
+				specialNeed: "",
+				logisticsEat: 0,
+				logisticsHome: 0,
+				logisticsNeed: "",
+				superviseNeed: "",
+				trainNeed: "",
+				status: 0,
+				type: 0,
+				isdelete: false,
+				createUser: "",
+				createTime: "",
+				modifyUser: "",
+				modifyTime: "",
+				deleteUser: "",
+                deleteTime: "",
+                invoiceCompany: 0,
+                invoiceTitle: "",
+                invoiceTax: ""
+			}
+			,dictionarycompanyId: dictionaryItems
+			,dictionaryorgId: dictionaryItems
+
+		},
+		methods: {
+
+		},
+		watch: {
+			dictionarycompanyId: function() {
+				this.$nextTick(function () {
+					$('#select_companyId').selectpicker('refresh');
+				})
+			},
+			dictionaryorgId: function() {
+				this.$nextTick(function () {
+					$('#select_orgId').selectpicker('refresh');
+				})
+			},
+			Data: function() {
+				this.$nextTick(function () {
+					$('#select_companyId').selectpicker('refresh');
+                    $('#select_orgId').selectpicker('refresh');
+                    $('#select_wagesType').selectpicker('refresh');
+
+				});
+				//渲染所有日期组件
+				layui.use('laydate', function () {
+					var laydate = layui.laydate;
+					laydate.render({
+						elem: '#beginDate',
+						value: (new Date(vm.Data.beginDate)).getFullYear()+'-'+((new Date(vm.Data.beginDate)).getMonth()+1)+'-'+(new Date(vm.Data.beginDate)).getDate()
+					});
+					laydate.render({
+						elem: '#endDate',
+						value: (new Date(vm.Data.endDate)).getFullYear()+'-'+((new Date(vm.Data.endDate)).getMonth()+1)+'-'+(new Date(vm.Data.endDate)).getDate()
+					});
+					laydate.render({
+						elem: '#inDate',
+						value: (new Date(vm.Data.inDate)).getFullYear()+'-'+((new Date(vm.Data.inDate)).getMonth()+1)+'-'+(new Date(vm.Data.inDate)).getDate()
+					});
+					laydate.render({
+						elem: '#asigningTtime',
+						value: (new Date(vm.Data.asigningTtime)).getFullYear()+'-'+((new Date(vm.Data.asigningTtime)).getMonth()+1)+'-'+(new Date(vm.Data.asigningTtime)).getDate()
+					});
+					laydate.render({
+						elem: '#bsigningTtime',
+						value: (new Date(vm.Data.bsigningTtime)).getFullYear()+'-'+((new Date(vm.Data.bsigningTtime)).getMonth()+1)+'-'+(new Date(vm.Data.bsigningTtime)).getDate()
+					});
+				});
+			}
+		}
+	});
+
+	$(function(){
+		getDictionarycompanyId();
+		getDictionaryorgId();
+	});
+
+	function getDictionarycompanyId(){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "Company"
+			},
+			success: function(result) {
+				vm.dictionarycompanyId = result;
+			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	function getDictionaryorgId(){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "SiteOrg"
+			},
+			success: function(result) {
+				vm.dictionaryorgId = result;
+			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+
+
+
+	function getData(id){
+
+		if(id>0){
+			loadIndex = layer.load(0, {shade: false});
+			PostAppAjax({
+				url: '/Contract/getContractById',
+				data: {
+					id: id
+				},
+				success: function(result) {
+					layer.close(loadIndex);
+					if(result.code==0){
+						vm.Data = result.data;
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function(err) {
+					layer.close(loadIndex);
+					alert("服务器忙，请重试!\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+	function Accept(){
+		$('#form1').data("bootstrapValidator").validate();
+ 		var isValid = $('#form1').data("bootstrapValidator").isValid();
+		if(isValid){
+			loadIndex = layer.load(0, {shade: false});
+			PostAppAjax({
+				url: '/Contract/updateContract',
+				contentType: 'application/json;charset=utf-8',
+				data: JSON.stringify(vm.Data),
+				success: function(result) {
+					layer.close(loadIndex);
+					if(result.code==0){
+                        alert("数据提交成功！");
+						doTrigger("Contract"); //调用触发器，刷新查询
+					}else{
+						alert("数据提交不成功！\n\n错误信息：\n"+result.msg);
+					}
+				},
+				error: function(err) {
+					layer.close(loadIndex);
+					alert("错误信息：\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+</script>

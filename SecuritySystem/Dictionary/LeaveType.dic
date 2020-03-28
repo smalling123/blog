@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="1" Name="事假日"/>
+<Item Code="2" Name="病假"/>
+<Item Code="3" Name="婚假"/>
+<Item Code="4" Name="丧假"/>
+<Item Code="5" Name="年休假"/>
+<Item Code="6" Name="产假"/>
+<Item Code="7" Name="陪产假"/>
+</Items>
+</Dictionary>

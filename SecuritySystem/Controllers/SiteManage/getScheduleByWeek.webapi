@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" Description="" Transactional="false" Type="Post" VerifyToken="true">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Description="驻点" Dictionary="Site" Name="siteid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Description="日期" Name="date" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable2">
+<n2:Field Collections="true" Name="list" ObjectName="SiteManage.SitePostWeek" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="SiteManage.SiteManageMapper.getSitePostByWeek" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1" Variable="list">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="date" Name="date" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n2:Field Collections="false" DefaultValue="siteid" Name="siteid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="date.getDay()==0?6:date.getDay()-1" Name="week" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Variable Name="Variable3">
+<n2:Field Collections="true" DefaultValue="new ArrayList&lt;Schedule&gt;()" Name="scheles" ObjectName="SiteManage.Schedule" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable4">
+<n2:Field Collections="false" DefaultValue="0" Name="index" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</n1:Variable>
+<n1:Variable Name="Variable5">
+<n2:Field Collections="false" DefaultValue="0" Name="number" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</n1:Variable>
+<n1:Loop Expression="index &lt; list.size()" Name="Loop1">
+<Controls>
+<n1:Assign Name="Assign2" Value="0" Variable="number"/>
+<n1:Loop Expression="number &lt; list.get(index).getPosNumber()" Name="Loop2">
+<Controls>
+<n1:Variable Name="Variable6">
+<n2:Field Collections="false" DefaultValue="new Schedule()" Name="s" ObjectName="SiteManage.Schedule" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Code Name="Code1" Value="scheles.add(s);"/>
+<n1:Decide Expression="number == 0" Name="Decide8">
+<if>
+<n1:Assign Name="Assign3" Value="list.get(index).getPost()" Variable="s.Post"/>
+<n1:Assign Name="Assign4" Value="list.get(index).getSchedule()" Variable="s.Schedule"/>
+<n1:Assign Name="Assign5" Value="list.get(index).getBeginTime()" Variable="s.BeginTime"/>
+<n1:Assign Name="Assign6" Value="list.get(index).getEndTime()" Variable="s.EndTime"/>
+</if>
+<else/>
+</n1:Decide>
+<n1:Assign Name="Assign7" Value="list.get(index).getD1()" Variable="s.D1Date"/>
+<n1:Decide Expression="number &lt; list.get(index).getN1()" Name="Decide1">
+<if>
+<n1:Assign Name="Assign8" Value="list.get(index).getSPI1()" Variable="s.D1SpiId"/>
+</if>
+<else/>
+</n1:Decide>
+<n1:Assign Name="Assign9" Value="list.get(index).getD2()" Variable="s.D2Date"/>
+<n1:Decide Expression="number &lt; list.get(index).getN2()" Name="Decide2">
+<if>
+<n1:Assign Name="Assign10" Value="list.get(index).getSPI2()" Variable="s.D2SpiId"/>
+</if>
+<else/>
+</n1:Decide>
+<n1:Assign Name="Assign1" Value="list.get(index).getD3()" Variable="s.D3Date"/>
+<n1:Decide Expression="number &lt; list.get(index).getN3()" Name="Decide3">
+<if>
+<n1:Assign Name="Assign11" Value="list.get(index).getSPI3()" Variable="s.D3SpiId"/>
+</if>
+<else/>
+</n1:Decide>
+<n1:Assign Name="Assign12" Value="list.get(index).getD4()" Variable="s.D4Date"/>
+<n1:Decide Expression="number &lt; list.get(index).getN4()" Name="Decide4">
+<if>
+<n1:Assign Name="Assign13" Value="list.get(index).getSPI4()" Variable="s.D4SpiId"/>
+</if>
+<else/>
+</n1:Decide>
+<n1:Assign Name="Assign14" Value="list.get(index).getD5()" Variable="s.D5Date"/>
+<n1:Decide Expression="number &lt; list.get(index).getN5()" Name="Decide5">
+<if>
+<n1:Assign Name="Assign15" Value="list.get(index).getSPI5()" Variable="s.D5SpiId"/>
+</if>
+<else/>
+</n1:Decide>
+<n1:Assign Name="Assign16" Value="list.get(index).getD6()" Variable="s.D6Date"/>
+<n1:Decide Expression="number &lt; list.get(index).getN6()" Name="Decide6">
+<if>
+<n1:Assign Name="Assign17" Value="list.get(index).getSPI6()" Variable="s.D6SpiId"/>
+</if>
+<else/>
+</n1:Decide>
+<n1:Assign Name="Assign18" Value="list.get(index).getD7()" Variable="s.D7Date"/>
+<n1:Decide Expression="number &lt; list.get(index).getN7()" Name="Decide7">
+<if>
+<n1:Assign Name="Assign19" Value="list.get(index).getSPI7()" Variable="s.D7SpiId"/>
+</if>
+<else/>
+</n1:Decide>
+<n1:Assign Name="Assign22" Value="number+1" Variable="number"/>
+</Controls>
+</n1:Loop>
+<n1:Assign Name="Assign20" Value="index+1" Variable="index"/>
+</Controls>
+</n1:Loop>
+<n1:Assign Name="Assign23" Value="0" Variable="index"/>
+<n1:Variable Name="Variable7">
+<n2:Field Collections="true" Name="sList" ObjectName="SiteManage.ScheduleOne" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Loop Expression="index &lt; 7" Name="Loop3">
+<Controls>
+<n1:DataAccess ContinueOnError="false" Dao="SiteManage.SiteManageMapper.getScheduleByDay" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2" Variable="sList">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="siteid" Name="siteid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="date" Name="date" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n2:Field Collections="false" DefaultValue="(date.getDay()==0?6:date.getDay()-1) - index" Name="week" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Assign Name="Assign25" Value="0" Variable="number"/>
+<n1:Loop Expression="number &lt; sList.size()" Name="Loop4">
+<Controls>
+<n1:Code Name="Code2" Value="int j = 0;&#10;while( j &lt; scheles.size() ) {&#10;&#9;if ( index ==0 ) {&#10;&#9;&#9;if( scheles.get(j).getD1SpiId() == sList.get(number).getSpiId()  &amp;&amp; scheles.get(j).getD1PID()==0 ){&#10;&#9;&#9;&#9;scheles.get(j).setD1SID( sList.get(number).getID() );&#10;&#9;&#9;&#9;scheles.get(j).setD1PID( sList.get(number).getPID() );&#10;&#9;&#9;&#9;scheles.get(j).setD1Status( sList.get(number).getStatus() );&#10;&#9;&#9;&#9;break;&#10;&#9;&#9;}&#10;&#9;}&#10;&#9;if ( index == 1 ) {&#10;&#9;&#9;if( scheles.get(j).getD2SpiId() == sList.get(number).getSpiId()  &amp;&amp; scheles.get(j).getD2PID()==0 ){&#10;&#9;&#9;&#9;scheles.get(j).setD2SID( sList.get(number).getID() );&#10;&#9;&#9;&#9;scheles.get(j).setD2PID( sList.get(number).getPID() );&#10;&#9;&#9;&#9;scheles.get(j).setD2Status( sList.get(number).getStatus() );&#10;&#9;&#9;&#9;break;&#10;&#9;&#9;}&#10;&#9;}&#10;&#9;if ( index == 2 ) {&#10;&#9;&#9;if( scheles.get(j).getD3SpiId() == sList.get(number).getSpiId()  &amp;&amp; scheles.get(j).getD3PID()==0 ){&#10;&#9;&#9;&#9;scheles.get(j).setD3SID( sList.get(number).getID() );&#10;&#9;&#9;&#9;scheles.get(j).setD3PID( sList.get(number).getPID() );&#10;&#9;&#9;&#9;scheles.get(j).setD3Status( sList.get(number).getStatus() );&#10;&#9;&#9;&#9;break;&#10;&#9;&#9;}&#10;&#9;}&#10;&#9;if ( index == 3 ) {&#10;&#9;&#9;if( scheles.get(j).getD4SpiId() == sList.get(number).getSpiId()  &amp;&amp; scheles.get(j).getD4PID()==0 ){&#10;&#9;&#9;&#9;scheles.get(j).setD4SID( sList.get(number).getID() );&#10;&#9;&#9;&#9;scheles.get(j).setD4PID( sList.get(number).getPID() );&#10;&#9;&#9;&#9;scheles.get(j).setD4Status( sList.get(number).getStatus() );&#10;&#9;&#9;&#9;break;&#10;&#9;&#9;}&#10;&#9;}&#10;&#9;if ( index == 4 ) {&#10;&#9;&#9;if( scheles.get(j).getD5SpiId() == sList.get(number).getSpiId()  &amp;&amp; scheles.get(j).getD5PID()==0 ){&#10;&#9;&#9;&#9;scheles.get(j).setD5SID( sList.get(number).getID() );&#10;&#9;&#9;&#9;scheles.get(j).setD5PID( sList.get(number).getPID() );&#10;&#9;&#9;&#9;scheles.get(j).setD5Status( sList.get(number).getStatus() );&#10;&#9;&#9;&#9;break;&#10;&#9;&#9;}&#10;&#9;}&#10;&#9;if ( index == 5 ) {&#10;&#9;&#9;if( scheles.get(j).getD6SpiId() == sList.get(number).getSpiId()  &amp;&amp; scheles.get(j).getD6PID()==0 ){&#10;&#9;&#9;&#9;scheles.get(j).setD6SID( sList.get(number).getID() );&#10;&#9;&#9;&#9;scheles.get(j).setD6PID( sList.get(number).getPID() );&#10;&#9;&#9;&#9;scheles.get(j).setD6Status( sList.get(number).getStatus() );&#10;&#9;&#9;&#9;break;&#10;&#9;&#9;}&#10;&#9;}&#10;&#9;if ( index == 6 ) {&#10;&#9;&#9;if( scheles.get(j).getD7SpiId() == sList.get(number).getSpiId()  &amp;&amp; scheles.get(j).getD7PID()==0 ){&#10;&#9;&#9;&#9;scheles.get(j).setD7SID( sList.get(number).getID() );&#10;&#9;&#9;&#9;scheles.get(j).setD7PID( sList.get(number).getPID() );&#10;&#9;&#9;&#9;scheles.get(j).setD7Status( sList.get(number).getStatus() );&#10;&#9;&#9;&#9;break;&#10;&#9;&#9;}&#10;&#9;}&#10;&#9;j = j+1;&#10;}"/>
+<n1:Assign Name="Assign26" Value="number+1" Variable="number"/>
+</Controls>
+</n1:Loop>
+<n1:Assign Name="Assign24" Value="index + 1" Variable="index"/>
+</Controls>
+</n1:Loop>
+<n1:Assign Name="Assign21" Value="scheles" Variable="result.Data"/>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

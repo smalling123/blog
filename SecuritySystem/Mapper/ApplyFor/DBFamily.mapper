@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="家庭成员">
+<View>
+<Controls>
+<n1:Select Description="获取家庭成员" Height="240" MapperEntity="ApplyFor.Family" Name="getAllFamily" SQL="select * from Family&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="72" Y="72">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="Eid" Name="Eid" Type="Integer"/>
+<n1:ResultField MapperField="Appellation" Name="Appellation" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Age" Name="Age" Type="Integer"/>
+<n1:ResultField MapperField="Company" Name="Company" Type="String"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获取所有家庭信息的总数" Height="240" MapperEntity="Table" Name="getFamilyCount" SQL="select Count(*) Count from  Family" SelectType="Singleton" Width="160" X="287" Y="74">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Select Description="根据Id查询家庭信息" Height="240" MapperEntity="ApplyFor.Family" Name="getFamilyById" SQL="select * from Family where Id=#{id}" SelectType="Singleton" Width="160" X="492" Y="76">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="Eid" Name="Eid" Type="Integer"/>
+<n1:ResultField MapperField="Appellation" Name="Appellation" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Age" Name="Age" Type="Integer"/>
+<n1:ResultField MapperField="Company" Name="Company" Type="String"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="根据用户编号查询家庭信息" Height="240" MapperEntity="ApplyFor.Family" Name="getFamilyByEid" SQL="select * from Family where Eid=#{eid}" SelectType="Collections" Width="160" X="687" Y="76">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="Eid" Name="Eid" Type="Integer"/>
+<n1:ResultField MapperField="Appellation" Name="Appellation" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Age" Name="Age" Type="Integer"/>
+<n1:ResultField MapperField="Company" Name="Company" Type="String"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="eid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Description="添加家庭信息" Height="24" Name="InsertFamily" SQL="INSERT INTO family&#10;(Eid, Appellation, Name,  &#10;Age, Company, Phone) &#10;VALUES (#{family.Eid}, #{family.Appellation}, #{family.Name}, &#10;#{family.Age}, #{family.Company}, #{family.Phone})" Width="160" X="95" Y="394">
+<Parameters>
+<n2:Field Collections="false" Name="family" ObjectName="ApplyFor.Family" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Description="修改家庭信息" Height="24" Name="UpdateFamily" SQL="UPDATE family &#10;SET Eid = #{family.Eid}, Appellation = #{family.Appellation}, Name = #{family.Name}, &#10;Age = #{family.Age}, Company = #{family.Company}, Phone = #{family.Phone}&#10;WHERE Id = #{family.Id}" Width="160" X="92" Y="439">
+<Parameters>
+<n2:Field Collections="false" Name="family" ObjectName="ApplyFor.Family" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Delete Description="删除家庭信息" Height="24" Name="DeleteFamily" SQL="delete from Family&#10;where Id =#{id}" Width="160" X="93" Y="478">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+<n1:Select Description="根据Eid查询家庭信息条数" Height="240" MapperEntity="Table" Name="getCountByEid" SQL="select Count(*) Count from Family where Eid=#{eid}" SelectType="Singleton" Width="160" X="875" Y="74">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="eid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

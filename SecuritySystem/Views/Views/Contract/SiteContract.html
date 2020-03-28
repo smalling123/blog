@@ -1,0 +1,583 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-validator/css/bootstrap-validator.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-validator/js/bootstrap-validator.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+			font-size: small;
+		}
+		.input {
+			height: 28px;
+			padding: 6px 6px 6px 6px;
+		}
+	</style>
+</head>
+<body style="background-color: #F2F2F2;">
+	<div class="container" id="app"  style="width: 94%; margin-left: 3%; margin-top:20px;">
+        <form id="form1" rele="form" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="name">名称:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <input v-model="Data.name" type="text" class="form-control input" id="name" name="name">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="leader">队长:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <select id="select_leader" class="selectpicker form-control input" data-live-search="true" v-model="Data.leader" name="leader">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="leadership">分管领导:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <select id="select_leadership" class="selectpicker form-control input" data-live-search="true" v-model="Data.leadership" name="leadership">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="orgID">所属部门:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <select id="select_orgID" class="selectpicker form-control input" v-model="Data.orgID" name="orgID">
+                        <option v-for="item in dictionaryorgID" v-bind:value="item.code">{{item.name}}</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="manager">区域经理:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <select id="select_manager" class="selectpicker form-control input" data-live-search="true" v-model="Data.manager" name="manager">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="district">所在地区:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <select id="select_district" class="selectpicker form-control input" data-live-search="true" v-model="Data.district" name="district">
+                        <option value="">--请选择--</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="address">地址:</label>
+                </div>
+                <div class="col-xs-8 col-md-8">
+                    <input v-model="Data.address" type="text" class="form-control input" id="address" name="address">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="type">类型:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <select id="select_type" class="selectpicker form-control input" v-model="Data.type" name="type">
+                        <option value="0">商业物业</option>
+                        <option value="1">住宅小区</option>
+                        <option value="2">工厂</option>
+                        <option value="3">银行</option>
+                        <option value="4">医院</option>
+                        <option value="5">学校</option>
+                        <option value="9">其它</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="status">状态:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <select id="select_status" class="selectpicker form-control input" v-model="Data.status" name="status">
+                        <option value="0">执行中</option>
+                        <option value="1">已撤点</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="inDate">进场日期:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <input type="text" class="layui-input form-control input" id="inDate" name="inDate">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="outDate">撤点日期:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <input type="text" class="layui-input form-control input" id="outDate" name="outDate">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="kq">考勤方式:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <select id="select_kq" class="selectpicker form-control input" v-model="Data.kq" name="kq">
+                        <option value="0">手工</option>
+                        <option value="1">人脸</option>
+                        <option value="2">指纹</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="leaderName">队长名:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <input v-model="Data.leaderName" type="text" class="form-control input" id="leaderName" name="leaderName">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="leaderPhone">队长电话号码:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <input v-model="Data.leaderPhone" type="text" class="form-control input" id="leaderPhone" name="leaderPhone">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="describes">备注:</label>
+                </div>
+                <div class="col-xs-8 col-md-8">
+                    <textarea v-model="Data.describes" class="form-control input" rows="5" id="content" name="describes"></textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2" style="text-align: right;">
+                </div>
+                <div class="col-xs-10 col-md-10" style="text-align: right;">
+                    <button type="button" class="layui-btn layui-btn-sm" onClick="Accept()">
+                        <i class="layui-icon layui-icon-ok"></i><span class="fontsm">&emsp;提交&emsp;</span>
+                    </button>
+                    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onClick="iframecloses()">
+                        <i class="layui-icon layui-icon-close"></i><span class="fontsm">&emsp;取消&emsp;</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+	</div>
+</body>
+</html>
+<script src="../../wwwroot/js/App.js"></script>
+<script>
+	$(document).ready(function () {
+		$('#form1').bootstrapValidator({
+			message: 'This value is not valid',
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+				name: {
+					message: '名称验证失败',
+					validators: {
+						notEmpty: {
+							message: '名称不能为空'
+						}
+					}
+				},
+				orgID: {
+					message: '所属部门验证失败',
+					validators: {
+						notEmpty: {
+							message: '所属部门不能为空'
+						}
+					}
+				},
+				district: {
+					message: '所在地区验证失败',
+					validators: {
+						notEmpty: {
+							message: '所在地区不能为空'
+						}
+					}
+				},
+				status: {
+					message: '状态验证失败',
+					validators: {
+						notEmpty: {
+							message: '状态不能为空'
+						}
+					}
+				}
+			}
+		});
+	});
+	
+	var loadIndex = 0;
+	var layer;
+	layui.use('layer', function () {
+		layer = layui.layer;
+	});
+	var dictionaryItems = [{code:"", name:""}];	
+
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			Data:{
+				id: 0,
+				name: "",
+				customerID: 0,
+				leader: 0,
+				leadership: 0,
+				orgID: 0,
+				manager: 0,
+				district: 0,
+				address: "",
+				describes: "",
+				type: 0,
+				status: 0,
+				inDate: null,
+				outDate: null,
+				kq: 0,
+				isdelete: false,
+				createUser: "",
+				createTime: "",
+				modifyUser: "",
+				modifyTime: "",
+				deleteUser: "",
+				deleteTime: "",
+				leaderName: "",
+				leaderPhone: "",
+				lng: 0,
+				lat: 0
+			}
+			,dictionaryorgID: dictionaryItems
+
+		},
+		methods: {
+
+		},
+		watch: {
+			dictionaryorgID: function() {
+				this.$nextTick(function () {
+					$('#select_orgID').selectpicker('refresh');
+				})
+			},
+			Data: function() {
+				this.$nextTick(function () {
+					$('#select_kq').selectpicker('refresh');
+					$('#select_type').selectpicker('refresh');
+					$('#select_status').selectpicker('refresh');
+					$('#select_orgID').selectpicker('refresh');
+					$('#select_leader').empty()
+					$('#select_leader').append("<option value=''>--请选择--</option>");
+					$('#select_leader').append("<option selected='selected' value='"+vm.Data.leader+"'>"+vm.Data.leader_Convert+"</option>");
+					$('#select_leader').selectpicker('refresh');
+					$('#select_manager').empty()
+					$('#select_manager').append("<option value=''>--请选择--</option>");
+					$('#select_manager').append("<option selected='selected' value='"+vm.Data.manager+"'>"+vm.Data.manager_Convert+"</option>");
+					$('#select_manager').selectpicker('refresh');
+					$('#select_leadership').empty()
+					$('#select_leadership').append("<option value=''>--请选择--</option>");
+					$('#select_leadership').append("<option selected='selected' value='"+vm.Data.leadership+"'>"+vm.Data.leadership_Convert+"</option>");
+					$('#select_leadership').selectpicker('refresh');
+					$('#select_district').empty()
+					$('#select_district').append("<option value=''>--请选择--</option>");
+					$('#select_district').append("<option selected='selected' value='"+vm.Data.district+"'>"+vm.Data.district_Convert+"</option>");
+					$('#select_district').selectpicker('refresh');
+					$('#select_customerID').empty()
+					$('#select_customerID').append("<option value=''>--请选择--</option>");
+					$('#select_customerID').append("<option selected='selected' value='"+vm.Data.customerID+"'>"+vm.Data.customerID_Convert+"</option>");
+					$('#select_customerID').selectpicker('refresh');
+				});
+				//渲染所有日期组件
+				layui.use('laydate', function () {
+					var laydate = layui.laydate;
+					laydate.render({
+						elem: '#inDate',
+						value: vm.Data.inDate==null?null:(new Date(vm.Data.inDate)).getFullYear()+'-'+((new Date(vm.Data.inDate)).getMonth()+1)+'-'+(new Date(vm.Data.inDate)).getDate()
+					});
+					laydate.render({
+						elem: '#outDate',
+						value: vm.Data.outDate==null?null:(new Date(vm.Data.outDate)).getFullYear()+'-'+((new Date(vm.Data.outDate)).getMonth()+1)+'-'+(new Date(vm.Data.outDate)).getDate()
+					});
+				});
+			}
+		}
+	});
+
+	layui.use('laydate', function () {
+		var laydate = layui.laydate;
+		laydate.render({
+			elem: '#inDate',
+			type: 'date',
+			format: 'yyyy-MM-dd',
+			done: function (value) {
+				var d = new Date(value);
+				vm.Data.inDate = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' 00:00:00';
+			}
+		});
+		laydate.render({
+			elem: '#outDate',
+			type: 'date',
+			format: 'yyyy-MM-dd',
+			done: function (value) {
+				var d = new Date(value);
+				vm.Data.outDate = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' 00:00:00';
+			}
+		});
+	});
+	setTimeout(function() {
+		SelectFrom("#select_leader", function(filter) {
+			getDictionaryleader(filter);
+		})
+	}, 1000);
+	setTimeout(function() {
+		SelectFrom("#select_manager", function(filter) {
+			getDictionarymanager(filter);
+		})
+	}, 1000);
+	setTimeout(function() {
+		SelectFrom("#select_leadership", function(filter) {
+			getDictionaryleadership(filter);
+		})
+	}, 1000);
+	setTimeout(function() {
+		SelectFrom("#select_district", function(filter) {
+			getDictionarydistrict(filter);
+		})
+	}, 1000);
+	setTimeout(function() {
+		SelectFrom("#select_customerID", function(filter) {
+			getDictionarycustomerID(filter);
+		})
+	}, 1000);
+
+	
+	$(function(){
+		getDictionaryorgID();
+	});
+
+	function getDictionaryorgID(){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "SiteOrg"
+			},
+			success: function(result) {
+				vm.dictionaryorgID = result;
+			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	function getDictionaryleader(filter){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "Personnel",
+				filter: filter			},
+			success: function(result) {
+				vm.dictionaryleader = result;
+				var parent = $("#select_leader");
+				parent.empty();
+				parent.append("<option value=''>--请选择--</option>");
+				for(var i=0; i<result.length;i++){
+					parent.append("<option value='"+result[i].code+"'>"+result[i].name+"</option>");
+				}
+				parent.selectpicker('refresh');			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	function getDictionarymanager(filter){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "Manager",
+				filter: filter			},
+			success: function(result) {
+				vm.dictionarymanager = result;
+				var parent = $("#select_manager");
+				parent.empty();
+				parent.append("<option value=''>--请选择--</option>");
+				for(var i=0; i<result.length;i++){
+					parent.append("<option value='"+result[i].code+"'>"+result[i].name+"</option>");
+				}
+				parent.selectpicker('refresh');			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	function getDictionaryleadership(filter){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "User",
+				filter: filter			},
+			success: function(result) {
+				vm.dictionaryleadership = result;
+				var parent = $("#select_leadership");
+				parent.empty();
+				parent.append("<option value=''>--请选择--</option>");
+				for(var i=0; i<result.length;i++){
+					parent.append("<option value='"+result[i].code+"'>"+result[i].name+"</option>");
+				}
+				parent.selectpicker('refresh');			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	function getDictionarydistrict(filter){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "City",
+				filter: filter			},
+			success: function(result) {
+				vm.dictionarydistrict = result;
+				var parent = $("#select_district");
+				parent.empty();
+				parent.append("<option value=''>--请选择--</option>");
+				for(var i=0; i<result.length;i++){
+					parent.append("<option value='"+result[i].code+"'>"+result[i].name+"</option>");
+				}
+				parent.selectpicker('refresh');			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	function getDictionarycustomerID(filter){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "Customer",
+				filter: filter			},
+			success: function(result) {
+				vm.dictionarycustomerID = result;
+				var parent = $("#select_customerID");
+				parent.empty();
+				parent.append("<option value=''>--请选择--</option>");
+				for(var i=0; i<result.length;i++){
+					parent.append("<option value='"+result[i].code+"'>"+result[i].name+"</option>");
+				}
+				parent.selectpicker('refresh');			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+    function getcontractId(id) {
+        vm.Data.customerID = id;
+
+    }
+	
+    function getData(id) {
+		if(id>0){
+			layui.use('layer', function () {
+				layer = layui.layer;
+				loadIndex = layer.load(0, {shade: false});
+			});
+			PostAppAjax({
+				url: '/Contract/getSiteContractById',
+				data: {
+					id: id
+				},
+				success: function(result) {
+					layui.use('layer', function () {
+						layer = layui.layer;
+						layer.close(loadIndex);
+					});
+					if(result.code==0){
+						vm.Data = result.data;
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function(err) {
+					layui.use('layer', function () {
+						layer = layui.layer;
+						layer.close(loadIndex);
+					});
+					alert("服务器忙，请重试!\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+	function Accept(){
+		$('#form1').data("bootstrapValidator").validate();
+ 		var isValid = $('#form1').data("bootstrapValidator").isValid();
+		if(isValid){
+			layui.use('layer', function () {
+				layer = layui.layer;
+				loadIndex = layer.load(0, {shade: false});
+			});
+			PostAppAjax({
+				url: '/Contract/updateSiteContract',
+				contentType: 'application/json;charset=utf-8',
+				data: JSON.stringify(vm.Data).replace(new RegExp('\"NaN/NaN/NaN 00:00:00\"',"g"),"null"),
+				success: function(result) {
+					layui.use('layer', function () {
+						layer = layui.layer;
+						layer.close(loadIndex);
+					});
+					if(result.code==0){
+						doTrigger("SiteContract"); //调用触发器，刷新查询
+						iframecloses();
+					}else{
+						alert("数据提交不成功！\n\n错误信息：\n"+result.msg);
+					}
+				},
+				error: function(err) {
+					layui.use('layer', function () {
+						layer = layui.layer;
+						layer.close(loadIndex);
+					});
+					alert("错误信息：\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+</script>

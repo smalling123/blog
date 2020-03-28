@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="全年无休"/>
+<Item Code="1" Name="作五休二"/>
+<Item Code="2" Name="特殊"/>
+</Items>
+</Dictionary>

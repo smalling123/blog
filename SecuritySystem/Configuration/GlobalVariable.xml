@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><GlobalVariables>
+<GlobalVariable Name="FilePath" Type="String">
+<Items>
+<Debug Value="/Users/chahaidong/mnt/files/"/>
+<Release Value="/mnt/files/"/>
+</Items>
+</GlobalVariable>
+</GlobalVariables>

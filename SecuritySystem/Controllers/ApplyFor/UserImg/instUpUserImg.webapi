@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" Description="添加、修改用户图像" Transactional="false" Type="Post" VerifyToken="false">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Name="userImg" ObjectName="ApplyFor.UserImg" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Assign Name="Assign8" Value="&quot;0&quot;" Variable="userImg.Status"/>
+<n1:Decide Expression="userImg.getId()==0" Name="Decide1">
+<if>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBUserImg.InsertUserImg" Description="添加用户图像" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="userImg" Name="userimg" ObjectName="ApplyFor.UserImg" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Assign Name="Assign3" Value="userImg.getType()" Variable="result.Characters"/>
+<n1:Assign Name="Assign1" Value="&quot;添加成功！&quot;" Variable="result.Msg"/>
+</if>
+<else>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBUserImg.UpdateUserImg" Description="修改用户图像" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="userImg" Name="userimg" ObjectName="ApplyFor.UserImg" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Assign Name="Assign4" Value="userImg.getType()" Variable="result.Characters"/>
+<n1:Assign Name="Assign2" Value="&quot;修改成功！&quot;" Variable="result.Msg"/>
+</else>
+</n1:Decide>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="教育培训记录表">
+<View>
+<Controls>
+<n1:Select Description="获取所有教育经历" Height="240" MapperEntity="ApplyFor.EducationalTraining" Name="getAllEducational" SQL="select * from EducationalTrainingRecords&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="66" Y="81">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="Eid" Name="Eid" Type="Integer"/>
+<n1:ResultField MapperField="Education" Name="Education" Type="String"/>
+<n1:ResultField MapperField="BeiginDate" Name="BeiginDate" Type="String"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="String"/>
+<n1:ResultField MapperField="School" Name="School" Type="String"/>
+<n1:ResultField MapperField="Department" Name="Department" Type="String"/>
+<n1:ResultField MapperField="Certificate" Name="Certificate" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获取教育记录总条数" Height="240" MapperEntity="Table" Name="getEducationalCount" SQL="select Count(*) Count from  EducationalTrainingRecords" SelectType="Singleton" Width="160" X="281" Y="84">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Select Description="根据Id获取教育记录信息" Height="240" MapperEntity="ApplyFor.EducationalTraining" Name="getEducationalById" SQL="select * from EducationalTrainingRecords where Id=#{id}" SelectType="Singleton" Width="160" X="476" Y="83">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="Eid" Name="Eid" Type="Integer"/>
+<n1:ResultField MapperField="Education" Name="Education" Type="String"/>
+<n1:ResultField MapperField="BeiginDate" Name="BeiginDate" Type="String"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="String"/>
+<n1:ResultField MapperField="School" Name="School" Type="String"/>
+<n1:ResultField MapperField="Department" Name="Department" Type="String"/>
+<n1:ResultField MapperField="Certificate" Name="Certificate" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="根据EId获取教育记录信息" Height="240" MapperEntity="ApplyFor.EducationalTraining" Name="getEducationalByEId" SQL="select * from EducationalTrainingRecords where Eid=#{eid}" SelectType="Collections" Width="160" X="659" Y="82">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="Eid" Name="Eid" Type="Integer"/>
+<n1:ResultField MapperField="Education" Name="Education" Type="String"/>
+<n1:ResultField MapperField="BeiginDate" Name="BeiginDate" Type="String"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="String"/>
+<n1:ResultField MapperField="School" Name="School" Type="String"/>
+<n1:ResultField MapperField="Department" Name="Department" Type="String"/>
+<n1:ResultField MapperField="Certificate" Name="Certificate" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="eid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Description="添加教育信息" Height="24" Name="InsertEducational" SQL="INSERT INTO educationaltrainingrecords&#10;(Eid, Education, BeiginDate, EndDate,&#10;School, Department, Certificate) &#10;VALUES (#{educational.Eid},#{educational.Education}, #{educational.BeiginDate}, #{educational.EndDate}, &#10;#{educational.School}, #{educational.Department}, #{educational.Certificate})" Width="160" X="99" Y="379">
+<Parameters>
+<n2:Field Collections="false" Name="educational" ObjectName="ApplyFor.EducationalTraining" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Description="修改教育信息" Height="24" Name="UpdateEducational" SQL="UPDATE educationaltrainingrecords &#10;SET  Education = #{educational.Education}, BeiginDate = #{educational.BeiginDate}, &#10;EndDate = #{educational.EndDate}, School = #{educational.School}, Department = #{educational.Department}, &#10;Certificate = #{educational.Certificate }&#10;WHERE Id = #{educational.Id }" Width="160" X="96" Y="434">
+<Parameters>
+<n2:Field Collections="false" Name="educational" ObjectName="ApplyFor.EducationalTraining" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Delete Description="删除教育信息" Height="24" Name="DeleteEducational" SQL="delete from EducationalTrainingRecords&#10;where Id=#{id}" Width="160" X="99" Y="484">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+<n1:Select Description="根据Eid获取教育条数" Height="240" MapperEntity="Table" Name="getCountByEid" SQL="select Count(*) Count from EducationalTrainingRecords where Eid=#{eid}" SelectType="Singleton" Width="160" X="837" Y="83">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="eid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

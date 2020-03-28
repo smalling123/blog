@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?><Model xmlns:n1="org.polariscode.plugin.web.springboot.model" Description="">
+<View>
+<Controls>
+<n1:Entity Description="客户信息" Height="587" Name="Customer" Width="160" X="54" Y="50">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="客户名称" Name="Name" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="简称" Name="ShortName" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="所属部门" Dictionary="Org" Name="OrgID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="项目经理" Dictionary="User" Name="Manager" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="分管领导" Dictionary="User" Name="Leader" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="所在城市" Dictionary="City" Name="District" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="地址" Name="Address" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="备注" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="客户类型" Dictionary="CustomerType" Name="Type" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="状态" Dictionary="CustomerStatus" Name="Status" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Isdelete" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="ModifyUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="ModifyTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="DeleteUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="DeleteTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="驻点信息" Height="565" Name="Site" Width="160" X="285" Y="51">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="名称" Name="Name" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="所属客户" Dictionary="Customer" Name="CustomerID" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="队长" Dictionary="Personnel" Name="Leader" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="分管领导" Dictionary="User" Name="Leadership" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="所属部门" Dictionary="SiteOrg" Name="OrgID" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="区域经理" Dictionary="Manager" Name="Manager" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="所在地区" Dictionary="City" Name="District" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="地址" Name="Address" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="备注" Dictionary="_TextArea" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="类型" Dictionary="CustomerType" Name="Type" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="状态" Dictionary="SiteStatus" Name="Status" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="进场日期" Name="InDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="撤点日期" Name="OutDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="考勤方式" Dictionary="Kq" Name="Kq" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Isdelete" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="ModifyUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="ModifyTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="DeleteUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="DeleteTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="队长名" Name="LeaderName" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="队长电话号码" Name="LeaderPhone" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Lng" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Name="Lat" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="员工信息" Height="443" Name="Personnel" Width="160" X="488" Y="35">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="编号" Name="Code" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="姓名" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="身份证" Name="CardCode" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="身份证有效期" Name="CardDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="生日" Name="Birthday" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="性别" Dictionary="Gender" Name="Gender" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="政治面貌" Dictionary="Politics" Name="Politics" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="身高" Name="Height" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="体重" Name="Weight" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="文化程度" Dictionary="Education" Name="Education" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="民族" Dictionary="Nation" Name="Nation" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="籍贯" Dictionary="Province" Name="Native" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="电话" Name="Phone" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="住址" Name="HomeAddress" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="户籍" Dictionary="Province" Name="Census" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="户籍地址" Name="CensusAddress" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="婚姻情况" Dictionary="Marital" Name="Marital" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="紧急联系人" Name="LinkMan" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="联系人关系" Dictionary="PersonnelRelation" Name="LinkManRelation" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="联系人电话" Name="LinkManPhone" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="部队名称" Name="Army" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="入伍日期" Name="ArmyInDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="退伍日期" Name="ArmyOutDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="保安员证" Name="Z1" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="监控证" Name="Z2" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="电梯证" Name="Z3" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="消防证" Name="Z4" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="驾驶执照" Name="Z5" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Z6" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Z7" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Z8" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="电脑技能" Dictionary="Computer" Name="Computer" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="英语能力" Dictionary="CpLevel" Name="English" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="是否在其它单位兼职" Name="PartTime" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="是否有重大疾病" Name="Disease" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="是否有犯罪记录" Name="Crime" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="仪容仪表" Name="Appearance" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="沟通能力" Name="Communication" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="招聘来源" Dictionary="PersonnelSource" Name="Source" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="推荐人" Name="Reference" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="入职日期" Name="InDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="合同开始日期" Name="HTBeginDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="合同结束日期" Name="HTEndDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="照片" Name="Photo" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="几张" Name="PhotoCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="身份证复印件" Name="F1" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="培训表" Name="F2" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="劳动手册" Name="F3" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="无犯罪记录证明" Name="F4" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="转正小结" Name="F5" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="外住表" Name="F6" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="体检报告" Name="F7" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="交金证明" Name="F8" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="健康证" Name="F9" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="F10" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="总体评语" Name="GeneralComment" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="面试人" Name="InterViewer" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="是否任用" Name="GivePost" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="拟派单位" Name="PlanSite" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="拟派职务 " Name="PlantJob" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="拟报到时间" Name="PlanInDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="核准人" Name="CheckUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="人事部核准人" Name="HRUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="任用部门核准人" Name="JobUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateTime" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Name="ModifyUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="ModifyTime" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Name="DeleteUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="DeleteTime" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="合同签署单位" Dictionary="Company" Name="CompanyId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="状态" Dictionary="StaffStatus" Name="Status" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="离职日期" Name="OutDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="银行卡号" Name="BankCard" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="政审" Dictionary="PoliticalTrial" Name="PoliticalTrial" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="档案号" Name="FileNumber" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="true" Description="工作经历" Name="PersonnelJob" ObjectName="Base.PersonnelJob" Required="false" Show="false" Type="Object"/>
+<n1:Field Collections="true" Description="家庭成员" Name="PersonnelMembers" ObjectName="Base.PersonnelMembers" Required="false" Show="false" Type="Object"/>
+<n1:Field Collections="true" Description="照片" Name="PersonnelPhoto" ObjectName="Base.PersonnelPhoto" Required="false" Show="false" Type="Object"/>
+<n1:Field Collections="true" Description="证书" Name="PersonnelCert" ObjectName="Base.PersonnelCert" Required="false" Show="false" Type="Object"/>
+<n1:Field Collections="true" Description="合同" Name="PersonnelContract" ObjectName="Base.PersonnelContract" Required="false" Show="false" Type="Object"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="员工信息(简化)" Height="436" Name="PersonnelEx" Width="160" X="727" Y="53">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="档案号" Name="FileNumber" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="驻点" Name="SiteName" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="姓名" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="性别" Dictionary="Gender" Name="Gender" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="身份证号" Name="CardCode" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="身份证有效期" Name="CardDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="籍贯" Dictionary="Province" Name="Native" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="电话" Name="Phone" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="职务" Dictionary="Job" Name="Job" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="职级" Name="Level" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="入职日期" Name="InDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="合同开始日期" Name="HTBeginDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="合同结束日期" Name="HTEndDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="离职日期" Name="OutDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="政审" Dictionary="PoliticalTrial" Name="PoliticalTrial" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="状态" Dictionary="PersonnelStatus" Name="Status" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="推荐人" Name="Reference" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="照片张数" Name="PhotoCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="创建人" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="创建时间" Name="CreateTime" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="工作经历" Height="240" Name="PersonnelJob" Width="160" X="486" Y="508">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="PersonnelID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="工作单位" Name="Company" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="职务" Name="Job" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="开始日期" Name="InDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="结束日期" Name="OutDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="联系人" Name="LinkMan" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="电话" Name="LinkManPhone" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="家庭成员" Height="240" Name="PersonnelMembers" Width="160" X="676" Y="508">
+<Fields>
+<n1:Field Collections="false" Name="PersonnelID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="姓名" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="关系" Dictionary="PersonnelRelation" Name="Relation" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="电话" Name="Phone" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="年龄" Name="Age" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="工作单位" Name="Company" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="照片" Height="240" Name="PersonnelPhoto" Width="160" X="865" Y="508">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="PersonnelID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="照片名称" Name="PhotoName" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="地址" Dictionary="_Image" Name="PhotoUrl" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="PersonnelCert" Width="160" X="1041" Y="508">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="PersonnelID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="证件类型" Dictionary="PersonnelCert" Name="CertType" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="等级" Name="Level" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="地址" Dictionary="_File" Name="CertUrl" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="PersonnelContract" Width="160" X="1214" Y="508">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Dictionary="Personnel" Name="PersonnelID" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="合同类型" Dictionary="ContractType" Name="Type" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="开始日期" Name="BeginDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="结束日期" Name="EndDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="签约单位" Dictionary="Company" Name="CompanyId" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="执勤配置表" Height="240" Name="SitePost" Width="160" X="61" Y="792">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="驻点" Dictionary="Site" Name="SiteId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="开始日期" Name="BeginDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="结束日期" Name="EndDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="是否发布" Name="Status" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="备注" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="ApplyUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="ApplyTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="true" Description="明细" Name="Items" ObjectName="Base.SitePostItem" Required="false" Show="false" Type="Object"/>
+<n1:Field Collections="false" Description="驻点合同开始日期" Name="SiteBeginDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="驻点合同结束日期" Name="SiteEndDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="执勤配置表明细" Height="240" Name="SitePostItem" Width="160" X="272" Y="791">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="SitePostId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="岗位" Name="Post" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="班次" Dictionary="ScheduleType" Name="Schedule" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="类型" Dictionary="PostType" Name="Type" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="开始时间" Dictionary="Time" Name="BeginTime" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="结束时间" Dictionary="Time" Name="EndTime" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="在岗人数" Name="PosNumber" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="合同人数" Name="ContractNumber" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="编制人数" Name="WorkNumber" ObjectName="Decimal" Required="true" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="开始日期" Name="BeginDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="结束日期" Name="EndDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="一" Name="Day1" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="二" Name="Day2" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="三" Name="Day3" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="四" Name="Day4" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="五" Name="Day5" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="六" Name="Day6" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="日" Name="Day7" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="节假日" Name="DayH" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="核算工时" Name="CalcTime" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="满勤工时" Name="FullTime" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="备注" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="OldId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="驻点人员信息" Height="240" Name="SitePersonnel" Width="160" X="535" Y="791">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="驻点" Dictionary="Site" Name="SiteId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="PID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="姓名" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="调入日期" Name="BeginDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="调出日期" Name="EndDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="是否主岗" Name="IsMain" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="职务" Dictionary="Job" Name="Job" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="等级" Dictionary="JobLevel" Name="Level" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="津贴" Name="PostSubsidy" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="PersonnelContractView" Width="160" X="733" Y="790">
+<Fields>
+<n1:Field Collections="false" Description="驻点名称" Name="Sname" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="姓名" Name="Pname" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="入职日期" Name="InDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="员工ID" Dictionary="Personnel" Name="PersonnelID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="合同类型" Dictionary="ContractType" Name="Type" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="开始日期" Name="BeginDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="结束日期" Name="EndDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="签约单位" Dictionary="Company" Name="CompanyId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Fields>
+</n1:Entity>
+</Controls>
+</View>
+</Model>

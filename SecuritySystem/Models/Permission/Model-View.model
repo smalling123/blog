@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><Model xmlns:n1="org.polariscode.plugin.web.springboot.model" Description="">
+<View>
+<Controls>
+<n1:Entity Description="系统用户" Height="388" Name="User" Width="160" X="42" Y="29">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="登录名" Name="LoginName" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="姓名" Name="Name" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="密码" Name="Password" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="电话" Name="Phone" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="性别" Dictionary="Gender" Name="Gender" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="Email" Name="Email" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="QQ" Name="QQ" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="微信" Name="Wechat" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="地址" Name="Address" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="生日" Name="Birthday" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="备注" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="部门ID" Name="OrgID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="部门" Name="OrgName" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="状态" Dictionary="UserStatus" Name="Status" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="true" Description="拥有角色" Name="Roles" ObjectName="Permission.OrgRole" Required="false" Show="false" Type="Object"/>
+<n1:Field Collections="false" Name="SiteOrg" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="角色" Height="240" Name="Role" Width="160" X="239" Y="28">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="名称" Name="Name" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="描述" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="是否停用" Name="Isdelete" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="true" Name="Menus" ObjectName="Permission.RoleMenu" Required="false" Show="false" Type="Object"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="组织机构" Height="277" Name="Org" Width="160" X="432" Y="26">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="PID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="名称" Name="Name" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="描述" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="是否停用" Name="Isdelete" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="机构类型" Dictionary="OrgType" Name="OrgType" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="true" Description="包含角色" Name="Roles" ObjectName="Permission.OrgRole" Required="false" Show="false" Type="Object"/>
+<n1:Field Collections="true" Description="子部门" Name="Children" ObjectName="Permission.Org" Required="false" Show="false" Type="Object"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="菜单" Height="408" Name="Menu" Width="160" X="630" Y="22">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="PID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="名称" Name="Name" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="标题" Name="Title" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="图标" Name="Icon" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="打开方式" Dictionary="Openby" Name="Openby" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="关联地址" Name="Url" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="浮动提示" Name="FloatPrompt" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="类型" Dictionary="TabType" Name="TabType" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="描述" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="是否停用" Name="Isdelete" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="顺序" Name="Sequence" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="true" Description="下级菜单" Name="Children" ObjectName="Permission.Menu" Required="false" Show="false" Type="Object"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Description="组织机构关联的角色" Height="240" Name="OrgRole" Width="160" X="814" Y="24">
+<Fields>
+<n1:Field Collections="false" Name="OrgRoleID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="组织机构ID" Name="OrgID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="组织机构名称" Name="OrgName" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="角色ID" Name="RoleID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="角色名称" Name="RoleName" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="OrgType" Width="160" X="39" Y="457">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Name" ObjectName="String" Required="true" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="RoleMenu" Width="160" X="242" Y="460">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="RoleID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="MenuID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="155" Name="UserPwd" Width="160" X="239" Y="288">
+<Fields>
+<n1:Field Collections="false" Description="旧密码" Name="oldPassword" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="新密码" Name="newPassword" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+</Controls>
+</View>
+</Model>

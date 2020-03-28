@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Salary.Accfund" Name="getAllAccfund" SQL="select  *  from accfund &#10;where City like '%${City}%' and  Name like '%${Name}%'&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="39" Y="20">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="City" Name="City" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="City" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getAccfundByCount" SQL="select Count(*) Count  from accfund &#10;where City like '%${City}%' and Name like '%${Name}%'" SelectType="Singleton" Width="160" X="219" Y="21">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="City" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Salary.Accfunditem" Name="getAccfunditemById" SQL="select * from accfunditem&#10;where AccfundId=#{id} and 1=1" SelectType="Collections" Width="160" X="411" Y="25">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="AccfundId" Name="AccfundId" Type="Integer"/>
+<n1:ResultField MapperField="Year" Name="Year" Type="Integer"/>
+<n1:ResultField MapperField="Month" Name="Month" Type="Integer"/>
+<n1:ResultField MapperField="BaseMin" Name="BaseMin" Type="Decimal"/>
+<n1:ResultField MapperField="BaseMax" Name="BaseMax" Type="Decimal"/>
+<n1:ResultField MapperField="CRate" Name="CRate" Type="Decimal"/>
+<n1:ResultField MapperField="CMinValue" Name="CMinValue" Type="Decimal"/>
+<n1:ResultField MapperField="CMaxValue" Name="CMaxValue" Type="Decimal"/>
+<n1:ResultField MapperField="PRate" Name="PRate" Type="Decimal"/>
+<n1:ResultField MapperField="PMinValue" Name="PMinValue" Type="Decimal"/>
+<n1:ResultField MapperField="PMaxValue" Name="PMaxValue" Type="Decimal"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Salary.Accfund" Name="getAccfundOne" SQL="Select * From Accfund Where ID = #{id}" SelectType="Singleton" Width="160" X="51" Y="365">
+<ResultSet/>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Update Height="24" Name="updateAccfund" SQL="Update Accfund Set&#10;&#9;City = #{accfund.City},&#10;&#9;Name = #{accfund.Name}&#10; Where ID = #{accfund.ID}" Width="160" X="50" Y="322">
+<Parameters>
+<n2:Field Collections="false" Name="accfund" ObjectName="Salary.Accfund" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Insert Height="24" Name="insertAccfund" SQL="Insert Into Accfund(City, Name)&#10; Values(#{accfund.City}, #{accfund.Name})" Width="160" X="50" Y="288">
+<Parameters>
+<n2:Field Collections="false" Name="accfund" ObjectName="Salary.Accfund" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Select Height="240" MapperEntity="Salary.Accfunditem" Name="getAccfunditemOne" SQL="Select * From Accfunditem Where ID = #{id}" SelectType="Singleton" Width="160" X="277" Y="361">
+<ResultSet/>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertAccfunditem" SQL="Insert Into Accfunditem(AccfundId, Year, Month, BaseMin, BaseMax, CRate, CMinValue, CMaxValue, PRate, PMinValue, PMaxValue)&#10; Values(#{accfunditem.AccfundId}, #{accfunditem.Year}, #{accfunditem.Month}, #{accfunditem.BaseMin}, #{accfunditem.BaseMax}, #{accfunditem.CRate}, #{accfunditem.CMinValue}, #{accfunditem.CMaxValue}, #{accfunditem.PRate}, #{accfunditem.PMinValue}, #{accfunditem.PMaxValue})" Width="160" X="277" Y="292">
+<Parameters>
+<n2:Field Collections="false" Name="accfunditem" ObjectName="Salary.Accfunditem" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateAccfunditem" SQL="Update Accfunditem Set&#10;&#9;AccfundId = #{accfunditem.AccfundId},&#10;&#9;Year = #{accfunditem.Year},&#10;&#9;Month = #{accfunditem.Month},&#10;&#9;BaseMin = #{accfunditem.BaseMin},&#10;&#9;BaseMax = #{accfunditem.BaseMax},&#10;&#9;CRate = #{accfunditem.CRate},&#10;&#9;CMinValue = #{accfunditem.CMinValue},&#10;&#9;CMaxValue = #{accfunditem.CMaxValue},&#10;&#9;PRate = #{accfunditem.PRate},&#10;&#9;PMinValue = #{accfunditem.PMinValue},&#10;&#9;PMaxValue = #{accfunditem.PMaxValue}&#10; Where ID = #{accfunditem.ID}" Width="160" X="277" Y="326">
+<Parameters>
+<n2:Field Collections="false" Name="accfunditem" ObjectName="Salary.Accfunditem" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+</Controls>
+</View>
+</Mapper>

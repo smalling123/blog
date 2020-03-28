@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Contract.Contract" Name="getContractAll" SQL="select  *  from contract &#10; where  isdelete=0 and Status=#{status} and type=#{type} and EndDate&gt;=now() &#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="30" Y="18">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="ContractCode" Name="ContractCode" Type="String"/>
+<n1:ResultField MapperField="CustomerId" Name="CustomerId" Type="Integer"/>
+<n1:ResultField MapperField="CompanyId" Name="CompanyId" Type="Integer"/>
+<n1:ResultField MapperField="OrgId" Name="OrgId" Type="Integer"/>
+<n1:ResultField MapperField="BeginDate" Name="BeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="DateTime"/>
+<n1:ResultField MapperField="InDate" Name="InDate" Type="DateTime"/>
+<n1:ResultField MapperField="PNumber" Name="PNumber" Type="Integer"/>
+<n1:ResultField MapperField="AvgAmount" Name="AvgAmount" Type="Decimal"/>
+<n1:ResultField MapperField="TotalAmount" Name="TotalAmount" Type="Decimal"/>
+<n1:ResultField MapperField="MonthlyAmount" Name="MonthlyAmount" Type="String"/>
+<n1:ResultField MapperField="Wages" Name="Wages" Type="Decimal"/>
+<n1:ResultField MapperField="AAgent" Name="AAgent" Type="String"/>
+<n1:ResultField MapperField="ASubscriber" Name="ASubscriber" Type="String"/>
+<n1:ResultField MapperField="ASigningTtime" Name="ASigningTtime" Type="DateTime"/>
+<n1:ResultField MapperField="BAgent" Name="BAgent" Type="String"/>
+<n1:ResultField MapperField="BSubscriber" Name="BSubscriber" Type="String"/>
+<n1:ResultField MapperField="BSigningTtime" Name="BSigningTtime" Type="DateTime"/>
+<n1:ResultField MapperField="SpecialNeed" Name="SpecialNeed" Type="String"/>
+<n1:ResultField MapperField="LogisticsEat" Name="LogisticsEat" Type="Integer"/>
+<n1:ResultField MapperField="LogisticsHome" Name="LogisticsHome" Type="Integer"/>
+<n1:ResultField MapperField="LogisticsNeed" Name="LogisticsNeed" Type="String"/>
+<n1:ResultField MapperField="SuperviseNeed" Name="SuperviseNeed" Type="String"/>
+<n1:ResultField MapperField="TrainNeed" Name="TrainNeed" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+<n1:ResultField MapperField="wagesType" Name="wagesType" Type="Integer"/>
+<n1:ResultField MapperField="InvoiceCompany" Name="InvoiceCompany" Type="Integer"/>
+<n1:ResultField MapperField="InvoiceTitle" Name="InvoiceTitle" Type="String"/>
+<n1:ResultField MapperField="InvoiceTax" Name="InvoiceTax" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="status" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="type" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="Expire" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and EndDate&gt;=now()">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="Expire" ReplaceString="and EndDate&lt;now()" Value="1"/>
+<n1:RuleItem Operator="Equal" Parameter="Expire" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="Expire" Value="null"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getContractByCount" SQL="select  count(*) count  from contract where isdelete=0" SelectType="Singleton" Width="160" X="218" Y="53">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="count" Type="Integer"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Contract.Contract" Name="getContractById" SQL="select  c.* ,c1.Name Customer from contract c &#10;left join Customer c1 on c.CustomerID=c1.ID where c.id=#{id} and c.isdelete=0" SelectType="Singleton" Width="160" X="33" Y="274">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="ContractCode" Name="ContractCode" Type="String"/>
+<n1:ResultField MapperField="CustomerId" Name="CustomerId" Type="Integer"/>
+<n1:ResultField MapperField="CompanyId" Name="CompanyId" Type="Integer"/>
+<n1:ResultField MapperField="OrgId" Name="OrgId" Type="Integer"/>
+<n1:ResultField MapperField="BeginDate" Name="BeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="DateTime"/>
+<n1:ResultField MapperField="InDate" Name="InDate" Type="DateTime"/>
+<n1:ResultField MapperField="PNumber" Name="PNumber" Type="Integer"/>
+<n1:ResultField MapperField="AvgAmount" Name="AvgAmount" Type="Decimal"/>
+<n1:ResultField MapperField="TotalAmount" Name="TotalAmount" Type="Decimal"/>
+<n1:ResultField MapperField="MonthlyAmount" Name="MonthlyAmount" Type="String"/>
+<n1:ResultField MapperField="Wages" Name="Wages" Type="Decimal"/>
+<n1:ResultField MapperField="AAgent" Name="AAgent" Type="String"/>
+<n1:ResultField MapperField="ASubscriber" Name="ASubscriber" Type="String"/>
+<n1:ResultField MapperField="ASigningTtime" Name="ASigningTtime" Type="DateTime"/>
+<n1:ResultField MapperField="BAgent" Name="BAgent" Type="String"/>
+<n1:ResultField MapperField="BSubscriber" Name="BSubscriber" Type="String"/>
+<n1:ResultField MapperField="BSigningTtime" Name="BSigningTtime" Type="DateTime"/>
+<n1:ResultField MapperField="SpecialNeed" Name="SpecialNeed" Type="String"/>
+<n1:ResultField MapperField="LogisticsEat" Name="LogisticsEat" Type="Integer"/>
+<n1:ResultField MapperField="LogisticsHome" Name="LogisticsHome" Type="Integer"/>
+<n1:ResultField MapperField="LogisticsNeed" Name="LogisticsNeed" Type="String"/>
+<n1:ResultField MapperField="SuperviseNeed" Name="SuperviseNeed" Type="String"/>
+<n1:ResultField MapperField="TrainNeed" Name="TrainNeed" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+<n1:ResultField MapperField="wagesType" Name="wagesType" Type="Integer"/>
+<n1:ResultField MapperField="InvoiceCompany" Name="InvoiceCompany" Type="Integer"/>
+<n1:ResultField MapperField="InvoiceTitle" Name="InvoiceTitle" Type="String"/>
+<n1:ResultField MapperField="InvoiceTax" Name="InvoiceTax" Type="String"/>
+<n1:ResultField Name="Customer" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getMaxContractCode" SQL="select MAX(left(ContractCode, 8)) Count from contract WHERE ContractCode like CONCAT(YEAR(now()),'%');" SelectType="Singleton" Width="160" X="445" Y="138">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="String"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getinsertContractByID" SQL="select  max(ID) ID  from contract" SelectType="Singleton" Width="160" X="639" Y="49">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="InsertContract" SQL="Insert Into Contract(ContractCode, CustomerId, CompanyId, OrgId, BeginDate, EndDate, InDate, PNumber, AvgAmount, TotalAmount, MonthlyAmount, Wages, AAgent, ASubscriber, ASigningTtime, BAgent, BSubscriber, BSigningTtime, SpecialNeed, LogisticsEat, LogisticsHome, LogisticsNeed, SuperviseNeed, TrainNeed, Status, Type, CreateUser, CreateTime,wagesType, InvoiceCompany, InvoiceTitle, InvoiceTax)&#10; Values(#{contract.ContractCode}, #{contract.CustomerId}, #{contract.CompanyId}, #{contract.OrgId}, #{contract.BeginDate}, #{contract.EndDate}, #{contract.InDate}, #{contract.PNumber}, #{contract.AvgAmount}, #{contract.TotalAmount}, #{contract.MonthlyAmount}, #{contract.Wages}, #{contract.AAgent}, #{contract.ASubscriber}, #{contract.ASigningTtime}, #{contract.BAgent}, #{contract.BSubscriber}, #{contract.BSigningTtime}, #{contract.SpecialNeed}, #{contract.LogisticsEat}, #{contract.LogisticsHome}, #{contract.LogisticsNeed}, #{contract.SuperviseNeed}, #{contract.TrainNeed}, #{contract.Status}, #{contract.Type}, #{contract.CreateUser},now(),#{contract.wagesType}, #{contract.InvoiceCompany}, #{contract.InvoiceTitle}, #{contract.InvoiceTax})" Width="160" X="419" Y="62">
+<Parameters>
+<n2:Field Collections="false" Name="contract" ObjectName="Contract.Contract" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="UpdateContract" SQL="Update Contract Set&#10;&#9;ContractCode = #{contract.ContractCode},&#10;&#9;CustomerId = #{contract.CustomerId},&#10;&#9;CompanyId = #{contract.CompanyId},&#10;&#9;OrgId = #{contract.OrgId},&#10;&#9;BeginDate = #{contract.BeginDate},&#10;&#9;EndDate = #{contract.EndDate},&#10;&#9;InDate = #{contract.InDate},&#10;&#9;PNumber = #{contract.PNumber},&#10;&#9;AvgAmount = #{contract.AvgAmount},&#10;&#9;TotalAmount = #{contract.TotalAmount},&#10;&#9;MonthlyAmount = #{contract.MonthlyAmount},&#10;&#9;Wages = #{contract.Wages},&#10;&#9;AAgent = #{contract.AAgent},&#10;&#9;ASubscriber = #{contract.ASubscriber},&#10;&#9;ASigningTtime = #{contract.ASigningTtime},&#10;&#9;BAgent = #{contract.BAgent},&#10;&#9;BSubscriber = #{contract.BSubscriber},&#10;&#9;BSigningTtime = #{contract.BSigningTtime},&#10;&#9;SpecialNeed = #{contract.SpecialNeed},&#10;&#9;LogisticsEat = #{contract.LogisticsEat},&#10;&#9;LogisticsHome = #{contract.LogisticsHome},&#10;&#9;LogisticsNeed = #{contract.LogisticsNeed},&#10;&#9;SuperviseNeed = #{contract.SuperviseNeed},&#10;&#9;TrainNeed = #{contract.TrainNeed},&#10;&#9;Status = #{contract.Status},&#10;&#9;Type = #{contract.Type},&#10;&#9;ModifyUser= #{contract.CreateUser},&#10;&#9;ModifyTime = now(),&#10;&#9;wagesType = #{contract.wagesType},&#10;&#9;InvoiceCompany = #{contract.InvoiceCompany},&#10;&#9;InvoiceTitle = #{contract.InvoiceTitle},&#10;&#9;InvoiceTax = #{contract.InvoiceTax}&#10; Where ID = #{contract.ID}" Width="160" X="417" Y="22">
+<Parameters>
+<n2:Field Collections="false" Name="contract" ObjectName="Contract.Contract" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+</Controls>
+</View>
+</Mapper>

@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-validator/css/bootstrap-validator.min.css" rel=stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-validator/js/bootstrap-validator.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+
+		#table {
+			margin: 0px auto;
+			text-align-last: center;
+		}
+
+		#btn {
+			margin-top: 30px;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body style="background-color: #F2F2F2;">
+	<div class="container" id="app"  style="width: 94%; margin-left: 3%; margin-top:20px;">
+        <form id="form1" rele="form" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="content">申请内容:</label>
+                </div>
+                <div class="col-xs-8 col-md-8">
+                    <textarea v-model="Data.content" class="form-control" rows="5" id="content" name="content"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="type">申请类型:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <select id="select_type" class="selectpicker form-control" v-model="Data.type" name="type">
+                        <option value="0">业务用章申请</option>
+                        <option value="1">行政用章申请</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="sealType">用章类型:</label>
+                </div>
+                <div class="col-xs-4 col-md-4">
+                    <select id="select_sealType" class="selectpicker form-control" v-model="Data.sealType" name="sealType">
+                        <option value="0">公章</option>
+                        <option value="1">合同章</option>
+                        <option value="2">人事章</option>
+                        <option value="3">财务章</option>
+                        <option value="4">法人章</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2 control-label">
+                    <label for="w1">是否外借:</label>
+                </div>
+                <div class="col-xs-8 col-md-8 " >
+                    <input type="radio" v-model="displayws" value="ok">是&emsp;
+                    <input type="radio" v-model="displayws" value="no">否&emsp;
+                </div>
+            </div>
+            <div v-if="displayws === 'ok'">
+                <div class="form-group">
+                    <div class="col-xs-2 col-md-2 control-label">
+                        <label for="w1">可外借项:</label>
+                    </div>
+                    <div class="col-xs-8 col-md-8">
+                        <input type="checkbox" v-model="Data.w1" id="w1" name="w1">公章&emsp;
+                        <input type="checkbox" v-model="Data.w2" id="w2" name="w2">合同章&emsp;
+                        <input type="checkbox" v-model="Data.w3" id="w3" name="w3">人事章&emsp;
+                        <input type="checkbox" v-model="Data.w4" id="w4" name="w4">财务章&emsp;
+                        <input type="checkbox" v-model="Data.w5" id="w5" name="w5">法人章&emsp;
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2 col-md-2 control-label">
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <input type="checkbox" v-model="Data.w6" id="w6" name="w6">营业执照正本
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <input type="checkbox" v-model="Data.w7" id="w7" name="w7">营业执照副本
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2 col-md-2 control-label">
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <input type="checkbox" v-model="Data.w8" id="w8" name="w8">银行开户证正本
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        <input type="checkbox" v-model="Data.w9" id="w9" name="w9">银行开户证副本
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-xs-2 col-md-2 control-label">
+                    </div>
+                    <div class="col-xs-2 col-md-2">
+                        <input type="checkbox" v-model="Data.w10" id="w10" name="w10">其它
+                    </div>
+                    <div class="col-xs-6 col-md-6" v-if="Data.w10">
+                        <input v-model="Data.other" type="text" class="form-control input" id="other" name="other">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2 control-label">
+                    <label for="file1">附件:</label>
+                </div>
+                <div class="col-xs-8 col-md-8">
+                    <a id="downloadfile1"></a>
+                    <label id="file1text"></label>
+                    <button type="button" class="layui-btn layui-btn-sm layui-btn-primary" id="uploadfile1">
+                        <i class="layui-icon">&#xe67c;</i>上传附件
+                    </button>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2" style="text-align: right;">
+                </div>
+                <div class="col-xs-8 col-md-8" style="text-align: left;">
+                    <button type="button" class="layui-btn layui-btn-sm" onClick="Accept()">
+                        <i class="layui-icon layui-icon-ok"></i><span class="fontsm">&emsp;提交&emsp;</span>
+                    </button>
+                    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onClick="iframecloses()">
+                        <i class="layui-icon layui-icon-close"></i><span class="fontsm">&emsp;取消&emsp;</span>
+                    </button>
+                </div>
+            </div>
+
+        </form>
+	</div>
+</body>
+</html>
+<script src="../../wwwroot/js/App.js"></script>
+<script>
+	layui.use('upload', function(){
+		var upload = layui.upload;
+		upload.render({
+			elem: '#uploadfile1'
+			,accept: 'file'
+			,size: 2000
+			,url: '/uploadFile'
+			,data:{
+				type: 'Type',
+				token: window.sessionStorage.getItem("token")
+			}
+			,before: function(obj){
+			}
+			,done: function(result){
+				vm.Data.file1 = result.data;
+				$('#downloadfile1').attr('href', '/downloadFile?type=application/octet-stream&filename='+result.data);
+				var ls = result.data.split("/");
+				$('#downloadfile1').text(ls[ls.length-1]);
+				alert("上传成功!");
+			}
+			,error: function(){
+				var text = $('#file1text');
+				text.html('<span style="color: #FF5722;">上传失败</span>');
+			}
+		});
+	});
+</script>
+
+<script>
+	$(document).ready(function () {
+		$('#form1').bootstrapValidator({
+			message: 'This value is not valid',
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+				type: {
+					message: '申请类型验证失败',
+					validators: {
+						notEmpty: {
+							message: '申请类型不能为空'
+						}
+					}
+				},
+				sealType: {
+					message: '用章类型验证失败',
+					validators: {
+						notEmpty: {
+							message: '用章类型不能为空'
+						}
+					}
+				}
+			}
+		});
+	});
+	
+	var dictionaryItems = [{code:"", name:""}];
+
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			Data:{
+				id: 0,
+				orgID: 0,
+				userID: 0,
+				date: "2019/10/25 00:00:00",
+				content: "",
+				type: 0,
+				sealType: 0,
+				w1: false,
+				w2: false,
+				w3: false,
+				w4: false,
+				w5: false,
+				w6: false,
+				w7: false,
+				w8: false,
+				w9: false,
+				w10: false,
+				w11: false,
+				other: "",
+				workflowID: 0,
+				file1: ""
+			},
+            displayws: "no"
+		},
+		methods: {
+
+		},
+		watch: {
+			Data: function() {
+				this.$nextTick(function () {
+					$('#select_sealType').selectpicker('refresh');
+					$('#select_type').selectpicker('refresh');
+					$('#downloadfile1').attr('href', "/downloadFile?type=application/octet-stream&filename="+vm.Data.file1);
+					var ls = vm.Data.file1.split("/");
+					$('#downloadfile1').text(ls[ls.length-1]);
+				})
+			}
+		}
+	});
+	
+	$(function(){
+	});
+
+	function getData(id){
+		
+		if(id>0){
+			PostAppAjax({
+				url: '/Workflow/getSealById',
+				data: {
+					id: id
+				},
+				success: function(result) {
+					if(result.code==0){
+						vm.Data = result.data;
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function() {
+					alert("服务器忙，请重试!");
+				}
+			});
+		}
+	}
+	function Accept(){
+		$('#form1').data("bootstrapValidator").validate();
+ 		var isValid = $('#form1').data("bootstrapValidator").isValid();
+		if(isValid){
+			PostAppAjax({
+				url: '/Workflow/insertSeal',
+				contentType: 'application/json;charset=utf-8',
+				data: JSON.stringify(vm.Data),
+				success: function(result) {
+					if(result.code==0){
+						doTrigger("CheckList"); //调用触发器，刷新查询
+						iframecloses();
+					}else{
+						alert(code.msg);
+					}
+				},
+				error: function(err) {
+					alert("错误信息：\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+</script>

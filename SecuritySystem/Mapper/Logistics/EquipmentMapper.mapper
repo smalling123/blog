@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Logistics.Equipment" Name="getAllEquipment" SQL="Select * From Equipment&#10;where Name like '%${Name}%'&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="18" Y="22">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Unit" Name="Unit" Type="String"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Price" Name="Price" Type="Decimal"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getEquipmentByCount" SQL="Select Count(*) Count From Equipment&#10;where Name like '%${Name}%'" SelectType="Singleton" Width="160" X="232" Y="21">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Logistics.Equipment" Name="getEquipmentById" SQL="Select * From Equipment Where ID = #{id}" SelectType="Singleton" Width="160" X="506" Y="116">
+<ResultSet/>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertEquipment" SQL="Insert Into Equipment(Name, Unit, Describes, Price, CreateUser, CreateTime)&#10; Values(#{equipment.Name}, #{equipment.Unit}, #{equipment.Describes}, #{equipment.Price},  #{equipment.CreateUser}, Now())" Width="160" X="507" Y="73">
+<Parameters>
+<n2:Field Collections="false" Name="equipment" ObjectName="Logistics.Equipment" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateEquipment" SQL="Update Equipment Set&#10;&#9;Name = #{equipment.Name},&#10;&#9;Unit = #{equipment.Unit},&#10;&#9;Describes = #{equipment.Describes},&#10;&#9;Price = #{equipment.Price},&#10;&#9;ModifyUser = #{equipment.CreateUser},&#10;&#9;ModifyTime = Now(),&#10; Where ID = #{equipment.ID}" Width="160" X="504" Y="32">
+<Parameters>
+<n2:Field Collections="false" Name="equipment" ObjectName="Logistics.Equipment" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+</Controls>
+</View>
+</Mapper>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Finance.Invoice" Name="getinvoiceByCustomerId" SQL="select * from invoice where 1=1 and CustomerId=#{CustomerId}&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="44" Y="45">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="CompanyId" Name="CompanyId" Type="Integer"/>
+<n1:ResultField MapperField="AppDate" Name="AppDate" Type="Integer"/>
+<n1:ResultField MapperField="UserId" Name="UserId" Type="Integer"/>
+<n1:ResultField MapperField="OrgId" Name="OrgId" Type="Integer"/>
+<n1:ResultField MapperField="SiteId" Name="SiteId" Type="Integer"/>
+<n1:ResultField MapperField="CustomerId" Name="CustomerId" Type="Integer"/>
+<n1:ResultField MapperField="TaxNo" Name="TaxNo" Type="String"/>
+<n1:ResultField MapperField="Customer" Name="Customer" Type="String"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="BankInfo" Name="BankInfo" Type="String"/>
+<n1:ResultField MapperField="Date" Name="Date" Type="DateTime"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="String"/>
+<n1:ResultField MapperField="SendDate" Name="SendDate" Type="DateTime"/>
+<n1:ResultField MapperField="SendAddress" Name="SendAddress" Type="String"/>
+<n1:ResultField MapperField="SendName" Name="SendName" Type="String"/>
+<n1:ResultField MapperField="SendPhone" Name="SendPhone" Type="String"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="KpUser" Name="KpUser" Type="String"/>
+<n1:ResultField MapperField="KpTime" Name="KpTime" Type="String"/>
+<n1:ResultField MapperField="CreateUser3" Name="CreateUser3" Type="String"/>
+<n1:ResultField MapperField="SendTime" Name="SendTime" Type="String"/>
+<n1:ResultField MapperField="InvoiceNo" Name="InvoiceNo" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="CustomerId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and CustomerId=#{CustomerId}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="CustomerId" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Insert Height="24" Name="insertInvoice" SQL="Insert Into Invoice(CompanyId, AppDate, UserId, OrgId, SiteId, CustomerId, TaxNo, Customer, Address, BankInfo, Date, Status, SendDate, SendAddress, SendName, SendPhone, Describes, CreateUser, CreateTime, KpUser, KpTime, CreateUser3, SendTime, InvoiceNo)&#10; Values(#{invoice.CompanyId}, #{invoice.AppDate}, #{invoice.UserId}, #{invoice.OrgId}, #{invoice.SiteId}, #{invoice.CustomerId}, #{invoice.TaxNo}, #{invoice.Customer}, #{invoice.Address}, #{invoice.BankInfo}, #{invoice.Date}, #{invoice.Status}, #{invoice.SendDate}, #{invoice.SendAddress}, #{invoice.SendName}, #{invoice.SendPhone}, #{invoice.Describes}, #{invoice.CreateUser}, Now(), #{invoice.KpUser}, #{invoice.KpTime}, #{invoice.CreateUser3}, #{invoice.SendTime}, #{invoice.InvoiceNo});" Width="160" X="226" Y="37">
+<Parameters>
+<n2:Field Collections="false" Name="invoice" ObjectName="Finance.Invoice" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateInvoice" SQL="Update Invoice Set&#10;&#9;CompanyId = #{invoice.CompanyId},&#10;&#9;AppDate = #{invoice.AppDate},&#10;&#9;UserId = #{invoice.UserId},&#10;&#9;OrgId = #{invoice.OrgId},&#10;&#9;SiteId = #{invoice.SiteId},&#10;&#9;CustomerId = #{invoice.CustomerId},&#10;&#9;TaxNo = #{invoice.TaxNo},&#10;&#9;Customer = #{invoice.Customer},&#10;&#9;Address = #{invoice.Address},&#10;&#9;BankInfo = #{invoice.BankInfo},&#10;&#9;Date = #{invoice.Date},&#10;&#9;Status = #{invoice.Status},&#10;&#9;SendDate = #{invoice.SendDate},&#10;&#9;SendAddress = #{invoice.SendAddress},&#10;&#9;SendName = #{invoice.SendName},&#10;&#9;SendPhone = #{invoice.SendPhone},&#10;&#9;Describes = #{invoice.Describes},&#10;&#9;CreateUser = #{invoice.CreateUser},&#10;&#9;CreateTime = Now(),&#10;&#9;KpUser = #{invoice.KpUser},&#10;&#9;KpTime = #{invoice.KpTime},&#10;&#9;CreateUser3 = #{invoice.CreateUser3},&#10;&#9;SendTime = #{invoice.SendTime},&#10;&#9;InvoiceNo = #{invoice.InvoiceNo}&#10; Where ID = #{invoice.ID}" Width="160" X="225" Y="75">
+<Parameters>
+<n2:Field Collections="false" Name="invoice" ObjectName="Finance.Invoice" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Height="240" MapperEntity="Finance.Invoice" Name="getInvoiceById" SQL="Select * From Invoice Where ID = #{id}" SelectType="Singleton" Width="160" X="407" Y="35">
+<ResultSet/>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getinvoiceByCount" SQL="select Count(*) Count from invoice where 1=1 and  CustomerId=#{CustomerId}" SelectType="Singleton" Width="160" X="604" Y="36">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="CustomerId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and  CustomerId=#{CustomerId}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="CustomerId" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Update Height="24" Name="updateBillFees" SQL="&lt;script&gt;&#10;Update BillFee Set&#10;&#9;InvoiceItemId = #{id}&#10; Where ID in (&#10;&lt;foreach collection='ids' item='c' index='index' separator=','&gt;&#10;#{c}&#10;&lt;/foreach&gt;&#10;)&#10;&lt;/script&gt;" Width="160" X="224" Y="137">
+<Parameters>
+<n2:Field Collections="true" Name="ids" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+</Controls>
+</View>
+</Mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Finance.InvoiceItem" Name="getInvoiceItemByInvoiceId" SQL="select * from InvoiceItem where InvoiceId=#{InvoiceId}&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="21" Y="75">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="InvoiceId" Name="InvoiceId" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Amt" Name="Amt" Type="Decimal"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="BillItemId" Name="BillItemId" Type="Integer"/>
+<n1:ResultField MapperField="QTY" Name="QTY" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="InvoiceId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertInvoiceItem" SQL="&lt;script&gt;&#10;Insert Into InvoiceItem(InvoiceId, Name, Amt, Describes, BillItemId, QTY)&#10;select (select max(id) from Invoice ) as InvoiceId ,Name ,Amt,Describes ,ID as BillItemId, #{ids.size()} as QTY from BillFee &#10; Where Id in (&#10;&lt;foreach collection='ids' item='c' index='index' separator=','&gt;&#10;#{c}&#10;&lt;/foreach&gt;&#10;)&#10;&lt;/script&gt;" Width="160" X="222" Y="76">
+<Parameters>
+<n2:Field Collections="true" Name="ids" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Select Height="240" MapperEntity="Table" Name="getInvoiceItemByCount" SQL="select count(*) Count from InvoiceItem where InvoiceId=#{InvoiceId}" SelectType="Singleton" Width="160" X="437" Y="76">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="InvoiceId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

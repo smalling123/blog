@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" Description="" Transactional="false" Type="Post" VerifyToken="true">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Name="pageNumber" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="pageSize" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Description="状态" Dictionary="ContractStatus" Name="status" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Description="类型" Name="type" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Description="合同是否到期" Dictionary="Whether" Name="Expire" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="Contract.ContractMapper.getContractAll" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1" Variable="result.Data">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="pageNumber&lt;=0?0:(pageNumber-1)*pageSize" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="pageSize" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="status" Name="status" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" DefaultValue="type" Name="type" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="Expire" Name="Expire" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Variable Name="Variable2">
+<n2:Field Collections="false" Name="t" ObjectName="Table" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="Contract.ContractMapper.getContractByCount" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2" Variable="t">
+<Parameters/>
+</n1:DataAccess>
+<n1:Assign Name="Assign3" Value="pageNumber" Variable="result.PageNumber"/>
+<n1:Assign Name="Assign1" Value="pageSize" Variable="result.PageSize"/>
+<n1:Assign Name="Assign2" Value="t.getCount()" Variable="result.RecordCount"/>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

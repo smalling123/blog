@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" Description="" Transactional="true" Type="Post" VerifyToken="true">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Name="personnel" ObjectName="Base.Personnel" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Decide Expression="personnel.getID()==0" Name="Decide1">
+<Controls>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.insertPersonnel" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1"/>
+<n1:Variable Name="Variable2"/>
+<n1:DataAccess ContinueOnError="false" Dao="DBMapper.getTableID" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess3" Variable="table"/>
+<n1:Assign Name="Assign1" Value="table.getID()" Variable="personnel.ID"/>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.updatePersonnel" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2"/>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.DeletePersonnelJob" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess4"/>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.DeletePersonnelMembers" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess5"/>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.DeletePersonnelPhoto" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess6"/>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.DeletePersonnelCert" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess7"/>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.DeletePersonnelContract" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess8"/>
+</Controls>
+<if>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.insertPersonnel" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="personnel" Name="personnel" ObjectName="Base.Personnel" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Variable Name="Variable2">
+<n2:Field Collections="false" Name="table" ObjectName="Table" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="DBMapper.getTableID" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess3" Variable="table">
+<Parameters/>
+</n1:DataAccess>
+<n1:Assign Name="Assign1" Value="table.getID()" Variable="personnel.ID"/>
+</if>
+<else>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.updatePersonnel" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="personnel" Name="personnel" ObjectName="Base.Personnel" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.DeletePersonnelJob" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess4">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="personnel.getID()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.DeletePersonnelMembers" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess5">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="personnel.getID()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.DeletePersonnelPhoto" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess6">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="personnel.getID()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.DeletePersonnelCert" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess7">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="personnel.getID()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.DeletePersonnelContract" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess8">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="personnel.getID()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+</else>
+</n1:Decide>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.insertPersonnelJob" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess13">
+<Parameters>
+<n2:Field Collections="true" DefaultValue="personnel.getPersonnelJob()" Name="personneljob" ObjectName="Base.PersonnelJob" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" DefaultValue="personnel.getID()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.insertPersonnelMembers" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess12">
+<Parameters>
+<n2:Field Collections="true" DefaultValue="personnel.getPersonnelMembers()" Name="personnelmembers" ObjectName="Base.PersonnelMembers" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" DefaultValue="personnel.getID()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.insertPersonnelPhoto" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess11">
+<Parameters>
+<n2:Field Collections="true" DefaultValue="personnel.getPersonnelPhoto()" Name="personnelphoto" ObjectName="Base.PersonnelPhoto" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" DefaultValue="personnel.getID()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.insertPersonnelCert" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess10">
+<Parameters>
+<n2:Field Collections="true" DefaultValue="personnel.getPersonnelCert()" Name="personnelcert" ObjectName="Base.PersonnelCert" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" DefaultValue="personnel.getID()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Base.PersnnnelMapper.insertPersonnelContract" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess9">
+<Parameters>
+<n2:Field Collections="true" DefaultValue="personnel.getPersonnelContract()" Name="personnelcontract" ObjectName="Base.PersonnelContract" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" DefaultValue="personnel.getID()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

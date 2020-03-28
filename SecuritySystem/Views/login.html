@@ -1,0 +1,255 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>上海福络特</title>
+
+    <link href="wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+    <link href="wwwroot/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="wwwroot/lib/layui/layui.js"></script>
+    <link href="wwwroot/css/loginstyle.css" rel="stylesheet" />
+    <script src="wwwroot/lib/jquery/dist/jquery.js"></script>
+    <script src="wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <style type="text/css">
+
+        #xbx {
+            position: absolute;
+            top: 50%;
+            left: 75%;
+            transform: translate(-50%, -50%);
+            width: auto;
+            height: 400px;
+        }
+
+        .login-main {
+            height: 400px;
+            width: 500px;
+            background-color: #e8f0fe;
+            border-radius: 10px;
+        }
+
+        .fontStyle {
+            margin-left: 30%;
+            color: #2592fb;
+            font-size: 22px;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+        }
+
+        #color-input-red + label {
+            display: block;
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+            position: absolute;
+            top: 2px;
+            left: 15px;
+            border-radius: 3px;
+            background-color: #337AB7;
+        }
+
+        #color-input-red {
+            position: relative;
+            margin-top: -5px;
+        }
+
+            #color-input-red:checked + label::before {
+                display: block;
+                content: "\2714";
+                text-align: center;
+                font-size: 10px;
+                color: white;
+            }
+
+        input[type=checkbox] {
+            visibility: hidden;
+        }
+
+        #ican-eye {
+            position: absolute;
+            float: right;
+            margin-left: -25px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        html {
+            height: 100%;
+            width: 100%;
+        }
+
+        #img {
+            width: 50%;
+            height: 100%;
+        }
+
+        #Logo {
+            position: absolute;
+            top: 60px;
+            left: 45px;
+            width: 22%;
+            height: auto;
+        }
+
+        .input_text {
+            border: none;
+            border-bottom: 2px solid #03b0e4;
+            height: 35px;
+            width: 400px;
+            font-size: 16px;
+            padding: 6px 12px;
+        }
+    </style>
+</head>
+<!--<body style="background-image: url('wwwroot/images/loginBG.png');background-repeat:no-repeat;  background-size: 50% 100%;">-->
+<body style="background-color:#e8f0fe; width:100%;height:100%;">
+    <div id="img" style="background-image: url('../../wwwroot/images/loginBG.png');background-repeat:no-repeat;  background-size: 100% 100%;">
+        <img id="Logo" src="../../wwwroot/images/logo.png" alt="Logo" />
+    </div>
+    <div id="xbx">
+        <div class="login-main container">
+            <form id="form1" rele="form" class="form-horizontal">
+                <div style="padding:40px 80px"><span class="fontStyle">欢迎登陆</span><br /><hr size="30" style="position:absolute;left:39%;width:75px;height:3px; background-color:#2592fb;" /></div>
+                <div style="padding-left:30px; padding-right:30px">
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <input type="text" id="account" name="account" class="input_text" placeholder=" 用户名" autocomplete="off">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <input type="password" id="password" name="password" class="input_text" placeholder=" 密码" autocomplete="off">
+                        </div>
+                        <div class="col-lg-1" style="float:right;margin-left:-40px">
+                            <span><i class="glyphicon glyphicon-eye-open" id="ican-eye"></i></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-6">
+                            <input id="color-input-red" class="chat-button-location-radio-input" type="checkbox" name="color-input-red" value="#f0544d" />
+                            <label for="color-input-red"></label><span style="margin-left:10px;color:gray">保存登录信息</span>
+                        </div>
+                        <div class="col-lg-6" style="text-align:right">
+                            <a href="#" style="text-decoration:underline;color:gray">登陆遇到问题</a>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-lg-12">
+                            <input type="button" style="width:100%" class="btn btn-primary" value="登 &nbsp;录" onclick="loginClick()" />
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+
+
+
+</html>
+<script src="wwwroot/lib/jquery/dist/jquery.min.js"></script>
+<script src="wwwroot/js/App.js"></script>
+<script>
+    var loadIndex = 0;
+    var layer;
+    layui.use('layer', function () {
+        layer = layui.layer;
+    });
+
+    //解决默认from跳转
+    AppValidate("#logins", function () {
+        loginClick();
+    });
+
+    function loginClick() {
+        loadIndex = layer.load(0, { shade: false });
+        var Account = $("#account").val();
+        var Password = $("#password").val();
+        $.ajax({
+            type: "Post",
+            url: AppURL + "/Permission/login",
+            async: true,
+            data: {
+                "LoginName": Account,
+                "Password": Password
+            },
+            dataType: "json",
+            success: function (result) {
+                layer.close(loadIndex);
+                if (result.code == 0) {
+                    if (result.token) {
+                        window.sessionStorage.setItem("Account", Account);
+                        window.sessionStorage.setItem("UserName", result.data.name);
+                        window.sessionStorage.setItem("Head", result.data.head);
+                        window.sessionStorage.setItem("token", result.token);
+                        if ($("#color-input-red").prop("checked")) {
+                            addCookie("userName", Account, 10, "");
+                            addCookie("userPass", Password, 10, "");
+                        }
+                        window.location.href = "/index.html";
+                    }
+                } else {
+                    alert("登录失败!\n\n\t 错误代码：" + result.code + ";\n\t 错误提示：" + result.msg);
+                }
+            }, error: function () {
+                layer.close(loadIndex);
+                alert("登陆失败，请确认账号密码是否正确！");
+            }
+        });
+    }
+</script>
+<script>
+    function addCookie(name, value, days, path) {  /**添加设置cookie**/
+        var name = escape(name);
+        var value = escape(value);
+        var expires = new Date();
+        expires.setTime(expires.getTime() + days * 3600000 * 24);
+        //path=/，表示cookie能在整个网站下使用，path=/temp，表示cookie只能在temp目录下使用
+        path = path == "" ? "" : ";path=" + path;
+        //GMT(Greenwich Mean Time)是格林尼治平时，现在的标准时间，协调世界时是UTC
+        //参数days只能是数字型
+        var _expires = (typeof days) == "string" ? "" : ";expires=" + expires.toUTCString();
+        document.cookie = name + "=" + value + _expires + path;
+    }
+
+    function getCookieValue(name) { /**获取cookie的值，根据cookie的键获取值**/
+        //用处理字符串的方式查找到key对应value
+        var name = escape(name);
+        //读cookie属性，这将返回文档的所有cookie
+        var allcookies = document.cookie;
+        //查找名为name的cookie的开始位置
+        name += "=";
+        var pos = allcookies.indexOf(name);
+        //如果找到了具有该名字的cookie，那么提取并使用它的值
+        if (pos != -1) {
+            //如果pos值为-1则说明搜索"version="失败
+            var start = pos + name.length;         //cookie值开始的位置
+            var end = allcookies.indexOf(";", start);    //从cookie值开始的位置起搜索第一个";"的位置,即cookie值结尾的位置
+            if (end == -1) end = allcookies.length;    //如果end值为-1说明cookie列表里只有一个cookie
+            var value = allcookies.substring(start, end); //提取cookie的值
+            return (value);              //对它解码
+        } else {
+            //搜索失败，返回空字符串
+            return "";
+        }
+    }
+
+    function deleteCookie(name, path) {  /**根据cookie的键，删除cookie，其实就是设置其失效**/
+        var name = escape(name);
+        var expires = new Date(0);
+        path = path == "" ? "" : ";path=" + path;
+        document.cookie = name + "=" + ";expires=" + expires.toUTCString() + path;
+    }
+
+    /**实现功能，保存用户的登录信息到cookie中。当登录页面被打开时，就查询cookie**/
+    window.onload = function () {
+        var userNameValue = getCookieValue("userName");
+        document.getElementById("account").value = userNameValue;
+        var userPassValue = getCookieValue("userPass");
+        document.getElementById("password").value = userPassValue;
+    }
+
+</script>

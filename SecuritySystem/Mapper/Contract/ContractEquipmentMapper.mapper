@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Contract.ContractEquipment" Name="getContractEquipmentByContractID" SQL="select * from ContractEquipment where ContractID=#{ContractID}  and isdelete=0&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="91" Y="60">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="ContractId" Name="ContractId" Type="Integer"/>
+<n1:ResultField MapperField="Equipment" Name="Equipment" Type="String"/>
+<n1:ResultField MapperField="Qty" Name="Qty" Type="String"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="ContractID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getContractEquipmentByCount" SQL="select count(*) Count  from ContractEquipment where ContractID=#{ContractID}  and isdelete=0" SelectType="Singleton" Width="160" X="94" Y="312">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="ContractID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Contract.ContractEquipment" Name="getContractEquipmentById" SQL="select * from ContractEquipment where id=#{id}  and isdelete=0" SelectType="Singleton" Width="160" X="256" Y="60">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="ContractId" Name="ContractId" Type="Integer"/>
+<n1:ResultField MapperField="Equipment" Name="Equipment" Type="String"/>
+<n1:ResultField MapperField="Qty" Name="Qty" Type="String"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertContractEquipment" SQL="Insert Into ContractEquipment(ContractId, Equipment, Qty, Describes, CreateUser, CreateTime)&#10; Values(#{contractequipment.ContractId}, #{contractequipment.Equipment}, #{contractequipment.Qty}, #{contractequipment.Describes}, #{contractequipment.CreateUser}, Now())" Width="160" X="449" Y="81">
+<Parameters>
+<n2:Field Collections="false" Name="contractequipment" ObjectName="Contract.ContractEquipment" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateContractEquipment" SQL="Update ContractEquipment Set&#10;&#9;ContractId = #{contractequipment.ContractId},&#10;&#9;Equipment = #{contractequipment.Equipment},&#10;&#9;Qty = #{contractequipment.Qty},&#10;&#9;Describes = #{contractequipment.Describes},&#10;&#9;ModifyUser = #{contractequipment.CreateUser},&#10;&#9;ModifyTime = Now()&#10; Where ID = #{contractequipment.ID}" Width="160" X="438" Y="144">
+<Parameters>
+<n2:Field Collections="false" Name="contractequipment" ObjectName="Contract.ContractEquipment" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Height="240" MapperEntity="Table" Name="getMaxContractCode" SQL="select MAX(left(ContractCode, 8)) Count from contract WHERE ContractCode like CONCAT(YEAR(now()),'%')" SelectType="Collections" Width="160" X="448" Y="193">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="String"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

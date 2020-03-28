@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><Model xmlns:n1="org.polariscode.plugin.web.springboot.model" Description="">
+<View>
+<Controls>
+<n1:Entity Height="240" Name="Insurance" Width="160" X="69" Y="90">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="城市" Dictionary="City" Name="City" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="社保名称" Name="Name" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="true" Description="明细" Name="Items" ObjectName="Salary.InsuranceItem" Required="false" Show="false" Type="Object"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="InsuranceItem" Width="160" X="274" Y="88">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="社保" Name="InsuranceId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="年" Dictionary="Year" Name="Year" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="月" Dictionary="Month" Name="Month" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="最低基数" Name="BaseMin" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="最高基数" Name="BaseMax" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="企业总比率" Name="CTotalRate" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="企业总缴纳额" Name="CTotalValue" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="企业养老比率" Name="C1Rate" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="企业养老最低缴纳额" Name="C1Value" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="企业医疗比率" Name="C2Rate" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="企业医疗最低缴纳额" Name="C2Value" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="企业失业比率" Name="C3Rate" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="企业失业最低缴纳额" Name="C3Value" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="企业工伤比率" Name="C4Rate" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="企业工伤最低缴纳额" Name="C4Value" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="企业生育比率" Name="C5Rate" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="企业生育最低缴纳额" Name="C5Value" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="企业残疾比率" Name="C6Rate" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="企业残疾最低缴纳额" Name="C6Value" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="个人养老比率" Name="P1Rate" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="个人养老最低缴纳额" Name="P1Value" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="个人医疗比率" Name="P2Rate" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="个人医疗最低缴纳额" Name="P3Rate" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="个人失业比率" Name="P2Value" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="个人失业最低缴纳额" Name="P3Value" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="Accfunditem" Width="160" X="496" Y="53">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="AccfundId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="年" Name="Year" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="月" Name="Month" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="最低基数" Name="BaseMin" ObjectName="Decimal" Required="true" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="最高基数" Name="BaseMax" ObjectName="Decimal" Required="true" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="企业比率" Name="CRate" ObjectName="Decimal" Required="true" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="企业最低缴纳额" Name="CMinValue" ObjectName="Decimal" Required="true" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="企业最高缴纳额" Name="CMaxValue" ObjectName="Decimal" Required="true" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="个人比率" Name="PRate" ObjectName="Decimal" Required="true" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="个人最低缴纳额" Name="PMinValue" ObjectName="Decimal" Required="true" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="个人最低缴纳额" Name="PMaxValue" ObjectName="Decimal" Required="true" Show="false" Type="Decimal"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="Taxs" Width="160" X="681" Y="47">
+<Fields>
+<n1:Field Collections="false" Description="年" Name="Year" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="月" Name="Month" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="起征点" Name="Base" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Name="Mid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="下限" Name="MinVM" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="上限" Name="MaxVM" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="税率" Name="Rate" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Yid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="下限" Name="MinVY" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="上限" Name="MaxVY" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="速扣数" Name="Value" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="Tax" Width="160" X="127" Y="344">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="年" Name="Year" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="月" Name="Month" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="起征点" Name="Base" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="true" Name="Taxms" ObjectName="Salary.Taxm" Required="false" Show="false" Type="Object"/>
+<n1:Field Collections="true" Name="Taxys" ObjectName="Salary.Taxy" Required="false" Show="false" Type="Object"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="Taxm" Width="160" X="318" Y="349">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="TaxId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="下限" Name="MinValue" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="上限" Name="MaxValue" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="税率" Name="Rate" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="Taxy" Width="160" X="499" Y="351">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="TaxId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="下限" Name="MinValue" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="上限" Name="MaxValue" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="速扣数" Name="Value" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="Accfund" Width="160" X="706" Y="352">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="城市" Name="City" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="名称" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+</Controls>
+</View>
+</Model>

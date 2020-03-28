@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" xmlns:n3="org.polariscode.plugin.web.springboot.action.jwt" Description="" Transactional="false" Type="Post" VerifyToken="false">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Description="客户" Dictionary="Customer" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Description="备注" Name="describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable7">
+<n2:Field Collections="false" DefaultValue="0" Name="x" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</n1:Variable>
+<n1:Variable Name="Variable3">
+<n2:Field Collections="false" Name="tbill" ObjectName="Finance.TBill" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable4">
+<n2:Field Collections="true" Name="tbills" ObjectName="Finance.TBill" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable6">
+<n2:Field Collections="false" Name="t" ObjectName="Table" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="Finance.BillMapper.getTBillById" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1" Variable="tbills">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="id" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="0" Name="month" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Loop Expression="x&lt;tbills.size()" Name="Loop2">
+<Controls>
+<n1:Variable Name="Variable2">
+<n2:Field Collections="false" DefaultValue="0" Name="i" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</n1:Variable>
+<n1:Assign Name="Assign9" Value="tbills.get(x)" Variable="tbill"/>
+<n1:Loop Expression="tbill.getYN()==1" Name="Loop1">
+<Controls>
+<n1:Decide Expression="tbill!=null &amp;&amp; tbill.getYNS()==1" Name="Decide2">
+<if>
+<n1:DataAccess ContinueOnError="false" Dao="Finance.BillMapper.getBillCount" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess3" Variable="t">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="i" Name="month" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="id" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="tbill.getID()" Name="cid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Decide Expression="t.getCount()&gt;0" Name="Decide1">
+<if/>
+<else>
+<n1:Variable Name="Variable5">
+<n2:Field Collections="false" Name="bill" ObjectName="Finance.Bill" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Assign Name="Assign2" Value="tbill.getYEAR()" Variable="bill.Year"/>
+<n1:Assign Name="Assign3" Value="tbill.getMONTH()" Variable="bill.Month"/>
+<n1:Assign Name="Assign4" Value="tbill.getAmount()" Variable="bill.Amt"/>
+<n1:Assign Name="Assign7" Value="describes" Variable="bill.Describes"/>
+<n1:Assign Name="Assign5" Value="id" Variable="bill.CustomerId"/>
+<n1:Assign Name="Assign8" Value="tbill.getID()" Variable="bill.ContractId"/>
+<n3:GetJWTID Name="GetJWTID1" Variable="bill.CreateUser"/>
+<n1:DataAccess ContinueOnError="false" Dao="Finance.BillMapper.InsertBills" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="bill" Name="bill" ObjectName="Finance.Bill" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" DefaultValue="id" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="i" Name="month" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="tbill.getID()" Name="cid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+</else>
+</n1:Decide>
+</if>
+<else>
+<n1:Code Name="Code1" Value="tbill = new TBill();"/>
+</else>
+</n1:Decide>
+<n1:Assign Name="Assign6" Value="i-1" Variable="i"/>
+</Controls>
+</n1:Loop>
+<n1:Assign Name="Assign1" Value="x+1" Variable="x"/>
+</Controls>
+</n1:Loop>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

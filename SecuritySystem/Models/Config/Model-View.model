@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><Model xmlns:n1="org.polariscode.plugin.web.springboot.model" Description="">
+<View>
+<Controls>
+<n1:Entity Height="486" Name="District" Width="160" X="75" Y="45">
+<Fields>
+<n1:Field Collections="false" Description="区号" Name="ID" ObjectName="Integer" Required="true" Type="Integer"/>
+<n1:Field Collections="false" Description="上级区号" Name="PID" ObjectName="Integer" Required="false" Type="Integer"/>
+<n1:Field Collections="false" Description="名称" Name="Name" ObjectName="String" Required="true" Type="String"/>
+<n1:Field Collections="false" Description="全名" Name="MergerName" ObjectName="String" Required="false" Type="String"/>
+<n1:Field Collections="false" Description="简称" Name="ShortName" ObjectName="String" Required="false" Type="String"/>
+<n1:Field Collections="false" Description="全名简称" Name="MergerShotName" ObjectName="String" Required="false" Type="String"/>
+<n1:Field Collections="false" Description="级别" Name="Level" ObjectName="Integer" Required="false" Type="Integer"/>
+<n1:Field Collections="false" Description="城市编号 " Name="CityCode" ObjectName="String" Required="false" Type="String"/>
+<n1:Field Collections="false" Description="邮政编号" Name="ZipCode" ObjectName="String" Required="false" Type="String"/>
+<n1:Field Collections="false" Description="拼音" Name="PinYin" ObjectName="String" Required="false" Type="String"/>
+<n1:Field Collections="false" Description="简拼" Name="JianPin" ObjectName="String" Required="false" Type="String"/>
+<n1:Field Collections="false" Description="首字母" Name="FirstChar" ObjectName="String" Required="false" Type="String"/>
+<n1:Field Collections="false" Name="Lng" ObjectName="Decimal" Required="false" Type="Decimal"/>
+<n1:Field Collections="false" Name="Lat" ObjectName="Decimal" Required="false" Type="Decimal"/>
+<n1:Field Collections="true" Name="Children" ObjectName="Config.District" Required="false" Type="Object"/>
+</Fields>
+</n1:Entity>
+</Controls>
+</View>
+</Model>

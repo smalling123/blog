@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="464" Key="ID" MapperEntity="Config.District" Name="getDistrictByPid" ParentKey="PID" SQL="Select * From District Where PID = #{pid}" SelectType="Collections" Width="160" X="48" Y="30">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="MergerName" Name="MergerName" Type="String"/>
+<n1:ResultField MapperField="ShortName" Name="ShortName" Type="String"/>
+<n1:ResultField MapperField="MergerShotName" Name="MergerShotName" Type="String"/>
+<n1:ResultField MapperField="Level" Name="Level" Type="Integer"/>
+<n1:ResultField MapperField="CityCode" Name="CityCode" Type="String"/>
+<n1:ResultField MapperField="ZipCode" Name="ZipCode" Type="String"/>
+<n1:ResultField MapperField="PinYin" Name="PinYin" Type="String"/>
+<n1:ResultField MapperField="JianPin" Name="JianPin" Type="String"/>
+<n1:ResultField MapperField="FirstChar" Name="FirstChar" Type="String"/>
+<n1:ResultField MapperField="Lng" Name="Lng" Type="Decimal"/>
+<n1:ResultField MapperField="Lat" Name="Lat" Type="Decimal"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="pid" ObjectName="Integer" Required="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="InsertDistrict" SQL="Insert Into District(ID, PID, Name, MergerName, ShortName, MergerShotName, Level, CityCode, ZipCode, PinYin, JianPin, FirstChar, Lng, Lat)&#10;Values(#{district.ID}, #{district.PID}, #{district.Name}, #{district.MergerName}, #{district.ShortName}, #{district.MergerShotName}, #{district.Level}, #{district.CityCode}, #{district.ZipCode}, #{district.PinYin}, #{district.JianPin}, #{district.FirstChar}, #{district.Lng}, #{district.Lat})" Width="160" X="246" Y="37">
+<Parameters>
+<n2:Field Collections="false" Name="district" ObjectName="Config.District" Required="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="UpdateDistrict" SQL="Udate Dictrict  set&#10;&#9;PID = #{district.PID}, &#10;&#9;Name = #{district.Name}, &#10;&#9;MergerName = #{district.MergerName}, &#10;&#9;ShortName = #{district.ShortName}, &#10;&#9;MergerShotName = #{district.MergerShotName}, &#10;&#9;Level = #{district.Level}, &#10;&#9;CityCode = #{district.CityCode}, &#10;&#9;ZipCode = #{district.ZipCode}, &#10;&#9;PinYin = #{district.PinYin}, &#10;&#9;JianPin = #{district.JianPin}, &#10;&#9;FirstChar = #{district.FirstChar}, &#10;&#9;Lng = #{district.Lng}, &#10;&#9;Lat = #{district.Lat}&#10;Where ID = #{district.ID}" Width="160" X="247" Y="102">
+<Parameters>
+<n2:Field Collections="false" Name="district" ObjectName="Config.District" Required="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Insert Description="导入" Height="24" Name="ImportDistrict" SQL="&lt;script&gt;Insert Into District(ID, PID, Name, MergerName, ShortName, MergerShotName, Level, CityCode, ZipCode, PinYin, JianPin, FirstChar, Lng, Lat) Values&#10;&lt;foreach collection='list' item='c' index='index' separator=','&gt;&#10;(#{c.A}, #{c.B}, #{c.C}, #{c.D}, #{c.E}, #{c.F}, #{c.G}, #{c.H}, #{c.I}, #{c.J}, #{c.K}, #{c.L}, #{c.M}, #{c.N})&#10;&lt;/foreach&gt;&#10;&lt;/script&gt;" Width="160" X="245" Y="231">
+<Parameters>
+<n2:Field Collections="true" Name="list" ObjectName="Excel" Required="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Delete Description="删除所有记录" Height="25" Name="DeleteAllDistrict" SQL="Delete From District" Width="160" X="246" Y="168">
+<Parameters/>
+<Rules/>
+</n1:Delete>
+<n1:Select Description="获取指定的记录" Height="406" MapperEntity="Config.District" Name="getDistrictOne" SQL="Select * From District Where ID = #{id}" SelectType="Singleton" Width="160" X="486" Y="36">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="MergerName" Name="MergerName" Type="String"/>
+<n1:ResultField MapperField="ShortName" Name="ShortName" Type="String"/>
+<n1:ResultField MapperField="MergerShotName" Name="MergerShotName" Type="String"/>
+<n1:ResultField MapperField="Level" Name="Level" Type="Integer"/>
+<n1:ResultField MapperField="CityCode" Name="CityCode" Type="String"/>
+<n1:ResultField MapperField="ZipCode" Name="ZipCode" Type="String"/>
+<n1:ResultField MapperField="PinYin" Name="PinYin" Type="String"/>
+<n1:ResultField MapperField="JianPin" Name="JianPin" Type="String"/>
+<n1:ResultField MapperField="FirstChar" Name="FirstChar" Type="String"/>
+<n1:ResultField MapperField="Lng" Name="Lng" Type="Decimal"/>
+<n1:ResultField MapperField="Lat" Name="Lat" Type="Decimal"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

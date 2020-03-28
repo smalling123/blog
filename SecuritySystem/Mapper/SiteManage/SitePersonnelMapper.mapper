@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Description="获取主岗信息" Height="240" MapperEntity="Base.SitePersonnel" Name="getMainSitePersonnel" SQL="Select  *&#10;From SitePersonnel&#10;Where pid = #{pid} and IsMain = 1 and EndDate is null" SelectType="Singleton" Width="160" X="102" Y="51">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="SiteId" Name="SiteId" Type="Integer"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="BeginDate" Name="BeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="DateTime"/>
+<n1:ResultField MapperField="IsMain" Name="IsMain" Type="Boolean"/>
+<n1:ResultField MapperField="Job" Name="Job" Type="String"/>
+<n1:ResultField MapperField="Level" Name="Level" Type="String"/>
+<n1:ResultField MapperField="PostSubsidy" Name="PostSubsidy" Type="Decimal"/>
+<n1:ResultField Name="CreateUser" Type="String"/>
+<n1:ResultField Name="CreateTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="pid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获取个人的调动记录" Height="240" MapperEntity="Base.SitePersonnel" Name="getSitePersonnelByPID" SQL="Select *&#10;From SitePersonnel&#10;Where PID = #{pid}" SelectType="Collections" Width="160" X="317" Y="52">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="SiteId" Name="SiteId" Type="Integer"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="BeginDate" Name="BeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="DateTime"/>
+<n1:ResultField MapperField="IsMain" Name="IsMain" Type="Boolean"/>
+<n1:ResultField MapperField="Job" Name="Job" Type="String"/>
+<n1:ResultField MapperField="Level" Name="Level" Type="String"/>
+<n1:ResultField MapperField="PostSubsidy" Name="PostSubsidy" Type="Decimal"/>
+<n1:ResultField Name="CreateUser" Type="String"/>
+<n1:ResultField Name="CreateTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="pid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertSitePersonnel" SQL="Insert Into SitePersonnel(SiteId, PID, BeginDate, EndDate, IsMain, Job, Level, PostSubsidy, CreateUser, CreateTime)&#10; Values(#{sitepersonnel.SiteId}, #{sitepersonnel.PID}, #{sitepersonnel.BeginDate}, #{sitepersonnel.EndDate}, #{sitepersonnel.IsMain}, #{sitepersonnel.Job}, #{sitepersonnel.Level}, #{sitepersonnel.PostSubsidy}, #{user}, now())" Width="160" X="540" Y="56">
+<Parameters>
+<n2:Field Collections="false" Name="sitepersonnel" ObjectName="Base.SitePersonnel" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateSitePersonnel" SQL="Update SitePersonnel Set&#10;&#9;EndDate = #{sitepersonnel.EndDate},&#10;&#9;Job = #{sitepersonnel.Job},&#10;&#9;Level = #{sitepersonnel.Level},&#10;&#9;PostSubsidy = #{sitepersonnel.PostSubsidy}&#10; Where ID = #{sitepersonnel.ID}" Width="160" X="540" Y="98">
+<Parameters>
+<n2:Field Collections="false" Name="sitepersonnel" ObjectName="Base.SitePersonnel" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Description="根据ID获取调动记录" Height="240" MapperEntity="Base.SitePersonnel" Name="getSitePersonnelById" SQL="Select  *&#10;From SitePersonnel&#10;Where id = #{id}" SelectType="Singleton" Width="160" X="103" Y="322">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="SiteId" Name="SiteId" Type="Integer"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="BeginDate" Name="BeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="DateTime"/>
+<n1:ResultField MapperField="IsMain" Name="IsMain" Type="Boolean"/>
+<n1:ResultField MapperField="Job" Name="Job" Type="String"/>
+<n1:ResultField MapperField="Level" Name="Level" Type="String"/>
+<n1:ResultField MapperField="PostSubsidy" Name="PostSubsidy" Type="Decimal"/>
+<n1:ResultField Name="CreateUser" Type="String"/>
+<n1:ResultField Name="CreateTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

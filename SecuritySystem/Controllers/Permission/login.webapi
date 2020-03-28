@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" xmlns:n3="org.polariscode.plugin.web.springboot.action.jwt" Description="登录接口，生成Token" Transactional="false" Type="Post" VerifyToken="false">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Name="LoginName" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="Password" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable2">
+<n2:Field Collections="false" Name="user" ObjectName="Permission.User" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="Permission.UserMapper.getUserOne" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1" Variable="user">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="LoginName" Name="loginname" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Decide Expression="user != null" Name="Decide1">
+<if>
+<n1:Decide Expression="user.getPassword().equalsIgnoreCase(Password)" Name="Decide2">
+<if>
+<n1:Assign Name="Assign6" Value="&quot;&quot;" Variable="user.Password"/>
+<n1:Assign Name="Assign5" Value="user" Variable="result.Data"/>
+<n3:GenerateToken Name="GenerateToken1" Value="user.getLoginName()" Variable="result.Token"/>
+</if>
+<else>
+<n1:Assign Name="Assign3" Value="-98" Variable="result.Code"/>
+<n1:Assign Name="Assign4" Value="&quot;密码错误！&quot;" Variable="result.Msg"/>
+</else>
+</n1:Decide>
+</if>
+<else>
+<n1:Assign Name="Assign1" Value="-99" Variable="result.Code"/>
+<n1:Assign Name="Assign2" Value="&quot;用户名\&quot;&quot;+LoginName+&quot;\&quot;不存在！&quot;" Variable="result.Msg"/>
+</else>
+</n1:Decide>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

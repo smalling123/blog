@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="01" Name="队员"/>
+<Item Code="02" Name="领班"/>
+<Item Code="03" Name="副队长"/>
+<Item Code="04" Name="队长"/>
+</Items>
+</Dictionary>

@@ -1,0 +1,499 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Description="获取所有员工信息" Height="441" MapperEntity="Base.PersonnelEx" Name="getAllPersonnels" SQL="Select P.ID, P.FileNumber, Site.Name As SiteName, P.Name, P.Gender, P.CardCode, P.CardDate, P.Native, P.Phone, SP.Job, SP.Level, P.InDate, P.HTBeginDate,  P.HTEndDate, P.OutDate, P.PoliticalTrial, P.Status, P.Reference, P.PhotoCount, P.CreateUser, P.CreateTime&#10;From Personnel P Left Join SitePersonnel SP On P.ID = SP.PID And SP.IsMain = 1&#10;&#9;&#9;&#9;&#9;Left Join Site On SP.SIteID = Site.ID &#10;Where P.Name like '%${name}%'  &#10;&#9;And Gender = #{gender}&#10;&#9;And CardCode like '%${cardcode}%'&#10;&#9;And Native = #{native1}&#10;&#9;And Birthday &gt;= DATE_SUB(CURDATE(),INTERVAL #{age1} Year)&#10;&#9;And Birthday &lt; DATE_SUB(CURDATE(),INTERVAL #{age2}+1 Year)&#10;&#9;And Weight &gt;= #{weight}&#10;&#9;And Height &gt;= #{height}&#10;&#9;And P.Status = #{status}&#10;&#9;And Education = #{education}&#10;&#9;And P.InDate &gt;= #{indate1} And P.InDate &lt;= #{indate2}&#10;&#9;And P.OutDate &gt;= #{outdate1} And P.OUtDate &lt;= #{outdate2}&#10;&#9;And LENGTH(BankCard)&gt;0&#10;&#9;And SP.SiteID = #{siteid}&#10;&#9;And PoliticalTrial = #{politicaltrial}&#10;&#9;And F1 = #{f1}&#10;&#9;And Photo = #{photo}&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="284" Y="49">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="FileNumber" Name="FileNumber" Type="String"/>
+<n1:ResultField MapperField="SiteName" Name="SiteName" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Integer"/>
+<n1:ResultField MapperField="CardCode" Name="CardCode" Type="String"/>
+<n1:ResultField MapperField="CardDate" Name="CardDate" Type="DateTime"/>
+<n1:ResultField MapperField="Native" Name="Native" Type="String"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+<n1:ResultField MapperField="Job" Name="Job" Type="String"/>
+<n1:ResultField MapperField="Level" Name="Level" Type="String"/>
+<n1:ResultField MapperField="InDate" Name="InDate" Type="DateTime"/>
+<n1:ResultField MapperField="HTBeginDate" Name="HTBeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="HTEndDate" Name="HTEndDate" Type="DateTime"/>
+<n1:ResultField MapperField="OutDate" Name="OutDate" Type="DateTime"/>
+<n1:ResultField MapperField="PoliticalTrial" Name="PoliticalTrial" Type="Integer"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="Reference" Name="Reference" Type="String"/>
+<n1:ResultField MapperField="PhotoCount" Name="PhotoCount" Type="Integer"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="gender" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="cardcode" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="native1" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="age1" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="age2" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="weight" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="height" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="status" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="education" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="indate1" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="indate2" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="outdate1" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="outdate2" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="bankcard" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="siteid" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="politicaltrial" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="f1" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="photo" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="And Gender = #{gender}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="gender" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And CardCode like ='%${cardcode}%'">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="cardcode" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Native = #{native1}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="native1" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Birthday &gt;= DATE_SUB(CURDATE(),INTERVAL #{age1} Year)">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="age1" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Birthday &lt; DATE_SUB(CURDATE(),INTERVAL #{age2}+1 Year)">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="age2" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Weight &gt;= #{weight}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="weight" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Height &gt;= #{height}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="height" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And P.Status = #{status}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="status" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Education = #{education}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="education" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And LENGTH(BankCard)&gt;0">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="bankcard" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="bankcard" ReplaceString="And LENGTH(BankCard)=0" Value="&quot;2&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And SP.SiteID = #{siteid}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="siteid" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And PoliticalTrial = #{politicaltrial}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="politicaltrial" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And F1 = #{f1}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="f1" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Photo = #{photo}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="photo" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And P.InDate &gt;= #{indate1}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="indate1" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And P.InDate &lt;= #{indate2}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="indate2" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And P.OutDate &gt;= #{outdate1}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="outdate1" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And P.OUtDate &lt;= #{outdate2}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="outdate2" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Description="获取指定员工信息 " Height="437" MapperEntity="Base.Personnel" Name="getPersonnelOne" SQL="Select * From Personnel Where ID = #{id}" SelectType="Singleton" Width="160" X="55" Y="50">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Code" Name="Code" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="CardCode" Name="CardCode" Type="String"/>
+<n1:ResultField MapperField="Birthday" Name="Birthday" Type="DateTime"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Integer"/>
+<n1:ResultField MapperField="Politics" Name="Politics" Type="Integer"/>
+<n1:ResultField MapperField="Height" Name="Height" Type="Integer"/>
+<n1:ResultField MapperField="Weight" Name="Weight" Type="Integer"/>
+<n1:ResultField MapperField="Education" Name="Education" Type="Integer"/>
+<n1:ResultField MapperField="Nation" Name="Nation" Type="Integer"/>
+<n1:ResultField MapperField="Native" Name="Native" Type="String"/>
+<n1:ResultField MapperField="HomeAddress" Name="HomeAddress" Type="String"/>
+<n1:ResultField MapperField="Census" Name="Census" Type="Integer"/>
+<n1:ResultField MapperField="CensusAddress" Name="CensusAddress" Type="String"/>
+<n1:ResultField MapperField="Marital" Name="Marital" Type="Integer"/>
+<n1:ResultField MapperField="LinkMan" Name="LinkMan" Type="String"/>
+<n1:ResultField MapperField="LinkManRelation" Name="LinkManRelation" Type="String"/>
+<n1:ResultField MapperField="LinkManPhone" Name="LinkManPhone" Type="String"/>
+<n1:ResultField MapperField="Army" Name="Army" Type="String"/>
+<n1:ResultField MapperField="ArmyInDate" Name="ArmyInDate" Type="DateTime"/>
+<n1:ResultField MapperField="ArmyOutDate" Name="ArmyOutDate" Type="DateTime"/>
+<n1:ResultField MapperField="Z1" Name="Z1" Type="Boolean"/>
+<n1:ResultField MapperField="Z2" Name="Z2" Type="Boolean"/>
+<n1:ResultField MapperField="Z3" Name="Z3" Type="Boolean"/>
+<n1:ResultField MapperField="Z4" Name="Z4" Type="Boolean"/>
+<n1:ResultField MapperField="Z5" Name="Z5" Type="Boolean"/>
+<n1:ResultField MapperField="Z6" Name="Z6" Type="Boolean"/>
+<n1:ResultField MapperField="Z7" Name="Z7" Type="Boolean"/>
+<n1:ResultField MapperField="Z8" Name="Z8" Type="Boolean"/>
+<n1:ResultField MapperField="Computer" Name="Computer" Type="Integer"/>
+<n1:ResultField MapperField="English" Name="English" Type="Integer"/>
+<n1:ResultField MapperField="PartTime" Name="PartTime" Type="Boolean"/>
+<n1:ResultField MapperField="Disease" Name="Disease" Type="Boolean"/>
+<n1:ResultField MapperField="Crime" Name="Crime" Type="Boolean"/>
+<n1:ResultField MapperField="Appearance" Name="Appearance" Type="String"/>
+<n1:ResultField MapperField="Communication" Name="Communication" Type="String"/>
+<n1:ResultField MapperField="Source" Name="Source" Type="Integer"/>
+<n1:ResultField MapperField="InDate" Name="InDate" Type="DateTime"/>
+<n1:ResultField MapperField="HTBeginDate" Name="HTBeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="HTEndDate" Name="HTEndDate" Type="DateTime"/>
+<n1:ResultField MapperField="Photo" Name="Photo" Type="Boolean"/>
+<n1:ResultField MapperField="PhotoCount" Name="PhotoCount" Type="Integer"/>
+<n1:ResultField MapperField="F1" Name="F1" Type="Boolean"/>
+<n1:ResultField MapperField="F2" Name="F2" Type="Boolean"/>
+<n1:ResultField MapperField="F3" Name="F3" Type="Boolean"/>
+<n1:ResultField MapperField="F4" Name="F4" Type="Boolean"/>
+<n1:ResultField MapperField="F5" Name="F5" Type="Boolean"/>
+<n1:ResultField MapperField="F6" Name="F6" Type="Boolean"/>
+<n1:ResultField MapperField="F7" Name="F7" Type="Boolean"/>
+<n1:ResultField MapperField="F8" Name="F8" Type="Boolean"/>
+<n1:ResultField MapperField="F9" Name="F9" Type="Boolean"/>
+<n1:ResultField MapperField="F10" Name="F10" Type="Boolean"/>
+<n1:ResultField MapperField="GeneralComment" Name="GeneralComment" Type="String"/>
+<n1:ResultField MapperField="InterViewer" Name="InterViewer" Type="String"/>
+<n1:ResultField MapperField="GivePost" Name="GivePost" Type="Boolean"/>
+<n1:ResultField MapperField="PlanSite" Name="PlanSite" Type="String"/>
+<n1:ResultField MapperField="PlantJob" Name="PlantJob" Type="String"/>
+<n1:ResultField MapperField="PlanInDate" Name="PlanInDate" Type="DateTime"/>
+<n1:ResultField MapperField="CheckUser" Name="CheckUser" Type="String"/>
+<n1:ResultField MapperField="HRUser" Name="HRUser" Type="String"/>
+<n1:ResultField MapperField="JobUser" Name="JobUser" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+<n1:ResultField MapperField="CompanyId" Name="CompanyId" Type="Integer"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="OutDate" Name="OutDate" Type="DateTime"/>
+<n1:ResultField MapperField="BankCard" Name="BankCard" Type="String"/>
+<n1:ResultField MapperField="PoliticalTrial" Name="PoliticalTrial" Type="Integer"/>
+<n1:ResultField MapperField="FileNumber" Name="FileNumber" Type="String"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+<n1:ResultField MapperField="Reference" Name="Reference" Type="String"/>
+<n1:ResultField MapperField="CardDate" Name="CardDate" Type="DateTime"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获取员工合计数" Height="100" MapperEntity="Table" Name="getPersonnelCount" SQL="Select Count(1) As Count &#10;From Personnel P Left Join SitePersonnel SP On P.ID = SP.PID And SP.IsMain = 1&#10;Where Name like '%${name}%'  &#10;&#9;And Gender = #{gender}&#10;&#9;And CardCode like '%${cardcode}%'&#10;&#9;And Native = #{native1}&#10;&#9;And Birthday &gt;= DATE_SUB(CURDATE(),INTERVAL #{age1} Year)&#10;&#9;And Birthday &lt; DATE_SUB(CURDATE(),INTERVAL #{age2}+1 Year)&#10;&#9;And Weight &gt;= #{weight}&#10;&#9;And Height &gt;= #{height}&#10;&#9;And Status = #{status}&#10;&#9;And Education = #{education}&#10;&#9;And InDate &gt;= #{indate1} And InDate &lt;= #{indate2}&#10;&#9;And OutDate &gt;= #{outdate1} And OUtDate &lt;= #{outdate2}&#10;&#9;And LENGTH(BankCard)&gt;0&#10;&#9;And SP.SiteID = #{siteid}&#10;&#9;And PoliticalTrial = #{politicaltrial}&#10;&#9;And F1 = #{f1}&#10;&#9;And Photo = #{photo}" SelectType="Singleton" Width="160" X="505" Y="49">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="gender" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="cardcode" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="native1" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="age1" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="age2" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="weight" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="height" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="status" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="education" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="indate1" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="indate2" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="outdate1" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="outdate2" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="bankcard" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="siteid" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="politicaltrial" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="f1" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="photo" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="And Gender = #{gender}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="gender" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And CardCode like ='%${cardcode}%'">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="cardcode" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Native = #{native1}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="native1" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Birthday &gt;= DATE_SUB(CURDATE(),INTERVAL #{age1} Year)">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="age1" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Birthday &lt; DATE_SUB(CURDATE(),INTERVAL #{age2}+1 Year)">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="age2" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Weight &gt;= #{weight}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="weight" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Height &gt;= #{height}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="height" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Status = #{status}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="status" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Education = #{education}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="education" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And LENGTH(BankCard)&gt;0">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="bankcard" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="bankcard" ReplaceString="And LENGTH(BankCard)=0" Value="&quot;2&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And SP.SiteID = #{siteid}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="siteid" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And PoliticalTrial = #{politicaltrial}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="politicaltrial" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And F1 = #{f1}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="f1" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Photo = #{photo}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="photo" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And InDate &gt;= #{indate1}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="indate1" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And InDate &lt;= #{indate2}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="indate2" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And OutDate &gt;= #{outdate1}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="outdate1" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And OUtDate &lt;= #{outdate2}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="outdate2" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Base.PersonnelJob" Name="getPersonnelJob" SQL="Select * From PersonnelJob Where PersonnelId = #{id}" SelectType="Collections" Width="160" X="505" Y="164">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PersonnelID" Name="PersonnelID" Type="Integer"/>
+<n1:ResultField MapperField="Company" Name="Company" Type="String"/>
+<n1:ResultField MapperField="Job" Name="Job" Type="String"/>
+<n1:ResultField MapperField="InDate" Name="InDate" Type="DateTime"/>
+<n1:ResultField MapperField="OutDate" Name="OutDate" Type="DateTime"/>
+<n1:ResultField MapperField="LinkMan" Name="LinkMan" Type="String"/>
+<n1:ResultField MapperField="LinkManPhone" Name="LinkManPhone" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Base.PersonnelMembers" Name="getPersonnelMembers" SQL="Select * From PersonnelMembers Where PersonnelId = #{id}" SelectType="Collections" Width="160" X="691" Y="162">
+<ResultSet>
+<n1:ResultField MapperField="PersonnelID" Name="PersonnelID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Relation" Name="Relation" Type="Integer"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+<n1:ResultField MapperField="Age" Name="Age" Type="Integer"/>
+<n1:ResultField MapperField="Company" Name="Company" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Base.PersonnelPhoto" Name="getPersonnelPhoto" SQL="Select * From PersonnelPhoto Where PersonnelId = #{id}" SelectType="Collections" Width="160" X="875" Y="161">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PersonnelID" Name="PersonnelID" Type="Integer"/>
+<n1:ResultField MapperField="PhotoName" Name="PhotoName" Type="String"/>
+<n1:ResultField MapperField="PhotoUrl" Name="PhotoUrl" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Base.PersonnelCert" Name="getPersonnelCert" SQL="Select * From PersonnelCert Where PersonnelId = #{id}" SelectType="Collections" Width="160" X="1057" Y="159">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PersonnelID" Name="PersonnelID" Type="Integer"/>
+<n1:ResultField MapperField="CertType" Name="CertType" Type="Integer"/>
+<n1:ResultField MapperField="CertUrl" Name="CertUrl" Type="String"/>
+<n1:ResultField MapperField="Level" Name="Level" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Base.PersonnelContract" Name="getPersonnelContract" SQL="Select * From PersonnelContract Where PersonnelId = #{id}" SelectType="Collections" Width="160" X="1235" Y="159">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PersonnelID" Name="PersonnelID" Type="Integer"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="BeginDate" Name="BeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="DateTime"/>
+<n1:ResultField MapperField="CompanyId" Name="CompanyId" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertPersonnel" SQL="Insert Into Personnel(Code, Name, CardCode, CardDate, Birthday, Gender, Politics, Height, Weight, Education, Nation, Native, Phone, HomeAddress, Census, CensusAddress, Marital, LinkMan, LinkManRelation, LinkManPhone, Army, ArmyInDate, ArmyOutDate, Z1, Z2, Z3, Z4, Z5, Z6, Z7, Z8, Computer, English, PartTime, Disease, Crime, Appearance, Communication, Source, Reference, InDate, HTBeginDate, HTEndDate, Photo, PhotoCount, F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, GeneralComment, InterViewer, GivePost, PlanSite, PlantJob, PlanInDate, CheckUser, HRUser, JobUser, CreateUser, CreateTime, ModifyUser, ModifyTime, DeleteUser, DeleteTime, CompanyId, Status, OutDate, BankCard, PoliticalTrial, FileNumber)&#10; Values(#{personnel.Code}, #{personnel.Name}, #{personnel.CardCode}, #{personnel.CardDate}, #{personnel.Birthday}, #{personnel.Gender}, #{personnel.Politics}, #{personnel.Height}, #{personnel.Weight}, #{personnel.Education}, #{personnel.Nation}, #{personnel.Native}, #{personnel.Phone}, #{personnel.HomeAddress}, #{personnel.Census}, #{personnel.CensusAddress}, #{personnel.Marital}, #{personnel.LinkMan}, #{personnel.LinkManRelation}, #{personnel.LinkManPhone}, #{personnel.Army}, #{personnel.ArmyInDate}, #{personnel.ArmyOutDate}, #{personnel.Z1}, #{personnel.Z2}, #{personnel.Z3}, #{personnel.Z4}, #{personnel.Z5}, #{personnel.Z6}, #{personnel.Z7}, #{personnel.Z8}, #{personnel.Computer}, #{personnel.English}, #{personnel.PartTime}, #{personnel.Disease}, #{personnel.Crime}, #{personnel.Appearance}, #{personnel.Communication}, #{personnel.Source}, #{personnel.Reference}, #{personnel.InDate}, #{personnel.HTBeginDate}, #{personnel.HTEndDate}, #{personnel.Photo}, #{personnel.PhotoCount}, #{personnel.F1}, #{personnel.F2}, #{personnel.F3}, #{personnel.F4}, #{personnel.F5}, #{personnel.F6}, #{personnel.F7}, #{personnel.F8}, #{personnel.F9}, #{personnel.F10}, #{personnel.GeneralComment}, #{personnel.InterViewer}, #{personnel.GivePost}, #{personnel.PlanSite}, #{personnel.PlantJob}, #{personnel.PlanInDate}, #{personnel.CheckUser}, #{personnel.HRUser}, #{personnel.JobUser}, #{personnel.CreateUser}, #{personnel.CreateTime}, #{personnel.ModifyUser}, #{personnel.ModifyTime}, #{personnel.DeleteUser}, #{personnel.DeleteTime}, #{personnel.CompanyId}, #{personnel.Status}, #{personnel.OutDate}, #{personnel.BankCard}, #{personnel.PoliticalTrial}, #{personnel.FileNumber})" Width="160" X="282" Y="514">
+<Parameters>
+<n2:Field Collections="false" Name="personnel" ObjectName="Base.Personnel" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updatePersonnel" SQL="Update Personnel Set&#10;&#9;Code = #{personnel.Code},&#10;&#9;Name = #{personnel.Name},&#10;&#9;CardCode = #{personnel.CardCode},&#10;&#9;CardDate = #{personnel.CardDate},&#10;&#9;Birthday = #{personnel.Birthday},&#10;&#9;Gender = #{personnel.Gender},&#10;&#9;Politics = #{personnel.Politics},&#10;&#9;Height = #{personnel.Height},&#10;&#9;Weight = #{personnel.Weight},&#10;&#9;Education = #{personnel.Education},&#10;&#9;Nation = #{personnel.Nation},&#10;&#9;Native = #{personnel.Native},&#10;&#9;Phone = #{personnel.Phone},&#10;&#9;HomeAddress = #{personnel.HomeAddress},&#10;&#9;Census = #{personnel.Census},&#10;&#9;CensusAddress = #{personnel.CensusAddress},&#10;&#9;Marital = #{personnel.Marital},&#10;&#9;LinkMan = #{personnel.LinkMan},&#10;&#9;LinkManRelation = #{personnel.LinkManRelation},&#10;&#9;LinkManPhone = #{personnel.LinkManPhone},&#10;&#9;Army = #{personnel.Army},&#10;&#9;ArmyInDate = #{personnel.ArmyInDate},&#10;&#9;ArmyOutDate = #{personnel.ArmyOutDate},&#10;&#9;Z1 = #{personnel.Z1},&#10;&#9;Z2 = #{personnel.Z2},&#10;&#9;Z3 = #{personnel.Z3},&#10;&#9;Z4 = #{personnel.Z4},&#10;&#9;Z5 = #{personnel.Z5},&#10;&#9;Z6 = #{personnel.Z6},&#10;&#9;Z7 = #{personnel.Z7},&#10;&#9;Z8 = #{personnel.Z8},&#10;&#9;Computer = #{personnel.Computer},&#10;&#9;English = #{personnel.English},&#10;&#9;PartTime = #{personnel.PartTime},&#10;&#9;Disease = #{personnel.Disease},&#10;&#9;Crime = #{personnel.Crime},&#10;&#9;Appearance = #{personnel.Appearance},&#10;&#9;Communication = #{personnel.Communication},&#10;&#9;Source = #{personnel.Source},&#10;&#9;Reference = #{personnel.Reference},&#10;&#9;InDate = #{personnel.InDate},&#10;&#9;HTBeginDate = #{personnel.HTBeginDate},&#10;&#9;HTEndDate = #{personnel.HTEndDate},&#10;&#9;Photo = #{personnel.Photo},&#10;&#9;PhotoCount = #{personnel.PhotoCount},&#10;&#9;F1 = #{personnel.F1},&#10;&#9;F2 = #{personnel.F2},&#10;&#9;F3 = #{personnel.F3},&#10;&#9;F4 = #{personnel.F4},&#10;&#9;F5 = #{personnel.F5},&#10;&#9;F6 = #{personnel.F6},&#10;&#9;F7 = #{personnel.F7},&#10;&#9;F8 = #{personnel.F8},&#10;&#9;F9 = #{personnel.F9},&#10;&#9;F10 = #{personnel.F10},&#10;&#9;GeneralComment = #{personnel.GeneralComment},&#10;&#9;InterViewer = #{personnel.InterViewer},&#10;&#9;GivePost = #{personnel.GivePost},&#10;&#9;PlanSite = #{personnel.PlanSite},&#10;&#9;PlantJob = #{personnel.PlantJob},&#10;&#9;PlanInDate = #{personnel.PlanInDate},&#10;&#9;CheckUser = #{personnel.CheckUser},&#10;&#9;HRUser = #{personnel.HRUser},&#10;&#9;JobUser = #{personnel.JobUser},&#10;&#9;CreateUser = #{personnel.CreateUser},&#10;&#9;CreateTime = #{personnel.CreateTime},&#10;&#9;ModifyUser = #{personnel.ModifyUser},&#10;&#9;ModifyTime = #{personnel.ModifyTime},&#10;&#9;DeleteUser = #{personnel.DeleteUser},&#10;&#9;DeleteTime = #{personnel.DeleteTime},&#10;&#9;CompanyId = #{personnel.CompanyId},&#10;&#9;Status = #{personnel.Status},&#10;&#9;OutDate = #{personnel.OutDate},&#10;&#9;BankCard = #{personnel.BankCard},&#10;&#9;PoliticalTrial = #{personnel.PoliticalTrial},&#10;&#9;FileNumber = #{personnel.FileNumber}&#10; Where ID = #{personnel.ID}" Width="160" X="278" Y="559">
+<Parameters>
+<n2:Field Collections="false" Name="personnel" ObjectName="Base.Personnel" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Insert Height="24" Name="insertPersonnelJob" SQL="&lt;script&gt;Insert Into PersonnelJob(PersonnelID, Company, Job, InDate, OutDate, LinkMan, LinkManPhone) Values&#10;&lt;foreach collection='personneljob' item='c' index='index' separator=','&gt;&#10;(#{id}, #{c.Company}, #{c.Job}, #{c.InDate}, #{c.OutDate}, #{c.LinkMan}, #{c.LinkManPhone})&#10;&lt;/foreach&gt;&#10;&lt;/script&gt;" Width="160" X="504" Y="424">
+<Parameters>
+<n2:Field Collections="true" Name="personneljob" ObjectName="Base.PersonnelJob" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="insertPersonnelMembers" SQL="&lt;script&gt;Insert Into PersonnelMembers(PersonnelID, Name, Relation, Phone, Age, Company) Values&#10;&lt;foreach collection='personnelmembers' item='c' index='index' separator=','&gt;&#10;(#{id}, #{c.Name}, #{c.Relation}, #{c.Phone}, #{c.Age}, #{c.Company})&#10;&lt;/foreach&gt;&#10;&lt;/script&gt;" Width="160" X="695" Y="421">
+<Parameters>
+<n2:Field Collections="true" Name="personnelmembers" ObjectName="Base.PersonnelMembers" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="insertPersonnelPhoto" SQL="&lt;script&gt;Insert Into PersonnelPhoto(PersonnelID, PhotoName, PhotoUrl) Values&#10;&lt;foreach collection='personnelphoto' item='c' index='index' separator=','&gt;&#10;(#{id}, #{c.PhotoName}, #{c.PhotoUrl})&#10;&lt;/foreach&gt;&#10;&lt;/script&gt;" Width="160" X="873" Y="419">
+<Parameters>
+<n2:Field Collections="true" Name="personnelphoto" ObjectName="Base.PersonnelPhoto" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="insertPersonnelCert" SQL="&lt;script&gt;Insert Into PersonnelCert(PersonnelID, CertType, CertUrl, Level, CreateUser, CreateTime) Values&#10;&lt;foreach collection='personnelcert' item='c' index='index' separator=','&gt;&#10;(#{id}, #{c.CertType}, #{c.CertUrl}, #{c.Level}, #{c.CreateUser}, Now())&#10;&lt;/foreach&gt;&#10;&lt;/script&gt;" Width="160" X="1059" Y="423">
+<Parameters>
+<n2:Field Collections="true" Name="personnelcert" ObjectName="Base.PersonnelCert" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="insertPersonnelContract" SQL="&lt;script&gt;Insert Into PersonnelContract(PersonnelID, Type, BeginDate, EndDate, CompanyId) Values&#10;&lt;foreach collection='personnelcontract' item='c' index='index' separator=','&gt;&#10;(#{id}, #{c.Type}, #{c.BeginDate}, #{c.EndDate}, #{c.CompanyId})&#10;&lt;/foreach&gt;&#10;&lt;/script&gt;" Width="160" X="1232" Y="421">
+<Parameters>
+<n2:Field Collections="true" Name="personnelcontract" ObjectName="Base.PersonnelContract" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Delete Height="24" Name="DeletePersonnelJob" SQL="Delete From PersonnelJob Where PersonnelId = #{id}" Width="160" X="506" Y="474">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+<n1:Delete Height="24" Name="DeletePersonnelMembers" SQL="Delete From PersonnelMembers Where PersonnelId = #{id}" Width="160" X="694" Y="472">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+<n1:Delete Height="24" Name="DeletePersonnelPhoto" SQL="Delete From PersonnelPhoto Where PersonnelId = #{id}" Width="160" X="877" Y="471">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+<n1:Delete Height="24" Name="DeletePersonnelCert" SQL="Delete From PersonnelCert Where PersonnelId = #{id}" Width="160" X="1059" Y="470">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+<n1:Delete Height="24" Name="DeletePersonnelContract" SQL="Delete From PersonnelContract Where PersonnelId = #{id}" Width="160" X="1235" Y="468">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+</Controls>
+</View>
+</Mapper>

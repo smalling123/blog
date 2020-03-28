@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+			font-size: small;
+		}
+
+		#table {
+			margin: 0px auto;
+			text-align-last: center;
+		}
+
+		#btn {
+			margin-top: 30px;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div id="filter1">
+		<div class="panel panel-default"  style="width: 94%; margin-left: 3%; margin-top:20px;">
+			<div class="panel-heading" style="padding:2px 2px 2px 8px;">
+				<a data-toggle="collapse" href="#collapseOne" style="font-size:12px;">
+					<span class="glyphicon glyphicon-chevron-down"></span> 筛选条件
+				</a>
+			</div>
+			<div id="collapseOne" class="collapse in">
+				<div class="container panel-body" style="margin-top:6px;">
+					<form rele="form" class="form-horizontal">
+						<div class="form-group">
+							<div class="col-xs-1 col-md-1" style="text-align: right;">
+								<label for="name">状态:</label>
+							</div>
+							<div class="col-xs-2 col-md-２">
+								<select id="select_status" class="selectpicker form-control" v-model="Data.status" >
+									<option value="" >所有</option>
+									<option value="0" >未签</option>
+									<option value="1" >已签</option>
+								</select>
+							</div>
+							<div class="col-xs-1 col-md-1" style="text-align: right;">
+								<label for="name">合同是否到期:</label>
+							</div>
+							<div class="col-xs-2 col-md-２">
+								<select id="select_Expire" class="selectpicker form-control" v-model="Data.Expire" >
+									<option value="" >所有</option>
+									<option value="0" >否</option>
+									<option value="1" >是</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-1 col-md-1" style="text-align: right;">
+							</div>
+							<div class="col-xs-2 col-md-2" style="text-align: left;">
+								<button type="button" class="layui-btn layui-btn-sm layui-btn-radius layui-bg-cyan" onClick="getData()">
+									<span>&emsp;</span><i class="layui-icon layui-icon-search"></i><span class="fontsm">&emsp;查询&emsp;</span>
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div id="app" style="width: 94%; margin-left: 3%; margin-top:20px;">
+		<table id="table1" lay-filter="table1filter"></table>
+		<div id="page1"></div>
+	</div>
+</body>
+</html>
+<script type="text/html" id="add">
+	<div class="layui-btn-group">
+  		<button type="button" class="layui-btn layui-btn-sm" onClick="newItem()">
+    			<i class="layui-icon layui-icon-add-1"></i><span class="fontsm">新增</span>
+  		</button>
+	</div>
+</script>
+	
+<script type="text/html" id="table1action">
+    <div class="layui-btn-group">
+        <button lay-event="edit" type="button" class="layui-btn layui-btn-xs">
+            <i class="layui-icon layui-icon-edit"></i><span class="fontxs">编辑</span>
+        </button>
+        <button lay-event="details" type="button" class="layui-btn layui-btn-xs layui-btn-primary">
+            <i class="layui-icon layui-icon-tabs"></i><span class="fontxs">详情</span>
+        </button>
+    </div>
+</script>
+<script src="../../wwwroot/js/App.js"></script>
+<script>
+	var loadIndex = 0;
+	var layer;
+	layui.use('layer', function () {
+		layer = layui.layer;
+	});
+	var dictionaryItems = [{code:"", name:""}];
+
+	var vm = new Vue({
+		el: "#filter1",
+		data: {
+			Data:{
+				status: "",
+				type: 0,
+				Expire: ""
+			}
+
+		},
+		methods: {}
+	})	
+	var pageNumber = 1;
+	var pageSize = 10;
+	var recordCount = 0;
+	var list = [];
+
+
+
+	bindData();
+
+	$(function(){
+		getData();
+		onTrigger(function(key){ if(key=="Contract"){ getData(); } });
+	});
+
+
+	
+	function getData(){
+		layui.use('layer', function () {
+			layer = layui.layer;
+			loadIndex = layer.load(0, {shade: false});
+		});
+		PostAppAjax({
+			url: '/Contract/getAllContract',
+			data: {
+				status: vm.Data.status,
+				type: vm.Data.type,
+				Expire: vm.Data.Expire,
+				pageNumber: pageNumber,
+				pageSize: pageSize
+			},
+			success: function(result) {
+				layui.use('layer', function () {
+					layer = layui.layer;
+					layer.close(loadIndex);
+				});
+				if(result.code==0){
+					list = result.data;
+					recordCount = result.recordCount;
+					bindData();
+				}else{
+					alert("无法获取数据!\n"+result.msg);
+				}
+			},
+			error: function(err) {
+				layui.use('layer', function () {
+					layer = layui.layer;
+					layer.close(loadIndex);
+				});
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	function bindData(){
+		layui.use(['table', 'laypage'], function(){
+			var table = layui.table;
+			table.render({
+				elem: '#table1',
+				toolbar:'#add',
+				data: list,
+				limit: 999999,
+				even: true,
+                cols: [[
+                    { field: 'contractCode', title: '合同编号', align: 'left', width: '200'},
+					{field:'customerId_Convert', title:'客户', align:'left', width:'200'},
+					{field:'companyId_Convert', title:'我方公司', align:'left', width:'200'},
+					{field:'orgId_Convert', title:'所属部门', align:'left', width:'200'},
+					{field:'beginDate', title:'开始日期', align:'left', width:'200', templet:"<div>{{!d.beginDate?'':layui.util.toDateString(d.beginDate, 'yyyy-MM-dd')}}</div>"},
+					{field:'endDate', title:'结束日期', align:'left', width:'200', templet:"<div>{{!d.endDate?'':layui.util.toDateString(d.endDate, 'yyyy-MM-dd')}}</div>"},
+					{field:'inDate', title:'进场日期', align:'left', width:'200', templet:"<div>{{!d.inDate?'':layui.util.toDateString(d.inDate, 'yyyy-MM-dd')}}</div>"},
+					{field:'pnumber', title:'合同人数', align:'left', width:'200'},
+                    {field:'avgAmount', title:'合同单价', align:'left', width:'200'},
+					{field:'totalAmount', title:'总金额', align:'left', width:'200'},
+                    { field: 'monthlyAmount', title: '每月金额', align: 'left', width: '200', hide: true },
+                    { field: 'wagesType_Convert', title: '工资类型', align: 'left', width: '200', hide: true },
+                    { field: 'wages', title: '建议工资', align: 'left', width: '200' },
+                    { field: 'aagent', title: '甲方经办人', align: 'left', width: '200', hide: true },
+                    { field: 'asubscriber', title: '甲方签约人', align: 'left', width: '200', hide: true },
+                    { field: 'asigningTtime', title: '甲方签约时间', align: 'left', width: '200', templet: "<div>{{!d.asigningTtime?'':layui.util.toDateString(d.asigningTtime, 'yyyy-MM-dd')}}</div>", hide: true },
+                    { field: 'bagent', title: '乙方经办人', align: 'left', width: '200', hide: true },
+                    { field: 'bsubscriber', title: '乙方签约人', align: 'left', width: '200', hide: true },
+                    { field: 'bsigningTtime', title: '乙方签约时间', align: 'left', width: '200', templet: "<div>{{!d.bsigningTtime?'':layui.util.toDateString(d.bsigningTtime, 'yyyy-MM-dd')}}</div>", hide: true },
+                    { field: 'specialNeed_Convert', title: '特殊需求', align: 'left', width: '200', hide: true },
+                    { field: 'logisticsEat_Convert', title: '餐饮需求', align: 'left', width: '200', hide: true },
+                    { field: 'logisticsHome_Convert', title: '住宿需求', align: 'left', width: '200', hide: true },
+                    { field: 'logisticsNeed_Convert', title: '后勤其它需求', align: 'left', width: '200', hide: true },
+                    { field: 'superviseNeed_Convert', title: '督导需求', align: 'left', width: '200', hide: true },
+                    { field: 'trainNeed_Convert', title: '培训需求', align: 'left', width: '200', hide: true },
+                    { field: 'status_Convert', title: '状态', align: 'left', width: '200', hide: true },
+                    { field: 'type', title: '类型', align: 'left', width: '200', hide: true },
+                    { field: 'createUser', title: '创建用户', align: 'left', width: '200', hide: true },
+                    { field: 'createTime', title: '创建时间', align: 'left', width: '200', hide: true },
+                    { field: 'modifyUser', title: '修改用户', align: 'left', width: '200', hide: true },
+                    { field: 'modifyTime', title: '修改时间', align: 'left', width: '200', hide: true },
+					{title: '操作', toolbar: '#table1action', align:'left', fixed:'right', width:'200'}
+				]]
+			});
+
+			var laypage = layui.laypage;
+			laypage.render({
+				elem: 'page1',
+				count: recordCount, //数据总数，从服务端得到
+				limit: pageSize,
+				//自定义排版。可选值有：count（总条目输区域）、prev（上一页区域）、page（分页区域）、next（下一页区域）、limit（条目选项区域）、refresh（页面刷新区域。注意：layui 2.3.0 新增） 、skip（快捷跳页区域）
+				layout: ['prev', 'page', 'next', 'count', 'limit', 'refresh', 'skip'],
+				curr: pageNumber,
+				jump: function (obj, first) {
+					//首次不执行
+					if (!first) {
+						pageNumber = obj.curr;
+                        pageSize = obj.limit;
+                        getData();
+					}
+				}
+			});
+		});
+	}
+	
+
+    function newItem() {
+        openAppWindow({
+            url: "/Views/Contract/ContractCode.html",
+            title: "新增",
+            area: ['600px', '400px'],
+            maxmin: true,
+            success: function (layero, index) {
+                var body = parent.layer.getChildFrame('body', index);
+                var iframe = parent.window[layero.find('iframe')[0]['name']];
+                iframe.getData();
+            }
+        });
+    }
+
+
+    layui.use('table', function () {
+        var table = layui.table;
+        //监听工具条
+        table.on('tool(table1filter)',
+            function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var id = data['id'];  //获取属性id的值
+                if (obj.event == "edit") {
+                    openAppWindow({
+                        url: "/Views/Contract/Contracts.html",
+                        title: "编辑",
+                        area: ['1100px', '630px'],
+                        maxmin: true,
+                        success: function (layero, index) {
+                            var body = parent.layer.getChildFrame('body', index);
+                            var iframe = parent.window[layero.find('iframe')[0]['name']];
+                            iframe.getData(id);
+                        }
+                    });
+                } else if (obj.event == "details") {
+                    openAppWindow({
+                        url: "/Views/Contract/ContractDetails.html",
+                        title: "编辑",
+                        area: ['1100px', '630px'],
+                        maxmin: true,
+                        success: function (layero, index) {
+                            var body = parent.layer.getChildFrame('body', index);
+                            var iframe = parent.window[layero.find('iframe')[0]['name']];
+                            iframe.getData(id);
+                        }
+                    });
+                }
+            }
+        );
+    });
+
+</script>

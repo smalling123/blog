@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Dynamic">
+<SQL>Select Convert(ID, char(20)) as Code, ShortName as Name 
+From District
+Where PID = 100000</SQL>
+<ConvertSQL>Select ShortName as Name 
+From District
+Where ID = #{code}</ConvertSQL>
+<Items>
+<Item Code="1" Name="安徽省"/>
+<Item Code="2" Name="澳门特别行政区"/>
+<Item Code="3" Name="北京市"/>
+<Item Code="4" Name="重庆市"/>
+<Item Code="5" Name="福建省"/>
+<Item Code="6" Name="甘肃省"/>
+<Item Code="7" Name="广东省"/>
+<Item Code="8" Name="广西壮族自治区"/>
+<Item Code="9" Name="贵州省"/>
+<Item Code="10" Name="海南省"/>
+<Item Code="11" Name="河北省"/>
+<Item Code="12" Name="河南省"/>
+<Item Code="13" Name="黑龙江省"/>
+<Item Code="14" Name="湖北省"/>
+<Item Code="15" Name="湖南省"/>
+<Item Code="16" Name="江西省"/>
+<Item Code="17" Name="吉林省"/>
+<Item Code="18" Name="江苏省"/>
+<Item Code="19" Name="辽宁省"/>
+<Item Code="20" Name="内蒙古自治区"/>
+<Item Code="21" Name="宁夏回族自治区"/>
+<Item Code="22" Name="青海省"/>
+<Item Code="23" Name="山西省"/>
+<Item Code="24" Name="山东省"/>
+<Item Code="25" Name="陕西省"/>
+<Item Code="26" Name="上海市"/>
+<Item Code="27" Name="四川省"/>
+<Item Code="28" Name="台湾省"/>
+<Item Code="29" Name="天津市"/>
+<Item Code="30" Name="西藏自治区"/>
+<Item Code="31" Name="香港特别行政区"/>
+<Item Code="32" Name="新疆维吾尔自治区"/>
+<Item Code="33" Name="云南省"/>
+<Item Code="34" Name="浙江省"/>
+</Items>
+</Dictionary>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Contract.ContractPersonnel" Name="getContractPersonnelByContractID" SQL="select * from ContractPersonnel where ContractID=#{ContractID} and isdelete=0&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="66" Y="32">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="ContractId" Name="ContractId" Type="Integer"/>
+<n1:ResultField MapperField="Post" Name="Post" Type="String"/>
+<n1:ResultField MapperField="Demand" Name="Demand" Type="String"/>
+<n1:ResultField MapperField="PNumber" Name="PNumber" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="ContractID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Contract.ContractPersonnel" Name="getContractPersonnelById" SQL="select * from ContractPersonnel where ID=#{id} and isdelete=0" SelectType="Singleton" Width="160" X="67" Y="287">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="ContractId" Name="ContractId" Type="Integer"/>
+<n1:ResultField MapperField="Post" Name="Post" Type="String"/>
+<n1:ResultField MapperField="Demand" Name="Demand" Type="String"/>
+<n1:ResultField MapperField="PNumber" Name="PNumber" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getContractPersonnelByCount" SQL="select count(*) Count from ContractPersonnel where ContractID=#{ContractID} and isdelete=0" SelectType="Singleton" Width="160" X="369" Y="166">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="ContractID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertContractPersonnel" SQL="Insert Into ContractPersonnel(ContractId, Post, Demand, PNumber, Describes,&#10; CreateUser, CreateTime)&#10; Values(#{contractpersonnel.ContractId}, #{contractpersonnel.Post}, #{contractpersonnel.Demand},&#10; #{contractpersonnel.PNumber}, #{contractpersonnel.Describes}, &#10;#{contractpersonnel.CreateUser}, Now())" Width="160" X="402" Y="113">
+<Parameters>
+<n2:Field Collections="false" Name="contractpersonnel" ObjectName="Contract.ContractPersonnel" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateContractPersonnel" SQL="Update ContractPersonnel Set&#10;&#9;ContractId = #{contractpersonnel.ContractId},&#10;&#9;Post = #{contractpersonnel.Post},&#10;&#9;Demand = #{contractpersonnel.Demand},&#10;&#9;PNumber = #{contractpersonnel.PNumber},&#10;&#9;Describes = #{contractpersonnel.Describes},&#10;&#9;ModifyUser = #{contractpersonnel.CreateUser},&#10;&#9;ModifyTime = Now()&#10; Where ID = #{contractpersonnel.ID}" Width="160" X="412" Y="61">
+<Parameters>
+<n2:Field Collections="false" Name="contractpersonnel" ObjectName="Contract.ContractPersonnel" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+</Controls>
+</View>
+</Mapper>

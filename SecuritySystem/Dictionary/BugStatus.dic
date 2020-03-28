@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="未修改"/>
+<Item Code="1" Name="修改中"/>
+<Item Code="2" Name="已完成"/>
+<Item Code="3" Name="无法处理"/>
+<Item Code="9" Name="关闭"/>
+</Items>
+</Dictionary>

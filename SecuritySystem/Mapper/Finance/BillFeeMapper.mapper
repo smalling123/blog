@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Finance.BillFee" Name="getBillFeeBybid" SQL="select * from BillFee where BillId =#{bid}&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="36" Y="31">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="BillId" Name="BillId" Type="Integer"/>
+<n1:ResultField MapperField="ContractInvoiceId" Name="ContractInvoiceId" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Amt" Name="Amt" Type="Decimal"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="InvoiceItemId" Name="InvoiceItemId" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="bid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertBillFee" SQL="Insert Into BillFee(BillId, ContractInvoiceId, Name, Amt, Describes, CreateUser, CreateTime, InvoiceItemId)&#10; Values(#{billfee.BillId}, #{billfee.ContractInvoiceId}, #{billfee.Name}, #{billfee.Amt}, #{billfee.Describes}, #{billfee.CreateUser},Now(), #{billfee.InvoiceItemId})" Width="160" X="230" Y="34">
+<Parameters>
+<n2:Field Collections="false" Name="billfee" ObjectName="Finance.BillFee" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateBillFee" SQL="Update BillFee Set&#10;&#9;BillId = #{billfee.BillId},&#10;&#9;ContractInvoiceId = #{billfee.ContractInvoiceId},&#10;&#9;Name = #{billfee.Name},&#10;&#9;Amt = #{billfee.Amt},&#10;&#9;Describes = #{billfee.Describes},&#10;&#9;CreateUser = #{billfee.CreateUser},&#10;&#9;CreateTime = Now(),&#10;&#9;InvoiceItemId = #{billfee.InvoiceItemId}&#10; Where ID = #{billfee.ID}" Width="160" X="230" Y="66">
+<Parameters>
+<n2:Field Collections="false" Name="billfee" ObjectName="Finance.BillFee" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Height="240" MapperEntity="Table" Name="getBillFeeByCount" SQL="select Count(*) Count from BillFee where BillId =#{bid}" SelectType="Singleton" Width="160" X="403" Y="38">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="bid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Finance.BillFee" Name="getBillFeeById" SQL="Select * From BillFee Where ID = #{id}" SelectType="Singleton" Width="160" X="594" Y="35">
+<ResultSet/>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Finance.BillFee" Name="getBillFeeBybids" SQL="select * from BillFee where BillId =#{bid} and  InvoiceItemId !=0" SelectType="Collections" Width="160" X="232" Y="99">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="BillId" Name="BillId" Type="Integer"/>
+<n1:ResultField MapperField="ContractInvoiceId" Name="ContractInvoiceId" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Amt" Name="Amt" Type="Decimal"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="InvoiceItemId" Name="InvoiceItemId" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="bid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="InvoiceItemId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and  InvoiceItemId !=0">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="InvoiceItemId" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Insert Height="24" Name="ReplaceBillFee" SQL="delete from BillFee  where  BillId = #{id};&#10;Insert Into BillFee(BillId, ContractInvoiceId, Name, Amt, Describes, CreateUser, CreateTime, InvoiceItemId)&#10;select  #{id} as BillId, ci.ID as ContractInvoiceId, ci.Content as Name, ci.Amount  as Amt,ci.Describes, #{CreateUser} as CreateUser,now() as CreateTime,0 as InvoiceItemId&#10; from contract c&#10; JOIN contractinvoice ci on c.id =ci.ContractId&#10;where c.CustomerId=(select  CustomerId from Bill where id= #{id})&#10;and c.ContractId=(select  ContractIdfrom Bill where id= #{id})&#10;and c.BeginDate&lt;=date_add(DATE(CONCAT(YEAR(now()),'-',MONTH(now()),'-',DAY(c.BeginDate))), interval (#{month}-1) MONTH) &#10;and c.EndDate&gt;=DATE(CONCAT(YEAR(now()),'-',MONTH(now()),'-',DAY(c.BeginDate)))&#10;and ci.BeginDate&gt;=DATE(CONCAT((select  Year from Bill where id= #{id}),'-',(select  Month-1 from Bill where id= #{id}),'-',DAY(c.BeginDate)))&#10;and ci.BeginDate&lt;=DATE((select  Year from Bill where id= #{id}),'-',(select  Month from Bill where id= #{id}),'-',DAY(c.BeginDate)));" Width="160" X="773" Y="40">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Select Height="240" MapperEntity="Finance.BillFee" Name="getBillFeeByCustomerId" SQL="select bf.* from BillFee bf&#10;join Bill  b on b.id =bf.Billid&#10;where b.CustomerId =#{CustomerId}&#10;and b.Year=#{Year} and b.Month=#{Month}&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="31" Y="284">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="BillId" Name="BillId" Type="Integer"/>
+<n1:ResultField MapperField="ContractInvoiceId" Name="ContractInvoiceId" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Amt" Name="Amt" Type="Decimal"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="InvoiceItemId" Name="InvoiceItemId" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="CustomerId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="Year" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="Month" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and b.Month=#{Month}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="Month" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and b.Year=#{Year}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="Year" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getBillFeeCount" SQL="select Count(*) Count from BillFee bf&#10;join Bill  b on b.id =bf.Billid&#10;where b.CustomerId =#{CustomerId}&#10;and b.Year=#{Year} and b.Month=#{Month}" SelectType="Singleton" Width="160" X="234" Y="344">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="CustomerId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="Year" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="Month" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and b.Month=#{Month}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="Month" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and b.Year=#{Year}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="Year" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="430" MapperEntity="Base.Customer" Name="getAllCustomers" SQL="Select * From Customer&#10;Where Name Like '%${name}%'&#10;&#9;And Type= #{type}&#10;&#9;And Status = #{status}&#10;&#9;And OrgID = #{org}&#10;&#9;And OrgID = #{orgid}&#10;Order By convert(Name using gbk) collate gbk_chinese_ci&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="54" Y="32">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="OrgID" Name="OrgID" Type="Integer"/>
+<n1:ResultField MapperField="Manager" Name="Manager" Type="Integer"/>
+<n1:ResultField MapperField="Leader" Name="Leader" Type="Integer"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="District" Name="District" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="type" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="status" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="org" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="orgid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="And Type= #{type}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="type" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Status = #{status}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="status" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And OrgID = #{org}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="org" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And OrgID = #{orgid}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="orgid" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getCustomerCount" SQL="Select Count(1) As Count From Customer&#10;Where Name Like '%${name}%'&#10;&#9;And Type= #{type}&#10;&#9;And Status = #{status}&#10;&#9;And OrgID = #{org}&#10;&#9;And OrgID = #{orgid}" SelectType="Singleton" Width="160" X="259" Y="34">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="type" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="status" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="org" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="orgid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="And Type= #{type}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="type" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Status = #{status}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="status" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And OrgID = #{org}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="org" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And OrgID = #{orgid}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="orgid" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Insert Height="24" Name="insertCustomer" SQL="Insert Into Customer(Name, OrgID, Manager, Leader, District, Address, Describes, Type, Status, CreateUser, CreateTime)&#10; Values(#{customer.Name}, #{customer.OrgID}, #{customer.Manager}, #{customer.Leader}, #{customer.District}, #{customer.Address}, #{customer.Describes}, #{customer.Type}, #{customer.Status}, #{customer.CreateUser}, Now())" Width="160" X="653" Y="35">
+<Parameters>
+<n2:Field Collections="false" Name="customer" ObjectName="Base.Customer" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateCustomer" SQL="Update Customer Set&#10;&#9;Name = #{customer.Name},&#10;&#9;OrgID = #{customer.OrgID},&#10;&#9;Manager = #{customer.Manager},&#10;&#9;Leader = #{customer.Leader},&#10;&#9;District = #{customer.District},&#10;&#9;Address = #{customer.Address},&#10;&#9;Describes = #{customer.Describes},&#10;&#9;Type = #{customer.Type},&#10;&#9;Status = #{customer.Status},&#10;&#9;Isdelete = #{customer.Isdelete},&#10;&#9;ModifyUser = #{customer.ModifyUser},&#10;&#9;ModifyTime = Now()&#10; Where ID = #{customer.ID}" Width="160" X="654" Y="77">
+<Parameters>
+<n2:Field Collections="false" Name="customer" ObjectName="Base.Customer" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Height="240" MapperEntity="Base.Customer" Name="getCustomerOne" SQL="Select * From Customer Where ID = #{id}" SelectType="Singleton" Width="160" X="459" Y="34">
+<ResultSet/>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

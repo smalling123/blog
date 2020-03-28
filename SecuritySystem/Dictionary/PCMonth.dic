@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="1" Name="本月合同到期"/>
+<Item Code="2" Name="下月合同到期"/>
+</Items>
+</Dictionary>

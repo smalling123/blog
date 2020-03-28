@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+    <link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+    <link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+    <script src="../../wwwroot/lib/vue/vue.js"></script>
+    <script src="../../wwwroot/lib/layui/layui.js"></script>
+    <script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+    <script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="../../wwwroot/js/site.js"></script>
+    <style type="text/css">
+
+        * {
+            margin: 0px;
+            padding: 0px;
+            font-size: small;
+        }
+
+        #table {
+            margin: 0px auto;
+            text-align-last: center;
+        }
+
+        #btn {
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="filter1">
+        <div class="panel panel-default" style="width: 94%; margin-left: 3%; margin-top:20px;">
+            <div class="panel-heading" style="padding:2px 2px 2px 8px;">
+                <a data-toggle="collapse" href="#collapseOne" style="font-size:12px;">
+                    <span class="glyphicon glyphicon-chevron-down"></span> 筛选条件
+                </a>
+            </div>
+            <div id="collapseOne" class="collapse in">
+                <div class="container panel-body" style="margin-top:6px;">
+                    <form rele="form" class="form-horizontal">
+                        <div class="form-group">
+                            <div class="col-xs-1 col-md-1" style="text-align: right;">
+                                <label for="name">处理人:</label>
+                            </div>
+                            <div class="col-xs-2 col-md-２">
+                                <input v-model="Data.handler" type="text" class="form-control" id="handler">
+                            </div>
+                            <div class="col-xs-1 col-md-1" style="text-align: right;">
+                                <label for="name">模块名称:</label>
+                            </div>
+                            <div class="col-xs-2 col-md-２">
+                                <input v-model="Data.modulename" type="text" class="form-control" id="modulename">
+                            </div>
+                            <div class="col-xs-1 col-md-1" style="text-align: right;">
+                                <label for="name">问题描述:</label>
+                            </div>
+                            <div class="col-xs-2 col-md-２">
+                                <input v-model="Data.question" type="text" class="form-control" id="question">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-1 col-md-1" style="text-align: right;">
+                                <label for="name">等级:</label>
+                            </div>
+                            <div class="col-xs-2 col-md-２">
+                                <select id="select_level" class="selectpicker form-control" v-model="Data.level">
+                                    <option value="">全部</option>
+                                    <option value="0">一般</option>
+                                    <option value="1">紧急</option>
+                                    <option value="2">立即处理</option>
+                                    <option value="3">可延迟处理</option>
+                                </select>
+                                <!--<input v-model="Data.level" type="text" class="form-control" id="level">-->
+                            </div>
+                            <div class="col-xs-1 col-md-1" style="text-align: right;">
+                                <label for="name">类型:</label>
+                            </div>
+                            <div class="col-xs-2 col-md-２">
+                                <select id="select_type" class="selectpicker form-control" v-model="Data.type">
+                                    <option value="">全部</option>
+                                    <option value="0">Bug</option>
+                                    <option value="1">新增需求</option>
+                                </select>
+                                <!--<input v-model="Data.type" type="text" class="form-control" id="type">-->
+                            </div>
+                            <div class="col-xs-1 col-md-1" style="text-align: right;">
+                                <label for="name">状态:</label>
+                            </div>
+                            <div class="col-xs-2 col-md-２">
+                                <select id="select_status" class="selectpicker form-control" v-model="Data.status">
+                                    <option value="">全部</option>
+                                    <option value="0">未修改</option>
+                                    <option value="1">修改中</option>
+                                    <option value="2">已完成</option>
+                                    <option value="3">无法处理</option>
+                                    <option value="9">关闭</option>
+                                </select>
+                                <!--<input v-model="Data.status" type="text" class="form-control" id="status">-->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-1 col-md-1" style="text-align: right;">
+                            </div>
+                            <div class="col-xs-2 col-md-2" style="text-align: left;">
+                                <button type="button" class="layui-btn layui-btn-sm layui-btn-radius layui-bg-cyan" onClick="getData()">
+                                    <span>&emsp;</span><i class="layui-icon layui-icon-search"></i><span class="fontsm">&emsp;查询&emsp;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div id="app" style="width: 94%; margin-left: 3%; margin-top:20px;">
+        <table id="table1" lay-filter="table1filter"></table>
+        <div id="page1"></div>
+    </div>
+</body>
+</html>
+<script type="text/html" id="add">
+    <div class="layui-btn-group">
+        <button type="button" class="layui-btn layui-btn-sm" onClick="newItem()">
+            <i class="layui-icon layui-icon-add-1"></i><span class="fontsm">新增</span>
+        </button>
+    </div>
+</script>
+
+<script type="text/html" id="table1action">
+    <div class="layui-btn-group">
+        <button lay-event="edit" type="button" class="layui-btn layui-btn-xs">
+            <i class="layui-icon layui-icon-edit"></i><span class="fontxs">编辑</span>
+        </button>
+    </div>
+</script>
+<script src="../../wwwroot/js/App.js"></script>
+
+<script>
+	var loadIndex = 0;
+	var layer;
+	layui.use('layer', function () {
+		layer = layui.layer;
+	});
+	var dictionaryItems = [{code:"", name:""}];
+
+	var vm = new Vue({
+		el: "#filter1",
+		data: {
+			Data:{
+				handler: "",
+				modulename: "",
+				question: "",
+				level: "",
+				type: "",
+				status: ""
+			}
+
+		},
+		methods: {}
+	})
+	var pageNumber = 1;
+	var pageSize = 10;
+	var recordCount = 0;
+	var list = [];
+
+	bindData();
+
+	$(function(){
+		getData();
+		onTrigger(function(key){ if(key=="Bug"){ getData(); } });
+	});
+
+
+
+	function getData(){
+		layui.use('layer', function () {
+			layer = layui.layer;
+			loadIndex = layer.load(0, {shade: false});
+		});
+		PostAppAjax({
+			url: '/System/getBug',
+			data: {
+				handler: vm.Data.handler,
+				modulename: vm.Data.modulename,
+				question: vm.Data.question,
+				level: vm.Data.level,
+				type: vm.Data.type,
+				status: vm.Data.status,
+				pageNumber: pageNumber,
+				pageSize: pageSize
+			},
+			success: function(result) {
+				layui.use('layer', function () {
+					layer = layui.layer;
+					layer.close(loadIndex);
+				});
+				if(result.code==0){
+					list = result.data;
+					recordCount = result.recordCount;
+					bindData();
+				}else{
+					alert("无法获取数据!\n"+result.msg);
+				}
+			},
+			error: function(err) {
+				layui.use('layer', function () {
+					layer = layui.layer;
+					layer.close(loadIndex);
+				});
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	function bindData(){
+		layui.use(['table', 'laypage'], function(){
+			var table = layui.table;
+			table.render({
+				elem: '#table1',
+				toolbar:'#add',
+				data: list, //数据接口
+				limit: list.length, //显示行数
+				even: true, //隔行显示
+				cols: [[ //表头
+					{field:'id', title:'ID', align:'left', width:'60', sort:true},
+					{field:'moduleName', title:'模块名称', align:'left', width:'120', sort:true},
+					{field:'question', title:'问题描述', align:'left', width:'345'},
+					{field:'level_Convert', title:'等级', align:'left', width:'90', sort:true},
+					{field:'type_Convert', title:'类型', align:'left', width:'90', sort:true},
+					{field:'finder', title:'发现者', align:'left', width:'90', sort:true},
+					{field:'findDate', title:'发现日期', align:'left', width:'110', sort:true, templet:"<div>{{!d.findDate?'':layui.util.toDateString(d.findDate, 'yyyy-MM-dd')}}</div>"},
+					{field:'handler', title:'处理者', align:'left', width:'90', sort:true},
+					{field:'endTime', title:'预计完成日期', align:'left', width:'135', sort:true, templet:"<div>{{!d.endTime?'':layui.util.toDateString(d.endTime, 'yyyy-MM-dd')}}</div>"},
+					{field:'status_Convert', title:'状态', align:'left', width:'100', sort:true},
+					{field:'description', title:'备注', align:'left', width:'200'},
+					{title: '操作', toolbar: '#table1action', align:'left', fixed:'right', width:'100'}
+				]]
+			});
+
+			var laypage = layui.laypage;
+			laypage.render({
+				elem: 'page1',
+				count: recordCount, //数据总数，从服务端得到
+				limit: pageSize,
+				//自定义排版。可选值有：count（总条目输区域）、prev（上一页区域）、page（分页区域）、next（下一页区域）、limit（条目选项区域）、refresh（页面刷新区域。注意：layui 2.3.0 新增） 、skip（快捷跳页区域）
+				layout: ['prev', 'page', 'next', 'count', 'refresh', 'skip'],
+				curr: pageNumber,
+				jump: function (obj, first) {
+					//首次不执行
+					if (!first) {
+						pageNumber = obj.curr;
+						getData();
+					}
+				}
+			});
+		});
+	}
+
+	function newItem(){
+		openAppWindow({
+			url: "/Views/System/Bug.html",
+			title: "新增问题跟踪",
+			area: ['880px', '560px'],
+			maxmin: true,
+			success: function (layero, index) {
+				var body = parent.layer.getChildFrame('body', index);
+				var iframe = parent.window[layero.find('iframe')[0]['name']];
+				iframe.getData(0);
+			}
+		});
+	}
+
+
+	layui.use('table', function(){
+		var table = layui.table;
+		//监听工具条
+		table.on('tool(table1filter)',
+			function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+				var data = obj.data; //获得当前行数据
+				var id=data['id'];  //获取属性id的值
+				if(obj.event == "edit"){
+					openAppWindow({
+						url: "/Views/System/Bug.html",
+						title: "编辑",
+						area: ['880px', '560px'],
+						maxmin: true,
+						success: function (layero, index) {
+							var body = parent.layer.getChildFrame('body', index);
+							var iframe = parent.window[layero.find('iframe')[0]['name']];
+							iframe.getData(id);
+						}
+					});
+				}
+			}
+		);
+	});
+
+</script>

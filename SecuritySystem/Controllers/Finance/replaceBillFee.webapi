@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" xmlns:n3="org.polariscode.plugin.web.springboot.action.jwt" Description="" Transactional="false" Type="Post" VerifyToken="false">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Name="bid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable2">
+<n2:Field Collections="true" Name="bf" ObjectName="Finance.BillFee" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="Finance.BillFeeMapper.getBillFeeBybids" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1" Variable="bf">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="bid" Name="bid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="1" Name="InvoiceItemId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Decide Expression="bf.size()&gt;0" Name="Decide1">
+<if>
+<n1:Assign Name="Assign1" Value="500" Variable="result.Code"/>
+<n1:Assign Name="Assign2" Value="&quot;当前账单有内容以提交，请取消后重试！&quot;" Variable="result.Msg"/>
+</if>
+<else>
+<n1:Variable Name="Variable3">
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+</n1:Variable>
+<n3:GetJWTID Name="GetJWTID1" Variable="user"/>
+<n1:DataAccess ContinueOnError="false" Dao="Finance.BillFeeMapper.ReplaceBillFee" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess3">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="bid" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="user" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+</else>
+</n1:Decide>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

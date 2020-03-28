@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Logistics.House" Name="getAllHouse" SQL="select * from House&#10;where City like '%${City}%'&#10;and Address like '%${Address}%'&#10;and orgid=#{org} &#10;and siteid=#{site}&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="66" Y="53">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="City" Name="City" Type="String"/>
+<n1:ResultField MapperField="OrgId" Name="OrgId" Type="Integer"/>
+<n1:ResultField MapperField="SiteId" Name="SiteId" Type="Integer"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="UserId" Name="UserId" Type="Integer"/>
+<n1:ResultField MapperField="LinkMan" Name="LinkMan" Type="String"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+<n1:ResultField MapperField="Rent" Name="Rent" Type="Decimal"/>
+<n1:ResultField MapperField="RentMonth" Name="RentMonth" Type="Integer"/>
+<n1:ResultField MapperField="Deposit" Name="Deposit" Type="Integer"/>
+<n1:ResultField MapperField="PNumber" Name="PNumber" Type="Integer"/>
+<n1:ResultField MapperField="SNumber" Name="SNumber" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="City" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="Address" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="org" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="site" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and orgid=#{org}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="org" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and siteid=#{site}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="site" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Logistics.HouseContract" Name="getHouseContractById" SQL="select * from HouseContract&#10;where HouseId=#{id}" SelectType="Collections" Width="166" X="272" Y="53">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="HouseId" Name="HouseId" Type="Integer"/>
+<n1:ResultField MapperField="BeginDate" Name="BeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="DateTime"/>
+<n1:ResultField MapperField="Rent" Name="Rent" Type="Decimal"/>
+<n1:ResultField MapperField="RentMonth" Name="RentMonth" Type="Integer"/>
+<n1:ResultField MapperField="Deposit" Name="Deposit" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getHouseByCount" SQL="select count(*) Count from House&#10;where City like '%${City}%'&#10;and Address like '%${Address}%'&#10;and orgid=#{org} &#10;and siteid=#{site}" SelectType="Singleton" Width="160" X="499" Y="56">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="City" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="Address" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="org" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="site" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and orgid=#{org}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="org" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and siteid=#{site}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="site" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Logistics.House" Name="getHouseOne" SQL="Select * From House Where ID = #{id}" SelectType="Singleton" Width="160" X="59" Y="428">
+<ResultSet/>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertHouse" SQL="Insert Into House(City, OrgId, SiteId, Address, UserId, LinkMan, Phone, Rent, RentMonth, Deposit, PNumber, SNumber, Describes, CreateUser, CreateTime)&#10; Values(#{house.City}, #{house.OrgId}, #{house.SiteId}, #{house.Address}, #{house.UserId}, #{house.LinkMan}, #{house.Phone}, #{house.Rent}, #{house.RentMonth}, #{house.Deposit}, #{house.PNumber}, #{house.SNumber}, #{house.Describes}, #{house.CreateUser}, Now())" Width="160" X="58" Y="353">
+<Parameters>
+<n2:Field Collections="false" Name="house" ObjectName="Logistics.House" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateHouse" SQL="Update House Set&#10;&#9;City = #{house.City},&#10;&#9;OrgId = #{house.OrgId},&#10;&#9;SiteId = #{house.SiteId},&#10;&#9;Address = #{house.Address},&#10;&#9;UserId = #{house.UserId},&#10;&#9;LinkMan = #{house.LinkMan},&#10;&#9;Phone = #{house.Phone},&#10;&#9;Rent = #{house.Rent},&#10;&#9;RentMonth = #{house.RentMonth},&#10;&#9;Deposit = #{house.Deposit},&#10;&#9;PNumber = #{house.PNumber},&#10;&#9;SNumber = #{house.SNumber},&#10;&#9;Describes = #{house.Describes},&#10;&#9;ModifyUser = #{house.CreateUser},&#10;&#9;ModifyTime = Now()&#10;Where ID = #{house.ID}" Width="160" X="59" Y="390">
+<Parameters>
+<n2:Field Collections="false" Name="house" ObjectName="Logistics.House" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Height="240" MapperEntity="Logistics.HouseContract" Name="getHouseContractOne" SQL="Select * From HouseContract Where ID = #{id}" SelectType="Singleton" Width="160" X="260" Y="429">
+<ResultSet/>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertHouseContract" SQL="Insert Into HouseContract(HouseId, BeginDate, EndDate, Rent, RentMonth, Deposit, Describes)&#10; Values(#{housecontract.HouseId}, #{housecontract.BeginDate}, #{housecontract.EndDate}, #{housecontract.Rent}, #{housecontract.RentMonth}, #{housecontract.Deposit}, #{housecontract.Describes})" Width="160" X="266" Y="356">
+<Parameters>
+<n2:Field Collections="false" Name="housecontract" ObjectName="Logistics.HouseContract" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateHouseContract" SQL="Update HouseContract Set&#10;&#9;HouseId = #{housecontract.HouseId},&#10;&#9;BeginDate = #{housecontract.BeginDate},&#10;&#9;EndDate = #{housecontract.EndDate},&#10;&#9;Rent = #{housecontract.Rent},&#10;&#9;RentMonth = #{housecontract.RentMonth},&#10;&#9;Deposit = #{housecontract.Deposit},&#10;&#9;Describes = #{housecontract.Describes}&#10; Where ID = #{housecontract.ID}" Width="160" X="264" Y="390">
+<Parameters>
+<n2:Field Collections="false" Name="housecontract" ObjectName="Logistics.HouseContract" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+</Controls>
+</View>
+</Mapper>

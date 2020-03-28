@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" Description="用户上传图片申请" Transactional="true" Type="Post" VerifyToken="false">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Name="application" ObjectName="ApplyFor.Application" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable2">
+<n2:Field Collections="false" Name="gender" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</n1:Variable>
+<n1:Decide Expression="application.getGender().equals(&quot;男&quot;)==true" Name="Decide1">
+<if>
+<n1:Assign Name="Assign16" Value="1" Variable="gender"/>
+</if>
+<else>
+<n1:Assign Name="Assign17" Value="0" Variable="gender"/>
+</else>
+</n1:Decide>
+<n1:Variable Name="Variable9">
+<n2:Field Collections="false" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Assign Name="Assign11" Value="application.getName()" Variable="emp.Name"/>
+<n1:Assign Name="Assign14" Value="gender" Variable="emp.Gender"/>
+<n1:Assign Name="Assign13" Value="application.getBirthday()" Variable="emp.Birthday"/>
+<n1:Assign Name="Assign12" Value="application.getCardNo()" Variable="emp.CardNo"/>
+<n1:Assign Name="Assign10" Value="&quot;123456&quot;" Variable="emp.Password"/>
+<n1:Assign Name="Assign15" Value="application.getAddress()" Variable="emp.Address"/>
+<n1:Assign Name="Assign1" Value="-1" Variable="emp.Status"/>
+<n1:Variable Name="Variable3">
+<n2:Field Collections="false" Name="tb" ObjectName="Table" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBEmployeeApplication.getCountByCardNo" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess6" Variable="tb">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="application.getCardNo()" Name="cardNo" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Variable Name="Variable4">
+<n2:Field Collections="false" Name="tabId" ObjectName="Table" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Decide Expression="tb.getCount()&gt;0" Name="Decide2">
+<if>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBEmployeeApplication.getEmpByCardNo" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess5" Variable="tabId">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="application.getCardNo()" Name="cardNo" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBEmployeeApplication.UpdateEmployee" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess7">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="emp" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" DefaultValue="tabId.getID()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+</if>
+<else>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBEmployeeApplication.InsertEmployee" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="emp" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBEmployeeApplication.getEmpByCardNo" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess8" Variable="tabId">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="application.getCardNo()" Name="cardNo" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+</else>
+</n1:Decide>
+<n1:Variable Name="Variable6">
+<n2:Field Collections="false" Name="table" ObjectName="Table" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBEmployeeApplication.getEmpByCardNo" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2" Variable="table">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="application.getCardNo()" Name="cardNo" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Variable Name="Variable5">
+<n2:Field Collections="false" Name="userImg1" ObjectName="ApplyFor.UserImg" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Assign Name="Assign2" Value="table.getID()" Variable="userImg1.Eid"/>
+<n1:Assign Name="Assign5" Value="application.getFileimg1()" Variable="userImg1.Img"/>
+<n1:Assign Name="Assign3" Value="&quot;1&quot;" Variable="userImg1.Type"/>
+<n1:Assign Name="Assign4" Value="&quot;0&quot;" Variable="userImg1.Status"/>
+<n1:Decide Expression="tb.getCount()&gt;0" Name="Decide3">
+<if/>
+<else>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBUserImg.InsertUserImg" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess3">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="userImg1" Name="userimg" ObjectName="ApplyFor.UserImg" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+</else>
+</n1:Decide>
+<n1:Variable Name="Variable7">
+<n2:Field Collections="false" Name="userImg2" ObjectName="ApplyFor.UserImg" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Assign Name="Assign7" Value="table.getID()" Variable="userImg2.Eid"/>
+<n1:Assign Name="Assign6" Value="application.getFileimg2()" Variable="userImg2.Img"/>
+<n1:Assign Name="Assign8" Value="&quot;2&quot;" Variable="userImg2.Type"/>
+<n1:Assign Name="Assign9" Value="&quot;0&quot;" Variable="userImg2.Status"/>
+<n1:Decide Expression="tb.getCount()&gt;0" Name="Decide4">
+<if/>
+<else>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBUserImg.InsertUserImg" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess4">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="userImg2" Name="userimg" ObjectName="ApplyFor.UserImg" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+</else>
+</n1:Decide>
+<n1:Assign Name="Assign18" Value="tabId.getID()" Variable="result.Data"/>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

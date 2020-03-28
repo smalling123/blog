@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Finance.PayCheck" Name="getPayCheckByPayId" SQL="select * from PayCheck where 1=1 and  PayId=#{PayId} and InvoiceItemId=#{InvoiceItemId}&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="43" Y="42">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PayId" Name="PayId" Type="Integer"/>
+<n1:ResultField MapperField="InvoiceItemId" Name="InvoiceItemId" Type="Integer"/>
+<n1:ResultField MapperField="Amt" Name="Amt" Type="Decimal"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="PayId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="InvoiceItemId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and  PayId=#{PayId}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="PayId" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and InvoiceItemId=#{InvoiceItemId}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="InvoiceItemId" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Insert Height="24" Name="InsertsPayCheck" SQL="&lt;script&gt;&#10;Insert Into PayCheck(PayId, InvoiceItemId, Amt, Describes, CreateUser, CreateTime)&#10;select  (select max(ID) from Pay) PayId,ID InvoiceItemId,Amt,Describes,#{CreateUser},now() from InvoiceItem &#10;where Invoice in(&#10;&lt;foreach collection='ids' item='c' index='index' separator=','&gt;&#10;#{c}&#10;&lt;/foreach&gt;&#10;)&#10;&lt;/script&gt;" Width="160" X="245" Y="49">
+<Parameters>
+<n2:Field Collections="true" Name="ids" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Select Height="240" MapperEntity="Table" Name="getPayCheckByCount" SQL="select Count(*) Count from PayCheck where 1=1 and  PayId=#{PayId} and InvoiceItemId=#{InvoiceItemId}" SelectType="Singleton" Width="160" X="449" Y="44">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="PayId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="InvoiceItemId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and  PayId=#{PayId}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="PayId" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and InvoiceItemId=#{InvoiceItemId}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="InvoiceItemId" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

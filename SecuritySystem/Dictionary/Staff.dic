@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Dynamic">
+<SQL>Select Convert(ID, char(20)) as Code, Name as Name 
+From Staff
+Order By convert(Name using gbk) collate gbk_chinese_ci</SQL>
+<ConvertSQL>Select Name as Name 
+From Staff 
+Where ID = #{code}</ConvertSQL>
+<Items/>
+</Dictionary>

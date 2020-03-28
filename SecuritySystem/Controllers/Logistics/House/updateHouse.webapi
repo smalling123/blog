@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" xmlns:n3="org.polariscode.plugin.web.springboot.action.jwt" Description="" Transactional="false" Type="Post" VerifyToken="false">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Name="house" ObjectName="Logistics.House" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable2">
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+</n1:Variable>
+<n3:GetJWTID Name="GetJWTID1" Variable="user"/>
+<n1:Assign Name="Assign1" Value="user" Variable="house.CreateUser"/>
+<n1:Decide Expression="house.getID()&gt;0" Name="Decide1">
+<if>
+<n1:DataAccess ContinueOnError="false" Dao="Logistics.HouseMapper.updateHouse" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="house" Name="house" ObjectName="Logistics.House" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+</if>
+<else>
+<n1:DataAccess ContinueOnError="false" Dao="Logistics.HouseMapper.insertHouse" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="house" Name="house" ObjectName="Logistics.House" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+</else>
+</n1:Decide>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

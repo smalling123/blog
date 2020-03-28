@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Salary.Taxs" Name="getAllTaxs" SQL="SELECT t.`Year`,t.`Month`,t.Base,tm.ID Mid ,tm.MinValue  MinVM,tm.`MaxValue` MaxVM,tm.Rate,&#10;ty.ID Yid ,ty.MinValue MinVY,ty.`MaxValue` MaxVY,ty.`Value` from tax t&#10;LEFT join taxm tm on t.id =tm.TaxId&#10;LEFT join taxy ty on t.id =ty.TaxId&#10;where t.`Year` =#{Year} and t.`Month` =#{Month} &#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="14" Y="16">
+<ResultSet>
+<n1:ResultField MapperField="Year" Name="Year" Type="Integer"/>
+<n1:ResultField MapperField="Month" Name="Month" Type="Integer"/>
+<n1:ResultField MapperField="Base" Name="Base" Type="Decimal"/>
+<n1:ResultField MapperField="Mid" Name="Mid" Type="Integer"/>
+<n1:ResultField MapperField="MinVM" Name="MinVM" Type="Decimal"/>
+<n1:ResultField MapperField="MaxVM" Name="MaxVM" Type="Decimal"/>
+<n1:ResultField MapperField="Rate" Name="Rate" Type="Integer"/>
+<n1:ResultField MapperField="Yid" Name="Yid" Type="Integer"/>
+<n1:ResultField MapperField="MinVY" Name="MinVY" Type="Decimal"/>
+<n1:ResultField MapperField="MaxVY" Name="MaxVY" Type="Decimal"/>
+<n1:ResultField MapperField="Value" Name="Value" Type="Decimal"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="Year" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="Month" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getTaxByCount" SQL="select Count(*) Count from Tax &#10;where 1=1 and  `Year` =#{Year} and `Month` =#{Month}" SelectType="Singleton" Width="160" X="188" Y="18">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="Year" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="Month" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and t.`Year` =#{Year}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="Year" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and t.`Month` =#{Month}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="Month" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Salary.Tax" Name="getAllTax" SQL="select * from Tax &#10;where 1=1 and  `Year` =#{Year} and `Month` =#{Month} &#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="386" Y="19">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Year" Name="Year" Type="Integer"/>
+<n1:ResultField MapperField="Month" Name="Month" Type="Integer"/>
+<n1:ResultField MapperField="Base" Name="Base" Type="Decimal"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="Year" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="Month" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and  `Year` =#{Year}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="Year" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and `Month` =#{Month}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="Month" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Salary.Taxm" Name="getTaxm" SQL="select * from taxm&#10;where TaxId =#{id}" SelectType="Collections" Width="160" X="565" Y="20">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="TaxId" Name="TaxId" Type="Integer"/>
+<n1:ResultField MapperField="MinValue" Name="MinValue" Type="Decimal"/>
+<n1:ResultField MapperField="MaxValue" Name="MaxValue" Type="Decimal"/>
+<n1:ResultField MapperField="Rate" Name="Rate" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Salary.Taxy" Name="getTaxy" SQL="select * from taxy&#10;where TaxId =#{id}" SelectType="Collections" Width="160" X="734" Y="19">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="TaxId" Name="TaxId" Type="Integer"/>
+<n1:ResultField MapperField="MinValue" Name="MinValue" Type="Decimal"/>
+<n1:ResultField MapperField="MaxValue" Name="MaxValue" Type="Decimal"/>
+<n1:ResultField Name="Value" Type="Decimal"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Salary.Tax" Name="getTaxOne" SQL="Select * From Tax Where ID = #{id}" SelectType="Singleton" Width="160" X="7" Y="368">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Year" Name="Year" Type="Integer"/>
+<n1:ResultField MapperField="Month" Name="Month" Type="Integer"/>
+<n1:ResultField MapperField="Base" Name="Base" Type="Decimal"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Update Height="24" Name="updateTax" SQL="Update Tax Set&#10;&#9;`Year` = #{tax.Year},&#10;&#9;`Month` = #{tax.Month},&#10;&#9;`Base` = #{tax.Base}&#10; Where ID = #{tax.ID}" Width="160" X="7" Y="293">
+<Parameters>
+<n2:Field Collections="false" Name="tax" ObjectName="Salary.Tax" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Insert Height="24" Name="insertTax" SQL="Insert Into Tax(`Year`, `Month`, `Base`)&#10; Values(#{tax.Year}, #{tax.Month}, #{tax.Base})" Width="160" X="5" Y="328">
+<Parameters>
+<n2:Field Collections="false" Name="tax" ObjectName="Salary.Tax" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="insertTaxm" SQL="Insert Into Taxm(TaxId, MinValue, `MaxValue`, Rate)&#10; Values(#{taxm.TaxId}, #{taxm.MinValue}, #{taxm.MaxValue}, #{taxm.Rate})" Width="160" X="195" Y="293">
+<Parameters>
+<n2:Field Collections="false" Name="taxm" ObjectName="Salary.Taxm" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateTaxm" SQL="Update Taxm Set&#10;&#9;TaxId = #{taxm.TaxId},&#10;&#9;MinValue = #{taxm.MinValue},&#10;&#9;`MaxValue` = #{taxm.MaxValue},&#10;&#9;Rate = #{taxm.Rate}&#10; Where ID = #{taxm.ID}" Width="160" X="193" Y="333">
+<Parameters>
+<n2:Field Collections="false" Name="taxm" ObjectName="Salary.Taxm" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Height="240" MapperEntity="Salary.Taxm" Name="getTaxmOne" SQL="Select * From Taxm Where ID = #{id}" SelectType="Singleton" Width="160" X="192" Y="373">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="TaxId" Name="TaxId" Type="Integer"/>
+<n1:ResultField MapperField="MinValue" Name="MinValue" Type="Decimal"/>
+<n1:ResultField MapperField="MaxValue" Name="MaxValue" Type="Decimal"/>
+<n1:ResultField MapperField="Rate" Name="Rate" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Salary.Taxy" Name="getTaxyOne" SQL="Select * From Taxy Where ID = #{id}" SelectType="Singleton" Width="160" X="380" Y="372">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="TaxId" Name="TaxId" Type="Integer"/>
+<n1:ResultField MapperField="MinValue" Name="MinValue" Type="Decimal"/>
+<n1:ResultField MapperField="MaxValue" Name="MaxValue" Type="Decimal"/>
+<n1:ResultField MapperField="Value" Name="Value" Type="Decimal"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertTaxy" SQL="Insert Into Taxy(`TaxId`, `MinValue`, `MaxValue`,` Value`)&#10; Values(#{taxy.TaxId}, #{taxy.MinValue}, #{taxy.MaxValue}, #{taxy.Value})" Width="160" X="383" Y="292">
+<Parameters>
+<n2:Field Collections="false" Name="taxy" ObjectName="Salary.Taxy" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateTaxy" SQL="Update Taxy Set&#10;&#9;`TaxId` = #{taxy.TaxId},&#10;&#9;`MinValue` = #{taxy.MinValue},&#10;&#9;`MaxValue` = #{taxy.MaxValue},&#10;&#9;`Value` = #{taxy.Value}&#10; Where ID = #{taxy.ID}" Width="160" X="384" Y="337">
+<Parameters>
+<n2:Field Collections="false" Name="taxy" ObjectName="Salary.Taxy" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+</Controls>
+</View>
+</Mapper>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="新上点"/>
+<Item Code="1" Name="临保"/>
+<Item Code="2" Name="合同变更"/>
+<Item Code="3" Name="续签合同"/>
+<Item Code="4" Name="其他"/>
+</Items>
+</Dictionary>

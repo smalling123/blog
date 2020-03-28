@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="用户申请流程">
+<View>
+<Controls>
+<n1:Select Description="查询用户申请流程表" Height="240" MapperEntity="ApplyFor.EmployeeApplication" Name="getAllEmployeeApplication" SQL="select * from EmployeeApplication&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="202" X="29" Y="31">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="Use_id" Name="Use_id" Type="Integer"/>
+<n1:ResultField MapperField="Account" Name="Account" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Password" Name="Password" Type="String"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Integer"/>
+<n1:ResultField MapperField="Birthday" Name="Birthday" Type="DateTime"/>
+<n1:ResultField MapperField="Position" Name="Position" Type="String"/>
+<n1:ResultField MapperField="Education" Name="Education" Type="String"/>
+<n1:ResultField MapperField="IsMarry" Name="IsMarry" Type="String"/>
+<n1:ResultField MapperField="Mobile" Name="Mobile" Type="String"/>
+<n1:ResultField MapperField="IsParty" Name="IsParty" Type="Boolean"/>
+<n1:ResultField MapperField="EnlistmentTime" Name="EnlistmentTime" Type="DateTime"/>
+<n1:ResultField MapperField="RetirementTime" Name="RetirementTime" Type="DateTime"/>
+<n1:ResultField MapperField="TroopsName" Name="TroopsName" Type="String"/>
+<n1:ResultField MapperField="Height" Name="Height" Type="String"/>
+<n1:ResultField MapperField="Weight" Name="Weight" Type="String"/>
+<n1:ResultField MapperField="PersonalSpecialty" Name="PersonalSpecialty" Type="String"/>
+<n1:ResultField MapperField="CardNo" Name="CardNo" Type="String"/>
+<n1:ResultField MapperField="BankNo" Name="BankNo" Type="String"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="Certificate" Name="Certificate" Type="String"/>
+<n1:ResultField MapperField="Img" Name="Img" Type="String"/>
+<n1:ResultField MapperField="SpeakLevel" Name="SpeakLevel" Type="String"/>
+<n1:ResultField MapperField="EnglishLevel" Name="EnglishLevel" Type="String"/>
+<n1:ResultField MapperField="ComputerLevel" Name="ComputerLevel" Type="String"/>
+<n1:ResultField MapperField="DriveLevel" Name="DriveLevel" Type="String"/>
+<n1:ResultField MapperField="OtherSkills" Name="OtherSkills" Type="String"/>
+<n1:ResultField MapperField="IsFamilyDisease" Name="IsFamilyDisease" Type="Boolean"/>
+<n1:ResultField MapperField="IsChronicDisease" Name="IsChronicDisease" Type="Boolean"/>
+<n1:ResultField MapperField="IsCriminalPunishment" Name="IsCriminalPunishment" Type="Boolean"/>
+<n1:ResultField MapperField="IsAdministrativeSanction" Name="IsAdministrativeSanction" Type="Boolean"/>
+<n1:ResultField MapperField="IsMajorDiseases" Name="IsMajorDiseases" Type="Boolean"/>
+<n1:ResultField MapperField="IsExcessiveDrinking" Name="IsExcessiveDrinking" Type="Boolean"/>
+<n1:ResultField MapperField="IsDrug" Name="IsDrug" Type="Boolean"/>
+<n1:ResultField MapperField="IsOccupationalDiseases" Name="IsOccupationalDiseases" Type="Boolean"/>
+<n1:ResultField MapperField="OccupationalDiseases" Name="OccupationalDiseases" Type="String"/>
+<n1:ResultField MapperField="WorkAddress" Name="WorkAddress" Type="String"/>
+<n1:ResultField MapperField="Department" Name="Department" Type="String"/>
+<n1:ResultField MapperField="EMail" Name="EMail" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="String"/>
+<n1:ResultField MapperField="CardType" Name="CardType" Type="String"/>
+<n1:ResultField MapperField="PeopleType" Name="PeopleType" Type="String"/>
+<n1:ResultField MapperField="IsClose" Name="IsClose" Type="Boolean"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="Peoples" Name="Peoples" Type="String"/>
+<n1:ResultField MapperField="RegistrationDate" Name="RegistrationDate" Type="DateTime"/>
+<n1:ResultField MapperField="DocumentImg" Name="DocumentImg" Type="String"/>
+<n1:ResultField MapperField="img1" Name="img1" Type="String"/>
+<n1:ResultField MapperField="img2" Name="img2" Type="String"/>
+<n1:ResultField MapperField="img3" Name="img3" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Description="添加申请流程表" Height="24" Name="InsertEmployeeApplication" SQL="INSERT INTO employeeapplication &#10;(Use_id, Account, `Name`, `Password`, &#10;Gender, Birthday, Position, Education, &#10;IsMarry, Mobile, IsParty, EnlistmentTime, &#10;RetirementTime, TroopsName, Height, Weight, &#10;PersonalSpecialty, CardNo, BankNo, Address, &#10;Certificate, Img, SpeakLevel, EnglishLevel, &#10;ComputerLevel, DriveLevel,OtherSkills, IsFamilyDisease, IsChronicDisease, &#10;IsCriminalPunishment, IsAdministrativeSanction, IsMajorDiseases, IsExcessiveDrinking, &#10;IsDrug, IsOccupationalDiseases, OccupationalDiseases, WorkAddress, &#10;Department, EMail, CreateTime, Type, &#10;IsClose, `Status`, Peoples, &#10;DocumentImg, img1, img2, img3) &#10;VALUES (#{emp.Use_id}, #{emp.Account}, #{emp.Name}, #{emp.Password}, &#10;#{emp.Gender}, #{emp.Birthday}, #{emp.Position}, #{emp.Education}, &#10;#{emp.IsMarry}, #{emp.Mobile}, #{emp.IsParty}, #{emp.EnlistmentTime}, &#10;#{emp.RetirementTime}, #{emp.TroopsName},#{emp.Height}, #{emp.Weight}, &#10;#{emp.PersonalSpecialty}, #{emp.CardNo}, #{emp.BankNo}, #{emp.Address}, &#10;#{emp.Certificate}, #{emp.Img}, #{emp.SpeakLevel}, #{emp.EnglishLevel}, &#10;#{emp.ComputerLevel}, #{emp.DriveLevel}, #{emp.OtherSkills},#{emp.IsFamilyDisease}, #{emp.IsChronicDisease}, &#10;#{emp.IsCriminalPunishment}, #{emp.IsAdministrativeSanction}, #{emp.IsMajorDiseases}, #{emp.IsExcessiveDrinking}, &#10;#{emp.IsDrug}, #{emp.IsOccupationalDiseases}, #{emp.OccupationalDiseases}, #{emp.WorkAddress}, &#10;#{emp.Department}, #{emp.EMail}, Now(), #{emp.Type}, &#10;#{emp.IsClose}, 0, #{emp.Peoples}, &#10;#{emp.DocumentImg}, #{emp.img1}, #{emp.img2}, #{emp.img3})" Width="196" X="548" Y="28">
+<Parameters>
+<n2:Field Collections="false" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Description="审批修改" Height="24" Name="UpdateStatus" SQL="update employeeapplication &#10; set  Use_id=#{emp.Use_id},`Status` =#{emp.Status}, Peoples =#{emp.Peoples}&#10; where Id =#{emp.Id}" Width="160" X="550" Y="75">
+<Parameters>
+<n2:Field Collections="false" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Description="根据ID查询用户申请流程" Height="240" MapperEntity="ApplyFor.EmployeeApplication" Name="getEmployeeApplicationById" SQL="select *,Certificate as Certificates,CardType as CardTypes   from EmployeeApplication&#10;where Id=#{id}" SelectType="Singleton" Width="214" X="268" Y="18">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="Use_id" Name="Use_id" Type="Integer"/>
+<n1:ResultField MapperField="Account" Name="Account" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Password" Name="Password" Type="String"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Integer"/>
+<n1:ResultField MapperField="Birthday" Name="Birthday" Type="DateTime"/>
+<n1:ResultField MapperField="Position" Name="Position" Type="String"/>
+<n1:ResultField MapperField="Education" Name="Education" Type="String"/>
+<n1:ResultField MapperField="IsMarry" Name="IsMarry" Type="String"/>
+<n1:ResultField MapperField="Mobile" Name="Mobile" Type="String"/>
+<n1:ResultField MapperField="IsParty" Name="IsParty" Type="Boolean"/>
+<n1:ResultField MapperField="EnlistmentTime" Name="EnlistmentTime" Type="DateTime"/>
+<n1:ResultField MapperField="RetirementTime" Name="RetirementTime" Type="DateTime"/>
+<n1:ResultField MapperField="TroopsName" Name="TroopsName" Type="String"/>
+<n1:ResultField MapperField="Height" Name="Height" Type="String"/>
+<n1:ResultField MapperField="Weight" Name="Weight" Type="String"/>
+<n1:ResultField MapperField="PersonalSpecialty" Name="PersonalSpecialty" Type="String"/>
+<n1:ResultField MapperField="CardNo" Name="CardNo" Type="String"/>
+<n1:ResultField MapperField="BankNo" Name="BankNo" Type="String"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="Certificate" Name="Certificate" Type="String"/>
+<n1:ResultField MapperField="Img" Name="Img" Type="String"/>
+<n1:ResultField MapperField="SpeakLevel" Name="SpeakLevel" Type="String"/>
+<n1:ResultField MapperField="EnglishLevel" Name="EnglishLevel" Type="String"/>
+<n1:ResultField MapperField="ComputerLevel" Name="ComputerLevel" Type="String"/>
+<n1:ResultField MapperField="DriveLevel" Name="DriveLevel" Type="String"/>
+<n1:ResultField MapperField="OtherSkills" Name="OtherSkills" Type="String"/>
+<n1:ResultField MapperField="IsFamilyDisease" Name="IsFamilyDisease" Type="Boolean"/>
+<n1:ResultField MapperField="IsChronicDisease" Name="IsChronicDisease" Type="Boolean"/>
+<n1:ResultField MapperField="IsCriminalPunishment" Name="IsCriminalPunishment" Type="Boolean"/>
+<n1:ResultField MapperField="IsAdministrativeSanction" Name="IsAdministrativeSanction" Type="Boolean"/>
+<n1:ResultField MapperField="IsMajorDiseases" Name="IsMajorDiseases" Type="Boolean"/>
+<n1:ResultField MapperField="IsExcessiveDrinking" Name="IsExcessiveDrinking" Type="Boolean"/>
+<n1:ResultField MapperField="IsDrug" Name="IsDrug" Type="Boolean"/>
+<n1:ResultField MapperField="IsOccupationalDiseases" Name="IsOccupationalDiseases" Type="Boolean"/>
+<n1:ResultField MapperField="OccupationalDiseases" Name="OccupationalDiseases" Type="String"/>
+<n1:ResultField MapperField="WorkAddress" Name="WorkAddress" Type="String"/>
+<n1:ResultField MapperField="Department" Name="Department" Type="String"/>
+<n1:ResultField MapperField="EMail" Name="EMail" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="String"/>
+<n1:ResultField MapperField="CardType" Name="CardType" Type="String"/>
+<n1:ResultField MapperField="PeopleType" Name="PeopleType" Type="String"/>
+<n1:ResultField MapperField="IsClose" Name="IsClose" Type="Boolean"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="Peoples" Name="Peoples" Type="String"/>
+<n1:ResultField MapperField="RegistrationDate" Name="RegistrationDate" Type="DateTime"/>
+<n1:ResultField MapperField="DocumentImg" Name="DocumentImg" Type="String"/>
+<n1:ResultField MapperField="img1" Name="img1" Type="String"/>
+<n1:ResultField MapperField="img2" Name="img2" Type="String"/>
+<n1:ResultField MapperField="img3" Name="img3" Type="String"/>
+<n1:ResultField MapperField="Certificates" Name="Certificates" Type="String"/>
+<n1:ResultField MapperField="CardTypes" Name="CardTypes" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Update Description="修改用户申请流程" Height="24" Name="UpdateEmployeeApplication" SQL="UPDATE employeeapplication &#10; SET  Name = #{emp.Name}, Gender = #{emp.Gender}, Birthday = #{emp.Birthday}, &#10; Position = #{emp.Position}, Education = #{emp.Education}, IsMarry = #{emp.IsMarry}, &#10; Mobile = #{emp.Mobile}, IsParty = #{emp.IsParty}, EnlistmentTime = #{emp.EnlistmentTime}, &#10; RetirementTime = #{emp.RetirementTime}, TroopsName = #{emp.TroopsName}, Height = #{emp.Height}, &#10; Weight = #{emp.Weight}, PersonalSpecialty = #{emp.PersonalSpecialty}, CardNo = #{emp.CardNo}, &#10; BankNo = #{emp.BankNo}, Address = #{emp.Address}, Certificate = #{Certificate}, &#10; Img = #{emp.Img}, SpeakLevel = #{emp.SpeakLevel}, EnglishLevel = #{emp.EnglishLevel}, &#10; ComputerLevel = #{emp.ComputerLevel}, DriveLevel = #{emp.DriveLevel},OtherSkills=#{emp.OtherSkills}, IsFamilyDisease = #{emp.IsFamilyDisease}, &#10; IsChronicDisease = #{emp.IsChronicDisease}, IsCriminalPunishment = #{emp.IsCriminalPunishment}, IsAdministrativeSanction = #{emp.IsAdministrativeSanction}, &#10; IsMajorDiseases = #{emp.IsMajorDiseases}, IsExcessiveDrinking = #{emp.IsExcessiveDrinking}, IsDrug = #{emp.IsDrug}, &#10; IsOccupationalDiseases = #{emp.IsOccupationalDiseases}, OccupationalDiseases = #{emp.OccupationalDiseases}, WorkAddress = #{emp.WorkAddress}, &#10; Department = #{emp.Department}, EMail = #{emp.EMail}, &#10; Type = #{emp.Type}, CardType = #{CardType}, PeopleType = #{emp.PeopleType}, &#10; IsClose = #{emp.IsClose}, &#10; RegistrationDate = #{emp.RegistrationDate}, DocumentImg = #{emp.DocumentImg}, img1 = #{emp.img1}, &#10; img2 = #{emp.img2}, img3 = #{emp.img3} WHERE Id = #{emp.Id}" Width="221" X="550" Y="110">
+<Parameters>
+<n2:Field Collections="false" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" Name="Certificate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="CardType" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="RegistrationDate = #{emp.RegistrationDate},">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="emp.RegistrationDate" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Update>
+<n1:Select Description="根据用户ID查询审核信息" Height="240" MapperEntity="ApplyFor.EmployeeApplication" Name="getEmployeeByAccount" SQL="select * from employeeapplication ell  &#10; where ell.`Status` in(-1,0)  and&#10; ell.Name LIKE '%${name}%' and ell.Education like '%${education}%' and ell.Gender=#{gender}&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="175" X="28" Y="301">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="Use_id" Name="Use_id" Type="Integer"/>
+<n1:ResultField MapperField="Account" Name="Account" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Password" Name="Password" Type="String"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Integer"/>
+<n1:ResultField MapperField="Birthday" Name="Birthday" Type="DateTime"/>
+<n1:ResultField MapperField="Position" Name="Position" Type="String"/>
+<n1:ResultField MapperField="Education" Name="Education" Type="String"/>
+<n1:ResultField MapperField="IsMarry" Name="IsMarry" Type="String"/>
+<n1:ResultField MapperField="Mobile" Name="Mobile" Type="String"/>
+<n1:ResultField MapperField="IsParty" Name="IsParty" Type="Boolean"/>
+<n1:ResultField MapperField="EnlistmentTime" Name="EnlistmentTime" Type="DateTime"/>
+<n1:ResultField MapperField="RetirementTime" Name="RetirementTime" Type="DateTime"/>
+<n1:ResultField MapperField="TroopsName" Name="TroopsName" Type="String"/>
+<n1:ResultField MapperField="Height" Name="Height" Type="String"/>
+<n1:ResultField MapperField="Weight" Name="Weight" Type="String"/>
+<n1:ResultField MapperField="PersonalSpecialty" Name="PersonalSpecialty" Type="String"/>
+<n1:ResultField MapperField="CardNo" Name="CardNo" Type="String"/>
+<n1:ResultField MapperField="BankNo" Name="BankNo" Type="String"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="Certificate" Name="Certificate" Type="String"/>
+<n1:ResultField MapperField="Img" Name="Img" Type="String"/>
+<n1:ResultField MapperField="SpeakLevel" Name="SpeakLevel" Type="String"/>
+<n1:ResultField MapperField="EnglishLevel" Name="EnglishLevel" Type="String"/>
+<n1:ResultField MapperField="ComputerLevel" Name="ComputerLevel" Type="String"/>
+<n1:ResultField MapperField="DriveLevel" Name="DriveLevel" Type="String"/>
+<n1:ResultField MapperField="OtherSkills" Name="OtherSkills" Type="String"/>
+<n1:ResultField MapperField="IsFamilyDisease" Name="IsFamilyDisease" Type="Boolean"/>
+<n1:ResultField MapperField="IsChronicDisease" Name="IsChronicDisease" Type="Boolean"/>
+<n1:ResultField MapperField="IsCriminalPunishment" Name="IsCriminalPunishment" Type="Boolean"/>
+<n1:ResultField MapperField="IsAdministrativeSanction" Name="IsAdministrativeSanction" Type="Boolean"/>
+<n1:ResultField MapperField="IsMajorDiseases" Name="IsMajorDiseases" Type="Boolean"/>
+<n1:ResultField MapperField="IsExcessiveDrinking" Name="IsExcessiveDrinking" Type="Boolean"/>
+<n1:ResultField MapperField="IsDrug" Name="IsDrug" Type="Boolean"/>
+<n1:ResultField MapperField="IsOccupationalDiseases" Name="IsOccupationalDiseases" Type="Boolean"/>
+<n1:ResultField MapperField="OccupationalDiseases" Name="OccupationalDiseases" Type="String"/>
+<n1:ResultField MapperField="WorkAddress" Name="WorkAddress" Type="String"/>
+<n1:ResultField MapperField="Department" Name="Department" Type="String"/>
+<n1:ResultField MapperField="EMail" Name="EMail" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="String"/>
+<n1:ResultField MapperField="CardType" Name="CardType" Type="String"/>
+<n1:ResultField MapperField="PeopleType" Name="PeopleType" Type="String"/>
+<n1:ResultField MapperField="IsClose" Name="IsClose" Type="Boolean"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="Peoples" Name="Peoples" Type="String"/>
+<n1:ResultField MapperField="RegistrationDate" Name="RegistrationDate" Type="DateTime"/>
+<n1:ResultField MapperField="DocumentImg" Name="DocumentImg" Type="String"/>
+<n1:ResultField MapperField="img1" Name="img1" Type="String"/>
+<n1:ResultField MapperField="img2" Name="img2" Type="String"/>
+<n1:ResultField MapperField="img3" Name="img3" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="education" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="gender" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and ell.Gender=#{gender}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="gender" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getByAccount" SQL="select count(1) Count from EmployeeApplication&#10;where Account= #{account}" SelectType="Singleton" Width="160" X="582" Y="301">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="account" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="根据账号获取ID" Height="240" MapperEntity="Table" Name="getID" SQL="select ID from EmployeeApplication&#10;where Account= #{account}" SelectType="Singleton" Width="160" X="406" Y="300">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="account" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获取数据条数" Height="240" MapperEntity="Table" Name="getCount" SQL="select count(1) Count from EmployeeApplication" SelectType="Singleton" Width="160" X="785" Y="32">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Insert Description="添加基础信息" Height="24" Name="InsertEmployee" SQL="insert into employeeapplication &#10;(Name,Password,&#10;Gender,Birthday,CardNo,Address,Status)&#10;values (#{emp.Name},#{emp.Password},&#10;#{emp.Gender},#{emp.Birthday},#{emp.CardNo},#{emp.Address},#{emp.Status})" Width="160" X="551" Y="142">
+<Parameters>
+<n2:Field Collections="false" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Select Description="根据身份证查询申请ID" Height="240" MapperEntity="Table" Name="getEmpByCardNo" SQL="select Id from EmployeeApplication where CardNo = #{cardNo}" SelectType="Singleton" Width="160" X="766" Y="301">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="Id" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="cardNo" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Update Description="第二次填写信息" Height="24" Name="UpdateTowEmployee" SQL="UPDATE employeeapplication &#10; SET  Account=#{emp.Account},Position=#{emp.Position},Education=#{emp.Education},&#10;IsMarry=#{emp.IsMarry},Mobile=#{emp.Mobile},IsParty=#{emp.IsParty},&#10;EnlistmentTime=#{emp.EnlistmentTime},RetirementTime=#{emp.RetirementTime},&#10;TroopsName=#{emp.TroopsName},Height=#{emp.Height},Img=#{emp.Img},&#10;Weight=#{emp.Weight},PersonalSpecialty=#{emp.PersonalSpecialty},&#10;Certificate=#{emp.Certificates}&#10; WHERE Id =#{emp.Id}" Width="160" X="550" Y="200">
+<Parameters>
+<n2:Field Collections="false" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="EnlistmentTime=#{emp.EnlistmentTime},">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="emp.EnlistmentTime" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="RetirementTime=#{emp.RetirementTime},">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="emp.RetirementTime" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Update>
+<n1:Update Height="24" Name="UpdateLanguage" SQL="UPDATE employeeapplication &#10; SET  SpeakLevel=#{emp.SpeakLevel},EnglishLevel=#{emp.EnglishLevel},&#10; ComputerLevel=#{emp.ComputerLevel},DriveLevel=#{emp.DriveLevel},OtherSkills=#{emp.OtherSkills}&#10;WHERE Id =#{emp.Id}" Width="160" X="551" Y="237">
+<Parameters>
+<n2:Field Collections="false" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Update Description="添加其他" Height="24" Name="UpdateRests" SQL="UPDATE employeeapplication &#10; SET  IsFamilyDisease=#{emp.IsFamilyDisease},IsChronicDisease=#{emp.IsChronicDisease},&#10; IsCriminalPunishment=#{emp.IsCriminalPunishment},IsAdministrativeSanction=#{emp.IsAdministrativeSanction},&#10; IsMajorDiseases=#{emp.IsMajorDiseases},IsExcessiveDrinking=#{emp.IsExcessiveDrinking},&#10; IsDrug=#{emp.IsDrug},IsOccupationalDiseases=#{emp.IsOccupationalDiseases},&#10; OccupationalDiseases=#{emp.OccupationalDiseases},IsClose=0,Status=#{emp.Status}&#10;WHERE Id =#{emp.Id}" Width="160" X="551" Y="268">
+<Parameters>
+<n2:Field Collections="false" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Description="获取未审批的申请人员" Height="240" MapperEntity="ApplyFor.EmployeeApplication" Name="getUnreviewedEmp" SQL="select * from employeeapplication ell  &#10; where ell.`Status`='0' or ell.`Status`='1' and&#10; ell.Name LIKE '%${name}%' and ell.Education like '%${education}%' and ell.Gender=#{gender}&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="952" Y="33">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="Use_id" Name="Use_id" Type="Integer"/>
+<n1:ResultField MapperField="Account" Name="Account" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Password" Name="Password" Type="String"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Integer"/>
+<n1:ResultField MapperField="Birthday" Name="Birthday" Type="DateTime"/>
+<n1:ResultField MapperField="Position" Name="Position" Type="String"/>
+<n1:ResultField MapperField="Education" Name="Education" Type="String"/>
+<n1:ResultField MapperField="IsMarry" Name="IsMarry" Type="String"/>
+<n1:ResultField MapperField="Mobile" Name="Mobile" Type="String"/>
+<n1:ResultField MapperField="IsParty" Name="IsParty" Type="Boolean"/>
+<n1:ResultField MapperField="EnlistmentTime" Name="EnlistmentTime" Type="DateTime"/>
+<n1:ResultField MapperField="RetirementTime" Name="RetirementTime" Type="DateTime"/>
+<n1:ResultField MapperField="TroopsName" Name="TroopsName" Type="String"/>
+<n1:ResultField MapperField="Height" Name="Height" Type="String"/>
+<n1:ResultField MapperField="Weight" Name="Weight" Type="String"/>
+<n1:ResultField MapperField="PersonalSpecialty" Name="PersonalSpecialty" Type="String"/>
+<n1:ResultField MapperField="CardNo" Name="CardNo" Type="String"/>
+<n1:ResultField MapperField="BankNo" Name="BankNo" Type="String"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="Certificate" Name="Certificate" Type="String"/>
+<n1:ResultField MapperField="Img" Name="Img" Type="String"/>
+<n1:ResultField MapperField="SpeakLevel" Name="SpeakLevel" Type="String"/>
+<n1:ResultField MapperField="EnglishLevel" Name="EnglishLevel" Type="String"/>
+<n1:ResultField MapperField="ComputerLevel" Name="ComputerLevel" Type="String"/>
+<n1:ResultField MapperField="DriveLevel" Name="DriveLevel" Type="String"/>
+<n1:ResultField MapperField="OtherSkills" Name="OtherSkills" Type="String"/>
+<n1:ResultField MapperField="IsFamilyDisease" Name="IsFamilyDisease" Type="Boolean"/>
+<n1:ResultField MapperField="IsChronicDisease" Name="IsChronicDisease" Type="Boolean"/>
+<n1:ResultField MapperField="IsCriminalPunishment" Name="IsCriminalPunishment" Type="Boolean"/>
+<n1:ResultField MapperField="IsAdministrativeSanction" Name="IsAdministrativeSanction" Type="Boolean"/>
+<n1:ResultField MapperField="IsMajorDiseases" Name="IsMajorDiseases" Type="Boolean"/>
+<n1:ResultField MapperField="IsExcessiveDrinking" Name="IsExcessiveDrinking" Type="Boolean"/>
+<n1:ResultField MapperField="IsDrug" Name="IsDrug" Type="Boolean"/>
+<n1:ResultField MapperField="IsOccupationalDiseases" Name="IsOccupationalDiseases" Type="Boolean"/>
+<n1:ResultField MapperField="OccupationalDiseases" Name="OccupationalDiseases" Type="String"/>
+<n1:ResultField MapperField="WorkAddress" Name="WorkAddress" Type="String"/>
+<n1:ResultField MapperField="Department" Name="Department" Type="String"/>
+<n1:ResultField MapperField="EMail" Name="EMail" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="String"/>
+<n1:ResultField MapperField="CardType" Name="CardType" Type="String"/>
+<n1:ResultField MapperField="PeopleType" Name="PeopleType" Type="String"/>
+<n1:ResultField MapperField="IsClose" Name="IsClose" Type="Boolean"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="Peoples" Name="Peoples" Type="String"/>
+<n1:ResultField MapperField="RegistrationDate" Name="RegistrationDate" Type="DateTime"/>
+<n1:ResultField MapperField="DocumentImg" Name="DocumentImg" Type="String"/>
+<n1:ResultField MapperField="img1" Name="img1" Type="String"/>
+<n1:ResultField MapperField="img2" Name="img2" Type="String"/>
+<n1:ResultField MapperField="img3" Name="img3" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="education" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="gender" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and emp.Gender=#{gender}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="gender" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Description="获取未审批总条数" Height="240" MapperEntity="Table" Name="getUnreviewedEmpCount" SQL="select Count(*) Count from employeeapplication ell  &#10; where ell.`Status`='0' or ell.`Status`='1' and&#10; ell.Name LIKE '%${name}%' and ell.Education like '%${education}%' and ell.Gender=#{gender}" SelectType="Singleton" Width="188" X="1128" Y="33">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="education" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="gender" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and emp.Gender=#{gender}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="gender" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Description="获取用户审批条数" Height="240" MapperEntity="Table" Name="getEmployeeCount" SQL="select Count(*) Count from employeeapplication ell  &#10; where ell.`Status`='0' or ell.`Status`='1' and&#10; ell.Name LIKE '%${name}%' and ell.Education like '%${education}%' and ell.Gender=#{gender}" SelectType="Singleton" Width="160" X="231" Y="300">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="education" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="gender" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and ell.Gender=#{gender}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="gender" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Update Description="修改基础信息" Height="24" Name="UpdateEmployee" SQL="UPDATE employeeapplication &#10;SET Name =#{emp.Name}, Password =#{emp.Password}, Gender =#{emp.Gender}, &#10;Birthday =#{emp.Birthday}, CardNo =#{emp.CardNo}, Address =#{emp.Address}, &#10;Status =#{emp.Status} &#10;WHERE ID =#{id}" Width="160" X="549" Y="171">
+<Parameters>
+<n2:Field Collections="false" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Description="查询当前身份证的条数" Height="240" MapperEntity="Table" Name="getCountByCardNo" SQL="select Count(*) Count from EmployeeApplication where CardNo = #{cardNo}" SelectType="Singleton" Width="160" X="938" Y="301">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="cardNo" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Update Height="24" Name="UpdateEmployeeByStatus" SQL="update employeeapplication set Status= 1 where id=#{id}" Width="184" X="29" Y="550">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Description="查询审核通过的员工信息" Height="240" MapperEntity="ApplyFor.EmployeeApplication" Name="getEmployeeT" SQL="select * from employeeapplication ell  &#10; where ell.`Status`='1'  and&#10; ell.Name LIKE '%${name}%' and ell.Education like '%${education}%' and ell.Gender=#{gender}&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="231" Y="560">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="Use_id" Name="Use_id" Type="Integer"/>
+<n1:ResultField MapperField="Account" Name="Account" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Password" Name="Password" Type="String"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Integer"/>
+<n1:ResultField MapperField="Birthday" Name="Birthday" Type="DateTime"/>
+<n1:ResultField MapperField="Position" Name="Position" Type="String"/>
+<n1:ResultField MapperField="Education" Name="Education" Type="String"/>
+<n1:ResultField MapperField="IsMarry" Name="IsMarry" Type="String"/>
+<n1:ResultField MapperField="Mobile" Name="Mobile" Type="String"/>
+<n1:ResultField MapperField="IsParty" Name="IsParty" Type="Boolean"/>
+<n1:ResultField MapperField="EnlistmentTime" Name="EnlistmentTime" Type="DateTime"/>
+<n1:ResultField MapperField="RetirementTime" Name="RetirementTime" Type="DateTime"/>
+<n1:ResultField MapperField="TroopsName" Name="TroopsName" Type="String"/>
+<n1:ResultField MapperField="Height" Name="Height" Type="String"/>
+<n1:ResultField MapperField="Weight" Name="Weight" Type="String"/>
+<n1:ResultField MapperField="PersonalSpecialty" Name="PersonalSpecialty" Type="String"/>
+<n1:ResultField MapperField="CardNo" Name="CardNo" Type="String"/>
+<n1:ResultField MapperField="BankNo" Name="BankNo" Type="String"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="Certificate" Name="Certificate" Type="String"/>
+<n1:ResultField MapperField="Img" Name="Img" Type="String"/>
+<n1:ResultField MapperField="SpeakLevel" Name="SpeakLevel" Type="String"/>
+<n1:ResultField MapperField="EnglishLevel" Name="EnglishLevel" Type="String"/>
+<n1:ResultField MapperField="ComputerLevel" Name="ComputerLevel" Type="String"/>
+<n1:ResultField MapperField="DriveLevel" Name="DriveLevel" Type="String"/>
+<n1:ResultField MapperField="OtherSkills" Name="OtherSkills" Type="String"/>
+<n1:ResultField MapperField="IsFamilyDisease" Name="IsFamilyDisease" Type="Boolean"/>
+<n1:ResultField MapperField="IsChronicDisease" Name="IsChronicDisease" Type="Boolean"/>
+<n1:ResultField MapperField="IsCriminalPunishment" Name="IsCriminalPunishment" Type="Boolean"/>
+<n1:ResultField MapperField="IsAdministrativeSanction" Name="IsAdministrativeSanction" Type="Boolean"/>
+<n1:ResultField MapperField="IsMajorDiseases" Name="IsMajorDiseases" Type="Boolean"/>
+<n1:ResultField MapperField="IsExcessiveDrinking" Name="IsExcessiveDrinking" Type="Boolean"/>
+<n1:ResultField MapperField="IsDrug" Name="IsDrug" Type="Boolean"/>
+<n1:ResultField MapperField="IsOccupationalDiseases" Name="IsOccupationalDiseases" Type="Boolean"/>
+<n1:ResultField MapperField="OccupationalDiseases" Name="OccupationalDiseases" Type="String"/>
+<n1:ResultField MapperField="WorkAddress" Name="WorkAddress" Type="String"/>
+<n1:ResultField MapperField="Department" Name="Department" Type="String"/>
+<n1:ResultField MapperField="EMail" Name="EMail" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="String"/>
+<n1:ResultField MapperField="CardType" Name="CardType" Type="String"/>
+<n1:ResultField MapperField="PeopleType" Name="PeopleType" Type="String"/>
+<n1:ResultField MapperField="IsClose" Name="IsClose" Type="Boolean"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="Peoples" Name="Peoples" Type="String"/>
+<n1:ResultField MapperField="RegistrationDate" Name="RegistrationDate" Type="DateTime"/>
+<n1:ResultField MapperField="DocumentImg" Name="DocumentImg" Type="String"/>
+<n1:ResultField MapperField="img1" Name="img1" Type="String"/>
+<n1:ResultField MapperField="img2" Name="img2" Type="String"/>
+<n1:ResultField MapperField="img3" Name="img3" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="education" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="gender" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and ell.Gender=#{gender}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="gender" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Description="查询审核通过的员工信息" Height="240" MapperEntity="Table" Name="getEmployeeTByCount" SQL="select Count(*) Count from employeeapplication ell  &#10; where ell.`Status`='1'  and&#10; ell.Name LIKE '%${name}%' and ell.Education like '%${education}%' and ell.Gender=#{gender}" SelectType="Singleton" Width="160" X="415" Y="582">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="education" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="gender" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and ell.Gender=#{gender}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="gender" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

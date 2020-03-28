@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="审核中"/>
+<Item Code="1" Name="审核通过"/>
+<Item Code="2" Name="不通过"/>
+</Items>
+</Dictionary>

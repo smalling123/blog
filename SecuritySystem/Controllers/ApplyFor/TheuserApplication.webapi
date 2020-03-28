@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" Description="添加其他填写" Transactional="true" Type="Post" VerifyToken="false">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable3">
+<n2:Field Collections="false" Name="em" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBEmployeeApplication.getEmployeeApplicationById" Description="根据ID获取当前条的流程信息" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess3" Variable="em">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="emp.getId()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Assign Name="Assign1" Value="0" Variable="emp.Status"/>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBEmployeeApplication.UpdateRests" Description="添加其他修改并修改申请流程表中的流程状态" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="emp" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Variable Name="Variable2">
+<n2:Field Collections="false" Name="Process" ObjectName="ApplyFor.ProcessNode" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBProcessNode.getProcessNodeToList" Description="查询到第一个流程节点信息" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2" Variable="Process">
+<Parameters/>
+</n1:DataAccess>
+<n1:Variable Name="Variable5">
+<n2:Field Collections="false" Name="todolist" ObjectName="ApplyFor.ToDoList" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Assign Name="Assign3" Value="Process.getProcessRole()" Variable="todolist.OwnerID"/>
+<n1:Assign Name="Assign4" Value="em.getName()" Variable="todolist.CreatorCn"/>
+<n1:Assign Name="Assign5" Value="em.getName()" Variable="todolist.ApplicantCn"/>
+<n1:Assign Name="Assign9" Value="em.getId()" Variable="todolist.ApplicationNo"/>
+<n1:Assign Name="Assign6" Value="Process.getProcessName()" Variable="todolist.ProcName"/>
+<n1:Assign Name="Assign7" Value="0" Variable="todolist.Status"/>
+<n1:Assign Name="Assign8" Value="Process.getProcessNode()" Variable="todolist.ActivityName"/>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBToDoList.InsertToDoList" Description="添加待办" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess5">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="todolist" Name="toList" ObjectName="ApplyFor.ToDoList" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

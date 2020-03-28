@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+			font-size: small;
+		}
+
+		#table {
+			margin: 0px auto;
+			text-align-last: center;
+		}
+
+		#btn {
+			margin-top: 30px;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div id="filter1">
+		<div class="panel panel-default"  style="width: 94%; margin-left: 3%; margin-top:20px;">
+			<div class="panel-heading" style="padding:2px 2px 2px 8px;">
+				<a data-toggle="collapse" href="#collapseOne" style="font-size:12px;">
+					<span class="glyphicon glyphicon-chevron-down"></span> 筛选条件
+				</a>
+			</div>
+			<div id="collapseOne" class="collapse in">
+				<div class="container panel-body" style="margin-top:6px;">
+					<form rele="form" class="form-horizontal">
+						<div class="form-group">
+							<div class="col-xs-1 col-md-1" style="text-align: right;">
+								<label for="name">开始时间:</label>
+							</div>
+							<div class="col-xs-2 col-md-２">
+								<input type="text" class="layui-input form-control" v-model="Data.startdate" id="startdate" model="datetime" timeFormat="yyyy-MM-dd"  placeholder="yyyy-MM-dd">
+							</div>
+							<div class="col-xs-1 col-md-1" style="text-align: right;">
+								<label for="name">结束时间:</label>
+							</div>
+							<div class="col-xs-2 col-md-２">
+								<input type="text" class="layui-input form-control" v-model="Data.enddate" id="enddate" model="datetime" timeFormat="yyyy-MM-dd"  placeholder="yyyy-MM-dd">
+							</div>
+							<div class="col-xs-1 col-md-1" style="text-align: right;">
+								<label for="name">部门:</label>
+							</div>
+							<div class="col-xs-2 col-md-２">
+								<select id="select_org" class="selectpicker form-control" v-model="Data.org" >
+									<option v-for="item in dictionaryorg" v-bind:value="item.code">{{item.name}}</option>
+								</select>
+							</div>
+							<div class="col-xs-1 col-md-1" style="text-align: right;">
+								<label for="name">驻点:</label>
+							</div>
+							<div class="col-xs-2 col-md-２">
+								<select id="select_site" class="selectpicker form-control" data-live-search="true" v-model="Data.site" >
+									<option value="">--请选择--</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-1 col-md-1" style="text-align: right;">
+							</div>
+							<div class="col-xs-2 col-md-2" style="text-align: left;">
+								<button type="button" class="layui-btn layui-btn-sm layui-btn-radius layui-bg-cyan" onClick="getData()">
+									<span>&emsp;</span><i class="layui-icon layui-icon-search"></i><span class="fontsm">&emsp;查询&emsp;</span>
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div id="app" style="width: 94%; margin-left: 3%; margin-top:20px;">
+		<table id="table1" lay-filter="table1filter"></table>
+		<div id="page1"></div>
+	</div>
+</body>
+</html>
+<script type="text/html" id="add">
+	<div class="layui-btn-group">
+  		<button type="button" class="layui-btn layui-btn-sm" onClick="newItem()">
+    			<i class="layui-icon layui-icon-add-1"></i><span class="fontsm">新增</span>
+  		</button>
+	</div>
+</script>
+	
+<script type="text/html" id="table1action">
+    <div class="layui-btn-group">
+        <button lay-event="edit" type="button" class="layui-btn layui-btn-xs">
+            <i class="layui-icon layui-icon-edit"></i><span class="fontxs">编辑</span>
+        </button>
+        <button lay-event="details" type="button" class="layui-btn layui-btn-xs layui-btn-primary">
+    			<i class="layui-icon layui-icon-tabs"></i><span class="fontxs">详情</span>
+        </button>
+    </div>
+</script>
+<script src="../../wwwroot/js/App.js"></script>
+<script>
+	var loadIndex = 0;
+	var layer;
+	layui.use('layer', function () {
+		layer = layui.layer;
+	});
+	var dictionaryItems = [{code:"", name:""}];
+
+	var vm = new Vue({
+		el: "#filter1",
+		data: {
+			Data:{
+				startdate: null,
+				enddate: null,
+				org: 0,
+				site: 0
+			}
+			,dictionaryorg: dictionaryItems
+
+		},
+		methods: {}
+	})	
+	var pageNumber = 1;
+	var pageSize = 10;
+	var recordCount = 0;
+	var list = [];
+
+	layui.use('laydate', function () {
+		var laydate = layui.laydate;
+		laydate.render({
+			elem: '#startdate',
+			done: function (value) {
+				vm.Data.startdate = value;
+			}
+		});
+		laydate.render({
+			elem: '#enddate',
+			done: function (value) {
+				vm.Data.enddate = value;
+			}
+		});
+	});
+	setTimeout(function() {
+		SelectFrom("#select_site", function(filter) {
+			getDictionarysite(filter);
+		})
+	}, 1000);
+
+
+	bindData();
+
+	$(function(){
+		getDictionaryorg();
+		getData();
+		onTrigger(function(key){ if(key=="EquipmentOrder"){ getData(); } });
+	});
+
+	function getDictionaryorg(filter){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "Org",
+				filter: filter			},
+			success: function(result) {
+				vm.dictionaryorg = result;
+				var parent = $("#select_org");
+				parent.empty();
+				parent.append("<option value=''>所有</option>");
+				for(var i=0; i<result.length;i++){
+					parent.append("<option value='"+result[i].code+"'>"+result[i].name+"</option>");
+				}
+				parent.selectpicker('refresh');			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	function getDictionarysite(filter){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "Site",
+				filter: filter			},
+			success: function(result) {
+				vm.dictionarysite = result;
+				var parent = $("#select_site");
+				parent.empty();
+				parent.append("<option value=''>所有</option>");
+				for(var i=0; i<result.length;i++){
+					parent.append("<option value='"+result[i].code+"'>"+result[i].name+"</option>");
+				}
+				parent.selectpicker('refresh');			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+
+	
+	function getData(){
+		layui.use('layer', function () {
+			layer = layui.layer;
+			loadIndex = layer.load(0, {shade: false});
+		});
+		PostAppAjax({
+			url: '/Logistics/EquipmentOrder/getAllEquipmentOrder',
+			data: {
+				startdate: vm.Data.startdate,
+				enddate: vm.Data.enddate,
+				org: vm.Data.org,
+				site: vm.Data.site,
+				pageNumber: pageNumber,
+				pageSize: pageSize
+			},
+			success: function(result) {
+				layui.use('layer', function () {
+					layer = layui.layer;
+					layer.close(loadIndex);
+				});
+				if(result.code==0){
+					list = result.data;
+					recordCount = result.recordCount;
+					bindData();
+				}else{
+					alert("无法获取数据!\n"+result.msg);
+				}
+			},
+			error: function(err) {
+				layui.use('layer', function () {
+					layer = layui.layer;
+					layer.close(loadIndex);
+				});
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	function bindData(){
+		layui.use(['table', 'laypage'], function(){
+			var table = layui.table;
+			table.render({
+				elem: '#table1',
+				toolbar:'#add',
+				data: list,
+				limit: 999999,
+				even: true,
+				cols: [[
+					{field:'date', title:'申请日期', align:'left', width:'200', templet:"<div>{{!d.date?'':layui.util.toDateString(d.date, 'yyyy-MM-dd')}}</div>"},
+					{field:'bank', title:'开户行名称', align:'left', width:'200'},
+					{field:'bankAccount', title:'银行账号', align:'left', width:'200'},
+					{field:'supplier', title:'供应商', align:'left', width:'200'},
+					{field:'describes', title:'采购事由', align:'left', width:'200'},
+					{field:'userId_Convert', title:'申请人', align:'left', width:'200'},
+					{field:'orgId_Convert', title:'申请部门', align:'left', width:'200'},
+					{field:'siteId_Convert', title:'驻点', align:'left', width:'200'},
+					{field:'createUser', title:'创建用户', align:'left', width:'200'},
+					{field:'createTime', title:'创建时间', align:'left', width:'200'},
+					{field:'modifyUser', title:'修改用户', align:'left', width:'200'},
+					{field:'modifyTime', title:'修改时间', align:'left', width:'200'},
+					{field:'deleteUser', title:'删除用户', align:'left', width:'200'},
+					{field:'deleteTime', title:'删除时间', align:'left', width:'200'},
+					{field:'file1', title:'附件一', align:'left', width:'200'},
+					{title: '操作', toolbar: '#table1action', align:'left', fixed:'right', width:'100'}
+				]]
+			});
+
+			var laypage = layui.laypage;
+			laypage.render({
+				elem: 'page1',
+				count: recordCount, //数据总数，从服务端得到
+				limit: pageSize,
+				//自定义排版。可选值有：count（总条目输区域）、prev（上一页区域）、page（分页区域）、next（下一页区域）、limit（条目选项区域）、refresh（页面刷新区域。注意：layui 2.3.0 新增） 、skip（快捷跳页区域）
+				layout: ['prev', 'page', 'next', 'count', 'limit', 'refresh', 'skip'],
+				curr: pageNumber,
+				jump: function (obj, first) {
+					//首次不执行
+					if (!first) {
+						pageNumber = obj.curr;
+						pageSize = obj.limit;
+						getData();
+					}
+				}
+			});
+		});
+	}
+	
+	function newItem(){
+		openAppWindow({
+			url: "/Views/Logistics/EquipmentOrder.html",
+			title: "新增", 
+			area: ['880px', '560px'], 
+			maxmin: true, 
+			success: function (layero, index) {
+				var body = parent.layer.getChildFrame('body', index);
+				var iframe = parent.window[layero.find('iframe')[0]['name']];
+				iframe.getData(0);
+			}
+		});
+	}
+
+
+	layui.use('table', function(){
+		var table = layui.table;
+		//监听工具条
+		table.on('tool(table1filter)', 
+			function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+				var data = obj.data; //获得当前行数据
+                var id = data['equipmentOrderId'];  //获取属性id的值
+                if (obj.event == "details"){
+					openAppWindow({
+						url: "/Views/Logistics/EquipmentOrderItemView.html",
+						title: "详情", 
+						area: ['880px', '560px'], 
+						maxmin: true, 
+						success: function (layero, index) {
+							var body = parent.layer.getChildFrame('body', index);
+							var iframe = parent.window[layero.find('iframe')[0]['name']];
+							iframe.getData(id);
+						}
+					});
+                } else if (obj.event == "edit") {
+                    openAppWindow({
+                        url: "/Views/Logistics/EquipmentOrder.html",
+                        title: "编辑",
+                        area: ['880px', '560px'],
+                        maxmin: true,
+                        success: function (layero, index) {
+                            var body = parent.layer.getChildFrame('body', index);
+                            var iframe = parent.window[layero.find('iframe')[0]['name']];
+                            iframe.getData(id);
+                        }
+                    });
+                }
+			}
+		);
+	});
+
+</script>

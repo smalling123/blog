@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-validator/css/bootstrap-validator.min.css" rel=stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-validator/js/bootstrap-validator.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+			font-size: 12px;
+		}
+		.content {
+			color: #0000ff;
+		}
+		.input {
+			height: 28px;
+			padding: 6px 6px 6px 6px;
+		}
+	</style>
+</head>
+<body style="background-color: #F2F2F2;">
+	<div class="container" id="app"  style="width: 94%; margin-left: 3%; margin-top:20px;">
+		<form id="form1" rele="form" class="form-horizontal">
+			<div class="form-group">
+				<div class="col-xs-1 col-md-1  text-right">
+					<label for="name">驻点简称:</label>
+				</div>
+				<div class="col-xs-10 col-md-10">
+					<label for="content" class="content">{{Data.name}}</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-1 col-md-1 text-right">
+					<label for="district">所在地区:</label>
+				</div>
+				<div class="col-xs-2 col-md-2">
+					<label for="content" class="content">{{Data.district_Convert}}</label>
+				</div>
+				<div class="col-xs-1 col-md-1  text-right">
+					<label for="address">地址:</label>
+				</div>
+				<div class="col-xs-6 col-md-6">
+					<label for="content" class="content">{{Data.address}}</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-1 col-md-1  text-right">
+					<label for="orgID">所属部门:</label>
+				</div>
+				<div class="col-xs-2 col-md-2">
+					<label for="content" class="content">{{Data.orgID_Convert}}</label>
+				</div>
+				<div class="col-xs-1 col-md-1  text-right">
+					<label for="manager">区域经理:</label>
+				</div>
+				<div class="col-xs-2 col-md-2">
+					<label for="content" class="content">{{Data.manager_Convert}}</label>
+				</div>
+				<div class="col-xs-1 col-md-1  text-right">
+					<label for="leader">队长:</label>
+				</div>
+				<div class="col-xs-2 col-md-2">
+					<label for="content" class="content">{{Data.leader_Convert}}</label>
+				</div>
+			</div>
+		</form>
+		<div class="layui-tab layui-tab-brief" lay-filter="sitetab">
+			<ul class="layui-tab-title">
+				<li class="layui-this">执勤配置表</li>
+				<li>驻点负责人</li>
+				<li>驻点队员</li>
+				<li>驻点地图</li>
+			</ul>
+			<div class="layui-tab-content">
+				<div class="layui-tab-item layui-show">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-1 col-md-1 text-right">
+								<label for="leader">历史记录：</label>
+							</div>
+							<div class="col-xs-2 col-md-2">
+								<select id="select_sitepost" >
+								</select>
+							</div>
+							<div class="col-xs-2 col-md-2">
+								<button type="button" class="layui-btn layui-btn-xs layui-btn-primary" onClick="SitePost()">
+									<span class="fontsm">&emsp;修改&emsp;</span>
+								</button>
+							</div>
+						</div>
+						<div class="row" >
+							<div class="col-xs-12 col-md-12" >
+								<table id="table1" ></table>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="layui-tab-item">
+					<div class="layui-container">
+						<div class="layui-row">
+							<div class="layui-col-md1 layui-col-xs1">姓名</div>
+							<div class="layui-col-md2 layui-col-xs2 content">{{Leader.name}}</div>
+							<div class="layui-col-md1 layui-col-xs1">性别</div>
+							<div class="layui-col-md2 layui-col-xs2 content">{{Leader.gender_Convert}}</div>
+							<div class="layui-col-md1 layui-col-xs1">出生日期</div>
+							<div class="layui-col-md2 layui-col-xs2 content">{{new Date(Leader.birthday).format('yyyy-MM-dd')}}</div>
+							<div class="layui-col-md1 layui-col-xs1">籍贯</div>
+							<div class="layui-col-md2 layui-col-xs2 content">{{Leader.native_Convert}}</div>
+						</div>
+						<div class="layui-row">
+							<div class="layui-col-md1 layui-col-xs1">.</div>
+						</div>
+						<div class="layui-row">
+							<div class="layui-col-md1 layui-col-xs1">身份证号</div>
+							<div class="layui-col-md2 layui-col-xs2 content">{{Leader.cardCode}}</div>
+							<div class="layui-col-md1 layui-col-xs1">住址</div>
+							<div class="layui-col-md2 layui-col-xs2 content">{{Leader.homeAddress}}</div>
+							<div class="layui-col-md1 layui-col-xs1">电话</div>
+							<div class="layui-col-md2 layui-col-xs2 content">{{Leader.phone}}</div>
+							<div class="layui-col-md1 layui-col-xs1"></div>
+							<div class="layui-col-md2 layui-col-xs2 content"></div>
+						</div>
+						<div class="layui-row">
+							<div class="layui-col-md1 layui-col-xs1">.</div>
+						</div>
+						<div class="layui-row">
+							<button type="button" class="layui-btn layui-btn-xs layui-btn-primary" onClick="selectLeader()">
+								<span class="fontsm">&emsp;更换驻点负责人&emsp;</span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="layui-tab-item">
+					<div class="col-xs-12 col-md-12" >
+						<table id="table2" ></table>
+					</div>
+				</div>
+				<div class="layui-tab-item">
+					<div></div>
+				</div>
+			</div>
+		</div> 
+	</div>
+</body>
+</html>
+<script src="../../wwwroot/js/App.js"></script>
+<script>
+	layui.use('element', function(){
+  		var element = layui.element;
+	});
+</script>
+<script>
+	var openIndex = 0;
+	var loadIndex = 0;
+	var layer;
+	layui.use('layer', function () {
+		layer = layui.layer;
+	});
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			Data:{
+				id: 0,
+				name: "",
+				customerID: 0,
+				leader: 0,
+				orgID: 0,
+				manager: 0,
+				district: 0,
+				address: "",
+				describes: "",
+				type: 0,
+				status: 0,
+				inDate: "2019/11/04 00:00:00",
+				outDate: "2019/11/04 00:00:00",
+				kq: 0,
+				isdelete: false,
+				createUser: "",
+				createTime: "",
+				modifyUser: "",
+				modifyTime: "",
+				deleteUser: "",
+				deleteTime: "",
+				leaderName: "",
+				leaderPhone: "",
+				lng: 0,
+				lat: 0
+			},
+			Leader:{
+				name: "",
+				gender: "",
+				cardcode: "",
+				native: "",
+				age1: 0,
+				age2: 0,
+				weight: 0,
+				height: 0,
+				status: "",
+				education: "",
+				indate1: "",
+				indate2: "",
+				outdate1: "",
+				outdate2: "",
+				bankcard: "",
+				politicaltrial: ""		},
+			Items:[],
+			SitePersonnel:[]
+		},
+		methods: {
+		},
+		watch: {
+			
+		}
+	});
+	//执勤配置表历史记录选中时触发
+	$("#select_sitepost").change(function(){
+		var id=($(this).val());
+		getSitePostItem(id);
+	});	
+	$(function(){
+		bindSitePostItem();
+		bindSitePersonnel();
+		var id = getUrlParameter("id");
+		getData(id);
+		getSitePost(id);
+		getSitePersonnel(id);
+		onTrigger(function(key){ if(key=="SitePost"){ getSitePost(vm.Data.id); } });
+	});
+	//获取驻点信息
+	function getData(id){
+		if(id>0){
+			PostAppAjax({
+				url: '/Base/Site/getSiteById',
+				data: {
+					id: id
+				},
+				success: function(result) {
+					if(result.code==0){
+						vm.Data = result.data;
+						getLeader(result.data.leader);
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function(err) {
+					alert("服务器忙，请重试!\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+	//获取驻点负责人信息
+	function getLeader(id){
+		if(id>0){
+			PostAppAjax({
+				url: '/Base/Personnel/getPersonnelById',
+				data: {
+					id: id
+				},
+				success: function(result) {
+					if(result.code==0){
+						vm.Leader = result.data;
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function(err) {
+					alert("服务器忙，请重试!\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+	//获取驻点人员信息
+	function getSitePersonnel(id){
+		if(id>0){
+			PostAppAjax({
+				url: '/Base/Site/getPersonnelBySite',
+				data: {
+					siteid: id,
+					begdate: new Date().format("yyyy/MM/dd 00:00:00"),
+					enddate: new Date().format("yyyy/MM/dd 00:00:00")
+				},
+				success: function(result) {
+					if(result.code==0){
+						vm.SitePersonnel = result.data;
+						bindSitePersonnel();
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function(err) {
+					alert("服务器忙，请重试!\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+	function bindSitePersonnel(){
+		layui.use(['table'], function(){
+			var table = layui.table;
+			table.render({
+				elem: '#table2',
+				data: vm.SitePersonnel,
+				limit: vm.SitePersonnel.length, //显示行数
+				even: true,
+				size: 'sm',
+				cols: [[ //表头
+					{title:'序号', type:'numbers', align:'left', width:'50', fixed: 'left'},
+					{field:'name', title:'姓名', align:'left', width:'100', fixed: 'left'},
+					{field:'job_Convert', title:'职务', align:'left', width:'60', fixed: 'left'},
+					{field:'level_Convert', title:'等级', align:'left', width:'60', fixed: 'left'},
+					{field:'isMain', title:'是否主岗', align:'left', width:'80', templet:"<div>{{d.isMain?'是':'否'}}</div>"},
+					{field:'beginDate', title:'调入日期', align:'left', width:'100', templet:"<div>{{!d.beginDate?'':layui.util.toDateString(d.beginDate, 'yyyy-MM-dd')}}</div>"},
+					{field:'endDate', title:'调出日期', align:'left', width:'100', templet:"<div>{{!d.endDate?'':layui.util.toDateString(d.endDate, 'yyyy-MM-dd')}}</div>"},
+					{field:'postSubsidy', title:'津贴', align:'left', width:'80'},
+					{type:'space', title:'', width:'auto'},
+				]]
+			});
+		});
+	}	
+	//获取执勤配置历史记录
+	function getSitePost(id){
+		if(id>0){
+			PostAppAjax({
+				url: '/Base/SitePost/getSitePost',
+				data: {
+					siteid: id
+				},
+				success: function(result) {
+					if(result.code==0){
+						var ss = $("#select_sitepost");
+						ss.empty();
+						for(var i=0; i<result.data.length;i++){
+							var bdat = new Date(result.data[i].beginDate);
+							var edat = new Date(result.data[i].endDate);
+							if(i==0){
+								ss.append("<option value='"+result.data[i].id+"'>"+bdat.format("yyyy-MM-dd")+"</option>");
+								getSitePostItem(result.data[i].id);
+							}else{
+								ss.append("<option value='"+result.data[i].id+"'>"+bdat.format("yyyy-MM-dd")+" -- "+edat.format("yyyy-MM-dd")+"</option>");
+							}
+						}
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function(err) {
+					alert("服务器忙，请重试!\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+
+	//获取执勤配置表明细
+	function getSitePostItem(id){
+		if(id>0){
+			PostAppAjax({
+				url: '/Base/SitePost/getSitePostItems',
+				data: {
+					id: id
+				},
+				success: function(result) {
+					if(result.code==0){
+						vm.Items = result.data;
+						bindSitePostItem();
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function(err) {
+					alert("服务器忙，请重试!\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+	function bindSitePostItem(){
+		layui.use(['table'], function(){
+			var table = layui.table;
+			table.render({
+				elem: '#table1',
+				data: vm.Items,
+				even: true,
+				size: 'sm',
+				totalRow: true,
+				cols: [[ //表头
+					{field:'post', title:'岗位', align:'left', width:'120', fixed: 'left', totalRowText: '合计'},
+					{field:'schedule_Convert', title:'班次', align:'left', width:'60', fixed: 'left'},
+					{field:'beginTime', title:'执勤时间', align:'left', width:'100', templet:"<div>{{d.beginTime_Convert}}--{{d.endTime_Convert}}</div>"},
+					{field:'posNumber', title:'在岗人数', align:'left', width:'80', totalRow: true},
+					{field:'type_Convert', title:'类型', align:'left', width:'80'},
+					{title:'执勤日', align:'left', width:'180', templet:"<div>{{(d.day1==0)?'':'一'}}&nbsp;{{(d.day2==0)?'':'二'}}&nbsp;{{(d.day3==0)?'':'三'}}&nbsp;{{(d.day4==0)?'':'四'}}&nbsp;{{(d.day5==0)?'':'五'}}&nbsp;{{(d.day6==0)?'':'六'}}&nbsp;{{(d.day7==0)?'':'日'}}&nbsp;{{(d.dayH==0)?'':'节假日'}}</div>"},
+					{field:'contractNumber', title:'合同人数', align:'left', width:'80', totalRow: true},
+					{field:'workNumber', title:'编制人数', align:'left', width:'80', totalRow: true, templet:"<div>{{(d.workNumber==0)?'':d.workNumber}}</div>"},
+					{field:'beginDate', title:'开始日期', align:'left', width:'95', templet:"<div>{{!d.beginDate?'':layui.util.toDateString(d.beginDate, 'yyyy-MM-dd')}}</div>"},
+					{field:'endDate', title:'结束日期', align:'left', width:'95', templet:"<div>{{!d.endDate?'':layui.util.toDateString(d.endDate, 'yyyy-MM-dd')}}</div>"},
+					{field:'describes', title:'备注', align:'left', width:'160'},
+					{field:'calcTime', title:'核算工时', align:'left', width:'80'}
+				]]
+			});
+		});
+	}
+
+	function SitePost(){
+		openAppWindow({
+			url: "/Views/Base/SitePost.html",
+			title: "执勤配置表", 
+			area: ['1360px', '660px'], 
+			maxmin: true, 
+			success: function (layero, index) {
+				var body = parent.layer.getChildFrame('body', index);
+				var iframe = parent.window[layero.find('iframe')[0]['name']];
+				iframe.getData(vm.Data.id);
+			}
+		});
+	}
+
+	//选择人员更换队长
+	function selectLeader(){
+		var now = new Date();
+		var date = now.format("yyyy/MM/dd 00:00:00");
+		loadIndex = layer.load(0, {shade: false});
+		PostAppAjax({
+			url: '/Base/Site/getPersonnelBySite',
+			data: {
+				siteid: parseInt(vm.Data.id),
+				begdate: date,
+				enddate: date
+			},
+			success: function(result) {
+				layer.close(loadIndex);
+				if(result.code==0){
+					openSelectLeader(result.data);
+				}else{
+					alert("无法获取数据!\n"+result.msg);
+				}
+			},
+			error: function(err) {
+				layer.close(loadIndex);
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	//打开人员选择弹出层
+	function openSelectLeader(list){
+		openIndex = layer.open({
+			type:1,
+			id:"selectLeader",
+			title:"请选择",
+			area:['200px','360px'],
+			content: getListHtml(list)
+		}); 
+	}
+	
+	function getListHtml(list){
+		var html = "<div><div style='width: 80%; margin-left: 20%; margin-top:10px; margin-bottom:16px;'>";
+		for(var index=0; index<list.length; index++){
+			html = html + "<div onclick='saveLeaer("+list[index].pid+",\""+list[index].name+"\");'><span style='cursor:pointer;'>" + list[index].name + "</span></div>";
+		}
+		html = html+"</div></div>";
+		return html;
+	}
+
+
+	function saveLeaer(pid, name){
+		layer.close(openIndex);
+		loadIndex = layer.load(0, {shade: false});
+		PostAppAjax({
+			url: '/SiteManage/updateLeader',
+			data: {
+				siteid: parseInt(vm.Data.id),
+				pid: pid
+			},
+			success: function(result) {
+				layer.close(loadIndex);
+				if(result.code==0){
+					getData(vm.Data.id);
+				}else{
+					alert("无法获取数据!\n"+result.msg);
+				}
+			},
+			error: function(err) {
+				layer.close(loadIndex);
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	
+</script>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><Configuration>
+<Port>8686</Port>
+<PackageName>org.polariscode</PackageName>
+<jwtSecret>SecuritySystem</jwtSecret>
+<jwtHeader>token</jwtHeader>
+<jwtExpire>3600</jwtExpire>
+<SSL>false</SSL>
+<SslFile>3247113_www.polariscode.org.pfx</SslFile>
+<SslPassword/>
+</Configuration>

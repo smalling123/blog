@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="工作经历表">
+<View>
+<Controls>
+<n1:Select Description="获取工作经历表" Height="240" MapperEntity="ApplyFor.WorkExperience" Name="getAllWorkExperience" SQL="select * from WorkExperience&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="77" Y="76">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="Eid" Name="Eid" Type="Integer"/>
+<n1:ResultField MapperField="Company" Name="Company" Type="String"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+<n1:ResultField MapperField="BeiginDate" Name="BeiginDate" Type="String"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="String"/>
+<n1:ResultField MapperField="Position" Name="Position" Type="String"/>
+<n1:ResultField MapperField="salary" Name="salary" Type="Decimal"/>
+<n1:ResultField MapperField="Witness" Name="Witness" Type="String"/>
+<n1:ResultField MapperField="WitnessPhone" Name="WitnessPhone" Type="String"/>
+<n1:ResultField MapperField="LeavingReasons" Name="LeavingReasons" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获取所有工作经历条数" Height="240" MapperEntity="Table" Name="getWorkCount" SQL="select Count(*) Count from  WorkExperience" SelectType="Singleton" Width="160" X="275" Y="75">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Select Description="根据Id获取工作经历" Height="240" MapperEntity="ApplyFor.WorkExperience" Name="getWorkById" SQL="select * from WorkExperience &#10;where Id=#{id}" SelectType="Singleton" Width="160" X="465" Y="74">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="Eid" Name="Eid" Type="Integer"/>
+<n1:ResultField MapperField="Company" Name="Company" Type="String"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+<n1:ResultField MapperField="BeiginDate" Name="BeiginDate" Type="String"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="String"/>
+<n1:ResultField MapperField="Position" Name="Position" Type="String"/>
+<n1:ResultField MapperField="salary" Name="salary" Type="Decimal"/>
+<n1:ResultField MapperField="Witness" Name="Witness" Type="String"/>
+<n1:ResultField MapperField="WitnessPhone" Name="WitnessPhone" Type="String"/>
+<n1:ResultField MapperField="LeavingReasons" Name="LeavingReasons" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="根据员工编号获取工作经历" Height="240" MapperEntity="ApplyFor.WorkExperience" Name="getWorkByEid" SQL="select * from WorkExperience &#10;where Eid=#{eid}" SelectType="Collections" Width="160" X="666" Y="78">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="Eid" Name="Eid" Type="Integer"/>
+<n1:ResultField MapperField="Company" Name="Company" Type="String"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+<n1:ResultField MapperField="BeiginDate" Name="BeiginDate" Type="String"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="String"/>
+<n1:ResultField MapperField="Position" Name="Position" Type="String"/>
+<n1:ResultField MapperField="salary" Name="salary" Type="Decimal"/>
+<n1:ResultField MapperField="Witness" Name="Witness" Type="String"/>
+<n1:ResultField MapperField="WitnessPhone" Name="WitnessPhone" Type="String"/>
+<n1:ResultField MapperField="LeavingReasons" Name="LeavingReasons" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="eid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="InsertWorkExperience" SQL="INSERT INTO workexperience&#10;(Eid, Company, Phone, &#10;BeiginDate, EndDate, Position, &#10;salary, Witness, WitnessPhone, &#10;LeavingReasons) &#10;VALUES (#{work.Eid}, #{work.Company}, #{work.Phone}, &#10;#{work.BeiginDate}, #{work.EndDate}, #{work.Position}, &#10;#{work.salary}, #{work.Witness}, #{work.WitnessPhone},&#10;#{work.LeavingReasons})" Width="160" X="155" Y="359">
+<Parameters>
+<n2:Field Collections="false" Name="work" ObjectName="ApplyFor.WorkExperience" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="UpdateWorkExperience" SQL="UPDATE workexperience &#10;SET  Company = #{work.Company}, Phone = #{work.Phone}, &#10;BeiginDate = #{work.BeiginDate}, EndDate = #{work.EndDate}, Position = #{work.Position}, &#10;salary = #{work.salary}, Witness = #{work.Witness}, WitnessPhone = #{work.WitnessPhone}, &#10;LeavingReasons = #{work.LeavingReasons}&#10;WHERE Id = #{work.Id}" Width="176" X="153" Y="399">
+<Parameters>
+<n2:Field Collections="false" Name="work" ObjectName="ApplyFor.WorkExperience" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Delete Height="24" Name="DeleteWorkExperience" SQL="delete from WorkExperience&#10;where Id=#{id}" Width="176" X="151" Y="442">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+<n1:Select Description="根据Eid查询工作经历信息" Height="240" MapperEntity="Table" Name="getCountByEid" SQL="select Count(*) Count from WorkExperience &#10;where Eid=#{eid}" SelectType="Singleton" Width="160" X="852" Y="80">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="eid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

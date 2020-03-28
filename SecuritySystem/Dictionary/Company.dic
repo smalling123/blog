@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Dynamic">
+<SQL>Select ID as Code, Name 
+From Company
+Order By ID</SQL>
+<ConvertSQL>Select Name 
+From Company
+Where ID = #{code}</ConvertSQL>
+<Items/>
+</Dictionary>

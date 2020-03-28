@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" Description="添加基础信息" Transactional="true" Type="Post" VerifyToken="false">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable2">
+<n2:Field Collections="false" Name="Count1" ObjectName="Table" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable3">
+<n2:Field Collections="false" Name="Count2" ObjectName="Table" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBEmployeeApplication.getByAccount" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1" Variable="Count1">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="emp.getAccount()" Name="account" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Permission.UserMapper.getCountByLoginName" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2" Variable="Count2">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="emp.getAccount()" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Decide Expression="Count1.getCount()==0 &amp; Count2.getCount()==0" Name="Decide1">
+<if>
+<n1:DataAccess ContinueOnError="false" Dao="ApplyFor.DBEmployeeApplication.UpdateTowEmployee" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess3">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="emp" Name="emp" ObjectName="ApplyFor.EmployeeApplication" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+</if>
+<else>
+<n1:Assign Name="Assign1" Value="99" Variable="result.Code"/>
+<n1:Assign Name="Assign2" Value="&quot;系统提示：账号已存在！&quot;" Variable="result.Msg"/>
+</else>
+</n1:Decide>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

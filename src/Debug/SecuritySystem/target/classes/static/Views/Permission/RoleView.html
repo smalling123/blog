@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+
+		#table {
+			margin: 0px auto;
+			text-align-last: center;
+		}
+
+		#btn {
+			margin-top: 30px;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div id="filter1">
+	</div>
+	<div id="app" style="width: 94%; margin-left: 3%; margin-top:50px;">
+		<table id="table1" lay-filter="table1filter"></table>
+		<div id="page1"></div>
+	</div>
+</body>
+</html>
+<script type="text/html" id="add">
+	<div class="layui-btn-group">
+  		<button type="button" class="layui-btn layui-btn-sm"  onClick="newItem()">
+    			<i class="layui-icon layui-icon-add-1"></i><span class="fontsm">新增</span>
+  		</button>
+	</div>
+</script>
+	
+<script type="text/html" id="table1action">
+	<div class="layui-btn-group">
+  		<button lay-event="edit" type="button" class="layui-btn layui-btn-xs">
+    			<i class="layui-icon layui-icon-edit"></i><span class="fontxs">编辑</span>
+  		</button>
+	</div>
+</script>
+<script src="../../wwwroot/js/App.js"></script>
+<script>
+	var vm = new Vue({
+		el: "#filter1",
+		data: {
+		},
+		methods: {}
+	})
+	var pageNumber = 1;
+	var pageSize = 10;
+	var recordCount = 0;
+	var list = [];
+
+	bindData();
+
+	$(function(){
+		getData();
+		onTrigger(function(key){ if(key=="Role"){ getData(); } });
+	});
+	
+	function getData(){
+		PostAppAjax({
+			url: '/Permission/Role/getAllRoles',
+			data: {
+				pageNumber: pageNumber,
+				pageSize: pageSize
+			},
+			success: function(result) {
+				list = result.data;
+				recordCount = result.recordCount;
+				bindData();
+			},
+			error: function() {
+				alert("服务器忙，请重试!");
+			}
+		});
+	}
+
+	function bindData(){
+		layui.use(['table', 'laypage'], function(){
+			var table = layui.table;
+			table.render({
+				elem: '#table1',
+				toolbar:'#add',
+				data: list, //数据接口
+				even: true, //隔行显示
+				cols: [[ //表头
+					{field:'name', title:'名称', align:'left', width:'200'},
+					{field:'describes', title:'描述', align:'left', width:'400'},
+					{field:'isdelete', title:'是否停用', align:'left', width:'120'},
+					{title: '操作', toolbar: '#table1action', align:'left', fixed:'right', width:'100'}
+				]]
+			});
+
+			var laypage = layui.laypage;
+			laypage.render({
+				elem: 'page1',
+				count: recordCount, //数据总数，从服务端得到
+				limit: pageSize,
+				//自定义排版。可选值有：count（总条目输区域）、prev（上一页区域）、page（分页区域）、next（下一页区域）、limit（条目选项区域）、refresh（页面刷新区域。注意：layui 2.3.0 新增） 、skip（快捷跳页区域）
+				layout: ['prev', 'page', 'next', 'count', 'refresh', 'skip'],
+				curr: pageNumber,
+				jump: function (obj, first) {
+					//首次不执行
+					if (!first) {
+						pageNumber = obj.curr;
+						getData();
+					}
+				}
+			});
+		});
+	}
+	
+	function newItem(){
+		openAppWindow({
+			url: "/Views/Permission/Role.html",
+			title: "新增", 
+			area: ['700px', '500px'], 
+			maxmin: true, 
+			success: function (layero, index) {
+				var body = parent.layer.getChildFrame('body', index);
+				var iframe = parent.window[layero.find('iframe')[0]['name']];
+				iframe.getData(0);
+			}
+		});
+	}
+
+	layui.use('table', function(){
+		var table = layui.table;
+		//监听工具条
+		table.on('tool(table1filter)', 
+			function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+				var data = obj.data; //获得当前行数据
+				var id=data['id'];  //获取属性id的值
+				if(obj.event == "edit"){
+					openAppWindow({
+						url: "/Views/Permission/Role.html",
+						title: "编辑", 
+						area: ['700px', '500px'], 
+						maxmin: true, 
+						success: function (layero, index) {
+							var body = parent.layer.getChildFrame('body', index);
+							var iframe = parent.window[layero.find('iframe')[0]['name']];
+							iframe.getData(id);
+						}
+					});
+				}
+			}
+		);
+	});
+
+</script>

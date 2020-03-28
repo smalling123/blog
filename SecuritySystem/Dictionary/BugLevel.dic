@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="一般"/>
+<Item Code="1" Name="紧急"/>
+<Item Code="2" Name="立即处理"/>
+<Item Code="3" Name="可延迟处理"/>
+</Items>
+</Dictionary>

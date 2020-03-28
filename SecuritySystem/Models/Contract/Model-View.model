@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?><Model xmlns:n1="org.polariscode.plugin.web.springboot.model" Description="">
+<View>
+<Controls>
+<n1:Entity Height="240" Name="SiteContract" Width="160" X="214" Y="21">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="SiteId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="ContractId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="Contract" Width="160" X="13" Y="27">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="合同编号" Name="ContractCode" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="客户" Dictionary="Customer" Name="CustomerId" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="我方公司" Dictionary="Company" Name="CompanyId" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="所属部门" Dictionary="SiteOrg" Name="OrgId" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="开始日期" Name="BeginDate" ObjectName="DateTime" Required="true" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="结束日期" Name="EndDate" ObjectName="DateTime" Required="true" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="进场日期" Name="InDate" ObjectName="DateTime" Required="true" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="合同人数" Name="PNumber" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="合同单价" Name="AvgAmount" ObjectName="Decimal" Required="true" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="总金额" Name="TotalAmount" ObjectName="Decimal" Required="true" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="每月金额" Name="MonthlyAmount" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="建议工资" Name="Wages" ObjectName="Decimal" Required="true" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="甲方经办人" Name="AAgent" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="甲方签约人" Name="ASubscriber" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="甲方签约时间" Name="ASigningTtime" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="乙方经办人" Name="BAgent" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="乙方签约人" Name="BSubscriber" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="乙方签约时间" Name="BSigningTtime" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="特殊需求" Dictionary="_TextArea" Name="SpecialNeed" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="餐饮需求" Dictionary="LogisticsEat" Name="LogisticsEat" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="住宿需求" Dictionary="LogisticsHome" Name="LogisticsHome" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="后勤其它需求" Dictionary="_TextArea" Name="LogisticsNeed" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="督导需求" Dictionary="_TextArea" Name="SuperviseNeed" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="培训需求" Dictionary="_TextArea" Name="TrainNeed" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="状态" Dictionary="WorkflowItemStatus" Name="Status" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="类型" Dictionary="ContactType" Name="Type" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="是否删除" Name="Isdelete" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="创建用户" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="创建时间" Name="CreateTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="修改用户" Name="ModifyUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="修改时间" Name="ModifyTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="删除用户" Name="DeleteUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="删除时间" Name="DeleteTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="工资类型" Dictionary="WagesType" Name="wagesType" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="开票单位" Dictionary="Company" Name="InvoiceCompany" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="发票抬头" Name="InvoiceTitle" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="税号" Name="InvoiceTax" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="ContractInvoice" Width="160" X="396" Y="23">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="合同ID" Name="ContractId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="开始日期" Name="BeginDate" ObjectName="DateTime" Required="true" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="结束日期" Name="EndDate" ObjectName="DateTime" Required="true" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="开票内容" Name="Content" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="开票人数" Name="PNumber" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="单价" Name="Price" ObjectName="Decimal" Required="true" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="每月金额" Name="Amount" ObjectName="Decimal" Required="true" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="合同总金额" Name="TotalAmount" ObjectName="Decimal" Required="true" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="开票类型" Dictionary="ContractInvoiceType" Name="Type" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="开票日" Name="Day" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="是否删除" Name="Isdelete" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Description="创建用户" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="创建时间" Name="CreateTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="修改用户" Name="ModifyUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="修改时间" Name="ModifyTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="删除用户" Name="DeleteUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="删除时间" Name="DeleteTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="开票周期" Name="Invoicecycle" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="备注" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="开票月" Name="Month" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="ContractEquipment" Width="160" X="566" Y="25">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="合同ID" Name="ContractId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="装备名称" Name="Equipment" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="数量" Name="Qty" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="备注，描述" Dictionary="_TextArea" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Isdelete" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="ModifyUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="ModifyTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="DeleteUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="DeleteTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="ContractPersonnel" Width="160" X="735" Y="26">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="ContractId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="岗位" Name="Post" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="需求" Name="Demand" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="人数" Name="PNumber" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="备注" Dictionary="_TextArea" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Isdelete" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="ModifyUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="ModifyTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="DeleteUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="DeleteTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="SiteContractPost" Width="160" X="11" Y="274">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="SiteContractId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Post" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="Schedule" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Type" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="BeginTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="EndTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="PosNumber" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="ContractNumber" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="WorkNumber" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Name="BeginDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Name="EndDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Name="Day1" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Day2" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Day3" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Day4" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Day5" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Day6" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="Day7" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="DayH" ObjectName="Boolean" Required="false" Show="false" Type="Boolean"/>
+<n1:Field Collections="false" Name="CalcTime" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="FullTime" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="SalaryType" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="SalaryBase" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="SiteContractPosts" Width="160" X="212" Y="278">
+<Fields>
+<n1:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="true" Name="siteContractPosts" ObjectName="Contract.SiteContractPost" Required="false" Show="false" Type="Object"/>
+</Fields>
+</n1:Entity>
+</Controls>
+</View>
+</Model>

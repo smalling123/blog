@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="待分配"/>
+<Item Code="1" Name="在职"/>
+<Item Code="2" Name="离职"/>
+<Item Code="3" Name="自离"/>
+</Items>
+</Dictionary>

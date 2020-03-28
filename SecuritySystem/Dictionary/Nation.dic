@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="汉族"/>
+<Item Code="1" Name="满族"/>
+<Item Code="2" Name="蒙古族"/>
+<Item Code="3" Name="回族"/>
+<Item Code="4" Name="藏族"/>
+<Item Code="5" Name="维吾尔族"/>
+<Item Code="6" Name="苗族"/>
+<Item Code="7" Name="彝族"/>
+<Item Code="8" Name="壮族"/>
+<Item Code="9" Name="布依族"/>
+<Item Code="10" Name="侗族"/>
+<Item Code="11" Name="瑶族"/>
+<Item Code="12" Name="白族"/>
+<Item Code="13" Name="土家族"/>
+<Item Code="14" Name="哈尼族"/>
+<Item Code="15" Name="哈萨克族"/>
+<Item Code="16" Name="傣族"/>
+<Item Code="17" Name="黎族"/>
+<Item Code="18" Name="傈僳族"/>
+<Item Code="19" Name="佤族"/>
+<Item Code="20" Name="畲族"/>
+<Item Code="21" Name="高山族"/>
+<Item Code="22" Name="拉祜族"/>
+<Item Code="23" Name="水族"/>
+<Item Code="24" Name="东乡族"/>
+<Item Code="25" Name="纳西族"/>
+<Item Code="26" Name="景颇族"/>
+<Item Code="27" Name="柯尔克孜族"/>
+<Item Code="28" Name="土族"/>
+<Item Code="29" Name="达斡尔族"/>
+<Item Code="30" Name="仫佬族"/>
+<Item Code="31" Name="羌族"/>
+<Item Code="32" Name="布朗族"/>
+<Item Code="33" Name="撒拉族"/>
+<Item Code="34" Name="毛南族"/>
+<Item Code="35" Name="仡佬族"/>
+<Item Code="36" Name="锡伯族"/>
+<Item Code="37" Name="阿昌族"/>
+<Item Code="38" Name="普米族"/>
+<Item Code="39" Name="朝鲜族"/>
+<Item Code="40" Name="塔吉克族"/>
+<Item Code="41" Name="怒族"/>
+<Item Code="42" Name="乌孜别克族"/>
+<Item Code="43" Name="俄罗斯族"/>
+<Item Code="44" Name="鄂温克族"/>
+<Item Code="45" Name="德昂族"/>
+<Item Code="46" Name="保安族"/>
+<Item Code="47" Name="裕固族"/>
+<Item Code="48" Name="京族"/>
+<Item Code="49" Name="塔塔尔族"/>
+<Item Code="50" Name="独龙族"/>
+<Item Code="51" Name="鄂伦春族"/>
+<Item Code="52" Name="赫哲族"/>
+<Item Code="53" Name="门巴族"/>
+<Item Code="54" Name="珞巴族"/>
+<Item Code="55" Name="基诺族"/>
+</Items>
+</Dictionary>

@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+			font-size: small;
+		}
+
+		#table {
+			margin: 0px auto;
+			text-align-last: center;
+		}
+
+		#btn {
+			margin-top: 30px;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div id="filter1">
+		<div class="panel panel-default"  style="width: 94%; margin-left: 3%; margin-top:20px;">
+			<div class="panel-heading" style="padding:2px 2px 2px 8px;">
+				<a data-toggle="collapse" href="#collapseOne" style="font-size:12px;">
+					<span class="glyphicon glyphicon-chevron-down"></span> 筛选条件
+				</a>
+			</div>
+			<div id="collapseOne" class="collapse in">
+				<div class="container panel-body" style="margin-top:6px;">
+					<form rele="form" class="form-horizontal">
+						<div class="form-group">
+							<div class="col-xs-1 col-md-1" style="text-align: right;">
+								<label for="name">客户:</label>
+							</div>
+							<div class="col-xs-2 col-md-２">
+								<select id="select_CustomerId" class="selectpicker form-control" data-live-search="true" v-model="Data.CustomerId" >
+									<option value="">--请选择--</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-xs-1 col-md-1" style="text-align: right;">
+							</div>
+							<div class="col-xs-2 col-md-2" style="text-align: left;">
+								<button type="button" class="layui-btn layui-btn-sm layui-btn-radius layui-bg-cyan" onClick="getData()">
+									<span>&emsp;</span><i class="layui-icon layui-icon-search"></i><span class="fontsm">&emsp;查询&emsp;</span>
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div id="app" style="width: 94%; margin-left: 3%; margin-top:20px;">
+		<table id="table1" lay-filter="table1filter"></table>
+		<div id="page1"></div>
+	</div>
+</body>
+</html>
+<script type="text/html" id="add">
+	<div class="layui-btn-group">
+  		<button type="button" class="layui-btn layui-btn-sm" onClick="newItem()">
+    			<i class="layui-icon layui-icon-add-1"></i><span class="fontsm">新增</span>
+  		</button>
+	</div>
+</script>
+	
+<script type="text/html" id="table1action">
+    <div class="layui-btn-group">
+        <button lay-event="edit" type="button" class="layui-btn layui-btn-xs">
+            <i class="layui-icon layui-icon-edit"></i><span class="fontxs">编辑</span>
+        </button>
+        <button lay-event="details" type="button" class="layui-btn layui-btn-xs layui-btn-primary">
+            <i class="layui-icon layui-icon-tabs"></i><span class="fontxs">详情</span>
+        </button>
+    </div>
+</script>
+<script src="../../wwwroot/js/App.js"></script>
+<script>
+	var loadIndex = 0;
+	var layer;
+	layui.use('layer', function () {
+		layer = layui.layer;
+	});
+	var dictionaryItems = [{code:"", name:""}];
+
+	var vm = new Vue({
+		el: "#filter1",
+		data: {
+			Data:{
+				CustomerId: 0
+			}
+
+		},
+		methods: {}
+	})	
+	var pageNumber = 1;
+	var pageSize = 10;
+	var recordCount = 0;
+	var list = [];
+
+	setTimeout(function() {
+		SelectFrom("#select_CustomerId", function(filter) {
+			getDictionaryCustomerId(filter);
+		})
+	}, 1000);
+
+
+	bindData();
+
+	$(function(){
+		getData();
+		onTrigger(function(key){ if(key=="Invoice"){ getData(); } });
+	});
+
+	function getDictionaryCustomerId(filter){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "Customer",
+				filter: filter			},
+			success: function(result) {
+				vm.dictionaryCustomerId = result;
+				var parent = $("#select_CustomerId");
+				parent.empty();
+				parent.append("<option value=''>所有</option>");
+				for(var i=0; i<result.length;i++){
+					parent.append("<option value='"+result[i].code+"'>"+result[i].name+"</option>");
+				}
+				parent.selectpicker('refresh');			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+
+	
+	function getData(){
+		layui.use('layer', function () {
+			layer = layui.layer;
+			loadIndex = layer.load(0, {shade: false});
+		});
+		PostAppAjax({
+			url: '/Finance/getinvoiceByCustomerId',
+			data: {
+				CustomerId: vm.Data.CustomerId,
+				pageNumber: pageNumber,
+				pageSize: pageSize
+			},
+			success: function(result) {
+				layui.use('layer', function () {
+					layer = layui.layer;
+					layer.close(loadIndex);
+				});
+				if(result.code==0){
+					list = result.data;
+					recordCount = result.recordCount;
+					bindData();
+				}else{
+					alert("无法获取数据!\n"+result.msg);
+				}
+			},
+			error: function(err) {
+				layui.use('layer', function () {
+					layer = layui.layer;
+					layer.close(loadIndex);
+				});
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	function bindData(){
+		layui.use(['table', 'laypage'], function(){
+			var table = layui.table;
+			table.render({
+				elem: '#table1',
+				toolbar:'#add',
+				data: list,
+				limit: 999999,
+				even: true,
+				cols: [[
+					{field:'companyId_Convert', title:'开票单位', align:'left', width:'200'},
+					{field:'appDate', title:'申请日期', align:'left', width:'200', templet:"<div>{{!d.appDate?'':layui.util.toDateString(d.appDate, 'yyyy-MM-dd')}}</div>"},
+					{field:'userId_Convert', title:'申请人', align:'left', width:'200'},
+					{field:'orgId_Convert', title:'部门', align:'left', width:'200'},
+					{field:'siteId_Convert', title:'驻点', align:'left', width:'200'},
+					{field:'customerId_Convert', title:'客户', align:'left', width:'200'},
+					{field:'taxNo', title:'税号', align:'left', width:'200'},
+					{field:'customer', title:'开票抬头', align:'left', width:'200'},
+					{field:'address', title:'地址', align:'left', width:'200'},
+					{field:'bankInfo', title:'银行', align:'left', width:'200'},
+					{field:'date', title:'开票日期', align:'left', width:'200', templet:"<div>{{!d.date?'':layui.util.toDateString(d.date, 'yyyy-MM-dd')}}</div>"},
+					{field:'status_Convert', title:'状态', align:'left', width:'200'},
+					{field:'sendDate', title:'快递日期', align:'left', width:'200', templet:"<div>{{!d.sendDate?'':layui.util.toDateString(d.sendDate, 'yyyy-MM-dd')}}</div>"},
+					{field:'sendAddress', title:'快递地址', align:'left', width:'200'},
+					{field:'sendName', title:'快递收件人', align:'left', width:'200'},
+					{field:'sendPhone', title:'电话', align:'left', width:'200'},
+					{field:'describes_Convert', title:'备注', align:'left', width:'200'},
+					{field:'createUser', title:'创建用户', align:'left', width:'200'},
+					{field:'createTime', title:'创建时间', align:'left', width:'200'},
+					{field:'kpUser', title:'开票用户', align:'left', width:'200'},
+					{field:'kpTime_Convert', title:'开票时间', align:'left', width:'200'},
+					{field:'createUser3', title:'快递用户', align:'left', width:'200'},
+					{field:'sendTime_Convert', title:'快递时间', align:'left', width:'200'},
+					{field:'invoiceNo', title:'发票编号', align:'left', width:'200'},
+					{title: '操作', toolbar: '#table1action', align:'left', fixed:'right', width:'100'}
+				]]
+			});
+
+			var laypage = layui.laypage;
+			laypage.render({
+				elem: 'page1',
+				count: recordCount, //数据总数，从服务端得到
+				limit: pageSize,
+				//自定义排版。可选值有：count（总条目输区域）、prev（上一页区域）、page（分页区域）、next（下一页区域）、limit（条目选项区域）、refresh（页面刷新区域。注意：layui 2.3.0 新增） 、skip（快捷跳页区域）
+				layout: ['prev', 'page', 'next', 'count', 'limit', 'refresh', 'skip'],
+				curr: pageNumber,
+				jump: function (obj, first) {
+					//首次不执行
+					if (!first) {
+						pageNumber = obj.curr;
+						pageSize = obj.limit;
+						getData();
+					}
+				}
+			});
+		});
+	}
+	
+    function newItem() {
+        parent.tabhtml(99999, "账单明细", "/Views/Finance/BillFeesView.html", 0, 0);
+		
+	}
+
+
+	layui.use('table', function(){
+		var table = layui.table;
+		//监听工具条
+		table.on('tool(table1filter)', 
+			function(obj){ //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+				var data = obj.data; //获得当前行数据
+				var id=data['id'];  //获取属性id的值
+				if(obj.event == "edit"){
+					openAppWindow({
+						url: "/Views/Finance/Invoice.html",
+						title: "编辑", 
+						area: ['880px', '560px'], 
+						maxmin: true, 
+						success: function (layero, index) {
+							var body = parent.layer.getChildFrame('body', index);
+							var iframe = parent.window[layero.find('iframe')[0]['name']];
+							iframe.getData(id);
+						}
+					});
+                } else if (obj.event == "details") {
+                    openAppWindow({
+                        url: "/Views/Finance/InvoiceItemView.html",
+                        title: "详情",
+                        area: ['1000px', '600px'],
+                        maxmin: true,
+                        success: function (layero, index) {
+                            var body = parent.layer.getChildFrame('body', index);
+                            var iframe = parent.window[layero.find('iframe')[0]['name']];
+                            iframe.getData(id);
+                        }
+                    });
+                }
+			}
+		);
+	});
+
+</script>

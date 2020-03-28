@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Logistics.EquipmentOutStock" Name="getAllEquipmentOutStock" SQL="select * from EquipmentOutStock&#10;where 1=1 &#10;and date&gt;=#{startdate} &#10;and date&lt;=#{enddate}&#10;and orgid=#{org} &#10;and siteid=#{site}&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="51" Y="59">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Date" Name="Date" Type="DateTime"/>
+<n1:ResultField MapperField="OrgId" Name="OrgId" Type="Integer"/>
+<n1:ResultField MapperField="SiteId" Name="SiteId" Type="Integer"/>
+<n1:ResultField MapperField="UserId" Name="UserId" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+<n1:ResultField MapperField="WorkflowID" Name="WorkflowID" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="startdate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="enddate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="org" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="site" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and date&gt;=#{startdate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="startdate" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and date&lt;=#{enddate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="enddate" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and orgid=#{org}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="org" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and siteid=#{site}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="site" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Logistics.EquipmentOutStockItem" Name="getEquipmentOutStockItmeById" SQL="select eos.*,e.`Name` from EquipmentOutstockItem eos &#10;join equipment e on eos.EquipmentId=e.id&#10;where eos.EquipmentOutStockId=#{id}" SelectType="Collections" Width="160" X="433" Y="58">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="EquipmentOutStockId" Name="EquipmentOutStockId" Type="Integer"/>
+<n1:ResultField MapperField="EquipmentId" Name="EquipmentId" Type="Integer"/>
+<n1:ResultField MapperField="Qty" Name="Qty" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getEquipmentOutStockByCount" SQL="select Count(*) Count from EquipmentOutStock&#10;where 1=1 &#10;and date&gt;=#{startdate} &#10;and date&lt;=#{enddate}&#10;and orgid=#{org} &#10;and siteid=#{site}" SelectType="Singleton" Width="160" X="230" Y="61">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startdate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="enddate" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="org" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="site" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and date&gt;=#{startdate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="startdate" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and date&lt;=#{enddate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="enddate" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and orgid=#{org}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="org" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and siteid=#{site}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="site" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Logistics.EquipmentOutStock" Name="getEquipmentOutStockOne" SQL="Select * From EquipmentOutStock Where ID = #{id}" SelectType="Singleton" Width="160" X="30" Y="430">
+<ResultSet/>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertEquipmentOutStock" SQL="Insert Into EquipmentOutStock(Date, OrgId, SiteId, UserId, Describes, CreateUser, CreateTime, WorkflowID)&#10; Values(#{equipmentoutstock.Date}, #{equipmentoutstock.OrgId}, #{equipmentoutstock.SiteId}, #{equipmentoutstock.UserId}, #{equipmentoutstock.Describes}, #{equipmentoutstock.CreateUser},Now(), #{equipmentoutstock.WorkflowID})" Width="205" X="35" Y="345">
+<Parameters>
+<n2:Field Collections="false" Name="equipmentoutstock" ObjectName="Logistics.EquipmentOutStock" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateEquipmentOutStock" SQL="Update EquipmentOutStock Set&#10;&#9;Date = #{equipmentoutstock.Date},&#10;&#9;OrgId = #{equipmentoutstock.OrgId},&#10;&#9;SiteId = #{equipmentoutstock.SiteId},&#10;&#9;UserId = #{equipmentoutstock.UserId},&#10;&#9;Describes = #{equipmentoutstock.Describes},&#10;&#9;ModifyUser = #{equipmentoutstock.CreateUser},&#10;&#9;ModifyTime = Now(),&#10;&#9;WorkflowID = #{equipmentoutstock.WorkflowID}&#10; Where ID = #{equipmentoutstock.ID}" Width="208" X="32" Y="382">
+<Parameters>
+<n2:Field Collections="false" Name="equipmentoutstock" ObjectName="Logistics.EquipmentOutStock" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Height="240" MapperEntity="Logistics.EquipmentOutStockItem" Name="getEquipmentOutStockItemOne" SQL="select eos.*,e.`Name` from EquipmentOutstockItem eos &#10;join equipment e on eos.EquipmentId=e.id&#10;where eos.Id=#{id}" SelectType="Singleton" Width="160" X="294" Y="422">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="EquipmentOutStockId" Name="EquipmentOutStockId" Type="Integer"/>
+<n1:ResultField MapperField="EquipmentId" Name="EquipmentId" Type="Integer"/>
+<n1:ResultField MapperField="Qty" Name="Qty" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertEquipmentOutStockItem" SQL="Insert Into EquipmentOutStockItem(EquipmentOutStockId, EquipmentId, Qty, Describes)&#10; Values(#{equipmentoutstockitem.EquipmentOutStockId}, #{equipmentoutstockitem.EquipmentId}, #{equipmentoutstockitem.Qty}, #{equipmentoutstockitem.Describes})" Width="229" X="293" Y="347">
+<Parameters>
+<n2:Field Collections="false" Name="equipmentoutstockitem" ObjectName="Logistics.EquipmentOutStockItem" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateEquipmentOutStockItem" SQL="Update EquipmentOutStockItem Set&#10;&#9;EquipmentOutStockId = #{equipmentoutstockitem.EquipmentOutStockId},&#10;&#9;EquipmentId = #{equipmentoutstockitem.EquipmentId},&#10;&#9;Qty = #{equipmentoutstockitem.Qty},&#10;&#9;Describes = #{equipmentoutstockitem.Describes}&#10; Where ID = #{equipmentoutstockitem.ID}" Width="234" X="294" Y="383">
+<Parameters>
+<n2:Field Collections="false" Name="equipmentoutstockitem" ObjectName="Logistics.EquipmentOutStockItem" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+</Controls>
+</View>
+</Mapper>

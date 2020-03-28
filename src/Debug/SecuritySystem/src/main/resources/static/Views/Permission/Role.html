@@ -1,0 +1,242 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+
+		#table {
+			margin: 0px auto;
+			text-align-last: center;
+		}
+
+		#btn {
+			margin-top: 30px;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container" id="app"  style="width: 94%; margin-left: 3%; margin-top:20px;">
+		<form rele="form" class="form-horizontal">
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2 control-label" >
+					<label for="name">名称:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.name" type="text" class="form-control" id="name">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2 control-label" >
+					<label for="name">描述:</label>
+				</div>
+				<div class="col-xs-8 col-md-8">
+					<input v-model="Data.describes" type="text" class="form-control" id="describes">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2 control-label" >
+					<label for="name">是否停用:</label>
+				</div>
+				<div class="col-xs-8 col-md-8">
+					<input type="checkbox" v-model="Data.isdelete" id="isdelete" >
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2 control-label" >
+					<label for="name">系统权限:</label>
+				</div>
+				<div class="col-xs-8 col-md-8">
+					<div id="menus" class="demo-tree demo-tree-box" style="width: 200px; height: 200px; overflow: scroll;"></div>
+				</div>
+			</div>
+			<div class="form-group">
+
+				<div class="col-xs-2 col-md-2" style="text-align: right;">
+				</div>
+				<div class="col-xs-8 col-md-8" style="text-align: left;">
+					<button type="button" class="layui-btn layui-btn-sm" onClick="Accept()">
+						<i class="layui-icon layui-icon-ok"></i><span class="fontsm">&emsp;提交&emsp;</span>
+					</button>
+					<button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onClick="iframecloses()">
+						<i class="layui-icon layui-icon-close"></i><span class="fontsm">&emsp;取消&emsp;</span>
+					</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+</body>
+</html>
+<script src="../../wwwroot/js/App.js"></script>
+
+<script>
+	var dictionaryItems = [{code:"", name:""}];
+
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			Data:{
+				id: 0,
+				name: "",
+				describes: "",
+				isdelete: false,
+				menus:[]
+			}
+			,Menus: []
+		},
+		methods: {
+
+		},
+		watch: {
+			Data: function() {
+				this.$nextTick(function () {
+				});
+				bindMenus();
+			}
+		}
+	});
+
+	$(function(){
+		//获取菜单信息
+		PostAppAjax({
+				url: '/Permission/Menu/getMenus',
+				success: function(result) {
+					if(result.code==0){
+						vm.Menus = result.data;
+						layui.use('tree', function(){
+							var tree = layui.tree;
+							tree.render({
+								elem: '#menus'
+								,data: result.data
+								,showCheckbox: true
+								,id: 'menusId'
+							});
+						});
+						bindMenus();
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function() {
+					alert("服务器忙，请重试!");
+				}
+			});
+	});
+
+	function findMenuPID(id, menus){
+		var pid = 0;
+		for(var i=0; i<menus.length; i++){
+			if(menus[i].id==id){
+				pid = menus[i].pid;
+				break;
+			}
+			var spid = findMenuPID(id, menus[i].children);
+			if(spid>0){
+				pid = spid;
+				break;
+			}
+		}
+		return pid;
+	}
+	function bindMenus(){
+		layui.use('tree', function(){
+			var tree = layui.tree;
+			var list = new Array();
+			var l1 = new Array();
+			for(var i=0; i<vm.Data.menus.length; i++){
+				list.push(vm.Data.menus[i].menuID);
+				l1.push(vm.Data.menus[i].menuID);
+			}
+			//过滤父节点，只取叶子节点
+			for(var i=0; i<l1.length; i++){
+				var pid = findMenuPID(l1[i], vm.Menus);
+				if(pid>0){
+					var index = list.indexOf(pid);
+					if (index > -1) {
+						list.splice(index, 1);
+					}
+				}
+			}
+			tree.setChecked('menusId', list);
+		});
+	}
+	
+	function getData(id){
+		
+		if(id>0){
+			PostAppAjax({
+				url: '/Permission/Role/getRoleById',
+				data: {
+					id: id
+				},
+				success: function(result) {
+					if(result.code==0){
+						vm.Data = result.data;
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function() {
+					alert("服务器忙，请重试!");
+				}
+			});
+		}
+	}
+
+	function getCheckData(checkData){
+		for(var i=0; i<checkData.length; i++){
+			var child = { 
+					id: 0, 
+					roleID: vm.Data.id,
+					menuID: checkData[i].id
+				}
+			vm.Data.menus.push(child);
+			getCheckData(checkData[i].children);
+		}
+	}
+
+	function Accept(){
+		layui.use('tree', function(){
+			var tree = layui.tree;
+			vm.Data.menus = new Array();
+			var checkData = tree.getChecked('menusId');
+			getCheckData(checkData);
+		});
+		PostAppAjax({
+			url: '/Permission/Role/updateRole',
+			contentType: 'application/json;charset=utf-8',
+			data: JSON.stringify(vm.Data),
+			success: function(result) {
+				if(result.code==0){
+					doTrigger("Role"); //调用触发器，刷新查询
+					iframecloses();
+				}else{
+					alert(code.msg);
+				}
+			},
+			error: function(err) {
+				alert("错误信息：\n"+err.responseJSON.message);
+			}
+		});
+	}
+</script>

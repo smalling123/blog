@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="群众"/>
+<Item Code="1" Name="中共党员"/>
+<Item Code="2" Name="预备党员"/>
+<Item Code="3" Name="共青团员"/>
+<Item Code="4" Name="民主党派"/>
+</Items>
+</Dictionary>

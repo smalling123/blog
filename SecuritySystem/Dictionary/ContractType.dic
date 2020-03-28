@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="1" Name="一年"/>
+<Item Code="2" Name="二年"/>
+<Item Code="3" Name="三年"/>
+<Item Code="4" Name="四年"/>
+<Item Code="5" Name="五年"/>
+<Item Code="99" Name="无固定期限"/>
+</Items>
+</Dictionary>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><Model xmlns:n1="org.polariscode.plugin.web.springboot.model" Description="">
+<View>
+<Controls>
+<n1:Entity Height="240" Name="Bill" Width="160" X="12" Y="9">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="SiteId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="年" Name="Year" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="月" Name="Month" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="金额" Name="Amt" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="备注" Dictionary="_TextArea" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="客户" Dictionary="Customer" Name="CustomerId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="ContractId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="BillFee" Width="160" X="188" Y="11">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="BillId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="ContractInvoiceId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="开票项目" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="金额" Name="Amt" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="备注" Dictionary="_TextArea" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="InvoiceItemId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="TBill" Width="160" X="366" Y="12">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="Amount" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Name="YEAR" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="MONTH" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="YN" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="YNS" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="Invoice" Width="160" X="542" Y="13">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="开票单位" Dictionary="Company" Name="CompanyId" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="申请日期" Name="AppDate" ObjectName="DateTime" Required="true" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="申请人" Dictionary="User" Name="UserId" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="部门" Dictionary="Org" Name="OrgId" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="驻点" Dictionary="Site" Name="SiteId" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="客户" Dictionary="Customer" Name="CustomerId" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="税号" Name="TaxNo" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="开票抬头" Name="Customer" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="地址" Name="Address" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="银行" Name="BankInfo" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="开票日期" Name="Date" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="状态" Dictionary="InvoiceStatus" Name="Status" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="快递日期" Name="SendDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="快递地址" Name="SendAddress" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="快递收件人" Name="SendName" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="电话" Name="SendPhone" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="备注" Dictionary="_TextArea" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="创建用户" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="创建时间" Name="CreateTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="开票用户" Name="KpUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="开票时间" Dictionary="Time" Name="KpTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="快递用户" Name="CreateUser3" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="快递时间" Dictionary="Time" Name="SendTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="发票编号" Name="InvoiceNo" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="Bs" Width="160" X="715" Y="13">
+<Fields>
+<n1:Field Collections="true" Name="ids" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="invoice" ObjectName="Finance.Invoice" Required="false" Show="false" Type="Object"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="InvoiceItem" Width="160" X="4" Y="312">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="InvoiceId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="发票内容" Name="Name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="金额" Name="Amt" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="备注" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="BillItemId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="数量" Name="QTY" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="Pay" Width="160" X="186" Y="308">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="到款日期" Name="Date" ObjectName="DateTime" Required="true" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="银行交易号" Name="BankNo" ObjectName="String" Required="true" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="客户" Dictionary="Customer" Name="CustomerId" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="金额" Name="Amt" ObjectName="Decimal" Required="true" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="状态" Dictionary="PayStatus" Name="Status" ObjectName="Integer" Required="true" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="备注" Dictionary="_TextArea" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="创建用户" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="创建时间" Name="CreateTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="认领用户" Name="ClaimUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="认领时间" Name="ClaimTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="核销用户" Name="CheckUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="核销时间" Name="CheckTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="PayCheck" Width="160" X="365" Y="307">
+<Fields>
+<n1:Field Collections="false" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="PayId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Name="InvoiceItemId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="金额" Name="Amt" ObjectName="Decimal" Required="false" Show="false" Type="Decimal"/>
+<n1:Field Collections="false" Description="备注" Name="Describes" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Name="CreateTime" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+<n1:Entity Height="240" Name="Ps" Width="160" X="554" Y="310">
+<Fields>
+<n1:Field Collections="false" Name="pay" ObjectName="Finance.Pay" Required="false" Show="false" Type="Object"/>
+<n1:Field Collections="true" Name="ids" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+</Controls>
+</View>
+</Model>

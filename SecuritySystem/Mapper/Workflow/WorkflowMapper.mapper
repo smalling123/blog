@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Description="获取所有行为办任务列表" Height="264" MapperEntity="Workflow.Workflow" Name="getWorkflowByUserID" SQL="Select W.ID, W.WTID, W.Status, W.OrgID, W.UserID, W.Date, W.WIID, W.DataID&#10;From Workflow  W&#10;Where Status = 0 And WIID = #{userid}" SelectType="Collections" Width="160" X="78" Y="51">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="WTID" Name="WTID" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="OrgID" Name="OrgID" Type="Integer"/>
+<n1:ResultField MapperField="UserID" Name="UserID" Type="Integer"/>
+<n1:ResultField MapperField="Date" Name="Date" Type="String"/>
+<n1:ResultField MapperField="WIID" Name="WIID" Type="Integer"/>
+<n1:ResultField MapperField="DataID" Name="DataID" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="userid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Update Height="24" Name="UpdateWorkflow" SQL="Update Workflow Set Status = #{status}, WIID=#{wiid}&#10;Where ID = #{id}" Width="160" X="277" Y="109">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="status" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="wiid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Insert Height="24" Name="InsertWorkflow" SQL="Insert into Workflow(WTID, Status, OrgID, UserID, Date, DataID)&#10;Values(#{WTID}, #{Status}, #{OrgID}, #{UserID}, Now(), #{DataID})" Width="159" X="279" Y="53">
+<Parameters>
+<n2:Field Collections="false" Name="workflow" ObjectName="Workflow.Workflow" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Select Description="获取指定流程的节点" Height="276" MapperEntity="Workflow.WorkflowItem" Name="getWorkflowItems" SQL="Select WI.ID, WI.WID, WI.Title, WI.UserID, User.Name As UserName, WI.Content, WI.Status, WI.Date&#10;From WorkflowItem WI Left Join User On WI.UserID = User.ID&#10;Where WID = #{id}" SelectType="Collections" Width="160" X="485" Y="51">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="WID" Name="WID" Type="Integer"/>
+<n1:ResultField MapperField="Title" Name="Title" Type="String"/>
+<n1:ResultField MapperField="UserID" Name="UserID" Type="Integer"/>
+<n1:ResultField MapperField="UserName" Name="UserName" Type="String"/>
+<n1:ResultField MapperField="Content" Name="Content" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="Date" Name="Date" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="InsertWorkflowItem" SQL="Insert Into WorkflowItem(WID, Title, UserID, Content)&#10;Values(#{item.WID}, #{item.Title}, #{item.UserID}, #{item.Content})" Width="160" X="689" Y="51">
+<Parameters>
+<n2:Field Collections="false" Name="item" ObjectName="Workflow.WorkflowItem" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="UpdateWorkflowItem" SQL="Update WorkflowItem set Content = #{content}, Status = #{status}, Date = Now()&#10;Where ID = #{id}" Width="160" X="689" Y="97">
+<Parameters>
+<n2:Field Collections="false" Name="content" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="status" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Description="获取我的待审批记录" Height="348" MapperEntity="Workflow.WorkflowTask" Name="getMyTask" SQL="Select WI.ID, W.ID As WID, WT.Name, U.Name As UserName, W.Date, WI.Status, WT.WebEditUrl, WT.WebViewUrl, WT.AppEditUrl, WT.AppViewUrl, W.DataID&#10;From User Join WorkflowItem WI On User.ID = WI.UserID&#10;&#9;&#9;Join Workflow W On W.ID = WI.WID And W.WIID = WI.ID And W.Status = 0&#10;        Join WorkflowTemplate WT on W.WTID = WT.ID&#10;        Join User U On U.ID = W.UserID&#10;Where User.LoginName = #{user}" SelectType="Collections" Width="160" X="693" Y="163">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="WID" Name="WID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="UserName" Name="UserName" Type="String"/>
+<n1:ResultField MapperField="Date" Name="Date" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="WebEditUrl" Name="WebEditUrl" Type="String"/>
+<n1:ResultField MapperField="WebViewUrl" Name="WebViewUrl" Type="String"/>
+<n1:ResultField MapperField="AppEditUrl" Name="AppEditUrl" Type="String"/>
+<n1:ResultField MapperField="AppViewUrl" Name="AppViewUrl" Type="String"/>
+<n1:ResultField MapperField="DataID" Name="DataID" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获取流程下一节点的ID" Height="116" MapperEntity="Table" Name="getNextItem" SQL="Select ifnull(Min(ID),0) As ID&#10;From WorkflowItem&#10;Where WID = #{wid} And ID &gt; #{wiid}" SelectType="Singleton" Width="160" X="279" Y="191">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="wid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="wiid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获取流转记录" Height="240" MapperEntity="Workflow.WorkflowItem" Name="getWorkflowItemsByCheck" SQL="Select WI.ID, WI.WID, WI.Title, WI.UserID, User.Name As UserName, WI.Content, WI.Status, WI.Date&#10;From WorkflowItem WI Left Join User On WI.UserID = User.ID&#10;Where WID = #{id}" SelectType="Collections" Width="193" X="275" Y="355">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="WID" Name="WID" Type="Integer"/>
+<n1:ResultField MapperField="Title" Name="Title" Type="String"/>
+<n1:ResultField MapperField="UserID" Name="UserID" Type="Integer"/>
+<n1:ResultField MapperField="UserName" Name="UserName" Type="String"/>
+<n1:ResultField MapperField="Content" Name="Content" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="Date" Name="Date" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获取我的申请记录" Height="240" MapperEntity="Workflow.WorkflowTask" Name="getMyWorkflow" SQL="Select 0 As ID, W.ID As WID, WT.Name, User.Name As UserName, W.Date, WT.WebEditUrl, WT.WebViewUrl, WT.AppEditUrl, WT.AppViewUrl, W.DataID, W.Status As WStatus&#10;From User Join Workflow W On W.UserID = User.ID&#10;        Join WorkflowTemplate WT on W.WTID = WT.ID&#10;Where User.LoginName = #{user} And (W.Status =0 || TO_DAYS(NOW()) - TO_DAYS(W.Date) &lt;= 30)&#10;Order By W.ID Desc" SelectType="Collections" Width="160" X="76" Y="355">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="WID" Name="WID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="UserName" Name="UserName" Type="String"/>
+<n1:ResultField MapperField="Date" Name="Date" Type="String"/>
+<n1:ResultField MapperField="WebEditUrl" Name="WebEditUrl" Type="String"/>
+<n1:ResultField MapperField="WebViewUrl" Name="WebViewUrl" Type="String"/>
+<n1:ResultField MapperField="AppEditUrl" Name="AppEditUrl" Type="String"/>
+<n1:ResultField MapperField="AppViewUrl" Name="AppViewUrl" Type="String"/>
+<n1:ResultField MapperField="DataID" Name="DataID" Type="Integer"/>
+<n1:ResultField MapperField="WStatus" Name="WStatus" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Workflow.WorkflowTask" Name="getMyOKTask" SQL="Select WI.ID, W.ID As WID, WT.Name, U.Name As UserName, W.Date, WI.Status, WT.WebEditUrl, WT.WebViewUrl, WT.AppEditUrl, WT.AppViewUrl, W.DataID&#10;From User u1 Join WorkflowItem WI On u1.ID = WI.UserID&#10;&#9;&#9; Join Workflow W On W.ID = WI.WID And WI.Status != 0&#10;        Join WorkflowTemplate WT on W.WTID = WT.ID&#10;        Join User U On U.ID = W.UserID&#10;Where u1.LoginName = #{user} &#10;And (W.Status =0 || TO_DAYS(NOW()) - TO_DAYS(W.Date) &lt;= 30)&#10;Order By W.ID Desc" SelectType="Collections" Width="160" X="493" Y="356">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="WID" Name="WID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="UserName" Name="UserName" Type="String"/>
+<n1:ResultField MapperField="Date" Name="Date" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="WebEditUrl" Name="WebEditUrl" Type="String"/>
+<n1:ResultField MapperField="WebViewUrl" Name="WebViewUrl" Type="String"/>
+<n1:ResultField MapperField="AppEditUrl" Name="AppEditUrl" Type="String"/>
+<n1:ResultField MapperField="AppViewUrl" Name="AppViewUrl" Type="String"/>
+<n1:ResultField MapperField="DataID" Name="DataID" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

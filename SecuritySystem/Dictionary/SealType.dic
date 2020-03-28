@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="业务用章申请"/>
+<Item Code="1" Name="行政用章申请"/>
+</Items>
+</Dictionary>

@@ -1,0 +1,336 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-validator/css/bootstrap-validator.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-validator/js/bootstrap-validator.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+			font-size: small;
+		}
+		.input {
+			height: 28px;
+			padding: 6px 6px 6px 6px;
+		}
+		.content {
+			color: #0000ff;
+		}
+        .layui-bg-cyan {
+            background-color: #888888 !important;
+        }
+	</style>
+</head>
+<body style="background-color: #F2F2F2;">
+	<div class="container" id="app"  style="width: 94%; margin-left: 3%; margin-top:20px;">
+		<form id="form1" rele="form" class="form-horizontal">
+			<div class="layui-card">
+				<div class="layui-card-header layui-bg-cyan">申请内容</div>
+				<div class="layui-card-body">
+					<div class="form-group">
+						<div class="col-xs-2 col-md-2 text-right">
+							<label for="content">申请人:</label>
+						</div>
+						<div class="col-xs-8 col-md-8">
+							<label for="content" class="content">{{Data.userID_Convert}}</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-2 col-md-2 text-right">
+							<label for="content">申请时间:</label>
+						</div>
+						<div class="col-xs-8 col-md-8">
+							<label for="content" class="content">{{Data.date}}</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-2 col-md-2 text-right">
+							<label for="content">报销人:</label>
+						</div>
+						<div class="col-xs-8 col-md-8">
+							<label for="content" class="content">{{Data.exUserID_Convert}}</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-2 col-md-2 text-right">
+							<label for="content" >备注:</label>
+						</div>
+						<div class="col-xs-8 col-md-8">
+							<textarea v-model="Data.content" readonly="readonly" class="form-control content" rows="3" id="content" name="content"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-2 col-md-2 text-right">
+							<label for="site">驻点:</label>
+						</div>
+						<div class="col-xs-8 col-md-8">
+							<label for="content" class="content">{{Data.site_Convert}}</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-2 col-md-2 text-right">
+							<label for="amt">报销金额:</label>
+						</div>
+						<div class="col-xs-2 col-md-2">
+							<label for="content" class="content">{{Data.amt}}</label>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-2 col-md-2 text-right" >
+							<label for="file1">附件:</label>
+						</div>
+						<div class="col-xs-8 col-md-8">
+							<a id="downloadfile1"  class="content"></a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="layui-card">
+				<div class="layui-card-header layui-bg-cyan">
+					<label>报销明细</label>
+				</div>
+				<div class="layui-card-body">
+					<div class="container">
+						<div class="row">
+							<div class="col-xs-4 col-md-4">
+								<label>报销内容</label>
+							</div>
+							<div class="col-xs-2 col-md-2">
+								<label>类型</label>
+							</div>
+							<div class="col-xs-2 col-md-2 text-right">
+								<label>报销金额</label>
+							</div>
+						</div>
+						<div v-for="(item,index) in Data.items" class="row">
+							<div class="col-xs-4 col-md-4">
+								<label class="content">{{item.content}}</label>
+							</div>
+							<div class="col-xs-2 col-md-2">
+								<label class="content">{{item.type_Convert}}</label>
+							</div>
+							<div class="col-xs-2 col-md-2 text-right">
+								<label class="content">{{item.amt}}</label>
+							</div>
+							<div class="col-xs-1 col-md-1">
+							</div>
+							<div class="col-xs-1 col-md-1">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="layui-card">
+				<div class="layui-card-header layui-bg-cyan">流转记录</div>
+				<div class="layui-card-body">
+					<table id="table1" ></table>
+				</div>
+			</div>
+
+			<div class="layui-card" id="checkPanel">
+				<div class="layui-card-header layui-bg-cyan">审批结果</div>
+				<div class="layui-card-body">
+					<div class="form-group">
+						<div class="col-xs-2 col-md-2  text-right">
+							<label for="content">审批意见:</label>
+						</div>
+						<div class="col-xs-8 col-md-8">
+							<textarea v-model="Check.msg" class="form-control" rows="5" id="content" name="content"></textarea>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-2 col-md-2  text-right">
+							<label for="content">是否同意:</label>
+						</div>
+						<div class="col-xs-8 col-md-8">
+							<input type="radio" value="1" v-model="Check.type" />同意&emsp;
+							<input type="radio" value="2" v-model="Check.type" />不同意
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-xs-2 col-md-2" style="text-align: right;">
+						</div>
+						<div class="col-xs-8 col-md-8" style="text-align: left;">
+							<button type="button" class="layui-btn layui-btn-sm" onClick="Accept()">
+								<i class="layui-icon layui-icon-ok"></i><span class="fontsm">&emsp;提交&emsp;</span>
+							</button>
+							<button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onClick="iframecloses()">
+								<i class="layui-icon layui-icon-close"></i><span class="fontsm">&emsp;取消&emsp;</span>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+</body>
+</html>
+<script src="../../wwwroot/js/App.js"></script>
+
+<script>
+	$(document).ready(function () {
+		$('#form1').bootstrapValidator({
+			message: 'This value is not valid',
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+
+			}
+		});
+    });
+  
+
+	var dictionaryItems = [{code:"", name:""}];	
+
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			Data:{
+				id: 0,
+				orgID: 0,
+				userID: 0,
+				date: "",
+				content: "",
+				type: 0,
+				site: 0,
+				amt: 0,
+				workflowID: 0,
+				file1: ""
+			},
+			Check:{
+				msg: "",
+				type: 1
+			}
+
+		},
+		methods: {
+
+		},
+		watch: {
+			Data: function() {
+				this.$nextTick(function () {
+					if(vm.Data.file1!=""){
+						$('#downloadfile1').attr('href', "/downloadFile?type=application/octet-stream&filename="+vm.Data.file1);
+						var ls = vm.Data.file1.split("/");
+						$('#downloadfile1').text(ls[ls.length-1]);
+					}
+				});
+			}
+		}
+	});
+	
+	$(function(){
+	});
+
+	var workflowid = 0;
+	var workflowitemid = 0;
+    function cphidden() {
+        $("#checkPanel").addClass("hidden");
+    }
+	
+	function getData(id, wid, wiid){
+		workflowid = wid;
+		workflowitemid = wiid;
+
+		if(id>0){
+			if(wiid==0){
+				$("#checkPanel").hide();
+			}
+			PostAppAjax({
+				url: '/Workflow/getExpensesById',
+				data: {
+					id: id
+				},
+				success: function(result) {
+					if(result.code==0){
+						vm.Data = result.data;
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function(err) {
+					alert("服务器忙，请重试!\n"+err.responseJSON.message);
+				}
+			});			//获取流转记录
+			PostAppAjax({
+				url: '/Workflow/getWorkflowItemsByCheck',
+				data: {
+					id: wid
+				},
+				success: function(result) {
+					if(result.code==0){
+						if (result.data.length == 0) {
+							$("#table1").html("<div>无</div>");
+						}else{
+							layui.use(['table', 'laypage'], function(){
+								var table = layui.table;
+								table.render({
+									elem: '#table1',
+									data: result.data, //数据接口
+									limit: result.data.length, //显示行数
+									even: true, //隔行显示
+									cols: [[ //表头
+										{field:'title', title:'流转节点', align:'left', width:'160'},
+										{field:'content', title:'审批意见', align:'left', width:'320'},
+										{field:'userName', title:'审批人', align:'left', width:'80'},
+										{field:'status_Convert', title:'状态', align:'left', width:'76'},
+										{field:'date', title:'提交时间', align:'left', width:'170'}
+									]]
+								});
+							});
+						}
+					}else{
+						alert("无法获取数据!\n"+result.msg);
+					}
+				},
+				error: function(err) {
+					alert("服务器忙，请重试!\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+
+	function Accept(){
+		PostAppAjax({
+			url: '/Workflow/checkWorkflow',
+			data: {
+				id: workflowitemid,
+				wid: workflowid,
+				content: vm.Check.msg,
+				status: vm.Check.type
+			},
+			success: function(result) {
+				if(result.code==0){
+					doTrigger("Workflow"); //调用触发器，刷新查询
+					iframecloses();
+				}else{
+					alert(code.msg);
+				}
+			},
+			error: function(err) {
+				alert("错误信息：\n"+err.responseJSON.message);
+			}
+		});
+	}
+</script>

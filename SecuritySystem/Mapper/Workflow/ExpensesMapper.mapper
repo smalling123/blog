@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Description="根据ID获取指定的印鉴申请实体" Height="457" MapperEntity="Workflow.Expenses" Name="getExpensesOne" SQL="Select *&#10;From Expenses Where ID = #{id}" SelectType="Singleton" Width="160" X="87" Y="45">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="OrgID" Name="OrgID" Type="Integer"/>
+<n1:ResultField MapperField="UserID" Name="UserID" Type="Integer"/>
+<n1:ResultField MapperField="ExUserID" Name="ExUserID" Type="Integer"/>
+<n1:ResultField MapperField="Date" Name="Date" Type="String"/>
+<n1:ResultField MapperField="Content" Name="Content" Type="String"/>
+<n1:ResultField MapperField="Site" Name="Site" Type="Integer"/>
+<n1:ResultField MapperField="Amt" Name="Amt" Type="Decimal"/>
+<n1:ResultField MapperField="WorkflowID" Name="WorkflowID" Type="Integer"/>
+<n1:ResultField MapperField="File1" Name="File1" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="InsertExpensesWorkflow" SQL="Insert Into Workflow(WTID, Status, OrgID, UserID, DataID, Date, WIID) &#10;Select 'Expenses',0, OrgRole.OrgID, User.ID, #{dataid}, Now(), 0&#10;From User Join UserRole On User.ID = UserRole.UserID And UserRole.isMain = 1&#10;&#9;&#9;Join OrgRole On OrgRole.ID = UserRole.OrgRoleID&#10;Where User.LoginName = #{user}" Width="160" X="287" Y="179">
+<Parameters>
+<n2:Field Collections="false" Name="dataid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="InsertExpensesW1" SQL="Insert Into WorkflowItem(WID, Title, UserID, Content, Date)&#10;Select #{wid}, '部门负责人审批 ', UserRole.UserID, '', null&#10;From OrgRole Join Role on OrgRole.RoleID = Role.ID And Role.Name = '部门负责人'&#10;And OrgRole.OrgID = &#10;(Select OrgRole.OrgID&#10;From User Join UserRole On User.ID = UserRole.UserID And UserRole.isMain = 1&#10;&#9;&#9;Join OrgRole On OrgRole.ID = UserRole.OrgRoleID&#10;Where User.LoginName = #{user})&#10;&#9;Join UserRole On OrgRole.ID = UserRole.OrgRoleID&#10;limit 0, 1" Width="160" X="287" Y="234">
+<Parameters>
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="wid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="InsertExpensesW2" SQL="Insert Into WorkflowItem(WID, Title, UserID, Content, Date)&#10;Select #{wid}, '分公司总经理审批 ', UserRole.UserID, '', null&#10;From OrgRole Join Role on OrgRole.RoleID = Role.ID And Role.Name = '分公司总经理'&#10;And (OrgRole.OrgID = &#10;(Select OrgRole.OrgID&#10;From User Join UserRole On User.ID = UserRole.UserID And UserRole.isMain = 1&#10;&#9;&#9;Join OrgRole On OrgRole.ID = UserRole.OrgRoleID&#10;Where User.LoginName = #{user})&#10;&#9;or OrgRole.OrgID =&#10;(Select Org.PID&#10;From User Join UserRole On User.ID = UserRole.UserID And UserRole.isMain = 1&#10;&#9;&#9;Join OrgRole On OrgRole.ID = UserRole.OrgRoleID&#10;        Join Org On Org.ID = OrgRole.OrgID&#10;Where User.LoginName = #{user})&#10;)&#10;&#9;Join UserRole On OrgRole.ID = UserRole.OrgRoleID&#10;limit 0, 1" Width="160" X="287" Y="294">
+<Parameters>
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="wid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="InsertExpensesW5" SQL="Insert Into WorkflowItem(WID, Title, UserID, Content, Date)&#10;Select #{wid}, '总经理 ', UserRole.UserID, '', null&#10;From Role Join OrgRole On Role.ID = OrgRole.RoleID&#10;&#9;&#9;Join UserRole On UserRole.OrgRoleID = OrgRole.ID&#10;Where Role.Name = '总经理'&#10;limit 0, 1" Width="160" X="287" Y="356">
+<Parameters>
+<n2:Field Collections="false" Name="wid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="InsertExpensesW6" SQL="Insert Into WorkflowItem(WID, Title, UserID, Content, Date)&#10;Select #{wid}, '财务审批 ', UserRole.UserID, '', null&#10;From Role Join OrgRole On Role.ID = OrgRole.RoleID&#10;&#9;&#9;Join UserRole On UserRole.OrgRoleID = OrgRole.ID&#10;Where Role.Name = '财务'&#10;limit 0, 1" Width="160" X="287" Y="405">
+<Parameters>
+<n2:Field Collections="false" Name="wid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="UpdateExpensesWorkflowID" SQL="Update Expenses set WorkflowID = #{wid}&#10;where ID = #{id}" Width="184" X="480" Y="51">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="wid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Insert Height="24" Name="InsertExpenses" SQL="Insert Into Expenses(OrgID, UserID, ExUserID, Date, Content, Site, Amt, WorkflowID, File1)&#10; Values(#{expenses.OrgID}, #{expenses.UserID}, #{expenses.ExUserID}, Now(), #{expenses.Content}, #{expenses.Site}, #{expenses.Amt}, #{expenses.WorkflowID}, #{expenses.File1})" Width="160" X="287" Y="47">
+<Parameters>
+<n2:Field Collections="false" Name="expenses" ObjectName="Workflow.Expenses" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Select Height="240" MapperEntity="Workflow.ExpensesItems" Name="getExpensesItems" SQL="Select * From ExpensesItems Where ExpensesId = #{id}" SelectType="Collections" Width="160" X="95" Y="567">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="ExpensesId" Name="ExpensesId" Type="Integer"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="Content" Name="Content" Type="String"/>
+<n1:ResultField MapperField="Amt" Name="Amt" Type="Decimal"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertExpensesItems" SQL="&lt;script&gt;Insert Into ExpensesItems(ExpensesId, Type, Content, Amt) Values&#10;&lt;foreach collection='expensesitems' item='c' index='index' separator=','&gt;&#10;(#{id}, #{c.Type}, #{c.Content}, #{c.Amt})&#10;&lt;/foreach&gt;&#10;&lt;/script&gt;" Width="160" X="287" Y="88">
+<Parameters>
+<n2:Field Collections="true" Name="expensesitems" ObjectName="Workflow.ExpensesItems" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateExpenses" SQL="Update expenses &#10;join (Select expensesId, Sum(Amt) As Amt From expensesitems Where expensesId = #{id} GROUP BY expensesId) items&#10;on expenses.Id = items.ExpensesId&#10;set expenses.Amt = items.Amt&#10;Where expenses.Id = #{id}" Width="160" X="287" Y="131">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+</Controls>
+</View>
+</Mapper>

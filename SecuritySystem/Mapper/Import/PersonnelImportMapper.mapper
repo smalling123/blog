@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Insert Height="24" Name="InsertPersonnel" SQL="INSERT INTO `personnel`( `Code`, `Name`, `CardCode`, `Birthday`, `Gender`, &#10;`Politics`, `Height`, `Weight`, `Education`, `Nation`, `Native`, `HomeAddress`,&#10; `Census`, `CensusAddress`, `Marital`, `LinkMan`, `LinkManRelation`, `LinkManPhone`,&#10; `Army`, `ArmyInDate`, `ArmyOutDate`, `Z1`, `Z2`, `Z3`, `Z4`, `Z5`, `Z6`, `Z7`, `Z8`, `Computer`,&#10; `English`, `PartTime`, `Disease`, `Crime`, `Appearance`, `Communication`, `Source`, `InDate`, &#10;`HTBeginDate`, `HTEndDate`, `Photo`, `PhotoCount`, `F1`, `F2`, `F3`, `F4`, `F5`, `F6`, `F7`, `F8`,&#10; `F9`, `F10`, `GeneralComment`, `InterViewer`, `GivePost`, `PlanSite`, `PlantJob`, `PlanInDate`,&#10; `CheckUser`, `HRUser`, `JobUser`, `CreateUser`, `CreateTime`)&#10;VALUES (#{p.Code},#{p.Name},#{p.CardCode},#{p.Birthday},#{p.Gender},&#10;#{p.Politics},#{p.Height},#{p.Weight},#{p.Education},#{p.Nation},#{p.Native},#{p.HomeAddress},&#10;#{p.Census},#{p.CensusAddress},#{p.Marital},#{p.LinkMan},#{p.LinkManRelation},#{p.LinkManPhone},&#10;#{p.Army},#{p.ArmyInDate},#{p.ArmyOutDate},#{p.Z1},#{p.Z2},#{p.Z3},#{p.Z4},#{p.Z5},#{p.Z6},&#10;#{p.Z7},#{p.Z8},#{p.Computer},#{p.English},#{p.PartTime},#{p.Disease},#{p.Crime},#{p.Appearance},&#10;#{p.Communication},#{p.Source},#{p.InDate},#{p.HTBeginDate},#{p.HTEndDate},#{p.Photo},&#10;#{p.PhotoCount},#{p.F1},#{p.F2},#{p.F3},#{p.F4},#{p.F5},#{p.F6},#{p.F7},#{p.F8},#{p.F9},#{p.F10},&#10;#{p.GeneralComment},#{p.InterViewer},#{p.GivePost},#{p.PlanSite},#{p.PlantJob},#{p.PlanInDate},&#10;#{p.CheckUser},#{p.HRUser},#{p.JobUser},#{p.CreateUser},Now());" Width="160" X="40" Y="40">
+<Parameters>
+<n2:Field Collections="false" Name="p" ObjectName="Import.personnelImport" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="#{p.Birthday}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.Birthday" ReplaceString="substring(#{p.CardCode},7,8)" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="#{p.Gender}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.Gender" ReplaceString="MOD(SUBSTR(#{p.CardCode},17,1),2)" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="#{p.Native}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.Native" ReplaceString="CONCAT(SUBSTR(#{p.CardCode},1,2),'0000')," Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="#{p.ArmyInDate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.ArmyInDate" ReplaceString="'1900-01-01'" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="p.ArmyOutDate" ReplaceString="'1900-01-01'" Value="null"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="#{p.ArmyOutDate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.ArmyOutDate" ReplaceString="'1900-01-01'" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="p.ArmyOutDate" ReplaceString="'1900-01-01'" Value="null"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="#{p.HTEndDate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.HTEndDate" ReplaceString="'1900-01-01'" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="p.HTBeginDate" ReplaceString="'1900-01-01'" Value="null"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="#{p.InDate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.InDate" ReplaceString="'1900-01-01'" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="p.InDate" ReplaceString="'1900-01-01'" Value="null"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="#{p.HTBeginDate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.HTBeginDate" ReplaceString="'1900-01-01'" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="p.HTBeginDate" ReplaceString="'1900-01-01'" Value="null"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="#{p.PlanInDate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.PlanInDate" ReplaceString="'1900-01-01'" Value="0"/>
+<n1:RuleItem Operator="Equal" Parameter="p.PlanInDate" ReplaceString="'1900-01-01'" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Insert>
+<n1:Update Height="24" Name="UpdatePersonnel" SQL="UPDATE `personnel` SET `Code` = #{p.Code}, `Name` = #{p.Name}, `CardCode` = #{p.CardCode},&#10;`Birthday` = #{p.Birthday}, `Gender` = #{p.Gender}, `Politics` = #{p.Politics}, `Height` = #{p.Height}, `Weight` = #{p.Weight},&#10;`Education` = #{p.Education}, `Nation` = #{p.Nation}, `Native` = #{p.Native}, `HomeAddress` = #{p.HomeAddress},&#10; `Census` = #{p.Census}, `CensusAddress` = #{p.CensusAddress}, `Marital` = #{p.Marital}, `LinkMan` = #{p.LinkMan},&#10; `LinkManRelation` = #{p.LinkManRelation}, `LinkManPhone` = #{p.LinkManPhone}, `Army` = #{p.Army},&#10; `ArmyInDate` = #{p.ArmyInDate}, `ArmyOutDate` = #{p.ArmyOutDate}, `Z1` = #{p.Z1}, `Z2` = #{p.Z2},&#10; `Z3` = #{p.Z3}, `Z4` = #{p.Z4}, `Z5` = #{p.Z5} ,`Z6` = #{p.Z6}, `Z7` = #{p.Z7}, `Z8` = #{p.Z8},&#10;`Computer` = #{p.Computer}, `English` = #{p.English}, `PartTime` = #{p.PartTime}, `Disease` = #{p.Disease},&#10; `Crime` = #{p.Crime}, `Appearance` = #{p.Appearance}, `Communication` = #{p.Communication},&#10;`Source` = #{p.Source}, `InDate` = #{p.InDate}, `HTBeginDate` = #{p.HTBeginDate},&#10;`HTEndDate` = #{p.HTEndDate}, `Photo` = #{p.Photo}, `PhotoCount` = #{p.PhotoCount},&#10;`F1` = #{p.F1}, `F2` =#{p.F2}, `F3` =#{p.F3}, `F4` = #{p.F4}, `F5` = #{p.F5}, `F6` = #{p.F6},&#10; `F7` = #{p.F7}, `F8` = #{p.F8}, `F9` = #{p.F9}, `F10` = #{p.F10}, `GeneralComment` = #{p.GeneralComment},&#10; `InterViewer` = #{p.InterViewer}, `GivePost` = #{p.GivePost}, `PlanSite` = #{p.PlanSite}, `PlantJob` = #{p.PlantJob},&#10;`PlanInDate` = #{p.PlanInDate}, `CheckUser` = #{p.CheckUser}, `HRUser` = #{p.HRUser}, `JobUser` = #{p.JobUser},&#10;`ModifyUser` = #{p.CreateUser}, `ModifyTime` = now()&#10; WHERE `ID` =#{p.ID};" Width="160" X="39" Y="72">
+<Parameters>
+<n2:Field Collections="false" Name="p" ObjectName="Import.personnelImport" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="`Birthday` = #{p.Birthday},">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.Birthday" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="`Gender` = #{p.Gender},">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.Gender" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="`Native` = #{p.Native},">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.Native" Value="0"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="#{p.ArmyInDate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.ArmyInDate" ReplaceString="'1900-01-01'" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="p.ArmyInDate" ReplaceString="'1900-01-01'" Value="null"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="#{p.ArmyOutDate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.ArmyOutDate" ReplaceString="'1900-01-01'" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="p.ArmyOutDate" ReplaceString="'1900-01-01'" Value="null"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="#{p.InDate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.InDate" ReplaceString="'1900-01-01'" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="p.InDate" ReplaceString="'1900-01-01'" Value="null"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="#{p.HTBeginDate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.HTBeginDate" ReplaceString="'1900-01-01'" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="p.HTBeginDate" ReplaceString="'1900-01-01'" Value="null"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="#{p.HTEndDate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.HTEndDate" ReplaceString="'1900-01-01'" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="p.HTEndDate" ReplaceString="'1900-01-01'" Value="null"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="#{p.PlanInDate}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="p.PlanInDate" ReplaceString="'1900-01-01'" Value="&quot;&quot;"/>
+<n1:RuleItem Operator="Equal" Parameter="p.PlanInDate" ReplaceString="'1900-01-01'" Value="null"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Update>
+<n1:Select Height="247" MapperEntity="Import.personnelImport" Name="getPersonnelByCardCode" SQL="select * from Personnel  where CardCode=#{CardCode}" SelectType="Singleton" Width="183" X="38" Y="103">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Code" Name="Code" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="CardCode" Name="CardCode" Type="String"/>
+<n1:ResultField MapperField="Birthday" Name="Birthday" Type="DateTime"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Integer"/>
+<n1:ResultField MapperField="Politics" Name="Politics" Type="Integer"/>
+<n1:ResultField MapperField="Height" Name="Height" Type="Integer"/>
+<n1:ResultField MapperField="Weight" Name="Weight" Type="Integer"/>
+<n1:ResultField MapperField="Education" Name="Education" Type="Integer"/>
+<n1:ResultField MapperField="Nation" Name="Nation" Type="Integer"/>
+<n1:ResultField MapperField="Native" Name="Native" Type="Integer"/>
+<n1:ResultField MapperField="HomeAddress" Name="HomeAddress" Type="String"/>
+<n1:ResultField MapperField="Census" Name="Census" Type="Integer"/>
+<n1:ResultField MapperField="CensusAddress" Name="CensusAddress" Type="String"/>
+<n1:ResultField MapperField="Marital" Name="Marital" Type="Integer"/>
+<n1:ResultField MapperField="LinkMan" Name="LinkMan" Type="String"/>
+<n1:ResultField MapperField="LinkManRelation" Name="LinkManRelation" Type="String"/>
+<n1:ResultField MapperField="LinkManPhone" Name="LinkManPhone" Type="String"/>
+<n1:ResultField MapperField="Army" Name="Army" Type="String"/>
+<n1:ResultField MapperField="ArmyInDate" Name="ArmyInDate" Type="DateTime"/>
+<n1:ResultField MapperField="ArmyOutDate" Name="ArmyOutDate" Type="DateTime"/>
+<n1:ResultField MapperField="Z1" Name="Z1" Type="Boolean"/>
+<n1:ResultField MapperField="Z2" Name="Z2" Type="Boolean"/>
+<n1:ResultField MapperField="Z3" Name="Z3" Type="Boolean"/>
+<n1:ResultField MapperField="Z4" Name="Z4" Type="Boolean"/>
+<n1:ResultField MapperField="Z5" Name="Z5" Type="Boolean"/>
+<n1:ResultField MapperField="Z6" Name="Z6" Type="Boolean"/>
+<n1:ResultField MapperField="Z7" Name="Z7" Type="Boolean"/>
+<n1:ResultField MapperField="Z8" Name="Z8" Type="Boolean"/>
+<n1:ResultField MapperField="Computer" Name="Computer" Type="Integer"/>
+<n1:ResultField MapperField="English" Name="English" Type="Integer"/>
+<n1:ResultField MapperField="PartTime" Name="PartTime" Type="Boolean"/>
+<n1:ResultField MapperField="Disease" Name="Disease" Type="Boolean"/>
+<n1:ResultField MapperField="Crime" Name="Crime" Type="Boolean"/>
+<n1:ResultField MapperField="Appearance" Name="Appearance" Type="String"/>
+<n1:ResultField MapperField="Communication" Name="Communication" Type="String"/>
+<n1:ResultField MapperField="Source" Name="Source" Type="Integer"/>
+<n1:ResultField MapperField="InDate" Name="InDate" Type="DateTime"/>
+<n1:ResultField MapperField="HTBeginDate" Name="HTBeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="HTEndDate" Name="HTEndDate" Type="DateTime"/>
+<n1:ResultField MapperField="Photo" Name="Photo" Type="Boolean"/>
+<n1:ResultField MapperField="PhotoCount" Name="PhotoCount" Type="Integer"/>
+<n1:ResultField MapperField="F1" Name="F1" Type="Boolean"/>
+<n1:ResultField MapperField="F2" Name="F2" Type="Boolean"/>
+<n1:ResultField MapperField="F3" Name="F3" Type="Boolean"/>
+<n1:ResultField MapperField="F4" Name="F4" Type="Boolean"/>
+<n1:ResultField MapperField="F5" Name="F5" Type="Boolean"/>
+<n1:ResultField MapperField="F6" Name="F6" Type="Boolean"/>
+<n1:ResultField MapperField="F7" Name="F7" Type="Boolean"/>
+<n1:ResultField MapperField="F8" Name="F8" Type="Boolean"/>
+<n1:ResultField MapperField="F9" Name="F9" Type="Boolean"/>
+<n1:ResultField MapperField="F10" Name="F10" Type="Boolean"/>
+<n1:ResultField MapperField="GeneralComment" Name="GeneralComment" Type="String"/>
+<n1:ResultField MapperField="InterViewer" Name="InterViewer" Type="String"/>
+<n1:ResultField MapperField="GivePost" Name="GivePost" Type="Boolean"/>
+<n1:ResultField MapperField="PlanSite" Name="PlanSite" Type="String"/>
+<n1:ResultField MapperField="PlantJob" Name="PlantJob" Type="String"/>
+<n1:ResultField MapperField="PlanInDate" Name="PlanInDate" Type="DateTime"/>
+<n1:ResultField MapperField="CheckUser" Name="CheckUser" Type="String"/>
+<n1:ResultField MapperField="HRUser" Name="HRUser" Type="String"/>
+<n1:ResultField MapperField="JobUser" Name="JobUser" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="CardCode" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Import.personnelImport" Name="getPersonnelByCode" SQL="select * from Personnel  where Code=#{Code}" SelectType="Singleton" Width="160" X="285" Y="39">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Code" Name="Code" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="CardCode" Name="CardCode" Type="String"/>
+<n1:ResultField MapperField="Birthday" Name="Birthday" Type="DateTime"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Integer"/>
+<n1:ResultField MapperField="Politics" Name="Politics" Type="Integer"/>
+<n1:ResultField MapperField="Height" Name="Height" Type="Integer"/>
+<n1:ResultField MapperField="Weight" Name="Weight" Type="Integer"/>
+<n1:ResultField MapperField="Education" Name="Education" Type="Integer"/>
+<n1:ResultField MapperField="Nation" Name="Nation" Type="Integer"/>
+<n1:ResultField MapperField="Native" Name="Native" Type="Integer"/>
+<n1:ResultField MapperField="HomeAddress" Name="HomeAddress" Type="String"/>
+<n1:ResultField MapperField="Census" Name="Census" Type="Integer"/>
+<n1:ResultField MapperField="CensusAddress" Name="CensusAddress" Type="String"/>
+<n1:ResultField MapperField="Marital" Name="Marital" Type="Integer"/>
+<n1:ResultField MapperField="LinkMan" Name="LinkMan" Type="String"/>
+<n1:ResultField MapperField="LinkManRelation" Name="LinkManRelation" Type="String"/>
+<n1:ResultField MapperField="LinkManPhone" Name="LinkManPhone" Type="String"/>
+<n1:ResultField MapperField="Army" Name="Army" Type="String"/>
+<n1:ResultField MapperField="ArmyInDate" Name="ArmyInDate" Type="DateTime"/>
+<n1:ResultField MapperField="ArmyOutDate" Name="ArmyOutDate" Type="DateTime"/>
+<n1:ResultField MapperField="Z1" Name="Z1" Type="Boolean"/>
+<n1:ResultField MapperField="Z2" Name="Z2" Type="Boolean"/>
+<n1:ResultField MapperField="Z3" Name="Z3" Type="Boolean"/>
+<n1:ResultField MapperField="Z4" Name="Z4" Type="Boolean"/>
+<n1:ResultField MapperField="Z5" Name="Z5" Type="Boolean"/>
+<n1:ResultField MapperField="Z6" Name="Z6" Type="Boolean"/>
+<n1:ResultField MapperField="Z7" Name="Z7" Type="Boolean"/>
+<n1:ResultField MapperField="Z8" Name="Z8" Type="Boolean"/>
+<n1:ResultField MapperField="Computer" Name="Computer" Type="Integer"/>
+<n1:ResultField MapperField="English" Name="English" Type="Integer"/>
+<n1:ResultField MapperField="PartTime" Name="PartTime" Type="Boolean"/>
+<n1:ResultField MapperField="Disease" Name="Disease" Type="Boolean"/>
+<n1:ResultField MapperField="Crime" Name="Crime" Type="Boolean"/>
+<n1:ResultField MapperField="Appearance" Name="Appearance" Type="String"/>
+<n1:ResultField MapperField="Communication" Name="Communication" Type="String"/>
+<n1:ResultField MapperField="Source" Name="Source" Type="Integer"/>
+<n1:ResultField MapperField="InDate" Name="InDate" Type="DateTime"/>
+<n1:ResultField MapperField="HTBeginDate" Name="HTBeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="HTEndDate" Name="HTEndDate" Type="DateTime"/>
+<n1:ResultField MapperField="Photo" Name="Photo" Type="Boolean"/>
+<n1:ResultField MapperField="PhotoCount" Name="PhotoCount" Type="Integer"/>
+<n1:ResultField MapperField="F1" Name="F1" Type="Boolean"/>
+<n1:ResultField MapperField="F2" Name="F2" Type="Boolean"/>
+<n1:ResultField MapperField="F3" Name="F3" Type="Boolean"/>
+<n1:ResultField MapperField="F4" Name="F4" Type="Boolean"/>
+<n1:ResultField MapperField="F5" Name="F5" Type="Boolean"/>
+<n1:ResultField MapperField="F6" Name="F6" Type="Boolean"/>
+<n1:ResultField MapperField="F7" Name="F7" Type="Boolean"/>
+<n1:ResultField MapperField="F8" Name="F8" Type="Boolean"/>
+<n1:ResultField MapperField="F9" Name="F9" Type="Boolean"/>
+<n1:ResultField MapperField="F10" Name="F10" Type="Boolean"/>
+<n1:ResultField MapperField="GeneralComment" Name="GeneralComment" Type="String"/>
+<n1:ResultField MapperField="InterViewer" Name="InterViewer" Type="String"/>
+<n1:ResultField MapperField="GivePost" Name="GivePost" Type="Boolean"/>
+<n1:ResultField MapperField="PlanSite" Name="PlanSite" Type="String"/>
+<n1:ResultField MapperField="PlantJob" Name="PlantJob" Type="String"/>
+<n1:ResultField MapperField="PlanInDate" Name="PlanInDate" Type="DateTime"/>
+<n1:ResultField MapperField="CheckUser" Name="CheckUser" Type="String"/>
+<n1:ResultField MapperField="HRUser" Name="HRUser" Type="String"/>
+<n1:ResultField MapperField="JobUser" Name="JobUser" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="Code" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="InsertSitepersonnel" SQL="INSERT INTO `sitepersonnel`( `SiteId`, `PID`,  `IsMain`, `Job`,`CreateUser`, `CreateTime`,`Level`) &#10;VALUES((select id from site WHERE name=#{SiteName}),(select id from personnel WHERE CardCode=#{CardCode}),1,#{Job},#{CreateUser},now(),'01');" Width="160" X="500" Y="39">
+<Parameters>
+<n2:Field Collections="false" Name="CardCode" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="Job" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="CreateUser" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="SiteName" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Select Height="240" MapperEntity="Table" Name="insertPersonnelByID" SQL="select  max(id) ID  from personnel" SelectType="Singleton" Width="160" X="502" Y="71">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Update Height="24" Name="UpdateSitepersonnel" SQL="UPDATE Sitepersonnel &#9;SET Job = #{Job}  WHERE PID =(select id from personnel WHERE CardCode=#{CardCode}) and  Siteid=(select id from site WHERE name=#{SiteName})" Width="160" X="502" Y="331">
+<Parameters>
+<n2:Field Collections="false" Name="Job" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="CardCode" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="SiteName" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Height="240" MapperEntity="Import.SitepersonnelImport" Name="getSitepersonnelByPID" SQL="select * from Sitepersonnel WHERE PID =(select id from personnel WHERE CardCode=#{CardCode}) and  Siteid=(select id from site WHERE name=#{SiteName})" SelectType="Collections" Width="160" X="252" Y="307">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="SiteId" Name="SiteId" Type="Integer"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="BeginDate" Name="BeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="DateTime"/>
+<n1:ResultField MapperField="IsMain" Name="IsMain" Type="Boolean"/>
+<n1:ResultField MapperField="Job" Name="Job" Type="String"/>
+<n1:ResultField MapperField="Level" Name="Level" Type="String"/>
+<n1:ResultField MapperField="PostSubsidy" Name="PostSubsidy" Type="Decimal"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="CardCode" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="SiteName" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Update Height="24" Name="UpdatePersonnelAll" SQL="UPDATE personnel set Birthday= substring(CardCode,7,8),Gender=mod( substring(CardCode,17,1) ,2) ,Native=concat(substring(CardCode,1,2),'0000') where substring(CardCode,7,8) like '19%' or substring(CardCode,7,8) like '20%';" Width="160" X="503" Y="372">
+<Parameters/>
+<Rules/>
+</n1:Update>
+<n1:Select Height="240" MapperEntity="Table" Name="getSiteLeaderByPhone" SQL="SELECT  p.id from  &#10;personnel p&#10;left join sitepersonnel sp on p.id =sp.PID&#10;join site s on s.id=sp.SiteId&#10;where p.Phone=#{Phone} and p.`Name`=#{PName} or(s.`Name`=#{SName} and p.`Name`=#{PName}  )  LIMIT 0,1" SelectType="Singleton" Width="160" X="39" Y="373">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="id" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="Phone" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="SName" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="PName" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="p.Phone=#{Phone} and">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="Phone" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

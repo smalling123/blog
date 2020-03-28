@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Base.Site" Name="getSiteContractById" SQL="select  s.ID ,s.Name,s.Address ,s.Leader,s.Leadership,s.Manager,&#10;s.District ,s.Type ,s.Status,sc.ContractID CustomerID &#10;from  SiteContract sc&#10;join Site s on sc.siteID=s.id&#10; where sc.id=#{id}" SelectType="Singleton" Width="160" X="391" Y="39">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="Leader" Name="Leader" Type="Integer"/>
+<n1:ResultField MapperField="Leadership" Name="Leadership" Type="String"/>
+<n1:ResultField MapperField="Manager" Name="Manager" Type="Integer"/>
+<n1:ResultField MapperField="District" Name="District" Type="Integer"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="CustomerID" Name="CustomerID" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="159" MapperEntity="Table" Name="getSiteContractByCount" SQL="select count(*) Count&#10;from  SiteContract sc&#10;join Site s on sc.siteID=s.id&#10; where sc.ContractID=#{ContractID}  and isdelete=0" SelectType="Singleton" Width="160" X="211" Y="81">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="ContractID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertSiteContract" SQL="Insert Into SiteContract(SiteId, ContractId)&#10; Values(#{sitecontract.SiteId}, #{sitecontract.ContractId})" Width="160" X="214" Y="41">
+<Parameters>
+<n2:Field Collections="false" Name="sitecontract" ObjectName="Contract.SiteContract" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Select Height="240" MapperEntity="Base.Site" Name="getSiteContractByContractID" SQL="select sc.ID, s.Name,s.Address ,s.Leader,s.Leadership,s.Manager,&#10;s.District ,s.Type ,s.Status&#10;from  SiteContract sc&#10;join Site s on sc.siteID=s.id&#10; where sc.ContractID=#{ContractID}  and isdelete=0&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="171" X="28" Y="39">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="Leader" Name="Leader" Type="Integer"/>
+<n1:ResultField MapperField="Leadership" Name="Leadership" Type="String"/>
+<n1:ResultField MapperField="Manager" Name="Manager" Type="Integer"/>
+<n1:ResultField MapperField="District" Name="District" Type="Integer"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="ContractID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertSite" SQL="Insert Into Site(Name, CustomerID, Leader, Leadership, &#10;OrgID, Manager, District, Address, Describes, &#10;Type, Status, InDate, OutDate, Kq, CreateUser, CreateTime, &#10;LeaderName, LeaderPhone, Lng, Lat)&#10; Values(#{site.Name}, (select  CustomerID from Contract   where id= #{site.CustomerID}), &#10;#{site.Leader}, #{site.Leadership},  (select  OrgID  from Contract   where id= #{site.CustomerID}), &#10;#{site.Manager}, #{site.District}, #{site.Address}, &#10;#{site.Describes}, #{site.Type}, #{site.Status}, #{site.InDate},&#10; #{site.OutDate}, #{site.Kq},  #{site.CreateUser}, Now(),&#10;   #{site.LeaderName}, #{site.LeaderPhone}, #{site.Lng}, #{site.Lat});" Width="160" X="586" Y="81">
+<Parameters>
+<n2:Field Collections="false" Name="site" ObjectName="Base.Site" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateSite" SQL="Update Site Set&#10;&#9;Name = #{site.Name},&#10;&#9;CustomerID = (select  CustomerID from Contract  where id= #{site.CustomerID}),&#10;&#9;Leader = #{site.Leader},&#10;&#9;Leadership = #{site.Leadership},&#10;&#9;OrgID = (select OrgID  from Contract  where id= #{site.CustomerID}),&#10;&#9;Manager = #{site.Manager},&#10;&#9;District = #{site.District},&#10;&#9;Address = #{site.Address},&#10;&#9;Describes = #{site.Describes},&#10;&#9;Type = #{site.Type},&#10;&#9;Status = #{site.Status},&#10;&#9;InDate = #{site.InDate},&#10;&#9;OutDate = #{site.OutDate},&#10;&#9;Kq = #{site.Kq},&#10;&#9;ModifyUser = #{site.CreateUser},&#10;&#9;ModifyTime = now(),&#10; Where ID = #{site.ID}" Width="160" X="587" Y="39">
+<Parameters>
+<n2:Field Collections="false" Name="site" ObjectName="Base.Site" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+</Controls>
+</View>
+</Mapper>

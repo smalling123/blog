@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="失业"/>
+<Item Code="1" Name="协保"/>
+<Item Code="2" Name="应届"/>
+<Item Code="3" Name="在职"/>
+<Item Code="4" Name="农村富余劳动力"/>
+<Item Code="5" Name="下岗"/>
+<Item Code="6" Name="待退休"/>
+<Item Code="7" Name="退休"/>
+<Item Code="8" Name="外来务工人员"/>
+<Item Code="9" Name="其它"/>
+</Items>
+</Dictionary>

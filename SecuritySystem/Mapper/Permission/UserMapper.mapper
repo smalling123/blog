@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="用户信息">
+<View>
+<Controls>
+<n1:Select Description="根据LoginName获取用户对象" Height="489" MapperEntity="Permission.User" Name="getUserOne" SQL="Select User.ID,  User.LoginName, User.Name, User.Password, User.Phone, User.Gender, User.Email, User.QQ, User.Wechat, User.Address, User.Birthday, User.Describes, ifnull(OrgRole.OrgID,0) As OrgID, ifnull(Org.Name, '') As OrgName, User.Status&#10;From User Left Join UserRole On User.ID = UserRole.UserID And UserRole.isMain = 1&#10;&#9;&#9;Left Join OrgRole On OrgRole.ID = UserRole.OrgRoleID &#10;&#9;&#9;Left Join Org On Org.ID = OrgRole.OrgID&#10;Where LoginName = #{loginname} And Status = 0" SelectType="Singleton" Width="160" X="60" Y="43">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="LoginName" Name="LoginName" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Password" Name="Password" Type="String"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Boolean"/>
+<n1:ResultField MapperField="Email" Name="Email" Type="String"/>
+<n1:ResultField MapperField="QQ" Name="QQ" Type="String"/>
+<n1:ResultField MapperField="Wechat" Name="Wechat" Type="String"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="Birthday" Name="Birthday" Type="DateTime"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="OrgID" Name="OrgID" Type="Integer"/>
+<n1:ResultField MapperField="OrgName" Name="OrgName" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Boolean"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="loginname" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获取所有用户清单" Height="489" MapperEntity="Permission.User" Name="getAllUsers" SQL="Select ID,  LoginName, Name, '' as Password, Phone, Gender, Email, QQ, Wechat, Address, Birthday, Describes, Status&#10;From User&#10;where LoginName like '%${loginName}%' and Name like '%${name}%'&#10;Order By convert(Name using gbk) collate gbk_chinese_ci&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="256" Y="43">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="LoginName" Name="LoginName" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Password" Name="Password" Type="String"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Integer"/>
+<n1:ResultField MapperField="Email" Name="Email" Type="String"/>
+<n1:ResultField MapperField="QQ" Name="QQ" Type="String"/>
+<n1:ResultField MapperField="Wechat" Name="Wechat" Type="String"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="Birthday" Name="Birthday" Type="DateTime"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="loginName" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getUsersCount" SQL="Select Count(1) As Count From User&#10;where LoginName like '%${loginName}%' and Name like '%${name}%'" SelectType="Singleton" Width="160" X="459" Y="43">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="loginName" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="根据ID获取用户对旬" Height="491" MapperEntity="Permission.User" Name="getUserById" SQL="Select ID,  LoginName, Name, '' as Password, Phone, Gender, Email, QQ, Wechat, Address, Birthday, Describes, Status&#10;From User&#10;Where ID = #{id}" SelectType="Singleton" Width="160" X="653" Y="43">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="LoginName" Name="LoginName" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Password" Name="Password" Type="String"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Boolean"/>
+<n1:ResultField MapperField="Email" Name="Email" Type="String"/>
+<n1:ResultField MapperField="QQ" Name="QQ" Type="String"/>
+<n1:ResultField MapperField="Wechat" Name="Wechat" Type="String"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="Birthday" Name="Birthday" Type="DateTime"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Boolean"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获取用户拥有的角色清单" Height="240" MapperEntity="Permission.OrgRole" Name="getUserRoles" SQL="Select OrgRole.ID As OrgRoleID, Org.ID As OrgID, Org.Name As OrgName, Role.ID As RoleID, Role.Name As RoleName&#10;From User Join UserRole on User.ID = UserRole.UserID&#10;&#9;&#9;Join OrgRole on UserRole.OrgRoleID = OrgRole.ID&#10;&#9;&#9;Join Org on Org.ID = OrgRole.OrgID&#10;&#9;&#9;Join Role on Role.ID = OrgRole.RoleID&#10;Where User.ID = #{id}&#10;Order By IsMain desc" SelectType="Collections" Width="160" X="845" Y="43">
+<ResultSet>
+<n1:ResultField MapperField="OrgRoleID" Name="OrgRoleID" Type="Integer"/>
+<n1:ResultField MapperField="OrgID" Name="OrgID" Type="Integer"/>
+<n1:ResultField MapperField="OrgName" Name="OrgName" Type="String"/>
+<n1:ResultField MapperField="RoleID" Name="RoleID" Type="Integer"/>
+<n1:ResultField MapperField="RoleName" Name="RoleName" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="InsertUser" SQL="Insert Into User(LoginName, Name, Password, Phone, Gender, Email, QQ, Wechat, Address, Birthday, Describes, Status)&#10;Values(#{user.LoginName}, #{user.Name}, #{user.Password}, #{user.Phone}, #{user.Gender}, #{user.Email}, #{user.QQ}, #{user.Wechat}, #{user.Address}, #{user.Birthday}, #{user.Describes}, #{user.Status})" Width="160" X="294" Y="568">
+<Parameters>
+<n2:Field Collections="false" Name="user" ObjectName="Permission.User" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="UpdateUser" SQL="Update User set LoginName  = #{user.LoginName}  , &#10;Name = #{user.Name}  ,&#10;Phone = #{user.Phone}  , &#10;Gender = #{user.Gender}  , &#10;Email = #{user.Email}  , &#10;QQ = #{user.QQ}  , &#10;Wechat = #{user.Wechat}  , &#10;Address = #{user.Address}  , &#10;Birthday = #{user.Birthday} , &#10;Describes = #{user.Describes}  , &#10;Status = #{user.Status}&#10;Where ID = #{user.ID}" Width="160" X="295" Y="607">
+<Parameters>
+<n2:Field Collections="false" Name="user" ObjectName="Permission.User" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="Birthday = #{user.Birthday} ,">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="user.Birthday" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Update>
+<n1:Insert Height="24" Name="InsertUserRole" SQL="Insert Into UserRole(UserID, OrgRoleID)&#10;Values( #{userid}, #{orgroleid} )" Width="160" X="508" Y="566">
+<Parameters>
+<n2:Field Collections="false" Name="userid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="orgroleid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Delete Height="24" Name="DeleteUserRole" SQL="Delete From UserRole Where UserID = #{userid} And OrgRoleID = #{orgroleid}" Width="160" X="507" Y="605">
+<Parameters>
+<n2:Field Collections="false" Name="userid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="orgroleid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+<n1:Update Description="为用户设置主岗位，更新第一条记录为主岗" Height="24" Name="UpdateUserRoleIsMain" SQL="Update UserRole Set IsMain = 0 Where UserID = #{userid};&#10;Update UserRole Inner Join (Select Min(T1.ID) As ID From UserRole As T1 Where T1.UserID = #{userid}) T1&#10;on UserRole.ID = T1.ID&#10;Set UserRole.IsMain = 1" Width="160" X="718" Y="604">
+<Parameters>
+<n2:Field Collections="false" Name="userid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Description="根据账号查看是否存在用户" Height="240" MapperEntity="Table" Name="getCountByLoginName" SQL="select count(1) Count from User&#10;where LoginName=#{name}" SelectType="Singleton" Width="160" X="457" Y="302">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获取员工ID" Height="240" MapperEntity="Table" Name="getUserId" SQL="select ID from User&#10;where LoginName=#{name}" SelectType="Singleton" Width="160" X="48" Y="553">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="根据账号获取ID" Height="88" MapperEntity="Table" Name="getUIDByAccount" SQL="select ID from user where LoginName=#{account}" SelectType="Singleton" Width="160" X="294" Y="655">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="account" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="根据账号密码查询数据是否存在" Height="240" MapperEntity="Table" Name="getCountByAccountPwd" SQL="select Count(*) Count from user where LoginName=#{account} and Password=#{password}" SelectType="Singleton" Width="182" X="831" Y="298">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="account" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="password" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Update Description="修改密码" Height="24" Name="UpdatePassword" SQL="Update User set &#10;Password = #{password}&#10;Where ID = #{id}" Width="160" X="716" Y="566">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="password" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Description="根据账号查询账户信息" Height="492" MapperEntity="Permission.User" Name="getUserByAccount" SQL="select * from User where LoginName=#{account}" SelectType="Singleton" Width="160" X="1025" Y="45">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="LoginName" Name="LoginName" Type="String"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Password" Name="Password" Type="String"/>
+<n1:ResultField MapperField="Phone" Name="Phone" Type="String"/>
+<n1:ResultField MapperField="Gender" Name="Gender" Type="Integer"/>
+<n1:ResultField MapperField="Email" Name="Email" Type="String"/>
+<n1:ResultField MapperField="QQ" Name="QQ" Type="String"/>
+<n1:ResultField MapperField="Wechat" Name="Wechat" Type="String"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="Birthday" Name="Birthday" Type="DateTime"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="account" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="Bug信息">
+<View>
+<Controls>
+<n1:Select Description="查询BUG" Height="347" MapperEntity="System.Bug" Name="getBug" SQL="select * from Bug&#10;where Handler LIKE '%${handler}%' &#10;and ModuleName LIKE '%${modulename}%' &#10;and Question LIKE '%${question}%'&#10;and Type=#{type} &#10;and Level=#{level} &#10;and Status=#{status}&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="45" Y="60">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="ModuleName" Name="ModuleName" Type="String"/>
+<n1:ResultField MapperField="Question" Name="Question" Type="String"/>
+<n1:ResultField MapperField="Level" Name="Level" Type="Integer"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="Finder" Name="Finder" Type="String"/>
+<n1:ResultField MapperField="FindDate" Name="FindDate" Type="DateTime"/>
+<n1:ResultField MapperField="Handler" Name="Handler" Type="String"/>
+<n1:ResultField MapperField="EndTime" Name="EndTime" Type="DateTime"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="Description" Name="Description" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="handler" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="modulename" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="question" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="type" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="level" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="status" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and Type=#{type}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="type" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and Level=#{level}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="level" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and Status=#{status}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="status" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Description="根据ID查询Bug信息" Height="342" MapperEntity="System.Bug" Name="getBugById" SQL="select * from Bug where ID=#{id}" SelectType="Singleton" Width="160" X="245" Y="61">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="ModuleName" Name="ModuleName" Type="String"/>
+<n1:ResultField MapperField="Question" Name="Question" Type="String"/>
+<n1:ResultField MapperField="Level" Name="Level" Type="Integer"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="Finder" Name="Finder" Type="String"/>
+<n1:ResultField MapperField="FindDate" Name="FindDate" Type="DateTime"/>
+<n1:ResultField MapperField="Handler" Name="Handler" Type="String"/>
+<n1:ResultField MapperField="EndTime" Name="EndTime" Type="DateTime"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="Description" Name="Description" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="查询BUG" Height="240" MapperEntity="Table" Name="getBugCount" SQL="select count(1) As Count&#10;from Bug&#10;where Handler LIKE '%${handler}%' &#10;and ModuleName LIKE '%${modulename}%' &#10;and Question LIKE '%${question}%'&#10;and Type=#{type} &#10;and Level=#{level} &#10;and Status=#{status}" SelectType="Singleton" Width="160" X="440" Y="167">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="handler" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="modulename" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="question" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="type" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="level" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="status" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and Type=#{type}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="type" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and Level=#{level}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="level" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="and Status=#{status}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="status" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Insert Height="24" Name="insertBug" SQL="Insert Into Bug(ModuleName, Question, Type, Level, Finder, FindDate, Handler, EndTime, Status, Description)&#10; Values(#{bug.ModuleName}, #{bug.Question}, #{bug.Type}, #{bug.Level}, #{bug.Finder}, #{bug.FindDate}, #{bug.Handler}, #{bug.EndTime}, #{bug.Status}, #{bug.Description})" Width="160" X="440" Y="61">
+<Parameters>
+<n2:Field Collections="false" Name="bug" ObjectName="System.Bug" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateBug" SQL="Update Bug Set&#10;&#9;ModuleName = #{bug.ModuleName},&#10;&#9;Question = #{bug.Question},&#10;&#9;Type = #{bug.Type},&#10;&#9;Level = #{bug.Level},&#10;&#9;Finder = #{bug.Finder},&#10;&#9;FindDate = #{bug.FindDate},&#10;&#9;Handler = #{bug.Handler},&#10;&#9;EndTime = #{bug.EndTime},&#10;&#9;Status = #{bug.Status},&#10;&#9;Description = #{bug.Description}&#10; Where ID = #{bug.ID}" Width="160" X="440" Y="108">
+<Parameters>
+<n2:Field Collections="false" Name="bug" ObjectName="System.Bug" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+</Controls>
+</View>
+</Mapper>

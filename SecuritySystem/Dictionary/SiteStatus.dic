@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="执行中"/>
+<Item Code="1" Name="已撤点"/>
+</Items>
+</Dictionary>

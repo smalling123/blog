@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="流程节点表">
+<View>
+<Controls>
+<n1:Select Description="查询流程节点表" Height="240" MapperEntity="ApplyFor.ProcessNode" Name="getAllProcessNode" SQL="select * from ProcessNode&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="99" Y="65">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="ProcessName" Name="ProcessName" Type="String"/>
+<n1:ResultField MapperField="ProcessNode" Name="ProcessNode" Type="String"/>
+<n1:ResultField MapperField="ProcessNo" Name="ProcessNo" Type="String"/>
+<n1:ResultField MapperField="ProcessRole" Name="ProcessRole" Type="String"/>
+<n1:ResultField MapperField="Order" Name="Order" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="根据Id获取流程节点" Height="240" MapperEntity="ApplyFor.ProcessNode" Name="getProcessNodeById" SQL="select * from ProcessNode&#10;where Id =#{id}" SelectType="Singleton" Width="160" X="281" Y="65">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="ProcessName" Name="ProcessName" Type="String"/>
+<n1:ResultField MapperField="ProcessNode" Name="ProcessNode" Type="String"/>
+<n1:ResultField MapperField="ProcessNo" Name="ProcessNo" Type="String"/>
+<n1:ResultField MapperField="ProcessRole" Name="ProcessRole" Type="String"/>
+<n1:ResultField MapperField="Order" Name="Order" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Description="添加流程节点" Height="24" Name="InsertProcessNode" SQL="INSERT INTO processnode&#10;(ProcessName, ProcessNode, &#10;ProcessNo, ProcessRole, `Order`) &#10;VALUES (#{pro.ProcessName}, #{pro.ProcessNode}, &#10;#{pro.ProcessNo}, #{pro.ProcessRole}, #{pro.Order})" Width="160" X="544" Y="66">
+<Parameters>
+<n2:Field Collections="false" Name="pro" ObjectName="ApplyFor.ProcessNode" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Description="修改流程节点" Height="24" Name="UpdateProcessNode" SQL="UPDATE processnode &#10;SET ProcessName = #{pro.ProcessName}, ProcessNode = #{pro.ProcessNode}, &#10;ProcessNo = #{pro.ProcessNo}, ProcessRole = #{pro.ProcessRole}, `Order` = #{pro.Order}&#10;WHERE Id = #{pro.Id}" Width="160" X="544" Y="125">
+<Parameters>
+<n2:Field Collections="false" Name="pro" ObjectName="ApplyFor.ProcessNode" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Delete Description="删除流程节点" Height="24" Name="DeleteProcessNode" SQL="DELETE FROM ProcessNode&#10;WHERE Id=#{id}" Width="160" X="544" Y="184">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+<n1:Select Description="获取流程为0且序号为1的数据" Height="240" MapperEntity="ApplyFor.ProcessNode" Name="getProcessNodeToList" SQL="select * from ProcessNode where ProcessNo='0' and `Order`='1'" SelectType="Singleton" Width="182" X="836" Y="42">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="ProcessName" Name="ProcessName" Type="String"/>
+<n1:ResultField MapperField="ProcessNode" Name="ProcessNode" Type="String"/>
+<n1:ResultField MapperField="ProcessNo" Name="ProcessNo" Type="String"/>
+<n1:ResultField MapperField="ProcessRole" Name="ProcessRole" Type="String"/>
+<n1:ResultField MapperField="Order" Name="Order" Type="Integer"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getMax" SQL="select max(ProcessNo) max from processnode" SelectType="Singleton" Width="160" X="466" Y="261">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="max" Type="String"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Select Description="查询角色所对节点" Height="240" MapperEntity="ApplyFor.ProcessNode" Name="getUserProcessNode" SQL="Select processnode.*&#10;From User Join UserRole on User.ID = UserRole.UserID&#10;&#9;&#9;Join OrgRole on UserRole.OrgRoleID = OrgRole.ID&#10;&#9;&#9;Join Org on Org.ID = OrgRole.OrgID&#10;&#9;&#9;Join Role on Role.ID = OrgRole.RoleID&#10;&#9;  Join processnode on role.Name=processnode.ProcessRole&#10;&#9;  where User.LoginName=#{name} and ProcessNode.ProcessNo=#{processno}" SelectType="Singleton" Width="160" X="115" Y="316">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="ProcessName" Name="ProcessName" Type="String"/>
+<n1:ResultField MapperField="ProcessNode" Name="ProcessNode" Type="String"/>
+<n1:ResultField MapperField="ProcessNo" Name="ProcessNo" Type="String"/>
+<n1:ResultField MapperField="ProcessRole" Name="ProcessRole" Type="String"/>
+<n1:ResultField MapperField="Order" Name="Order" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="processno" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="ApplyFor.ProcessNode" Name="getProcessNode" SQL="select distinct ProcessNode  from processnode where ProcessNo=#{processno}" SelectType="Singleton" Width="160" X="641" Y="260">
+<ResultSet>
+<n1:ResultField MapperField="ProcessNode" Name="ProcessNode" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="processno" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

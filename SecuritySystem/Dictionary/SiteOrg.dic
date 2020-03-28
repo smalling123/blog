@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Dynamic">
+<SQL>Select Convert(Org.ID, char(20)) as Code, Org.Name as Name 
+From Org Join OrgType On Org.OrgType = OrgType.ID And OrgType.ID = 2</SQL>
+<ConvertSQL>Select Name as Name 
+From Org
+Where ID = #{code}</ConvertSQL>
+<Items/>
+</Dictionary>

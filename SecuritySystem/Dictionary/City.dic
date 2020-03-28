@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Search">
+<SQL>Select Convert(ID, char(20)) as Code, ShortName as Name 
+From District
+Where Name like '%${filter}%' or PinYin like '%${filter}%' or JianPin like '%${filter}%' or ID=#{filter}
+Order By convert(ShortName using gbk) collate gbk_chinese_ci</SQL>
+<ConvertSQL>Select ShortName as Name 
+From District
+Where ID = #{code}</ConvertSQL>
+<Items/>
+</Dictionary>

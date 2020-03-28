@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Description="根据ID获取指定的印鉴申请实体" Height="457" MapperEntity="Workflow.Seal" Name="getSealOne" SQL="Select ID, OrgID, UserID, Date, Content, Type, SealType, W1, W2, W3, W4, W5, W6, W7, W8, W9, W10, W11, Other, WorkflowID, File1&#10;From Seal Where ID = #{id}" SelectType="Singleton" Width="160" X="87" Y="45">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="OrgID" Name="OrgID" Type="Integer"/>
+<n1:ResultField MapperField="UserID" Name="UserID" Type="Integer"/>
+<n1:ResultField MapperField="Date" Name="Date" Type="String"/>
+<n1:ResultField MapperField="Content" Name="Content" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="SealType" Name="SealType" Type="Integer"/>
+<n1:ResultField MapperField="W1" Name="W1" Type="Boolean"/>
+<n1:ResultField MapperField="W2" Name="W2" Type="Boolean"/>
+<n1:ResultField MapperField="W3" Name="W3" Type="Boolean"/>
+<n1:ResultField MapperField="W4" Name="W4" Type="Boolean"/>
+<n1:ResultField MapperField="W5" Name="W5" Type="Boolean"/>
+<n1:ResultField MapperField="W6" Name="W6" Type="Boolean"/>
+<n1:ResultField MapperField="W7" Name="W7" Type="Boolean"/>
+<n1:ResultField MapperField="W8" Name="W8" Type="Boolean"/>
+<n1:ResultField MapperField="W9" Name="W9" Type="Boolean"/>
+<n1:ResultField MapperField="W10" Name="W10" Type="Boolean"/>
+<n1:ResultField MapperField="W11" Name="W11" Type="Boolean"/>
+<n1:ResultField MapperField="Other" Name="Other" Type="String"/>
+<n1:ResultField MapperField="WorkflowID" Name="WorkflowID" Type="Integer"/>
+<n1:ResultField MapperField="File1" Name="File1" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="InsertSeal" SQL="Insert Into Seal(OrgID, UserID, Date, Content, Type, SealType, W1, W2, W3, W4, W5, W6, W7, W8, W9, W10, W11, Other, WorkflowID, File1)&#10;Values(#{seal.OrgID}, #{seal.UserID}, Now(), #{seal.Content}, #{seal.Type}, #{seal.SealType}, #{seal.W1}, #{seal.W2}, #{seal.W3}, #{seal.W4}, #{seal.W5}, #{seal.W6}, #{seal.W7}, #{seal.W8}, #{seal.W9}, #{seal.W10}, #{seal.W11}, #{seal.Other}, 0, #{seal.File1})" Width="160" X="285" Y="45">
+<Parameters>
+<n2:Field Collections="false" Name="seal" ObjectName="Workflow.Seal" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="InsertSealWorkflow" SQL="Insert Into Workflow(WTID, Status, OrgID, UserID, DataID, Date, WIID) &#10;Select 'Seal',0, OrgRole.OrgID, User.ID, #{dataid}, Now(), 0&#10;From User Join UserRole On User.ID = UserRole.UserID And UserRole.isMain = 1&#10;&#9;&#9;Join OrgRole On OrgRole.ID = UserRole.OrgRoleID&#10;Where User.LoginName = #{user}" Width="160" X="288" Y="105">
+<Parameters>
+<n2:Field Collections="false" Name="dataid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="InsertSealW1" SQL="Insert Into WorkflowItem(WID, Title, UserID, Content, Date)&#10;Select #{wid}, '部门负责人审批 ', UserRole.UserID, '', null&#10;From OrgRole Join Role on OrgRole.RoleID = Role.ID And Role.Name = '部门负责人'&#10;And OrgRole.OrgID = &#10;(Select OrgRole.OrgID&#10;From User Join UserRole On User.ID = UserRole.UserID And UserRole.isMain = 1&#10;&#9;&#9;Join OrgRole On OrgRole.ID = UserRole.OrgRoleID&#10;Where User.LoginName = #{user})&#10;&#9;Join UserRole On OrgRole.ID = UserRole.OrgRoleID&#10;limit 0, 1" Width="160" X="290" Y="163">
+<Parameters>
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="wid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="InsertSealW2" SQL="Insert Into WorkflowItem(WID, Title, UserID, Content, Date)&#10;Select #{wid}, '分公司总经理审批 ', UserRole.UserID, '', null&#10;From OrgRole Join Role on OrgRole.RoleID = Role.ID And Role.Name = '分公司总经理'&#10;And (OrgRole.OrgID = &#10;(Select OrgRole.OrgID&#10;From User Join UserRole On User.ID = UserRole.UserID And UserRole.isMain = 1&#10;&#9;&#9;Join OrgRole On OrgRole.ID = UserRole.OrgRoleID&#10;Where User.LoginName = #{user})&#10;&#9;or OrgRole.OrgID =&#10;(Select Org.PID&#10;From User Join UserRole On User.ID = UserRole.UserID And UserRole.isMain = 1&#10;&#9;&#9;Join OrgRole On OrgRole.ID = UserRole.OrgRoleID&#10;        Join Org On Org.ID = OrgRole.OrgID&#10;Where User.LoginName = #{user})&#10;)&#10;&#9;Join UserRole On OrgRole.ID = UserRole.OrgRoleID&#10;limit 0, 1" Width="160" X="288" Y="214">
+<Parameters>
+<n2:Field Collections="false" Name="user" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="wid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="InsertSealW3" SQL="Insert Into WorkflowItem(WID, Title, UserID, Content, Date)&#10;Select #{wid}, '业务条线审批人审批 ', UserRole.UserID, '', null&#10;From Role Join OrgRole On Role.ID = OrgRole.RoleID&#10;&#9;&#9;Join UserRole On UserRole.OrgRoleID = OrgRole.ID&#10;Where Role.Name = '业务条线审批人'&#10;limit 0, 1" Width="160" X="289" Y="263">
+<Parameters>
+<n2:Field Collections="false" Name="wid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="InsertSealW4" SQL="Insert Into WorkflowItem(WID, Title, UserID, Content, Date)&#10;Select #{wid}, '行政条线审批人审批 ', UserRole.UserID, '', null&#10;From Role Join OrgRole On Role.ID = OrgRole.RoleID&#10;&#9;&#9;Join UserRole On UserRole.OrgRoleID = OrgRole.ID&#10;Where Role.Name = '行政条线审批人'&#10;limit 0, 1" Width="160" X="292" Y="312">
+<Parameters>
+<n2:Field Collections="false" Name="wid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="InsertSealW5" SQL="Insert Into WorkflowItem(WID, Title, UserID, Content, Date)&#10;Select #{wid}, '总经理 ', UserRole.UserID, '', null&#10;From Role Join OrgRole On Role.ID = OrgRole.RoleID&#10;&#9;&#9;Join UserRole On UserRole.OrgRoleID = OrgRole.ID&#10;Where Role.Name = '总经理'&#10;limit 0, 1" Width="160" X="291" Y="356">
+<Parameters>
+<n2:Field Collections="false" Name="wid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Insert Height="24" Name="InsertSealW6" SQL="Insert Into WorkflowItem(WID, Title, UserID, Content, Date)&#10;Select #{wid}, '公章保管员审批 ', UserRole.UserID, '', null&#10;From Role Join OrgRole On Role.ID = OrgRole.RoleID&#10;&#9;&#9;Join UserRole On UserRole.OrgRoleID = OrgRole.ID&#10;Where Role.Name = '公章保管员'&#10;limit 0, 1" Width="160" X="292" Y="405">
+<Parameters>
+<n2:Field Collections="false" Name="wid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="UpdateSealWorkflowID" SQL="Update Seal set WorkflowID = #{wid}&#10;where ID = #{id}" Width="184" X="480" Y="51">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="wid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+</Controls>
+</View>
+</Mapper>

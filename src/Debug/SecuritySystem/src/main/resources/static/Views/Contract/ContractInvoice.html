@@ -1,0 +1,394 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-validator/css/bootstrap-validator.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-validator/js/bootstrap-validator.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+			font-size: small;
+		}
+		.input {
+			height: 28px;
+			padding: 6px 6px 6px 6px;
+		}
+	</style>
+</head>
+<body style="background-color: #F2F2F2;">
+	<div class="container" id="app"  style="width: 94%; margin-left: 3%; margin-top:20px;">
+        <form id="form1" rele="form" class="form-horizontal">
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="content">开票内容:</label>
+                </div>
+                <div class="col-xs-6 col-md-6">
+                    <input v-model="Data.content" type="text" class="form-control input" id="content" name="content" readonly>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="beginDate">开始日期:</label>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <input type="text" class="layui-input form-control input" id="beginDate" name="beginDate">
+                </div>
+
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="endDate">结束日期:</label>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <input type="text" class="layui-input form-control input" id="endDate" name="endDate">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="pnumber">开票人数:</label>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <input v-model="Data.pnumber" type="text" class="form-control input" id="pnumber" name="pnumber">
+                </div>
+
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="price">单价:</label>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <input v-model="Data.price" type="text" class="form-control input" id="price" name="price">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="amount">每月金额:</label>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <input v-model="Data.amount" type="text" class="form-control input" id="amount" name="amount">
+                </div>
+
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="totalAmount">合同总金额:</label>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <input v-model="Data.totalAmount" type="text" class="form-control input" id="totalAmount" name="totalAmount">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="type">开票类型:</label>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <select id="select_type" class="selectpicker form-control input" v-model="Data.type" name="type">
+                        <option value="0">增值税专业发票</option>
+                        <option value="1">增值税普通发票</option>
+                    </select>
+                </div>
+
+
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="invoicecycle">开票周期:</label>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <div class="col-xs-7 col-md-7">
+                        <input v-model="Data.invoicecycle" type="text" class="form-control input" id="invoicecycle" name="invoicecycle">
+                    </div>
+                    <div class="col-xs-3 col-md-3">
+                        月
+                    </div>
+                </div>
+                    <div class="col-xs-6 col-md-6">
+                        <div class="col-xs-2 col-md-2" style="text-align:right">
+                            <label>第:</label>
+                        </div>
+                        <div class="col-xs-3 col-md-3">
+                            <input type="text" class="layui-input form-control input" id="month" v-model="Data.month" name="month">
+                        </div>
+                        <div class="col-xs-1 col-md-1">
+                            月
+                        </div>
+                        <div class="col-xs-3 col-md-3">
+                            <input type="text" class="layui-input form-control input" id="day" v-model="Data.day" name="day">
+                        </div>
+                        <div class="col-xs-1 col-md-1">
+                            日
+                        </div>
+                        <div class="col-xs-2 col-md-2 ">
+                            <label>开票</label>
+                        </div>
+                    </div>
+
+                </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="describes">备注:</label>
+                </div>
+                <div class="col-xs-8 col-md-8">
+                    <textarea v-model="Data.describes" class="form-control" rows="5" id="describes" name="describes"></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+
+                <div class="col-xs-2 col-md-2" style="text-align: right;">
+                </div>
+                <div class="col-xs-8 col-md-8" style="text-align: left;">
+                    <button type="button" class="layui-btn layui-btn-sm" onClick="Accept()">
+                        <i class="layui-icon layui-icon-ok"></i><span class="fontsm">&emsp;提交&emsp;</span>
+                    </button>
+                    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onClick="iframecloses()">
+                        <i class="layui-icon layui-icon-close"></i><span class="fontsm">&emsp;取消&emsp;</span>
+                    </button>
+                </div>
+            </div>
+
+        </form>
+	</div>
+</body>
+</html>
+<script src="../../wwwroot/js/App.js"></script>
+<script>
+	layui.use('laydate', function () {
+		var laydate = layui.laydate;
+		laydate.render({
+			elem: '#beginDate',
+			type: 'date',
+			format: 'yyyy-MM-dd',
+			done: function (value) {
+				var d = new Date(value);
+				vm.Data.beginDate = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' 00:00:00';
+			}
+		});
+		laydate.render({
+			elem: '#endDate',
+			type: 'date',
+			format: 'yyyy-MM-dd',
+			done: function (value) {
+				var d = new Date(value);
+				vm.Data.endDate = d.getFullYear()+'/'+(d.getMonth()+1)+'/'+d.getDate()+' 00:00:00';
+			}
+        });
+	});
+</script>
+
+<script>
+	$(document).ready(function () {
+		$('#form1').bootstrapValidator({
+			message: 'This value is not valid',
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+				beginDate: {
+					message: '开始日期验证失败',
+					validators: {
+						notEmpty: {
+							message: '开始日期不能为空'
+						}
+					}
+				},
+				endDate: {
+					message: '结束日期验证失败',
+					validators: {
+						notEmpty: {
+							message: '结束日期不能为空'
+						}
+					}
+				},
+				content: {
+					message: '开票内容验证失败',
+					validators: {
+						notEmpty: {
+							message: '开票内容不能为空'
+						}
+					}
+				},
+				pnumber: {
+					message: '开票人数验证失败',
+					validators: {
+						notEmpty: {
+							message: '开票人数不能为空'
+						}
+					}
+				},
+				price: {
+					message: '单价验证失败',
+					validators: {
+						notEmpty: {
+							message: '单价不能为空'
+						}
+					}
+				},
+				amount: {
+					message: '每月金额验证失败',
+					validators: {
+						notEmpty: {
+							message: '每月金额不能为空'
+						}
+					}
+				},
+				totalAmount: {
+					message: '合同金额验证失败',
+					validators: {
+						notEmpty: {
+							message: '合同金额不能为空'
+						}
+					}
+				},
+				type: {
+					message: '类型验证失败',
+					validators: {
+						notEmpty: {
+							message: '类型不能为空'
+						}
+					}
+                },
+                invoicecycle: {
+                    message: '开票周期验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '开票周期不能为空'
+                        }
+                    }
+                },
+                month: {
+                    message: '开票月验证失败',
+                    validators: {
+                        notEmpty: {
+                            message: '开票月不能为空'
+                        }
+                    }
+                },
+				day: {
+					message: '开票日验证失败',
+					validators: {
+						notEmpty: {
+							message: '开票日不能为空'
+						}
+					}
+				}
+			}
+		});
+	});
+	
+	var dictionaryItems = [{code:"", name:""}];	
+
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			Data:{
+				id: 0,
+				contractId: 0,
+				beginDate: "2019/12/07 00:00:00",
+				endDate: "2019/12/07 00:00:00",
+				content: "保安员服务费",
+				pnumber: 0,
+				price: 0,
+				amount: 0,
+				totalAmount: 0,
+				type: 0,
+                month: 1,
+                day: 1,
+				isdelete: false,
+				createUser: "",
+				createTime: "",
+				modifyUser: "",
+				modifyTime: "",
+				deleteUser: "",
+                deleteTime: "",
+                invoicecycle:1,
+                describes:""
+			}
+
+		},
+		methods: {
+
+		},
+		watch: {
+			Data: function() {
+				this.$nextTick(function () {
+					$('#select_type').selectpicker('refresh');
+				});
+				//渲染所有日期组件
+				layui.use('laydate', function () {
+					var laydate = layui.laydate;
+					laydate.render({
+						elem: '#beginDate',
+						value: (new Date(vm.Data.beginDate)).getFullYear()+'-'+((new Date(vm.Data.beginDate)).getMonth()+1)+'-'+(new Date(vm.Data.beginDate)).getDate()
+					});
+					laydate.render({
+						elem: '#endDate',
+						value: (new Date(vm.Data.endDate)).getFullYear()+'-'+((new Date(vm.Data.endDate)).getMonth()+1)+'-'+(new Date(vm.Data.endDate)).getDate()
+                    });
+				});
+			}
+		}
+	});
+	
+	$(function(){
+	});
+
+    function getcontractId(contractId) {
+        vm.Data.contractId = contractId;
+    }
+	
+	function getData(id){
+		
+		if(id>0){
+			PostAppAjax({
+				url: '/Contract/getContractInvoiceById',
+				data: {
+					id: id
+				},
+				success: function(result) {
+					if(result.code==0){
+						vm.Data = result.data;
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function(err) {
+					alert("服务器忙，请重试!\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+	function Accept(){
+		$('#form1').data("bootstrapValidator").validate();
+ 		var isValid = $('#form1').data("bootstrapValidator").isValid();
+		if(isValid){
+			PostAppAjax({
+				url: '/Contract/updateContractInvoice',
+				contentType: 'application/json;charset=utf-8',
+				data: JSON.stringify(vm.Data),
+				success: function(result) {
+					if(result.code==0){
+                        doTrigger("ContractInvoice,Contract"); //调用触发器，刷新查询
+						iframecloses();
+					}else{
+						alert("数据提交不成功！\n\n错误信息：\n"+result.msg);
+					}
+				},
+				error: function(err) {
+					alert("错误信息：\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+</script>

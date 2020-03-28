@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" xmlns:n3="org.polariscode.plugin.web.springboot.action.jwt" Description="" Transactional="true" Type="Post" VerifyToken="true">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Name="s" ObjectName="Base.Site" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable2">
+<n2:Field Collections="false" Name="username" ObjectName="String" Required="false" Show="false" Type="String"/>
+</n1:Variable>
+<n3:GetJWTID Name="GetJWTID1" Variable="username"/>
+<n1:Assign Name="Assign1" Value="username" Variable="s.CreateUser"/>
+<n1:Decide Expression="s.getID()&gt;0" Name="Decide1">
+<Controls>
+<n1:DataAccess ContinueOnError="false" Dao="Contract.SiteContractMapper.updateSite" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1"/>
+<n1:Variable Name="Variable3"/>
+<n1:DataAccess ContinueOnError="false" Dao="Import.CustomerImportMapper.getSiteByName" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess3" Variable="sites"/>
+<n1:Decide Expression="sites!=null&amp;&amp;sites.getID()&gt;0" Name="Decide2">
+<Controls>
+<n1:Assign Name="Assign2" Value="500" Variable="result.Code"/>
+<n1:Assign Name="Assign3" Value="&quot;此驻点名称已存在，请验证后重试！&quot;" Variable="result.Msg"/>
+<n1:Code Name="Code1" Value="return result;"/>
+<n1:Variable Name="Variable5"/>
+<n1:Variable Name="Variable4"/>
+<n1:DataAccess ContinueOnError="false" Dao="Contract.SiteContractMapper.insertSite" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2"/>
+<n1:DataAccess ContinueOnError="false" Dao="Import.CustomerImportMapper.getInsertSiteID" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess4" Variable="t"/>
+<n1:Assign Name="Assign4" Value="t.getID()" Variable="cs.SiteId"/>
+<n1:Assign Name="Assign5" Value="s.getCustomerID ()" Variable="cs.ContractId"/>
+<n1:DataAccess ContinueOnError="false" Dao="Contract.SiteContractMapper.insertSiteContract" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess5"/>
+</Controls>
+</n1:Decide>
+</Controls>
+<if>
+<n1:DataAccess ContinueOnError="false" Dao="Contract.SiteContractMapper.updateSite" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="s" Name="site" ObjectName="Base.Site" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+</if>
+<else>
+<n1:Variable Name="Variable3">
+<n2:Field Collections="false" Name="sites" ObjectName="Base.Site" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="Import.CustomerImportMapper.getSiteByName" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess3" Variable="sites">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="s.getName()" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Decide Expression="sites!=null&amp;&amp;sites.getID()&gt;0" Name="Decide2">
+<Controls>
+<n1:Assign Name="Assign2" Value="500" Variable="result.Code"/>
+<n1:Assign Name="Assign3" Value="&quot;此驻点名称已存在，请验证后重试！&quot;" Variable="result.Msg"/>
+<n1:Code Name="Code1" Value="return result;"/>
+<n1:Variable Name="Variable5"/>
+<n1:Variable Name="Variable4"/>
+<n1:DataAccess ContinueOnError="false" Dao="Contract.SiteContractMapper.insertSite" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2"/>
+<n1:DataAccess ContinueOnError="false" Dao="Import.CustomerImportMapper.getInsertSiteID" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess4" Variable="t"/>
+<n1:Assign Name="Assign4" Value="t.getID()" Variable="cs.SiteId"/>
+<n1:Assign Name="Assign5" Value="s.getCustomerID ()" Variable="cs.ContractId"/>
+<n1:DataAccess ContinueOnError="false" Dao="Contract.SiteContractMapper.insertSiteContract" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess5"/>
+</Controls>
+<if>
+<n1:Assign Name="Assign2" Value="500" Variable="result.Code"/>
+<n1:Assign Name="Assign3" Value="&quot;此驻点名称已存在，请验证后重试！&quot;" Variable="result.Msg"/>
+<n1:Code Name="Code1" Value="return result;"/>
+</if>
+<else>
+<n1:Variable Name="Variable5">
+<n2:Field Collections="false" Name="cs" ObjectName="Contract.SiteContract" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable4">
+<n2:Field Collections="false" Name="t" ObjectName="Table" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="Contract.SiteContractMapper.insertSite" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="s" Name="site" ObjectName="Base.Site" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Import.CustomerImportMapper.getInsertSiteID" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess4" Variable="t">
+<Parameters/>
+</n1:DataAccess>
+<n1:Assign Name="Assign4" Value="t.getID()" Variable="cs.SiteId"/>
+<n1:Assign Name="Assign5" Value="s.getCustomerID ()" Variable="cs.ContractId"/>
+<n1:DataAccess ContinueOnError="false" Dao="Contract.SiteContractMapper.insertSiteContract" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess5">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="cs" Name="sitecontract" ObjectName="Contract.SiteContract" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+</else>
+</n1:Decide>
+</else>
+</n1:Decide>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

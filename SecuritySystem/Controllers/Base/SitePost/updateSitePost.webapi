@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" Description="更新执勤配置表" Transactional="true" Type="Post" VerifyToken="true">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Name="sitepost" ObjectName="Base.SitePost" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable2">
+<n2:Field Collections="false" Name="sp" ObjectName="Base.SitePost" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Decide Description="判断执勤配置是否发布" Expression="sitepost.getStatus()" Name="Decide1">
+<if>
+<n1:DataAccess ContinueOnError="false" Dao="Base.SitePostMapper.getLastSitePost" Description="获取最新一个发布的版本，赋值给sp" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess4" Variable="sp">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="sitepost.getSiteId()" Name="siteid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Decide Description="判断sp不为空" Expression="sp!=null" Name="Decide3">
+<if>
+<n1:Decide Description="sp开始日期大于等于提交的开始日期 " Expression="sp.getBeginDate().compareTo(sitepost.getBeginDate())&gt;=0" Name="Decide2">
+<if>
+<n1:Assign Name="Assign1" Value="99" Variable="result.Code"/>
+<n1:Assign Name="Assign2" Value="&quot;开始日期不能早于上一个版本的开始日期！&quot;" Variable="result.Msg"/>
+<n1:Code Name="Code1" Value="return result;"/>
+</if>
+<else>
+<n1:DataAccess ContinueOnError="false" Dao="Base.SitePostMapper.updateSitePostEndDate" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess5">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="sp.getID()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" DefaultValue="sitepost.getBeginDate()" Name="date" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+</Parameters>
+</n1:DataAccess>
+</else>
+</n1:Decide>
+</if>
+<else/>
+</n1:Decide>
+</if>
+<else/>
+</n1:Decide>
+<n1:DataAccess ContinueOnError="false" Dao="Base.SitePostMapper.updateSitePost" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="sitepost" Name="sitepost" ObjectName="Base.SitePost" Required="false" Show="false" Type="Object"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Base.SitePostMapper.deleteSitePostItem" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="sitepost.getID()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Base.SitePostMapper.insertSitePostItem" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess3">
+<Parameters>
+<n2:Field Collections="true" DefaultValue="sitepost.getItems()" Name="sitepostitem" ObjectName="Base.SitePostItem" Required="false" Show="false" Type="Object"/>
+<n2:Field Collections="false" DefaultValue="sitepost.getID()" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

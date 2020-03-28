@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="身份证复印件正反面"/>
+<Item Code="1" Name="学历证书原件"/>
+<Item Code="2" Name="劳动手册"/>
+<Item Code="3" Name="健康证"/>
+<Item Code="4" Name="体检报告原件"/>
+<Item Code="5" Name="照片"/>
+<Item Code="6" Name="无"/>
+</Items>
+</Dictionary>

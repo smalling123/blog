@@ -1,0 +1,1128 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <link href="../../../wwwroot/css/apptheme.css" rel="stylesheet" />
+    <link href="../../../wwwroot/css/site.min.css" rel="stylesheet" />
+    <link href="../../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="../../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+    <link href="../../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+    <link href="../../../wwwroot/lib/bootstrap-validator/css/bootstrap-validator.min.css" rel="stylesheet" />
+    <link href="../../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+    <script src="../../../wwwroot/lib/vue/vue.js"></script>
+    <script src="../../../wwwroot/lib/layui/layui.js"></script>
+    <script src="../../../wwwroot/lib/jquery/dist/jquery.js"></script>
+    <script src="../../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="../../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="../../../wwwroot/lib/bootstrap-validator/js/bootstrap-validator.min.js"></script>
+    <script src="../../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+    <script src="../../../wwwroot/js/site.js"></script>
+    <style type="text/css">
+        * {
+            margin: 0px;
+            padding: 0px;
+            font-size: small;
+        }
+
+        .input {
+            height: 28px;
+            padding: 6px 6px 6px 6px;
+        }
+
+        #img {
+            position: absolute;
+            border: 0.1px double #808080;
+            height: 150px;
+            width: 130px;
+        }
+
+        .ticked {
+            margin-top: 7px;
+        }
+    </style>
+</head>
+<body style="background-color: #F2F2F2;">
+    <div class="container" id="app" style="width: 94%; margin-left: 3%; margin-top:20px;">
+        <form id="form1" rele="form" class="form-horizontal">
+            <div class="form-group">
+                <input v-model="Data.id" type="hidden" id="Empid" name="Empid" />
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="account">账号:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.account" type="text" class="form-control input" id="account" name="account" required readonly>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="name">姓名:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.name" type="text" class="form-control input" id="name" name="name" required readonly>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="img"></label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <div id="img">
+                        <img :src="Data.img" alt="这是头像照！" id="img" name="img" />
+                    </div>
+                    <!--<input v-model="Data.img" type="text" class="form-control input" id="img" name="img">-->
+                </div>
+
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="address">户籍地址:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.address" type="text" class="form-control input" id="address" name="address" readonly>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="gender">性别:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_gender" class="selectpicker form-control input" v-model="Data.gender" name="gender" readonly>
+                        <option value="1">男</option>
+                        <option value="0">女</option>
+                    </select>
+                </div>
+
+            </div>
+            <!--<div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="documentImg">证件照片:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <img :src="Data.documentImg" alt="这是证件照片！" id="documentImg" name="documentImg" />
+                    <input v-model="Data.documentImg" type="text" class="form-control input" id="documentImg" name="documentImg">
+                </div>
+            </div>-->
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="education">学历:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_education" class="selectpicker form-control input" v-model="Data.education" name="education">
+                        <option value="1">小学</option>
+                        <option value="2">初中</option>
+                        <option value="3">高中</option>
+                        <option value="4">大专</option>
+                        <option value="5">本科</option>
+                        <option value="6">硕士</option>
+                        <option value="7">博士</option>
+                        <option value="8">专业培训</option>
+                        <option value="0">无</option>
+                    </select>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="isMarry">婚否:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_isMarry" class="selectpicker form-control input" v-model="Data.isMarry" name="isMarry">
+                        <option value="false">否</option>
+                        <option value="true">是</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="birthday">生日:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.birthday" type="text" class="form-control input" id="birthday" name="birthday" readonly>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="mobile">移动电话:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.mobile" type="text" class="form-control input" id="mobile" name="mobile">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="isParty">党员与否:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_isParty" class="selectpicker form-control input" v-model="Data.isParty" name="isParty">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="enlistmentTime">入伍时间:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.enlistmentTime" type="text" class="la-date form-control" id="enlistmentTime" name="enlistmentTime">
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="retirementTime">退伍时间:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.retirementTime" type="text" class="la-date form-control" id="retirementTime" name="retirementTime">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="troopsName">部队名称:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.troopsName" type="text" class="form-control input" id="troopsName" name="troopsName">
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="height">身高:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.height" type="text" class="form-control input" id="height" name="height">
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="weight">体重:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.weight" type="text" class="form-control input" id="weight" name="weight">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="cardNo">身份证号:</label>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <input v-model="Data.cardNo" type="text" class="form-control input" id="cardNo" name="cardNo" readonly>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="bankNo">银行卡号:</label>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <input v-model="Data.bankNo" type="text" class="form-control input" id="bankNo" name="bankNo">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="certificate">技能证书:</label>
+                </div>
+            </div>
+            <div class="form-group" name="certificate">
+                <div class="col-xs-3 col-md-3">
+                    <div v-for="site in Data.userImgs" v-if="Data.certificates.indexOf(3)>=0&&site.img">
+                        <img :src="site.img" style="height: 80px;margin-left: 50%;" alt="保安员证" v-if="Data.certificates.indexOf(site.type)>=0&&site.type==3" />
+                    </div>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <div v-for="site in Data.userImgs" v-if="Data.certificates.indexOf(4)>=0&&site.img">
+                        <img :src="site.img" style="height: 80px;margin-left: 50%;" alt="驾驶A证" v-if="Data.certificates.indexOf(site.type)>=0&&site.type==4" />
+                    </div>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <div v-for="site in Data.userImgs" v-if="Data.certificates.indexOf(5)>=0&&site.img">
+                        <img :src="site.img" style="height: 80px;margin-left: 50%;" alt="驾驶B证" v-if="Data.certificates.indexOf(site.type)>=0&&site.type==5" />
+                    </div>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <div v-for="site in Data.userImgs" v-if="Data.certificates.indexOf(6)>=0&&site.img">
+                        <img :src="site.img" style="height: 80px;margin-left: 50%;" alt="驾驶C证" v-if="Data.certificates.indexOf(site.type)>=0&&site.type==6" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="certificate">保安员证:</label>
+                </div>
+                <div class="col-xs-1 col-md-1" ticked>
+                    <input type="checkbox" name="certificate" value="3" v-model="Data.certificate" title="保安员证" disabled="disabled">
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="certificate">驾驶A证:</label>
+                </div>
+                <div class="col-xs-1 col-md-1 ticked">
+                    <input type="checkbox" name="certificate" value="4" v-model="Data.certificate" title="驾驶A证" disabled="disabled">
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="certificate">驾驶B证:</label>
+                </div>
+                <div class="col-xs-1 col-md-1 ticked">
+                    <input type="checkbox" name="certificate" value="5" v-model="Data.certificate" title="驾驶B证" disabled="disabled">
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="certificate">驾驶C证:</label>
+                </div>
+                <div class="col-xs-1 col-md-1 ticked">
+                    <input type="checkbox" name="certificate" value="6" v-model="Data.certificate" title="驾驶C证" disabled="disabled">
+                </div>
+            </div>
+            <div class="form-group" name="certificate">
+                <div class="col-xs-3 col-md-3">
+                    <div v-for="site in Data.userImgs" v-if="Data.certificates.indexOf(7)>=0&&site.img">
+                        <img :src="site.img" style="height: 80px;margin-left: 50%;" alt="建筑物消防员" v-if="Data.certificates.indexOf(site.type)>=0&&site.type==7" />
+                    </div>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <div v-for="site in Data.userImgs" v-if="Data.certificates.indexOf(8)>=0&&site.img">
+                        <img :src="site.img" style="height: 80px;margin-left: 50%;" alt="五级保卫员证" v-if="Data.certificates.indexOf(site.type)>=0&&site.type==8" />
+                    </div>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <div v-for="site in Data.userImgs" v-if="Data.certificates.indexOf(9)>=0&&site.img">
+                        <img :src="site.img" style="height: 80px;margin-left: 50%;" alt="四级保卫员证" v-if="Data.certificates.indexOf(site.type)>=0&&site.type==9" />
+                    </div>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <div v-for="site in Data.userImgs" v-if="Data.certificates.indexOf(10)>=0&&site.img">
+                        <img :src="site.img" style="height: 80px;margin-left: 50%;" alt="三级保卫员证" v-if="Data.certificates.indexOf(site.type)>=0&&site.type==10" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="certificate">建筑物消防员:</label>
+                </div>
+                <div class="col-xs-1 col-md-1 ticked">
+                    <input type="checkbox" name="certificate" value="7" v-model="Data.certificate" title="建筑物消防员" disabled="disabled">
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="certificate">五级保卫员证:</label>
+                </div>
+                <div class="col-xs-1 col-md-1 ticked">
+                    <input type="checkbox" name="certificate" value="8" v-model="Data.certificate" title="五级保卫员证" disabled="disabled">
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="certificate">四级保卫员证:</label>
+                </div>
+                <div class="col-xs-1 col-md-1 ticked">
+                    <input type="checkbox" name="certificate" value="9" v-model="Data.certificate" title="四级保卫员证" disabled="disabled">
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="certificate">三级保卫员证:</label>
+                </div>
+                <div class="col-xs-1 col-md-1 ticked">
+                    <input type="checkbox" name="certificate" value="10" v-model="Data.certificate" title="三级保卫师证" disabled="disabled">
+                </div>
+            </div>
+            <div class="form-group" name="certificate">
+                <div class="col-xs-3 col-md-3">
+                    <div v-for="site in Data.userImgs" v-if="Data.certificates.indexOf(11)>=0&&site.img">
+                        <img :src="site.img" style="height: 80px;margin-left: 50%;" alt="二级保卫员证" v-if="Data.certificates.indexOf(site.type)>=0&&site.type==11" />
+                    </div>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <div v-for="site in Data.userImgs" v-if="Data.certificates.indexOf(12)>=0&&site.img">
+                        <img :src="site.img" style="height: 80px;margin-left: 50%;" alt="一级保卫员证" v-if="Data.certificates.indexOf(site.type)>=0&&site.type==12" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="certificate">二级保卫员证:</label>
+                </div>
+                <div class="col-xs-1 col-md-1 ticked">
+                    <input type="checkbox" name="certificate" value="11" v-model="Data.certificate" title="二级保卫师证" disabled="disabled">
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="certificate">一级保卫员证:</label>
+                </div>
+                <div class="col-xs-1 col-md-1 ticked">
+                    <input type="checkbox" name="certificate" value="12" v-model="Data.certificate" title="一级保卫师证" disabled="disabled">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="peopleType">人员类型:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_peopleType" class="selectpicker form-control input" v-model="Data.peopleType" name="peopleType">
+                        <option value="0">失业</option>
+                        <option value="1">协保</option>
+                        <option value="2">应届</option>
+                        <option value="3">在职</option>
+                        <option value="4">农村富余劳动力</option>
+                        <option value="5">下岗</option>
+                        <option value="6">待退休</option>
+                        <option value="7">退休</option>
+                        <option value="8">外来务工人员</option>
+                        <option value="9">其它</option>
+                    </select>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="position">职位:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.position" type="text" class="form-control input" id="position" name="position">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="speakLevel">普通话水平:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_speakLevel" class="selectpicker form-control input" v-model="Data.speakLevel" name="speakLevel">
+                        <option value="0">普通</option>
+                        <option value="1">良好</option>
+                        <option value="2">熟练</option>
+                        <option value="3">无</option>
+                    </select>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="englishLevel">英语水平:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_englishLevel" class="selectpicker form-control input" v-model="Data.englishLevel" name="englishLevel">
+                        <option value="0">普通</option>
+                        <option value="1">良好</option>
+                        <option value="2">熟练</option>
+                        <option value="3">无</option>
+                    </select>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="computerLevel">电脑水平:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_computerLevel" class="selectpicker form-control input" v-model="Data.computerLevel" name="computerLevel">
+                        <option value="0">普通</option>
+                        <option value="1">良好</option>
+                        <option value="2">熟练</option>
+                        <option value="3">无</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="driveLevel">驾驶水平:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_driveLevel" class="selectpicker form-control input" v-model="Data.driveLevel" name="driveLevel">
+                        <option value="3">无</option>
+                        <option value="2">A照</option>
+                        <option value="1">B照</option>
+                        <option value="0">C照</option>
+                    </select>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="isFamilyDisease">是否有家族遗传疾病史:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_isFamilyDisease" class="selectpicker form-control input" v-model="Data.isFamilyDisease" name="isFamilyDisease">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="isChronicDisease">是否有慢性疾病:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_isChronicDisease" class="selectpicker form-control input" v-model="Data.isChronicDisease" name="isChronicDisease">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="isCriminalPunishment">是否受过刑事处罚:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_isCriminalPunishment" class="selectpicker form-control input" v-model="Data.isCriminalPunishment" name="isCriminalPunishment">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="isAdministrativeSanction">是否受过行政处罚:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_isAdministrativeSanction" class="selectpicker form-control input" v-model="Data.isAdministrativeSanction" name="isAdministrativeSanction">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="isMajorDiseases">是否患过重大疾病:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_isMajorDiseases" class="selectpicker form-control input" v-model="Data.isMajorDiseases" name="isMajorDiseases">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="isExcessiveDrinking">是否有酗酒习惯:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_isExcessiveDrinking" class="selectpicker form-control input" v-model="Data.isExcessiveDrinking" name="isExcessiveDrinking">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="isDrug">是否曾有过吸毒行为:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_isDrug" class="selectpicker form-control input" v-model="Data.isDrug" name="isDrug">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="isOccupationalDiseases">是否有工伤/职业病/伤残等级:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_isOccupationalDiseases" class="selectpicker form-control input" v-model="Data.isOccupationalDiseases" name="isOccupationalDiseases">
+                        <option value="0">否</option>
+                        <option value="1">是</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="occupationalDiseases">工伤/职业病/伤残等级:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.occupationalDiseases" type="text" class="form-control input" id="occupationalDiseases" name="occupationalDiseases">
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="email">邮箱:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <input v-model="Data.email" type="text" class="form-control input" id="email" name="email">
+                </div>
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="cardType">证件类型:</label>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <select id="select_cardType" class="selectpicker form-control input" multiple v-model="Data.cardType" name="cardType">
+                        <option value="0">身份证复印件正反面</option>
+                        <option value="1">学历证书原件</option>
+                        <option value="2">劳动手册</option>
+                        <option value="3">健康证</option>
+                        <option value="4">体检报告原件</option>
+                        <option value="5">照片</option>
+                        <option value="6">无</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="personalSpecialty">个人特长:</label>
+                </div>
+                <div class="col-xs-10 col-md-10">
+                    <textarea v-model="Data.personalSpecialty" rows="2" cols="125" id="personalSpecialty" name="personalSpecialty">
+                     </textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-2 col-md-2  control-label">
+                    <label for="otherSkills">其他技能:</label>
+                </div>
+                <div class="col-xs-10 col-md-10">
+                    <textarea v-model="Data.otherSkills" rows="2" cols="125" id="otherSkills" name="otherSkills">
+                     </textarea>
+                </div>
+            </div>
+            <div>
+                <h3>家庭信息</h3>
+            </div>
+            <div class="form-group">
+                <div id="app" style="width: 94%; margin-left: 3%; margin-top:20px;">
+                    <table id="table1" lay-filter="familys"></table>
+                </div>
+            </div>
+            <div>
+                <h3>教育信息</h3>
+            </div>
+            <div class="form-group">
+                <div id="acc" style="width: 94%; margin-left: 3%; margin-top:20px;">
+                    <table id="table2" lay-filter="educations"></table>
+                </div>
+            </div>
+            <div>
+                <h3>工作经历</h3>
+            </div>
+            <div class="form-group">
+                <div id="aee" style="width: 94%; margin-left: 3%; margin-top:20px;">
+                    <table id="table3" lay-filter="works"></table>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-xs-3 col-md-3" style="text-align: right;">
+                </div>
+                <div class="col-xs-3 col-md-3" style="text-align:right;">
+                    <button type="button" class="layui-btn layui-btn-sm" onClick="Accept()">
+                        <i class="layui-icon layui-icon-ok"></i><span class="fontsm">&emsp;提交&emsp;</span>
+                    </button>
+                </div>
+                <div class="col-xs-3 col-md-3" style="text-align: left;">
+                    <button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onClick="iframecloses()">
+                        <i class="layui-icon layui-icon-close"></i><span class="fontsm">&emsp;取消&emsp;</span>
+                    </button>
+                </div>
+                <div class="col-xs-3 col-md-3" style="text-align: left;">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</body>
+</html>
+<script src="../../../wwwroot/js/App.js"></script>
+<script type="text/html" id="addfamily">
+    <div class="layui-btn-group">
+        <button type="button" class="layui-btn layui-btn-sm" id="AddnewItemFamily" onclick="newItemFamily()">
+            <i class="layui-icon layui-icon-add-1"></i><span class="fontsm">新增</span>
+        </button>
+    </div>
+</script>
+<script type="text/html" id="family">
+    <div class="layui-btn-group">
+        <button lay-event="edit" type="button" class="layui-btn layui-btn-xs">
+            <i class="layui-icon layui-icon-edit"></i><span class="fontxs">编辑</span>
+        </button>
+    </div>
+    <div class="layui-btn-group">
+        <button lay-event="del" type="button" class="layui-btn layui-btn-xs">
+            <i class="layui-icon layui-icon-delete"></i><span class="fontsm">删除</span>
+        </button>
+    </div>
+</script>
+<script type="text/html" id="addeducationv">
+    <div class="layui-btn-group">
+        <button type="button" class="layui-btn layui-btn-sm" onClick="newItemEducationv()">
+            <i class="layui-icon layui-icon-add-1"></i><span class="fontsm">新增</span>
+        </button>
+    </div>
+</script>
+<script type="text/html" id="educationv">
+    <div class="layui-btn-group">
+        <button lay-event="edit" type="button" class="layui-btn layui-btn-xs">
+            <i class="layui-icon layui-icon-edit"></i><span class="fontxs">编辑</span>
+        </button>
+    </div>
+    <div class="layui-btn-group">
+        <button lay-event="del" type="button" class="layui-btn layui-btn-xs">
+            <i class="layui-icon layui-icon-delete"></i><span class="fontsm">删除</span>
+        </button>
+    </div>
+</script>
+<script type="text/html" id="addwork">
+    <div class="layui-btn-group">
+        <button type="button" class="layui-btn layui-btn-sm" onClick="newItemWork()">
+            <i class="layui-icon layui-icon-add-1"></i><span class="fontsm">新增</span>
+        </button>
+    </div>
+</script>
+<script type="text/html" id="work">
+    <div class="layui-btn-group">
+        <button lay-event="edit" type="button" class="layui-btn layui-btn-xs">
+            <i class="layui-icon layui-icon-edit"></i><span class="fontxs">编辑</span>
+        </button>
+    </div>
+    <div class="layui-btn-group">
+        <button lay-event="del" type="button" class="layui-btn layui-btn-xs">
+            <i class="layui-icon layui-icon-delete"></i><span class="fontsm">删除</span>
+        </button>
+    </div>
+</script>
+<script>
+    var list = [];
+    function layuiData() {
+        layui.use(['table', 'laypage'], function () {
+            var table = layui.table;
+            table.render({
+                elem: '#table1',
+                //toolbar: '#addfamily',
+                data: list, //数据 接口
+                even: true, //隔行显示
+                cols: [[ //表头
+                    { field: 'appellation', title: '称谓', align: 'left', width: '124' },
+                    { field: 'name', title: '姓名', align: 'left', width: '110' },
+                    { field: 'age', title: '年龄', align: 'left', width: '100' },
+                    { field: 'company', title: '工作单位', align: 'left', width: '315' },
+                    { field: 'phone', title: '联络电话', align: 'left', width: '145' },
+                    { title: '操作', toolbar: '#family', align: 'left', fixed: 'right', width: '150' }
+                ]]
+            });
+        });
+    };
+    var gather = [];
+    function gatherData() {
+        layui.use(['table', 'laypage'], function () {
+            var table = layui.table;
+            table.render({
+                elem: '#table2',
+                // toolbar: '#addeducationv',
+                data: gather, //数据 接口
+                even: true, //隔行显示
+                cols: [[ //表头
+                    { field: 'education', title: '学历', align: 'left', width: '120' },
+                    { field: 'beiginDate', title: '开始时间', align: 'left', width: '120' },
+                    { field: 'endDate', title: '结束时间', align: 'left', width: '120' },
+                    { field: 'school', title: '学校或教育机构', align: 'left', width: '150' },
+                    { field: 'department', title: '科(系)别', align: 'left', width: '120' },
+                    { field: 'certificate', title: '证书类别', align: 'left', width: '160' },
+                    { title: '操作', toolbar: '#educationv', align: 'left', fixed: 'right', width: '150' }
+                ]]
+            });
+        });
+    };
+    var work = [];
+    function workData() {
+        layui.use(['table', 'laypage'], function () {
+            var table = layui.table;
+            table.render({
+                elem: '#table3',
+                //  toolbar: '#addwork',
+                data: work, //数据 接口
+                even: true, //隔行显示
+                cols: [[ //表头
+                    { field: 'company', title: '公司名称', align: 'left', width: '120' },
+                    { field: 'phone', title: '公司电话', align: 'left', width: '120' },
+                    { field: 'beiginDate', title: '开始时间', align: 'left', width: '120' },
+                    { field: 'endDate', title: '结束时间', align: 'left', width: '120' },
+                    { field: 'position', title: '职位', align: 'left', width: '120' },
+                    { field: 'salary', title: '薪资', align: 'left', width: '120' },
+                    { field: 'witness', title: '证明人', align: 'left', width: '120' },
+                    { field: 'witnessPhone', title: '证明电话', align: 'left', width: '120' },
+                    { field: 'leavingReasons', title: '离职原因', align: 'left', width: '120' },
+                    { title: '操作', toolbar: '#work', align: 'left', fixed: 'right', width: '150' }
+                ]]
+            });
+        });
+    }
+    layui.use('laydate', function () {
+        var laydate = layui.laydate;
+        //执行一个laydate实例
+        lay('.la-date').each(function () {
+            laydate.render({
+                elem: this
+                , format: 'yyyy-MM-dd'
+                , trigger: 'click'
+                , done: function (value, date, endDate) {
+                    vm.Data.birthday = $("#birthday").val();
+                    vm.Data.enlistmentTime = $("#enlistmentTime").val();
+                    vm.Data.retirementTime = $("#retirementTime").val();
+                    vm.Data.registrationDate = $("#registrationDate").val();
+                }
+            });
+        });
+    });
+
+    $(document).ready(function () {
+        $('#form1').bootstrapValidator({
+            message: 'This value is not valid',
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+
+            }
+        });
+    });
+
+    var dictionaryItems = [{ code: "", name: "" }];
+
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            Data: {
+                id: 0,
+                use_id: 0,
+                account: "",
+                name: "",
+                password: "",
+                gender: 0,
+                birthday: "",
+                position: "",
+                education: "",
+                isMarry: "",
+                mobile: "",
+                isParty: "",
+                enlistmentTime: "",
+                retirementTime: "",
+                troopsName: "",
+                height: "",
+                weight: "",
+                personalSpecialty: "",
+                cardNo: "",
+                bankNo: "",
+                address: "",
+                certificate: [],
+                img: "",
+                speakLevel: 0,
+                englishLevel: 0,
+                computerLevel: 0,
+                driveLevel: 0,
+                otherSkills: "",
+                isFamilyDisease: "",
+                isChronicDisease: "",
+                isCriminalPunishment: "",
+                isAdministrativeSanction: "",
+                isMajorDiseases: "",
+                isExcessiveDrinking: "",
+                isDrug: "",
+                isOccupationalDiseases: "",
+                occupationalDiseases: "",
+                workAddress: "",
+                department: "",
+                email: "",
+                createTime: "",
+                type: "",
+                cardType: [],
+                peopleType: "",
+                isClose: false,
+                status: 0,
+                peoples: "",
+                registrationDate: "",
+                documentImg: "",
+                img1: "",
+                img2: "",
+                img3: "",
+                cardTypes: "",
+                certificates: "",
+                familys: [{
+                    id: 0,
+                    eid: 0,
+                    appellation: "",
+                    name: "",
+                    age: 0,
+                    company: "",
+                    phone: ""
+                }],
+                educationalTrainings: [{
+                    id: 0,
+                    eid: 0,
+                    education: "",
+                    beiginDate: "",
+                    endDate: "",
+                    school: "",
+                    department: "",
+                    certificate: ""
+                }],
+                workExperiences: [{
+                    id: 0,
+                    eid: 0,
+                    company: "",
+                    phone: "",
+                    beiginDate: "",
+                    endDate: "",
+                    position: "",
+                    salary: "",
+                    witness: "",
+                    witnessPhone: "",
+                    leavingReasons: ""
+                }],
+                userImgs: [{
+                    id: 0,
+                    userID: 0,
+                    eid: 0,
+                    img: "",
+                    type: "",
+                    status: "",
+                    createTime: ""
+
+                }]
+
+
+            }
+
+        },
+        methods: {
+
+        },
+        watch: {
+            Data: function () {
+                this.$nextTick(function () {
+                    $('#select_isClose').selectpicker('refresh');
+                    $('#select_isCriminalPunishment').selectpicker('refresh');
+                    $('#select_isExcessiveDrinking').selectpicker('refresh');
+                    $('#select_gender').selectpicker('refresh');
+                    $('#select_education').selectpicker('refresh');
+                    $('#select_isFamilyDisease').selectpicker('refresh');
+                    $('#select_certificate').selectpicker('refresh');
+                    $('#select_isDrug').selectpicker('refresh');
+                    $('#select_cardType').selectpicker('refresh');
+                    $('#select_occupationalDiseases').selectpicker('refresh');
+                    $('#select_peopleType').selectpicker('refresh');
+                    $('#select_isAdministrativeSanction').selectpicker('refresh');
+                    $('#select_isMarry').selectpicker('refresh');
+                    $('#select_isOccupationalDiseases').selectpicker('refresh');
+                    $('#select_isMajorDiseases').selectpicker('refresh');
+                    $('#select_isParty').selectpicker('refresh');
+                    $('#select_isChronicDisease').selectpicker('refresh');
+                });
+            }
+        }
+    });
+
+    $(function () {
+    });
+
+
+
+    function getData(id) {
+
+        if (id > 0) {
+            PostAppAjax({
+                url: '/ApplyFor/EmpLoyee/getEmpLoyeeById',
+                data: {
+                    id: id
+                },
+                success: function (result) {
+                    if (result.code == 0) {
+                        vm.Data = result.data;
+                        vm.Data.cardType = result.data.cardTypes.split(",");
+                        vm.Data.certificate = result.data.certificates.split(",");
+                        list = vm.Data.familys;
+                        gather = vm.Data.educationalTrainings;
+                        work = vm.Data.workExperiences;
+                        layuiData();
+                        gatherData();
+                        workData();
+                    } else {
+                        alert(result.msg);
+                    }
+                },
+                error: function (err) {
+                    alert("服务器忙，请重试!\n" + err.responseJSON.message);
+                }
+            });
+        }
+    }
+    function Accept() {
+        $('#form1').data("bootstrapValidator").validate();
+        var isValid = $('#form1').data("bootstrapValidator").isValid();
+        if (isValid) {
+            layer.confirm('是否确认提交？', {
+                btn: ['确认', '取消'] //按钮
+            }, function () {
+                PostAppAjax({
+                    url: '/ApplyFor/EmpLoyee/UpdateEmpLoyee',
+                    contentType: 'application/json;charset=utf-8',
+                    data: JSON.stringify(vm.Data),
+                    success: function (result) {
+                        if (result.code == 0) {
+                            doTrigger("EmployeeApplication"); //调用触发器，刷新查询
+                            iframecloses();
+                        } else {
+                            alert("数据提交不成功！\n\n错误信息：\n" + result.msg);
+                        }
+                    },
+                    error: function (err) {
+                        alert("错误信息：\n" + err.responseJSON.message);
+                    }
+                });
+            }, function () {
+
+            });
+        }
+
+    }
+
+    var id = document.getElementById('Empid').value;
+    // AddnewItemFamily
+    //newItemFamily();
+    function newItemFamily() {
+        var id = document.getElementById('Empid').value;
+        openAppWindow({
+            url: "/Views/ApplyFor/Family/instUpFamily.html",
+            title: "新增家庭信息",
+            area: ['880px', '560px'],
+            maxmin: true,
+            success: function (layero, index) {
+                var body = parent.layer.getChildFrame('body', index);
+                var iframe = parent.window[layero.find('iframe')[0]['name']];
+                body.find(".eid").val(id);
+                iframe.getData(0);
+            }
+        });
+    }
+    layui.use('table', function () {
+        var table = layui.table;
+        //监听工具条
+        table.on('tool(familys)',
+            function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var id = data['id'];  //获取属性id的值
+                if (obj.event == "edit") {
+                    parent.openAppWindow({
+                        url: "/Views/ApplyFor/Family/instUpFamily.html",
+                        title: "编辑家庭信息",
+                        area: ['880px', '560px'],
+                        maxmin: true,
+                        success: function (layero, index) {
+                            var body = parent.layer.getChildFrame('body', index);
+                            var iframe = parent.window[layero.find('iframe')[0]['name']];
+                            iframe.getData(id);
+                        }
+                    });
+                } else if (obj.event == "del") {
+                    delFamily(id);
+
+                }
+            }
+        );
+    });
+    function delFamily(id) {
+        layer.confirm('是否确认删除？', {
+            btn: ['确认', '取消'] //按钮
+        }, function () {
+            PostAppAjax({
+                url: '/ApplyFor/Family/DeleteFamily',
+                data: {
+                    id: id
+                },
+                success: function (result) {
+                    if (result.code == 0) {
+                        setTimeout(function () {
+                            doTrigger("Family");
+                        }, 1000);
+                        layer.close(layer.index);
+                    } else {
+                        parent.layui.msg("添加失败!错误代码：" + result.code + ";\n\t 错误提示：" + result.msg);
+                    }
+                },
+                error: function (err) {
+                    alert("服务器忙，请重试!\n" + err.responseJSON.message);
+                }
+            });
+        }, function () {
+
+        });
+    }
+    function newItemEducationv() {
+        var id = document.getElementById('Empid').value;
+        openAppWindow({
+            url: "/Views/ApplyFor/EducationalTraining/instUpEducational.html",
+            title: "新增教育信息",
+            area: ['880px', '560px'],
+            maxmin: true,
+            success: function (layero, index) {
+                var body = parent.layer.getChildFrame('body', index);
+                var iframe = parent.window[layero.find('iframe')[0]['name']];
+                body.find(".eid").val(id);
+                iframe.getData(0);
+            }
+        });
+    }
+    layui.use('table', function () {
+        var table = layui.table;
+        //监听工具条
+        table.on('tool(educations)',
+            function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var id = data['id'];  //获取属性id的值
+                if (obj.event == "edit") {
+                    parent.openAppWindow({
+                        url: "/Views/ApplyFor/EducationalTraining/instUpEducational.html",
+                        title: "编辑教育信息",
+                        area: ['880px', '560px'],
+                        maxmin: true,
+                        success: function (layero, index) {
+                            var body = parent.layer.getChildFrame('body', index);
+                            var iframe = parent.window[layero.find('iframe')[0]['name']];
+                            iframe.getData(id);
+                        }
+                    });
+                } else if (obj.event == "del") {
+                    deleducation(id);
+
+                }
+            }
+        );
+    });
+    function deleducation(id) {
+        layer.confirm('是否确认删除？', {
+            btn: ['确认', '取消'] //按钮
+        }, function () {
+            PostAppAjax({
+                url: '/ApplyFor/EducationalTraining/DeleteEducational',
+                data: {
+                    id: id
+                },
+                success: function (result) {
+                    if (result.code == 0) {
+                        setTimeout(function () {
+                            doTrigger("Educationaltrainingrecords");
+                        }, 1000);
+                        layer.close(layer.index);
+                    } else {
+                        parent.layui.msg("添加失败!错误代码：" + result.code + ";\n\t 错误提示：" + result.msg);
+                    }
+                },
+                error: function (err) {
+                    alert("服务器忙，请重试!\n" + err.responseJSON.message);
+                }
+            });
+        }, function () {
+
+        });
+    }
+    function newItemWork() {
+    var id = document.getElementById('Empid').value;
+        openAppWindow({
+            url: "/Views/ApplyFor/WorkExperience/instWork.html",
+            title: "新增工作信息",
+            area: ['880px', '560px'],
+            maxmin: true,
+            success: function (layero, index) {
+                var body = parent.layer.getChildFrame('body', index);
+                var iframe = parent.window[layero.find('iframe')[0]['name']];
+                body.find(".eid").val(id);
+                iframe.getData(0);
+            }
+        });
+    }
+    layui.use('table', function () {
+        var table = layui.table;
+        //监听工具条
+        table.on('tool(works)',
+            function (obj) { //注：tool是工具条事件名，test是table原始容器的属性 lay-filter="对应的值"
+                var data = obj.data; //获得当前行数据
+                var id = data['id'];  //获取属性id的值
+                if (obj.event == "edit") {
+                    parent.openAppWindow({
+                        url: "/Views/ApplyFor/WorkExperience/instWork.html",
+                        title: "编辑工作经历",
+                        area: ['880px', '560px'],
+                        maxmin: true,
+                        success: function (layero, index) {
+                            var body = parent.layer.getChildFrame('body', index);
+                            var iframe = parent.window[layero.find('iframe')[0]['name']];
+                            iframe.getData(id);
+                        }
+                    });
+                } else if (obj.event == "del") {
+                    delwork(id);
+                }
+            }
+        );
+    });
+    function delwork(id) {
+        layer.confirm('是否确认删除？', {
+            btn: ['确认', '取消'] //按钮
+        }, function () {
+            PostAppAjax({
+                url: '/ApplyFor/WorkExperience/DeleteWork',
+                data: {
+                    id: id
+                },
+                success: function (result) {
+                    if (result.code == 0) {
+                        setTimeout(function () {
+                            doTrigger("Workexperience");
+                        }, 1000);
+                        layer.close(layer.index);
+                    } else {
+                        parent.layui.msg("添加失败!错误代码：" + result.code + ";\n\t 错误提示：" + result.msg);
+                    }
+                },
+                error: function (err) {
+                    alert("服务器忙，请重试!\n" + err.responseJSON.message);
+                }
+            });
+        }, function () {
+
+        });
+    }
+</script>

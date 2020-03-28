@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Static">
+<SQL/>
+<ConvertSQL/>
+<Items>
+<Item Code="0" Name="身份证"/>
+<Item Code="1" Name="保安员证"/>
+<Item Code="3" Name="监控证"/>
+<Item Code="4" Name="电梯证"/>
+<Item Code="5" Name="消防证"/>
+<Item Code="6" Name="驾驶执照"/>
+<Item Code="7" Name="健康证"/>
+<Item Code="8" Name="无犯罪记录证明"/>
+<Item Code="9" Name="交金证明"/>
+<Item Code="10" Name="学历证明"/>
+</Items>
+</Dictionary>

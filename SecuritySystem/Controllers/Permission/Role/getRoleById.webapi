@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?><WebAPI xmlns:n1="org.polariscode.plugin.web.springboot.action" xmlns:n2="org.polariscode.plugin.web.springboot.model" Description="根据ID获取角色对象" Transactional="false" Type="Post" VerifyToken="true">
+<View>
+<Controls>
+<n1:Begin Name="Begin1">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:Begin>
+<n1:Variable Name="Variable1">
+<n2:Field Collections="false" Name="result" ObjectName="Result" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:Variable Name="Variable2">
+<n2:Field Collections="false" Name="role" ObjectName="Permission.Role" Required="false" Show="false" Type="Object"/>
+</n1:Variable>
+<n1:DataAccess ContinueOnError="false" Dao="Permission.RoleMapper.getRoleById" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess1" Variable="role">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="id" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:DataAccess ContinueOnError="false" Dao="Permission.RoleMapper.getRoleMenu" ErrorCode="result.Code" ErrorMessage="result.Msg" Name="DataAccess2" Variable="role.Menus">
+<Parameters>
+<n2:Field Collections="false" DefaultValue="id" Name="roleid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+</n1:DataAccess>
+<n1:Assign Name="Assign1" Value="role" Variable="result.Data"/>
+<n1:End Name="End1" Result="result"/>
+</Controls>
+</View>
+</WebAPI>

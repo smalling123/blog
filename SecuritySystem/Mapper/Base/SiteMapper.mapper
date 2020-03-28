@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="477" MapperEntity="Base.Site" Name="getAllSites" SQL="Select *&#10;From Site&#10;Where Name Like '%${name}%'&#10;&#9;And District = #{city}&#10;&#9;And OrgID = #{org}&#10;&#9;And Manager = #{manager}&#10;&#9;And Status = #{status}&#10;&#9;And OrgID = #{orgid}&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="50" Y="59">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="CustomerID" Name="CustomerID" Type="Integer"/>
+<n1:ResultField MapperField="Leader" Name="Leader" Type="Integer"/>
+<n1:ResultField MapperField="Leadership" Name="Leadership" Type="String"/>
+<n1:ResultField MapperField="OrgID" Name="OrgID" Type="Integer"/>
+<n1:ResultField MapperField="Manager" Name="Manager" Type="Integer"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="District" Name="District" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="InDate" Name="InDate" Type="DateTime"/>
+<n1:ResultField MapperField="OutDate" Name="OutDate" Type="DateTime"/>
+<n1:ResultField MapperField="Kq" Name="Kq" Type="Integer"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+<n1:ResultField MapperField="Lng" Name="Lng" Type="Decimal"/>
+<n1:ResultField MapperField="Lat" Name="Lat" Type="Decimal"/>
+<n1:ResultField MapperField="LeaderName" Name="LeaderName" Type="String"/>
+<n1:ResultField MapperField="LeaderPhone" Name="LeaderPhone" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="city" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="status" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="org" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="manager" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="orgid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="And District = #{city}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="city" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And OrgID = #{org}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="org" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Manager = #{manager}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="manager" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Status = #{status}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="status" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And OrgID = #{orgid}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="orgid" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Table" Name="getAllSitesCount" SQL="Select Count(1) As Count &#10;From Site&#10;Where Name Like '%${name}%'&#10;&#9;And District = #{city}&#10;&#9;And OrgID = #{org}&#10;&#9;And Manager = #{manager}&#10;&#9;And Status = #{status}&#10;&#9;And OrgID = #{orgid}" SelectType="Singleton" Width="160" X="270" Y="60">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" DefaultValue="&quot;&quot;" Name="name" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" DefaultValue="&quot;&quot;" Name="city" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" DefaultValue="&quot;&quot;" Name="status" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" DefaultValue="&quot;&quot;" Name="org" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" DefaultValue="&quot;&quot;" Name="manager" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n2:Field Collections="false" Name="orgid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="And District = #{city}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="city" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And OrgID = #{org}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="org" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Manager = #{manager}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="manager" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And Status = #{status}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="status" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+<n1:Rule Keyword="And OrgID = #{orgid}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="orgid" Value="0"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Insert Height="24" Name="insertSite" SQL="Insert Into Site(Name, CustomerID, Leader, OrgID, Manager, District, Address, Describes, Type, Status, InDate, OutDate, Kq, Lng, Lat, Isdelete, CreateUser, CreateTime)&#10; Values(#{site.Name}, #{site.CustomerID}, #{site.Leader}, #{site.OrgID}, #{site.Manager}, #{site.District}, #{site.Address}, #{site.Describes}, #{site.Type}, #{site.Status}, #{site.InDate}, #{site.OutDate}, #{site.Kq}, #{site.Lng}, #{site.Lat}, #{site.Isdelete}, #{site.CreateUser}, Now())" Width="160" X="497" Y="408">
+<Parameters>
+<n2:Field Collections="false" Name="site" ObjectName="Base.Site" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updateSite" SQL="Update Site Set&#10;&#9;Name = #{site.Name},&#10;&#9;CustomerID = #{site.CustomerID},&#10;&#9;Leader = #{site.Leader},&#10;&#9;OrgID = #{site.OrgID},&#10;&#9;Manager = #{site.Manager},&#10;&#9;District = #{site.District},&#10;&#9;Address = #{site.Address},&#10;&#9;Describes = #{site.Describes},&#10;&#9;Type = #{site.Type},&#10;&#9;Status = #{site.Status},&#10;&#9;InDate = #{site.InDate},&#10;&#9;OutDate = #{site.OutDate},&#10;&#9;Kq = #{site.Kq},&#10;&#9;Lng = #{site.Lng},&#10;&#9;Lat = #{site.Lat},&#10;&#9;Isdelete = #{site.Isdelete},&#10;&#9;CreateUser = #{site.CreateUser},&#10;&#9;CreateTime = #{site.CreateTime},&#10;&#9;ModifyUser = #{site.ModifyUser},&#10;&#9;ModifyTime = #{site.ModifyTime},&#10;&#9;DeleteUser = #{site.DeleteUser},&#10;&#9;DeleteTime = #{site.DeleteTime}&#10; Where ID = #{site.ID}" Width="160" X="498" Y="455">
+<Parameters>
+<n2:Field Collections="false" Name="site" ObjectName="Base.Site" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Height="319" MapperEntity="Base.Site" Name="getSiteById" SQL="Select * From Site Where ID=#{id}" SelectType="Singleton" Width="160" X="492" Y="61">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="CustomerID" Name="CustomerID" Type="Integer"/>
+<n1:ResultField MapperField="Leader" Name="Leader" Type="Integer"/>
+<n1:ResultField MapperField="OrgID" Name="OrgID" Type="Integer"/>
+<n1:ResultField MapperField="Manager" Name="Manager" Type="Integer"/>
+<n1:ResultField MapperField="Address" Name="Address" Type="String"/>
+<n1:ResultField MapperField="District" Name="District" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="Integer"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="InDate" Name="InDate" Type="DateTime"/>
+<n1:ResultField MapperField="OutDate" Name="OutDate" Type="DateTime"/>
+<n1:ResultField MapperField="Kq" Name="Kq" Type="Integer"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ModifyUser" Name="ModifyUser" Type="String"/>
+<n1:ResultField MapperField="ModifyTime" Name="ModifyTime" Type="String"/>
+<n1:ResultField MapperField="DeleteUser" Name="DeleteUser" Type="String"/>
+<n1:ResultField MapperField="DeleteTime" Name="DeleteTime" Type="String"/>
+<n1:ResultField MapperField="Lng" Name="Lng" Type="Decimal"/>
+<n1:ResultField MapperField="Lat" Name="Lat" Type="Decimal"/>
+<n1:ResultField MapperField="LeaderName" Name="LeaderName" Type="String"/>
+<n1:ResultField MapperField="LeaderPhone" Name="LeaderPhone" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Base.SitePersonnel" Name="getPersonnelBySite" SQL="Select SP.ID, SP.PID, CONCAT(P.Name, SUBSTR(CardCode, 9,2)) As Name, SP.BeginDate, SP.EndDate, SP.IsMain, SP.Job, SP.Level, SP.PostSubsidy&#10;From Personnel P Join SitePersonnel SP On P.ID = SP.PID &#10;Where SP.SiteID = #{siteid} &#10;And SP.BeginDate &lt;= #{enddate} And IFNULL(EndDate, '2100-1-1') &gt;= #{begdate}&#10;Order By convert(Name using gbk) collate gbk_chinese_ci" SelectType="Collections" Width="160" X="714" Y="61">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="BeginDate" Name="BeginDate" Type="DateTime"/>
+<n1:ResultField MapperField="EndDate" Name="EndDate" Type="DateTime"/>
+<n1:ResultField MapperField="IsMain" Name="IsMain" Type="Boolean"/>
+<n1:ResultField MapperField="Job" Name="Job" Type="String"/>
+<n1:ResultField MapperField="Level" Name="Level" Type="String"/>
+<n1:ResultField MapperField="PostSubsidy" Name="PostSubsidy" Type="Decimal"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="siteid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="begdate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n2:Field Collections="false" Name="enddate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

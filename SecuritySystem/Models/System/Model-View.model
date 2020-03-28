@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><Model xmlns:n1="org.polariscode.plugin.web.springboot.model" Description="">
+<View>
+<Controls>
+<n1:Entity Height="362" Name="Bug" Width="160" X="91" Y="85">
+<Fields>
+<n1:Field Collections="false" Description="编号" Name="ID" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="模块名称" Name="ModuleName" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="问题描述" Dictionary="_TextArea" Name="Question" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="类型" Dictionary="BugType" Name="Type" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="等级" Dictionary="BugLevel" Name="Level" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="发现者" Name="Finder" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="发现日期" Name="FindDate" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="处理者" Name="Handler" ObjectName="String" Required="false" Show="false" Type="String"/>
+<n1:Field Collections="false" Description="预计完成日期" Name="EndTime" ObjectName="DateTime" Required="false" Show="false" Type="DateTime"/>
+<n1:Field Collections="false" Description="状态" Dictionary="BugStatus" Name="Status" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n1:Field Collections="false" Description="备注" Dictionary="_TextArea" Name="Description" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Fields>
+</n1:Entity>
+</Controls>
+</View>
+</Model>

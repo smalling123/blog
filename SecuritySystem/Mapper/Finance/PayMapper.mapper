@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Height="240" MapperEntity="Finance.Pay" Name="getPayByCustomerId" SQL="select * from Pay where CustomerId=#{CustomerId}&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="31" Y="23">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Date" Name="Date" Type="DateTime"/>
+<n1:ResultField MapperField="BankNo" Name="BankNo" Type="String"/>
+<n1:ResultField MapperField="CustomerId" Name="CustomerId" Type="Integer"/>
+<n1:ResultField MapperField="Amt" Name="Amt" Type="Decimal"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ClaimUser" Name="ClaimUser" Type="String"/>
+<n1:ResultField MapperField="ClaimTime" Name="ClaimTime" Type="String"/>
+<n1:ResultField MapperField="CheckUser" Name="CheckUser" Type="String"/>
+<n1:ResultField MapperField="CheckTime" Name="CheckTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="CustomerId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="insertPay" SQL="Insert Into Pay(Date, BankNo, CustomerId, Amt, Status, Describes, CreateUser, CreateTime, ClaimUser, ClaimTime, CheckUser, CheckTime)&#10; Values(#{pay.Date}, #{pay.BankNo}, #{pay.CustomerId}, #{pay.Amt}, #{pay.Status}, #{pay.Describes}, #{pay.CreateUser}, #{pay.CreateTime}, #{pay.ClaimUser}, #{pay.ClaimTime}, #{pay.CheckUser}, #{pay.CheckTime})" Width="160" X="209" Y="38">
+<Parameters>
+<n2:Field Collections="false" Name="pay" ObjectName="Finance.Pay" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="updatePay" SQL="Update Pay Set&#10;&#9;Date = #{pay.Date},&#10;&#9;BankNo = #{pay.BankNo},&#10;&#9;CustomerId = #{pay.CustomerId},&#10;&#9;Amt = #{pay.Amt},&#10;&#9;Status = #{pay.Status},&#10;&#9;Describes = #{pay.Describes},&#10;&#9;CreateUser = #{pay.CreateUser},&#10;&#9;CreateTime = #{pay.CreateTime},&#10;&#9;ClaimUser = #{pay.ClaimUser},&#10;&#9;ClaimTime = #{pay.ClaimTime},&#10;&#9;CheckUser = #{pay.CheckUser},&#10;&#9;CheckTime = #{pay.CheckTime}&#10; Where ID = #{pay.ID}" Width="160" X="211" Y="85">
+<Parameters>
+<n2:Field Collections="false" Name="pay" ObjectName="Finance.Pay" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Height="240" MapperEntity="Table" Name="getPayByCount" SQL="select Count(*) Count from Pay where CustomerId=#{CustomerId}" SelectType="Singleton" Width="160" X="424" Y="27">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="CustomerId" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Finance.Pay" Name="getPayById" SQL="select * from Pay where id=#{id}" SelectType="Singleton" Width="160" X="652" Y="78">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Date" Name="Date" Type="DateTime"/>
+<n1:ResultField MapperField="BankNo" Name="BankNo" Type="String"/>
+<n1:ResultField MapperField="CustomerId" Name="CustomerId" Type="Integer"/>
+<n1:ResultField MapperField="Amt" Name="Amt" Type="Decimal"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="CreateUser" Name="CreateUser" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="String"/>
+<n1:ResultField MapperField="ClaimUser" Name="ClaimUser" Type="String"/>
+<n1:ResultField MapperField="ClaimTime" Name="ClaimTime" Type="String"/>
+<n1:ResultField MapperField="CheckUser" Name="CheckUser" Type="String"/>
+<n1:ResultField MapperField="CheckTime" Name="CheckTime" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

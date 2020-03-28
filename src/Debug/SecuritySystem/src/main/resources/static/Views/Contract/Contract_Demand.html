@@ -1,0 +1,228 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-validator/css/bootstrap-validator.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-validator/js/bootstrap-validator.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+			font-size: small;
+		}
+		.input {
+			height: 28px;
+			padding: 6px 6px 6px 6px;
+		}
+	</style>
+</head>
+<body style="background-color: #F2F2F2;">
+	<div class="container" id="app"  style="width: 94%; margin-left: 3%; margin-top:20px;">
+		<form id="form1" rele="form" class="form-horizontal">
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="logisticsEat">餐饮需求:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<select id="select_logisticsEat" class="selectpicker form-control input" v-model="Data.logisticsEat"  name="logisticsEat">
+						<option value="0" >无需求</option>
+						<option value="1" >甲方提供工作餐</option>
+						<option value="2" >我方提供工作餐</option>
+						<option value="3" >我方提供餐费</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="logisticsHome">住宿需求:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<select id="select_logisticsHome" class="selectpicker form-control input" v-model="Data.logisticsHome"  name="logisticsHome">
+						<option value="0" >客户安排住宿</option>
+						<option value="1" >我方安排住宿</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="logisticsNeed">后勤其它需求:</label>
+				</div>
+                <div class="col-xs-10 col-md-10">
+                    <textarea v-model="Data.logisticsNeed" class="form-control" rows="5" id="logisticsNeed" name="logisticsNeed"></textarea>
+                </div>
+			</div>
+			<div class="form-group">
+
+				<div class="col-xs-2 col-md-2" style="text-align: right;">
+				</div>
+				<div class="col-xs-8 col-md-8" style="text-align: left;">
+					<button type="button" class="layui-btn layui-btn-sm" onClick="Accept()">
+						<i class="layui-icon layui-icon-ok"></i><span class="fontsm">&emsp;提交&emsp;</span>
+					</button>
+					<button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onClick="parent.iframecloses()">
+						<i class="layui-icon layui-icon-close"></i><span class="fontsm">&emsp;取消&emsp;</span>
+					</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+</body>
+</html>
+<script src="../../wwwroot/js/App.js"></script>
+
+<script>
+	$(document).ready(function () {
+		$('#form1').bootstrapValidator({
+			message: 'This value is not valid',
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+				logisticsEat: {
+					message: '餐饮需求验证失败',
+					validators: {
+						notEmpty: {
+							message: '餐饮需求不能为空'
+						}
+					}
+				},
+				logisticsHome: {
+					message: '住宿需求验证失败',
+					validators: {
+						notEmpty: {
+							message: '住宿需求不能为空'
+						}
+					}
+				}
+			}
+		});
+	});
+	
+	var dictionaryItems = [{code:"", name:""}];	
+
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			Data:{
+				id: 0,
+				contractCode: "",
+				customerId: 0,
+				companyId: 0,
+				orgId: 0,
+				beginDate: "2019/12/07 00:00:00",
+				endDate: "2019/12/07 00:00:00",
+				inDate: "2019/12/07 00:00:00",
+				pnumber: 0,
+				avgAmount: 0,
+				totalAmount: 0,
+				monthlyAmount: "",
+				wages: 0,
+				aagent: "",
+				asubscriber: "",
+				asigningTtime: "2019/12/07 00:00:00",
+				bagent: "",
+				bsubscriber: "",
+				bsigningTtime: "2019/12/07 00:00:00",
+				specialNeed: "",
+				logisticsEat: 0,
+				logisticsHome: 0,
+				logisticsNeed: "",
+				superviseNeed: "",
+				trainNeed: "",
+				status: 0,
+				type: 0,
+				isdelete: false,
+				createUser: "",
+				createTime: "",
+				modifyUser: "",
+				modifyTime: "",
+				deleteUser: "",
+				deleteTime: "",
+                customer: "",
+                invoiceCompany: 0,
+                invoiceTitle: "",
+                invoiceTax: ""
+			}
+
+		},
+		methods: {
+
+		},
+		watch: {
+			Data: function() {
+				this.$nextTick(function () {
+					$('#select_logisticsEat').selectpicker('refresh');
+					$('#select_logisticsHome').selectpicker('refresh');
+				});
+			}
+		}
+	});
+	
+    $(function () {
+        onTrigger(function (key) { if (key == "Contract") { getData(vm.Data.id); } });
+	});
+
+
+	
+	function getData(id){
+		
+		if(id>0){
+			PostAppAjax({
+                url: '/Contract/getContractById',
+                data: {
+                    id: id
+                },
+				success: function(result) {
+					if(result.code==0){
+						vm.Data = result.data;
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function(err) {
+					alert("服务器忙，请重试!\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+	function Accept(){
+		$('#form1').data("bootstrapValidator").validate();
+ 		var isValid = $('#form1').data("bootstrapValidator").isValid();
+		if(isValid){
+			PostAppAjax({
+				url: '/Contract/updateContract',
+				contentType: 'application/json;charset=utf-8',
+				data: JSON.stringify(vm.Data),
+				success: function(result) {
+                    if (result.code == 0) {
+                        alert("数据提交成功！");
+                        doTrigger("Contract"); //调用触发器，刷新查询
+					}else{
+						alert("数据提交不成功！\n\n错误信息：\n"+result.msg);
+					}
+				},
+				error: function(err) {
+					alert("错误信息：\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+</script>

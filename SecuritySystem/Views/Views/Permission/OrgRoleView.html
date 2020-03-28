@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+		}
+
+		#table {
+			margin: 0px auto;
+			text-align-last: center;
+		}
+
+		#btn {
+			margin-top: 30px;
+			margin-bottom: 10px;
+		}
+	</style>
+</head>
+<body>
+	<div id="app" style="width: 94%; margin-left: 3%; margin-top:20px;">
+		<table id="table1" lay-filter="table1filter"></table>
+	</div>
+</body>
+</html>
+
+<script src="../../wwwroot/js/App.js"></script>
+
+<script>
+	var vm = new Vue({
+		el: "#filter1",
+		data: {
+			Data: {
+				id: 0
+			}
+		},
+		methods: {}
+	})
+	var pageNumber = 1;
+	var pageSize = 10;
+	var recordCount = 0;
+	var roles = [];
+	var list = [];
+	var orgid = 0;
+
+	bindData();
+
+	$(function(){
+		PostAppAjax({
+			url: '/Permission/Role/getRoles',
+			success: function(result) {
+				if(result.code == 0){
+					roles = result.data;
+					bindData();
+				}else{
+					alert(result.msg);
+				}
+			},
+			error: function() {
+				alert("服务器忙，请重试!");
+			}
+		});
+	});
+	
+	function getData(id){
+		orgid = id;
+		PostAppAjax({
+			url: '/Permission/Org/getOrgRoles',
+			data: {
+				id: orgid
+			},
+			success: function(result) {
+				list = result.data;
+				bindData();
+			},
+			error: function() {
+				alert("服务器忙，请重试!");
+			}
+		});
+	}
+
+	function bindData(){
+		var vs = new Array();
+		for(var i=0; i<list.length; i++){
+			vs.push(list[i].roleID);
+		}
+		layui.use(['transfer', 'layer', 'util'], function(){
+			var $ = layui.$
+			,transfer = layui.transfer
+			,layer = layui.layer
+			,util = layui.util;
+
+			transfer.render({
+				elem: '#table1'
+				,title: ['所有角色', '已分配角色']
+				,height: 480
+				,width: 260
+				,parseData: function(res){
+					return {
+						"value": res.id //数据值
+						,"title": res.name 
+					}
+				}
+				,data: roles
+				,value: vs
+				,onchange: function(obj, index){
+					if(index==0){ //分配新的角色
+						for(var i=0; i<obj.length; i++){
+							PostAppAjax({
+								url: '/Permission/Org/insertOrgRole',
+								data:{
+									orgid: orgid,
+									roleid: obj[i].value
+								},
+								success: function(result) {
+									if(result.code!=0){
+										alert(result.msg);
+									}
+								},
+								error: function() {
+									alert("服务器忙，请重试!");
+								}
+							});
+						}
+					}
+					if(index==1){ //移除已分配的角色
+						for(var i=0; i<obj.length; i++){
+							PostAppAjax({
+								url: '/Permission/Org/deleteOrgRole',
+								data:{
+									orgid: orgid,
+									roleid: obj[i].value
+								},
+								success: function(result) {
+									if(result.code!=0){
+										alert(result.msg);
+									}
+								},
+								error: function() {
+									alert("服务器忙，请重试!");
+								}
+							});
+						}
+					}
+				}
+			});
+		});
+	}
+	
+
+</script>

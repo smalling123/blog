@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="菜单操作">
+<View>
+<Controls>
+<n1:Select Description="获取菜单清单" Height="335" Key="ID" MapperEntity="Permission.Menu" Name="getMenus" ParentKey="PID" SQL="Select ID, PID, Name, Name as Title, Icon, Openby, Url, FloatPrompt, TabType, Describes, Isdelete, Sequence&#10;From Menu&#10;Where Isdelete = 0&#10;Order By PID, Sequence" SelectType="Tree" Width="160" X="302" Y="42">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Title" Name="Title" Type="String"/>
+<n1:ResultField MapperField="Icon" Name="Icon" Type="String"/>
+<n1:ResultField MapperField="Openby" Name="Openby" Type="Integer"/>
+<n1:ResultField MapperField="Url" Name="Url" Type="String"/>
+<n1:ResultField MapperField="FloatPrompt" Name="FloatPrompt" Type="String"/>
+<n1:ResultField MapperField="TabType" Name="TabType" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="Sequence" Name="Sequence" Type="Integer"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Select Description="根据ID获取菜单对象" Height="314" MapperEntity="Permission.Menu" Name="getMenuById" SQL="Select ID, PID, Name, Name as Title, Icon, Openby, Url, FloatPrompt, TabType, Describes, Isdelete, Sequence&#10;From Menu&#10;Where ID = #{id}" SelectType="Singleton" Width="160" X="505" Y="45">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Title" Name="Title" Type="String"/>
+<n1:ResultField MapperField="Icon" Name="Icon" Type="String"/>
+<n1:ResultField MapperField="Openby" Name="Openby" Type="Integer"/>
+<n1:ResultField MapperField="Url" Name="Url" Type="String"/>
+<n1:ResultField MapperField="FloatPrompt" Name="FloatPrompt" Type="String"/>
+<n1:ResultField MapperField="TabType" Name="TabType" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="Sequence" Name="Sequence" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获取所有菜单清单" Height="335" Key="ID" MapperEntity="Permission.Menu" Name="getAllMenus" ParentKey="PID" SQL="Select ID, PID, Name, Name as Title, Icon, Openby, Url, FloatPrompt, TabType, Describes, Isdelete, Sequence&#10;From Menu&#10;Order By PID, Sequence" SelectType="Tree" Width="160" X="80" Y="44">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Title" Name="Title" Type="String"/>
+<n1:ResultField MapperField="Icon" Name="Icon" Type="String"/>
+<n1:ResultField MapperField="Openby" Name="Openby" Type="Integer"/>
+<n1:ResultField MapperField="Url" Name="Url" Type="String"/>
+<n1:ResultField MapperField="FloatPrompt" Name="FloatPrompt" Type="String"/>
+<n1:ResultField MapperField="TabType" Name="TabType" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="Sequence" Name="Sequence" Type="Integer"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获得角色菜单" Height="240" Key="ID" MapperEntity="Permission.Menu" Name="getUserMenus" ParentKey="PID" SQL="select distinct  m.*, m.Name as Title from User u  &#10;join userrole ur on u.ID=ur.UserID&#10;join orgrole orl on ur.OrgRoleID=orl.ID&#10;join role r on orl.RoleID=r.ID&#10;join rolemenu rm on rm.RoleID=r.ID&#10;join menu m on rm.MenuID=m.ID&#10;where u.LoginName=#{loginname}&#10;order by Sequence ;" SelectType="Tree" Width="160" X="897" Y="45">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Icon" Name="Icon" Type="String"/>
+<n1:ResultField MapperField="Openby" Name="Openby" Type="Integer"/>
+<n1:ResultField MapperField="Url" Name="Url" Type="String"/>
+<n1:ResultField MapperField="FloatPrompt" Name="FloatPrompt" Type="String"/>
+<n1:ResultField MapperField="TabType" Name="TabType" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="Sequence" Name="Sequence" Type="Integer"/>
+<n1:ResultField MapperField="Title" Name="Title" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="loginname" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Permission.Menu" Name="getMenuByPID" SQL="Select ID, PID, Name, Name as Title, Icon, Openby, Url, FloatPrompt, TabType, Describes, Isdelete, Sequence&#10;From Menu&#10;Where PID = #{pid}" SelectType="Collections" Width="160" X="697" Y="45">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Title" Name="Title" Type="String"/>
+<n1:ResultField MapperField="Icon" Name="Icon" Type="String"/>
+<n1:ResultField MapperField="Openby" Name="Openby" Type="Integer"/>
+<n1:ResultField MapperField="Url" Name="Url" Type="String"/>
+<n1:ResultField MapperField="FloatPrompt" Name="FloatPrompt" Type="String"/>
+<n1:ResultField MapperField="TabType" Name="TabType" Type="Integer"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="Sequence" Name="Sequence" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="pid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Insert Description="添加菜单" Height="24" Name="InsertMenu" SQL="INSERT INTO menu&#10;(PID, Name, Icon, Openby, &#10;Url, FloatPrompt, TabType, &#10;Describes, Isdelete, Sequence) &#10;VALUES (#{menu.PID}, #{menu.Name}, #{menu.Icon}, #{menu.Openby}, &#10;#{menu.Url}, #{menu.FloatPrompt}, #{menu.TabType}, &#10;#{menu.Describes}, #{menu.Isdelete}, #{menu.Sequence})" Width="160" X="727" Y="316">
+<Parameters>
+<n2:Field Collections="false" Name="menu" ObjectName="Permission.Menu" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Description="修改菜单" Height="24" Name="UpdateMenu" SQL="UPDATE menu &#10;SET PID = #{menu.PID}, Name = #{menu.Name}, Icon = #{menu.Icon}, &#10;Openby = #{menu.Openby}, Url = #{menu.Url}, FloatPrompt = #{menu.FloatPrompt}, &#10;TabType = #{menu.TabType}, Describes = #{menu.Describes}, Isdelete = #{menu.Isdelete}, &#10;Sequence = #{menu.Sequence} &#10;WHERE ID = #{menu.ID}" Width="160" X="727" Y="368">
+<Parameters>
+<n2:Field Collections="false" Name="menu" ObjectName="Permission.Menu" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Delete Description="删除菜单" Height="24" Name="DeleteMenu" SQL="delete from Menu&#10;      where Id=#{id}" Width="160" X="1030" Y="350">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+<n1:Delete Description="删除子菜单" Height="24" Name="DeleteMenuByPID" SQL="delete from Menu&#10;      where PID=#{pid}" Width="160" X="1028" Y="399">
+<Parameters>
+<n2:Field Collections="false" Name="pid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+</Controls>
+</View>
+</Mapper>

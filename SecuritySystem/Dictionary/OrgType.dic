@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Dynamic">
+<SQL>Select Convert(ID, char(20)) as Code, Name as Name 
+From OrgType</SQL>
+<ConvertSQL>Select Name as Name 
+From OrgType 
+Where ID = #{code}</ConvertSQL>
+<Items/>
+</Dictionary>

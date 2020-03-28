@@ -1,0 +1,383 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<link href="../../wwwroot/css/apptheme.css" rel="stylesheet" />
+	<link href="../../wwwroot/css/site.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-select/css/bootstrap-select.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/bootstrap-validator/css/bootstrap-validator.min.css" rel="stylesheet" />
+	<link href="../../wwwroot/lib/layui/css/layui.css" rel="stylesheet" />
+
+	<script src="../../wwwroot/lib/vue/vue.js"></script>
+	<script src="../../wwwroot/lib/layui/layui.js"></script>
+	<script src="../../wwwroot/lib/jquery/dist/jquery.js"></script>
+	<script src="../../wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-validator/js/bootstrap-validator.min.js"></script>
+	<script src="../../wwwroot/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+	<script src="../../wwwroot/js/site.js"></script>
+	<style type="text/css">
+		* {
+			margin: 0px;
+			padding: 0px;
+			font-size: small;
+		}
+		.input {
+			height: 28px;
+			padding: 6px 6px 6px 6px;
+		}
+	</style>
+</head>
+<body style="background-color: #F2F2F2;">
+	<div class="container" id="app"  style="width: 94%; margin-left: 3%; margin-top:20px;">
+		<form id="form1" rele="form" class="form-horizontal">
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="city">城市:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.city" type="text" class="form-control input" id="city" name="city">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="orgId">部门:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<select id="select_orgId" class="selectpicker form-control input" v-model="Data.orgId"  name="orgId">
+						<option v-for="item in dictionaryorgId" v-bind:value="item.code">{{item.name}}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="siteId">驻点:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<select id="select_siteId" class="selectpicker form-control input" data-live-search="true" v-model="Data.siteId"  name="siteId">
+						<option value="">--请选择--</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="address">地址:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.address" type="text" class="form-control input" id="address" name="address">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="userId">管理员:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<select id="select_userId" class="selectpicker form-control input" data-live-search="true" v-model="Data.userId"  name="userId">
+						<option value="">--请选择--</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="linkMan">房东联系人:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.linkMan" type="text" class="form-control input" id="linkMan" name="linkMan">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="phone">电话:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.phone" type="text" class="form-control input" id="phone" name="phone">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="rent">每月租金:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.rent" type="text" class="form-control input" id="rent" name="rent">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="rentMonth">付几个月:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.rentMonth" type="text" class="form-control input" id="rentMonth" name="rentMonth">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="deposit">押几个月:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.deposit" type="text" class="form-control input" id="deposit" name="deposit">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="pnumber">可住人数:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.pnumber" type="text" class="form-control input" id="pnumber" name="pnumber">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="snumber">已住人数:</label>
+				</div>
+				<div class="col-xs-4 col-md-4">
+					<input v-model="Data.snumber" type="text" class="form-control input" id="snumber" name="snumber">
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-xs-2 col-md-2  control-label">
+					<label for="describes">备注:</label>
+				</div>
+				<div class="col-xs-8 col-md-8">
+					<textarea v-model="Data.describes" class="form-control input" rows="5" id="content" name="describes"></textarea>
+				</div>
+			</div>
+			<div class="form-group">
+
+				<div class="col-xs-2 col-md-2" style="text-align: right;">
+				</div>
+				<div class="col-xs-10 col-md-10" style="text-align: right;">
+					<button type="button" class="layui-btn layui-btn-sm" onClick="Accept()">
+						<i class="layui-icon layui-icon-ok"></i><span class="fontsm">&emsp;提交&emsp;</span>
+					</button>
+					<button type="button" class="layui-btn layui-btn-sm layui-btn-danger" onClick="iframecloses()">
+						<i class="layui-icon layui-icon-close"></i><span class="fontsm">&emsp;取消&emsp;</span>
+					</button>
+				</div>
+			</div>
+
+		</form>
+	</div>
+</body>
+</html>
+<script src="../../wwwroot/js/App.js"></script>
+<script>
+	$(document).ready(function () {
+		$('#form1').bootstrapValidator({
+			message: 'This value is not valid',
+			feedbackIcons: {
+				valid: 'glyphicon glyphicon-ok',
+				invalid: 'glyphicon glyphicon-remove',
+				validating: 'glyphicon glyphicon-refresh'
+			},
+			fields: {
+
+			}
+		});
+	});
+	
+	var loadIndex = 0;
+	var layer;
+	layui.use('layer', function () {
+		layer = layui.layer;
+	});
+	var dictionaryItems = [{code:"", name:""}];	
+
+	var vm = new Vue({
+		el: "#app",
+		data: {
+			Data:{
+				id: 0,
+				city: "",
+				orgId: 0,
+				siteId: 0,
+				address: "",
+				userId: 0,
+				linkMan: "",
+				phone: "",
+				rent: 0,
+				rentMonth: 0,
+				deposit: 0,
+				pnumber: 0,
+				snumber: 0,
+				describes: "",
+				createUser: "",
+				createTime: "",
+				modifyUser: "",
+				modifyTime: "",
+				deleteUser: "",
+				deleteTime: ""
+			}
+			,dictionaryorgId: dictionaryItems
+
+		},
+		methods: {
+
+		},
+		watch: {
+			dictionaryorgId: function() {
+				this.$nextTick(function () {
+					$('#select_orgId').selectpicker('refresh');
+				})
+			},
+			Data: function() {
+				this.$nextTick(function () {
+					$('#select_orgId').selectpicker('refresh');
+					$('#select_siteId').empty()
+					$('#select_siteId').append("<option value=''>--请选择--</option>");
+					$('#select_siteId').append("<option selected='selected' value='"+vm.Data.siteId+"'>"+vm.Data.siteId_Convert+"</option>");
+					$('#select_siteId').selectpicker('refresh');
+					$('#select_userId').empty()
+					$('#select_userId').append("<option value=''>--请选择--</option>");
+					$('#select_userId').append("<option selected='selected' value='"+vm.Data.userId+"'>"+vm.Data.userId_Convert+"</option>");
+					$('#select_userId').selectpicker('refresh');
+				});
+			}
+		}
+	});
+
+	setTimeout(function() {
+		SelectFrom("#select_siteId", function(filter) {
+			getDictionarysiteId(filter);
+		})
+	}, 1000);
+	setTimeout(function() {
+		SelectFrom("#select_userId", function(filter) {
+			getDictionaryuserId(filter);
+		})
+	}, 1000);
+
+	
+	$(function(){
+		getDictionaryorgId();
+	});
+
+	function getDictionaryorgId(){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "Org"
+			},
+			success: function(result) {
+				vm.dictionaryorgId = result;
+			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	function getDictionarysiteId(filter){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "Site",
+				filter: filter			},
+			success: function(result) {
+				vm.dictionarysiteId = result;
+				var parent = $("#select_siteId");
+				parent.empty();
+				parent.append("<option value=''>--请选择--</option>");
+				for(var i=0; i<result.length;i++){
+					parent.append("<option value='"+result[i].code+"'>"+result[i].name+"</option>");
+				}
+				parent.selectpicker('refresh');			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+	function getDictionaryuserId(filter){
+		PostAppAjax({
+			url: '/getDictionaryItems',
+			data: {
+				dictionary: "User",
+				filter: filter			},
+			success: function(result) {
+				vm.dictionaryuserId = result;
+				var parent = $("#select_userId");
+				parent.empty();
+				parent.append("<option value=''>--请选择--</option>");
+				for(var i=0; i<result.length;i++){
+					parent.append("<option value='"+result[i].code+"'>"+result[i].name+"</option>");
+				}
+				parent.selectpicker('refresh');			},
+			error: function(err) {
+				alert("服务器忙，请重试!\n"+err.responseJSON.message);
+			}
+		});
+	}
+
+
+	
+	function getData(id){
+		
+		if(id>0){
+			layui.use('layer', function () {
+				layer = layui.layer;
+				loadIndex = layer.load(0, {shade: false});
+			});
+			PostAppAjax({
+                url: '/Logistics/House/getHouseOne',
+				data: {
+					id: id
+				},
+				success: function(result) {
+					layui.use('layer', function () {
+						layer = layui.layer;
+						layer.close(loadIndex);
+					});
+					if(result.code==0){
+						vm.Data = result.data;
+					}else{
+						alert(result.msg);
+					}
+				},
+				error: function(err) {
+					layui.use('layer', function () {
+						layer = layui.layer;
+						layer.close(loadIndex);
+					});
+					alert("服务器忙，请重试!\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+	function Accept(){
+		$('#form1').data("bootstrapValidator").validate();
+ 		var isValid = $('#form1').data("bootstrapValidator").isValid();
+		if(isValid){
+			layui.use('layer', function () {
+				layer = layui.layer;
+				loadIndex = layer.load(0, {shade: false});
+			});
+			PostAppAjax({
+				url: '/Logistics/House/updateHouse',
+				contentType: 'application/json;charset=utf-8',
+				data: JSON.stringify(vm.Data).replace(new RegExp('\"NaN/NaN/NaN 00:00:00\"',"g"),"null"),
+				success: function(result) {
+					layui.use('layer', function () {
+						layer = layui.layer;
+						layer.close(loadIndex);
+					});
+					if(result.code==0){
+						doTrigger("House"); //调用触发器，刷新查询
+						iframecloses();
+					}else{
+						alert("数据提交不成功！\n\n错误信息：\n"+result.msg);
+					}
+				},
+				error: function(err) {
+					layui.use('layer', function () {
+						layer = layui.layer;
+						layer.close(loadIndex);
+					});
+					alert("错误信息：\n"+err.responseJSON.message);
+				}
+			});
+		}
+	}
+</script>

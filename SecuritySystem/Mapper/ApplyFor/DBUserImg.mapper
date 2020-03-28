@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="用户图像信息">
+<View>
+<Controls>
+<n1:Select Description="获取所有用户图像信息" Height="240" MapperEntity="ApplyFor.UserImg" Name="getAllUserImg" SQL="select * from  UserImg&#10;limit #{startIndex}, #{rowCount}" SelectType="Collections" Width="160" X="62" Y="41">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="UserID" Name="UserID" Type="Integer"/>
+<n1:ResultField MapperField="Eid" Name="Eid" Type="Integer"/>
+<n1:ResultField MapperField="Img" Name="Img" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="DateTime"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="startIndex" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="rowCount" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获取所有用户图像条数" Height="240" MapperEntity="Table" Name="getUserImgCount" SQL="select Count(*) Count from  UserImg" SelectType="Singleton" Width="160" X="256" Y="42">
+<ResultSet>
+<n1:ResultField MapperField="Count" Name="Count" Type="Integer"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Select Description="根据ID获取一条用户图像信息" Height="240" MapperEntity="ApplyFor.UserImg" Name="getUserImgById" SQL="select * from UserImg  where Id=#{id}" SelectType="Singleton" Width="160" X="458" Y="42">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="UserID" Name="UserID" Type="Integer"/>
+<n1:ResultField MapperField="Eid" Name="Eid" Type="Integer"/>
+<n1:ResultField MapperField="Img" Name="Img" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="DateTime"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="根据用户Id获取图像" Height="240" MapperEntity="ApplyFor.UserImg" Name="getUserImgByUserId" SQL="select * from  UserImg &#10;where UserID=#{userid} and Type=#{type}" SelectType="Collections" Width="160" X="652" Y="42">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="UserID" Name="UserID" Type="Integer"/>
+<n1:ResultField MapperField="Eid" Name="Eid" Type="Integer"/>
+<n1:ResultField MapperField="Img" Name="Img" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="DateTime"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="userid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="type" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and Type=#{type}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="type" Value="0"/>
+<n1:RuleItem Operator="Equal" Parameter="userid" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Select Description="根据申请流程ID获取条数" Height="240" MapperEntity="ApplyFor.UserImg" Name="getUserImgByEid" SQL="select * from UserImg &#10;where Eid=#{eid} and Type=#{type}" SelectType="Collections" Width="160" X="852" Y="42">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="UserID" Name="UserID" Type="Integer"/>
+<n1:ResultField MapperField="Eid" Name="Eid" Type="Integer"/>
+<n1:ResultField MapperField="Img" Name="Img" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="DateTime"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="eid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="type" ObjectName="String" Required="false" Show="false" Type="String"/>
+</Parameters>
+<Rules>
+<n1:Rule Keyword="and Type=#{type}">
+<Items>
+<n1:RuleItem Operator="Equal" Parameter="type" Value="0"/>
+<n1:RuleItem Operator="Equal" Parameter="type" Value="&quot;&quot;"/>
+</Items>
+</n1:Rule>
+</Rules>
+</n1:Select>
+<n1:Insert Description="添加用户图像" Height="24" Name="InsertUserImg" SQL="INSERT INTO userimg &#10; (UserID, Eid, Img, Type, Status, CreateTime) &#10; VALUES &#10; (#{userimg.UserID}, #{userimg.Eid}, #{userimg.Img}, #{userimg.Type}, #{userimg.Status}, Now())" Width="160" X="77" Y="328">
+<Parameters>
+<n2:Field Collections="false" Name="userimg" ObjectName="ApplyFor.UserImg" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Description="修改用户图像" Height="24" Name="UpdateUserImg" SQL="UPDATE userimg &#10;&#9;SET UserID = #{userimg.UserID}, Eid =  #{userimg.Eid}, Img =  #{userimg.Img}, &#10;&#9;Type =  #{userimg.Type}, `Status` =  #{userimg.Status}&#10;&#9;WHERE Id =  #{userimg.Id}" Width="160" X="76" Y="374">
+<Parameters>
+<n2:Field Collections="false" Name="userimg" ObjectName="ApplyFor.UserImg" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Delete Description="删除用户图像" Height="24" Name="DeleteUserImg" SQL="Delete from  UserImg &#10;&#9;where Id=#{id}" Width="160" X="77" Y="422">
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+<n1:Update Height="24" Name="UpdateUserId" SQL="UPDATE userimg SET UserID =#{userid}  WHERE  EId = #{eid}" Width="160" X="286" Y="326">
+<Parameters>
+<n2:Field Collections="false" Name="eid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="userid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Select Height="151" MapperEntity="ApplyFor.UserImg" Name="getByEid" SQL="Select *,img as img10 From userimg Where eid = #{eid} and type!=1 and type!=2 and type!=0" SelectType="Collections" Width="101" X="610" Y="313">
+<ResultSet>
+<n1:ResultField MapperField="Id" Name="Id" Type="Integer"/>
+<n1:ResultField MapperField="UserID" Name="UserID" Type="Integer"/>
+<n1:ResultField MapperField="Eid" Name="Eid" Type="Integer"/>
+<n1:ResultField MapperField="Img" Name="Img" Type="String"/>
+<n1:ResultField MapperField="Type" Name="Type" Type="String"/>
+<n1:ResultField MapperField="Status" Name="Status" Type="String"/>
+<n1:ResultField MapperField="CreateTime" Name="CreateTime" Type="DateTime"/>
+<n1:ResultField Name="img10" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="eid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

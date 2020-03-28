@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?><Mapper xmlns:n1="org.polariscode.plugin.web.springboot.mapper" xmlns:n2="org.polariscode.plugin.web.springboot.model" Database="DB" Description="">
+<View>
+<Controls>
+<n1:Select Description="获取组织机构清单(不包含已停用记录)" Height="275" Key="ID" MapperEntity="Permission.Org" Name="getOrgs" ParentKey="PID" SQL="Select ID, PID, Name, Describes, Isdelete, OrgType&#10;From Org&#10;Where Isdelete = 0&#10;Order By PID, convert(Name using gbk) collate gbk_chinese_ci" SelectType="Tree" Width="160" X="57" Y="47">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="OrgType" Name="OrgType" Type="Integer"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Select Description="按层PID获取组织机构清单(包含已停用记录)" Height="266" MapperEntity="Permission.Org" Name="getOrgsByPid" SQL="Select Org.ID, Org.PID, Org.Name, Org.Describes, Org.Isdelete, Org.OrgType&#10;From Org &#10;Where PID = #{pid} /*And Isdelete = 0*/&#10;Order By convert(Name using gbk) collate gbk_chinese_ci" SelectType="Collections" Width="160" X="263" Y="47">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="OrgType" Name="OrgType" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="pid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="根据ID获取组织机构对象" Height="265" MapperEntity="Permission.Org" Name="getOrgById" SQL="Select ID, PID, Name, Describes, Isdelete, OrgType&#10;From Org&#10;Where ID = #{id}" SelectType="Singleton" Width="160" X="476" Y="46">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="PID" Name="PID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+<n1:ResultField MapperField="Describes" Name="Describes" Type="String"/>
+<n1:ResultField MapperField="Isdelete" Name="Isdelete" Type="Boolean"/>
+<n1:ResultField MapperField="OrgType" Name="OrgType" Type="Integer"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Description="获取组织机构包含的角色清单" Height="240" MapperEntity="Permission.OrgRole" Name="getOrgRoles" SQL="Select  OrgRole.ID as OrgRoleID, Org.ID As OrgID, Org.Name As OrgName, Role.ID As RoleID, Role.Name As RoleName&#10;From Org Join OrgRole on Org.ID = OrgRole.OrgID&#10;&#9;&#9;Join Role On Role.ID = OrgRole.RoleID And Role.Isdelete = 0&#10;Where Org.ID = #{id}" SelectType="Collections" Width="160" X="674" Y="48">
+<ResultSet>
+<n1:ResultField MapperField="OrgRoleID" Name="OrgRoleID" Type="Integer"/>
+<n1:ResultField MapperField="OrgID" Name="OrgID" Type="Integer"/>
+<n1:ResultField MapperField="OrgName" Name="OrgName" Type="String"/>
+<n1:ResultField MapperField="RoleID" Name="RoleID" Type="Integer"/>
+<n1:ResultField MapperField="RoleName" Name="RoleName" Type="String"/>
+</ResultSet>
+<Parameters>
+<n2:Field Collections="false" Name="id" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Select>
+<n1:Select Height="240" MapperEntity="Permission.OrgType" Name="getOrgTypes" SQL="Select ID, Name From OrgType" SelectType="Collections" Width="160" X="62" Y="350">
+<ResultSet>
+<n1:ResultField MapperField="ID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="Name" Name="Name" Type="String"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+<n1:Insert Height="24" Name="InsertOrg" SQL="Insert Into Org(PID, Name, Describes, Isdelete, OrgType)&#10;Values( #{org.PID}, #{org.Name}, #{org.Describes}, #{org.Isdelete}, #{org.OrgType} )" Width="160" X="264" Y="354">
+<Parameters>
+<n2:Field Collections="false" Name="org" ObjectName="Permission.Org" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Update Height="24" Name="UpdateOrg" SQL="Update Org Set PID = #{org.PID}, Name=#{org.Name}, Describes=#{org.Describes}, Isdelete=#{org.Isdelete}, OrgType=#{org.OrgType}&#10;Where ID = #{org.ID}" Width="160" X="262" Y="400">
+<Parameters>
+<n2:Field Collections="false" Name="org" ObjectName="Permission.Org" Required="false" Show="false" Type="Object"/>
+</Parameters>
+<Rules/>
+</n1:Update>
+<n1:Delete Description="删除组织机构已分配的角色" Height="24" Name="DeleteOrgRole" SQL="Delete From OrgRole Where OrgID = #{orgid} And  RoleID = #{roleid}" Width="160" X="264" Y="440">
+<Parameters>
+<n2:Field Collections="false" Name="orgid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="roleid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+<n1:Insert Description="为组织机构分配新的角色" Height="24" Name="InsertOrgRole" SQL="Insert Into OrgRole(OrgID, RoleID)&#10;Values(#{orgid}, #{roleid})" Width="160" X="262" Y="483">
+<Parameters>
+<n2:Field Collections="false" Name="orgid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="roleid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Insert>
+<n1:Delete Description="删除用户绑定的角色" Height="24" Name="DeleteUserRole" SQL="Delete From UserRole Where OrgRoleID in (Select ID From OrgRole Where OrgID = #{orgid} And RoleID=#{roleid})" Width="160" X="448" Y="439">
+<Parameters>
+<n2:Field Collections="false" Name="orgid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+<n2:Field Collections="false" Name="roleid" ObjectName="Integer" Required="false" Show="false" Type="Integer"/>
+</Parameters>
+<Rules/>
+</n1:Delete>
+<n1:Select Height="240" MapperEntity="Permission.OrgRole" Name="getAllOrgRoles" SQL="Select OrgRole.ID, CONCAT('[',Org.Name,'] ', Role.Name) As Name &#10;From OrgRole Join Org On OrgRole.OrgID = Org.ID&#10;&#9;&#9;&#9;&#9;Join Role On OrgRole.RoleID = Role.ID&#10;Order By Org.ID" SelectType="Collections" Width="160" X="865" Y="48">
+<ResultSet>
+<n1:ResultField MapperField="OrgRoleID" Name="ID" Type="Integer"/>
+<n1:ResultField MapperField="RoleName" Name="Name" Type="String"/>
+</ResultSet>
+<Parameters/>
+<Rules/>
+</n1:Select>
+</Controls>
+</View>
+</Mapper>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?><Dictionary Type="Search">
+<SQL>Select Convert(ID, char(20)) as Code, Name as Name 
+From User
+Where Name like '%${filter}%' or LoginName like '%${filter}%'
+Order By convert(Name using gbk) collate gbk_chinese_ci</SQL>
+<ConvertSQL>Select Name as Name 
+From User
+Where ID = #{code}</ConvertSQL>
+<Items/>
+</Dictionary>
